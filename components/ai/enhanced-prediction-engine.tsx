@@ -10,16 +10,16 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Progress } from "@/components/ui/progress"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Progress } from '@/components/ui/progress';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
   Brain,
   TrendingUp,
@@ -35,15 +35,15 @@ import {
   RefreshCw,
   Download,
   Settings,
-} from "lucide-react"
+} from 'lucide-react';
 
 interface PredictionModel {
   id: string
   name: string
-  type: "sales" | "customer" | "performance" | "risk"
+  type: 'sales' | 'customer' | 'performance' | 'risk'
   accuracy: number
   lastTrained: Date
-  status: "active" | "training" | "outdated"
+  status: 'active' | 'training' | 'outdated'
   predictions: number
 }
 
@@ -53,10 +53,10 @@ interface Prediction {
   title: string
   description: string
   confidence: number
-  impact: "high" | "medium" | "low"
+  impact: 'high' | 'medium' | 'low'
   timeframe: string
   value: number
-  trend: "up" | "down" | "stable"
+  trend: 'up' | 'down' | 'stable'
   factors: string[]
   recommendations: string[]
   createdAt: Date
@@ -64,10 +64,10 @@ interface Prediction {
 
 interface SmartRecommendation {
   id: string
-  category: "optimization" | "risk" | "opportunity" | "efficiency"
+  category: 'optimization' | 'risk' | 'opportunity' | 'efficiency'
   title: string
   description: string
-  priority: "high" | "medium" | "low"
+  priority: 'high' | 'medium' | 'low'
   impact: number
   effort: number
   roi: number
@@ -78,219 +78,219 @@ interface SmartRecommendation {
 export function EnhancedPredictionEngine() {
   const [models] = useState<PredictionModel[]>([
     {
-      id: "model_sales",
-      name: "销售预测模型",
-      type: "sales",
+      id: 'model_sales',
+      name: '销售预测模型',
+      type: 'sales',
       accuracy: 94.2,
-      lastTrained: new Date("2024-01-10"),
-      status: "active",
+      lastTrained: new Date('2024-01-10'),
+      status: 'active',
       predictions: 156,
     },
     {
-      id: "model_customer",
-      name: "客户流失预测",
-      type: "customer",
+      id: 'model_customer',
+      name: '客户流失预测',
+      type: 'customer',
       accuracy: 87.8,
-      lastTrained: new Date("2024-01-08"),
-      status: "active",
+      lastTrained: new Date('2024-01-08'),
+      status: 'active',
       predictions: 89,
     },
     {
-      id: "model_performance",
-      name: "团队绩效预测",
-      type: "performance",
+      id: 'model_performance',
+      name: '团队绩效预测',
+      type: 'performance',
       accuracy: 91.5,
-      lastTrained: new Date("2024-01-12"),
-      status: "training",
+      lastTrained: new Date('2024-01-12'),
+      status: 'training',
       predictions: 67,
     },
     {
-      id: "model_risk",
-      name: "风险评估模型",
-      type: "risk",
+      id: 'model_risk',
+      name: '风险评估模型',
+      type: 'risk',
       accuracy: 88.9,
-      lastTrained: new Date("2024-01-05"),
-      status: "outdated",
+      lastTrained: new Date('2024-01-05'),
+      status: 'outdated',
       predictions: 234,
     },
-  ])
+  ]);
 
   const [predictions] = useState<Prediction[]>([
     {
-      id: "pred_1",
-      modelId: "model_sales",
-      title: "下月销售额预测",
-      description: "基于历史数据和市场趋势，预测下月销售额将达到320万元",
+      id: 'pred_1',
+      modelId: 'model_sales',
+      title: '下月销售额预测',
+      description: '基于历史数据和市场趋势，预测下月销售额将达到320万元',
       confidence: 94.2,
-      impact: "high",
-      timeframe: "下个月",
+      impact: 'high',
+      timeframe: '下个月',
       value: 3200000,
-      trend: "up",
-      factors: ["季节性增长", "新产品发布", "市场推广活动", "客户续约率提升"],
-      recommendations: ["增加库存准备以应对需求增长", "加强销售团队培训", "优化客户服务流程", "准备额外的营销预算"],
-      createdAt: new Date("2024-01-15"),
+      trend: 'up',
+      factors: ['季节性增长', '新产品发布', '市场推广活动', '客户续约率提升'],
+      recommendations: ['增加库存准备以应对需求增长', '加强销售团队培训', '优化客户服务流程', '准备额外的营销预算'],
+      createdAt: new Date('2024-01-15'),
     },
     {
-      id: "pred_2",
-      modelId: "model_customer",
-      title: "客户流失风险预警",
-      description: "识别出15个高风险客户，预计流失概率超过70%",
+      id: 'pred_2',
+      modelId: 'model_customer',
+      title: '客户流失风险预警',
+      description: '识别出15个高风险客户，预计流失概率超过70%',
       confidence: 87.8,
-      impact: "high",
-      timeframe: "未来30天",
+      impact: 'high',
+      timeframe: '未来30天',
       value: 15,
-      trend: "down",
-      factors: ["服务满意度下降", "竞争对手活动", "价格敏感性", "使用频率降低"],
-      recommendations: ["立即联系高风险客户", "提供个性化优惠方案", "改进客户服务质量", "加强客户关系维护"],
-      createdAt: new Date("2024-01-14"),
+      trend: 'down',
+      factors: ['服务满意度下降', '竞争对手活动', '价格敏感性', '使用频率降低'],
+      recommendations: ['立即联系高风险客户', '提供个性化优惠方案', '改进客户服务质量', '加强客户关系维护'],
+      createdAt: new Date('2024-01-14'),
     },
     {
-      id: "pred_3",
-      modelId: "model_performance",
-      title: "团队效率提升预测",
-      description: "通过优化工作流程，预计团队效率可提升25%",
+      id: 'pred_3',
+      modelId: 'model_performance',
+      title: '团队效率提升预测',
+      description: '通过优化工作流程，预计团队效率可提升25%',
       confidence: 91.5,
-      impact: "medium",
-      timeframe: "未来3个月",
+      impact: 'medium',
+      timeframe: '未来3个月',
       value: 25,
-      trend: "up",
-      factors: ["自动化工具部署", "流程标准化", "技能培训", "协作工具优化"],
-      recommendations: ["部署自动化工具", "制定标准化流程", "开展技能培训计划", "优化团队协作方式"],
-      createdAt: new Date("2024-01-13"),
+      trend: 'up',
+      factors: ['自动化工具部署', '流程标准化', '技能培训', '协作工具优化'],
+      recommendations: ['部署自动化工具', '制定标准化流程', '开展技能培训计划', '优化团队协作方式'],
+      createdAt: new Date('2024-01-13'),
     },
-  ])
+  ]);
 
   const [recommendations] = useState<SmartRecommendation[]>([
     {
-      id: "rec_1",
-      category: "optimization",
-      title: "优化客户服务响应时间",
-      description: "通过AI客服和工单自动分配，可将平均响应时间从4小时缩短至1小时",
-      priority: "high",
+      id: 'rec_1',
+      category: 'optimization',
+      title: '优化客户服务响应时间',
+      description: '通过AI客服和工单自动分配，可将平均响应时间从4小时缩短至1小时',
+      priority: 'high',
       impact: 85,
       effort: 60,
       roi: 240,
-      actions: ["部署AI智能客服系统", "建立工单自动分配规则", "培训客服团队使用新工具", "建立响应时间监控机制"],
-      deadline: new Date("2024-02-15"),
+      actions: ['部署AI智能客服系统', '建立工单自动分配规则', '培训客服团队使用新工具', '建立响应时间监控机制'],
+      deadline: new Date('2024-02-15'),
     },
     {
-      id: "rec_2",
-      category: "opportunity",
-      title: "拓展高价值客户群体",
-      description: "分析显示企业级客户的LTV比个人客户高300%，建议加大B2B市场投入",
-      priority: "high",
+      id: 'rec_2',
+      category: 'opportunity',
+      title: '拓展高价值客户群体',
+      description: '分析显示企业级客户的LTV比个人客户高300%，建议加大B2B市场投入',
+      priority: 'high',
       impact: 95,
       effort: 80,
       roi: 320,
-      actions: ["制定B2B市场策略", "建立企业销售团队", "开发企业级产品功能", "建立合作伙伴渠道"],
-      deadline: new Date("2024-03-01"),
+      actions: ['制定B2B市场策略', '建立企业销售团队', '开发企业级产品功能', '建立合作伙伴渠道'],
+      deadline: new Date('2024-03-01'),
     },
     {
-      id: "rec_3",
-      category: "risk",
-      title: "降低关键人员依赖风险",
-      description: "核心业务过度依赖少数关键人员，建议建立知识管理和备份机制",
-      priority: "medium",
+      id: 'rec_3',
+      category: 'risk',
+      title: '降低关键人员依赖风险',
+      description: '核心业务过度依赖少数关键人员，建议建立知识管理和备份机制',
+      priority: 'medium',
       impact: 70,
       effort: 50,
       roi: 180,
-      actions: ["建立知识库和文档体系", "实施关键岗位轮岗制度", "开展技能交叉培训", "制定应急预案"],
+      actions: ['建立知识库和文档体系', '实施关键岗位轮岗制度', '开展技能交叉培训', '制定应急预案'],
     },
     {
-      id: "rec_4",
-      category: "efficiency",
-      title: "自动化重复性任务",
-      description: "识别出40%的日常任务可以自动化，预计可节省30%的人力成本",
-      priority: "medium",
+      id: 'rec_4',
+      category: 'efficiency',
+      title: '自动化重复性任务',
+      description: '识别出40%的日常任务可以自动化，预计可节省30%的人力成本',
+      priority: 'medium',
       impact: 75,
       effort: 65,
       roi: 200,
-      actions: ["分析可自动化的任务清单", "选择合适的自动化工具", "开发自动化脚本", "培训员工使用自动化工具"],
+      actions: ['分析可自动化的任务清单', '选择合适的自动化工具', '开发自动化脚本', '培训员工使用自动化工具'],
     },
-  ])
+  ]);
 
-  const [selectedModel, setSelectedModel] = useState<string>("all")
-  const [isGenerating, setIsGenerating] = useState(false)
+  const [selectedModel, setSelectedModel] = useState<string>('all');
+  const [isGenerating, setIsGenerating] = useState(false);
 
   // 生成新预测
   const generatePrediction = async (modelId: string) => {
-    setIsGenerating(true)
+    setIsGenerating(true);
     try {
       // 模拟AI预测生成过程
-      await new Promise((resolve) => setTimeout(resolve, 3000))
+      await new Promise((resolve) => setTimeout(resolve, 3000));
 
       // 这里应该调用实际的AI预测API
       // const result = await aiService.generatePrediction(modelId)
 
-      console.log(`为模型 ${modelId} 生成预测完成`)
+      console.log(`为模型 ${modelId} 生成预测完成`);
     } catch (error) {
-      console.error("生成预测失败:", error)
+      console.error('生成预测失败:', error);
       // 添加错误提示
     } finally {
-      setIsGenerating(false)
+      setIsGenerating(false);
     }
-  }
+  };
 
   // 获取模型状态颜色
-  const getModelStatusColor = (status: PredictionModel["status"]) => {
+  const getModelStatusColor = (status: PredictionModel['status']) => {
     switch (status) {
-      case "active":
-        return "bg-green-100 text-green-800"
-      case "training":
-        return "bg-blue-100 text-blue-800"
-      case "outdated":
-        return "bg-yellow-100 text-yellow-800"
-      default:
-        return "bg-gray-100 text-gray-800"
+    case 'active':
+      return 'bg-green-100 text-green-800';
+    case 'training':
+      return 'bg-blue-100 text-blue-800';
+    case 'outdated':
+      return 'bg-yellow-100 text-yellow-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
     }
-  }
+  };
 
   // 获取影响级别颜色
   const getImpactColor = (impact: string) => {
     switch (impact) {
-      case "high":
-        return "bg-red-100 text-red-800"
-      case "medium":
-        return "bg-yellow-100 text-yellow-800"
-      case "low":
-        return "bg-green-100 text-green-800"
-      default:
-        return "bg-gray-100 text-gray-800"
+    case 'high':
+      return 'bg-red-100 text-red-800';
+    case 'medium':
+      return 'bg-yellow-100 text-yellow-800';
+    case 'low':
+      return 'bg-green-100 text-green-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
     }
-  }
+  };
 
   // 获取趋势图标
   const getTrendIcon = (trend: string) => {
     switch (trend) {
-      case "up":
-        return <TrendingUp className="w-4 h-4 text-green-600" />
-      case "down":
-        return <TrendingUp className="w-4 h-4 text-red-600 rotate-180" />
-      default:
-        return <BarChart3 className="w-4 h-4 text-gray-600" />
+    case 'up':
+      return <TrendingUp className="w-4 h-4 text-green-600" />;
+    case 'down':
+      return <TrendingUp className="w-4 h-4 text-red-600 rotate-180" />;
+    default:
+      return <BarChart3 className="w-4 h-4 text-gray-600" />;
     }
-  }
+  };
 
   // 获取类别图标
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case "optimization":
-        return <Zap className="w-5 h-5 text-blue-600" />
-      case "risk":
-        return <AlertTriangle className="w-5 h-5 text-red-600" />
-      case "opportunity":
-        return <Target className="w-5 h-5 text-green-600" />
-      case "efficiency":
-        return <Clock className="w-5 h-5 text-purple-600" />
-      default:
-        return <Lightbulb className="w-5 h-5 text-gray-600" />
+    case 'optimization':
+      return <Zap className="w-5 h-5 text-blue-600" />;
+    case 'risk':
+      return <AlertTriangle className="w-5 h-5 text-red-600" />;
+    case 'opportunity':
+      return <Target className="w-5 h-5 text-green-600" />;
+    case 'efficiency':
+      return <Clock className="w-5 h-5 text-purple-600" />;
+    default:
+      return <Lightbulb className="w-5 h-5 text-gray-600" />;
     }
-  }
+  };
 
   const filteredPredictions =
-    selectedModel === "all"
+    selectedModel === 'all'
       ? predictions.filter((p) => p && p.id && p.title) // 添加数据验证
-      : predictions.filter((p) => p && p.modelId === selectedModel)
+      : predictions.filter((p) => p && p.modelId === selectedModel);
 
   return (
     <div className="p-6 space-y-6">
@@ -316,7 +316,7 @@ export function EnhancedPredictionEngine() {
               ))}
             </SelectContent>
           </Select>
-          <Button onClick={() => generatePrediction("all")} disabled={isGenerating}>
+          <Button onClick={() => generatePrediction('all')} disabled={isGenerating}>
             {isGenerating ? <RefreshCw className="w-4 h-4 mr-2 animate-spin" /> : <Brain className="w-4 h-4 mr-2" />}
             生成预测
           </Button>
@@ -371,7 +371,7 @@ export function EnhancedPredictionEngine() {
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold text-red-600">
-                  {predictions.filter((p) => p.impact === "high" && p.trend === "down").length}
+                  {predictions.filter((p) => p.impact === 'high' && p.trend === 'down').length}
                 </div>
                 <p className="text-sm text-muted-foreground">需要关注</p>
               </CardContent>
@@ -386,7 +386,7 @@ export function EnhancedPredictionEngine() {
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold text-blue-600">
-                  {predictions.filter((p) => p.impact === "high" && p.trend === "up").length}
+                  {predictions.filter((p) => p.impact === 'high' && p.trend === 'up').length}
                 </div>
                 <p className="text-sm text-muted-foreground">个机会</p>
               </CardContent>
@@ -408,7 +408,7 @@ export function EnhancedPredictionEngine() {
                     </div>
                     <div className="flex items-center space-x-2">
                       <Badge className={getImpactColor(prediction.impact)}>
-                        {prediction.impact === "high" ? "高影响" : prediction.impact === "medium" ? "中影响" : "低影响"}
+                        {prediction.impact === 'high' ? '高影响' : prediction.impact === 'medium' ? '中影响' : '低影响'}
                       </Badge>
                       <Badge variant="outline">{prediction.timeframe}</Badge>
                     </div>
@@ -475,9 +475,9 @@ export function EnhancedPredictionEngine() {
         <TabsContent value="recommendations" className="space-y-6">
           {/* 推荐概览 */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {["optimization", "opportunity", "risk", "efficiency"].map((category) => {
-              const categoryRecs = recommendations.filter((r) => r.category === category)
-              const avgROI = categoryRecs.reduce((acc, r) => acc + r.roi, 0) / categoryRecs.length || 0
+            {['optimization', 'opportunity', 'risk', 'efficiency'].map((category) => {
+              const categoryRecs = recommendations.filter((r) => r.category === category);
+              const avgROI = categoryRecs.reduce((acc, r) => acc + r.roi, 0) / categoryRecs.length || 0;
 
               return (
                 <Card key={category}>
@@ -485,13 +485,13 @@ export function EnhancedPredictionEngine() {
                     <CardTitle className="text-base flex items-center">
                       {getCategoryIcon(category)}
                       <span className="ml-2 capitalize">
-                        {category === "optimization"
-                          ? "优化建议"
-                          : category === "opportunity"
-                            ? "机会发现"
-                            : category === "risk"
-                              ? "风险管控"
-                              : "效率提升"}
+                        {category === 'optimization'
+                          ? '优化建议'
+                          : category === 'opportunity'
+                            ? '机会发现'
+                            : category === 'risk'
+                              ? '风险管控'
+                              : '效率提升'}
                       </span>
                     </CardTitle>
                   </CardHeader>
@@ -500,7 +500,7 @@ export function EnhancedPredictionEngine() {
                     <p className="text-sm text-muted-foreground">平均ROI: {avgROI.toFixed(0)}%</p>
                   </CardContent>
                 </Card>
-              )
+              );
             })}
           </div>
 
@@ -508,8 +508,8 @@ export function EnhancedPredictionEngine() {
           <div className="space-y-6">
             {recommendations
               .sort((a, b) => {
-                const priorityOrder = { high: 3, medium: 2, low: 1 }
-                return priorityOrder[b.priority] - priorityOrder[a.priority]
+                const priorityOrder = { high: 3, medium: 2, low: 1 };
+                return priorityOrder[b.priority] - priorityOrder[a.priority];
               })
               .map((recommendation) => (
                 <Card key={recommendation.id} className="hover:shadow-md transition-shadow">
@@ -525,23 +525,23 @@ export function EnhancedPredictionEngine() {
                       <div className="flex items-center space-x-2">
                         <Badge
                           className={
-                            recommendation.priority === "high"
-                              ? "bg-red-100 text-red-800"
-                              : recommendation.priority === "medium"
-                                ? "bg-yellow-100 text-yellow-800"
-                                : "bg-green-100 text-green-800"
+                            recommendation.priority === 'high'
+                              ? 'bg-red-100 text-red-800'
+                              : recommendation.priority === 'medium'
+                                ? 'bg-yellow-100 text-yellow-800'
+                                : 'bg-green-100 text-green-800'
                           }
                         >
-                          {recommendation.priority === "high"
-                            ? "高优先级"
-                            : recommendation.priority === "medium"
-                              ? "中优先级"
-                              : "低优先级"}
+                          {recommendation.priority === 'high'
+                            ? '高优先级'
+                            : recommendation.priority === 'medium'
+                              ? '中优先级'
+                              : '低优先级'}
                         </Badge>
                         {recommendation.deadline && (
                           <Badge variant="outline">
                             <Clock className="w-3 h-3 mr-1" />
-                            {recommendation.deadline.toLocaleDateString("zh-CN")}
+                            {recommendation.deadline.toLocaleDateString('zh-CN')}
                           </Badge>
                         )}
                       </div>
@@ -617,12 +617,12 @@ export function EnhancedPredictionEngine() {
                     <div>
                       <CardTitle className="text-lg">{model.name}</CardTitle>
                       <CardDescription>
-                        最后训练: {model.lastTrained.toLocaleDateString("zh-CN")} • 已生成 {model.predictions} 个预测
+                        最后训练: {model.lastTrained.toLocaleDateString('zh-CN')} • 已生成 {model.predictions} 个预测
                       </CardDescription>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Badge className={getModelStatusColor(model.status)}>
-                        {model.status === "active" ? "活跃" : model.status === "training" ? "训练中" : "需更新"}
+                        {model.status === 'active' ? '活跃' : model.status === 'training' ? '训练中' : '需更新'}
                       </Badge>
                     </div>
                   </div>
@@ -643,13 +643,13 @@ export function EnhancedPredictionEngine() {
                       <div>
                         <p className="text-sm text-muted-foreground">模型类型</p>
                         <p className="font-medium capitalize">
-                          {model.type === "sales"
-                            ? "销售预测"
-                            : model.type === "customer"
-                              ? "客户分析"
-                              : model.type === "performance"
-                                ? "绩效预测"
-                                : "风险评估"}
+                          {model.type === 'sales'
+                            ? '销售预测'
+                            : model.type === 'customer'
+                              ? '客户分析'
+                              : model.type === 'performance'
+                                ? '绩效预测'
+                                : '风险评估'}
                         </p>
                       </div>
                       <div>
@@ -660,13 +660,13 @@ export function EnhancedPredictionEngine() {
 
                     {/* 操作按钮 */}
                     <div className="flex space-x-2">
-                      <Button size="sm" disabled={model.status === "training"}>
-                        {model.status === "training" ? (
+                      <Button size="sm" disabled={model.status === 'training'}>
+                        {model.status === 'training' ? (
                           <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
                         ) : (
                           <Brain className="w-4 h-4 mr-2" />
                         )}
-                        {model.status === "training" ? "训练中..." : "重新训练"}
+                        {model.status === 'training' ? '训练中...' : '重新训练'}
                       </Button>
                       <Button variant="outline" size="sm">
                         <Settings className="w-4 h-4 mr-2" />
@@ -695,7 +695,7 @@ export function EnhancedPredictionEngine() {
               <CardContent>
                 <div className="h-48 flex items-end space-x-1">
                   {Array.from({ length: 30 }, (_, i) => {
-                    const accuracy = 85 + Math.random() * 10
+                    const accuracy = 85 + Math.random() * 10;
                     return (
                       <div
                         key={i}
@@ -703,7 +703,7 @@ export function EnhancedPredictionEngine() {
                         style={{ height: `${accuracy}%` }}
                         title={`第${i + 1}天: ${accuracy.toFixed(1)}%`}
                       />
-                    )
+                    );
                   })}
                 </div>
                 <div className="flex justify-between text-xs text-muted-foreground mt-2">
@@ -776,10 +776,10 @@ export function EnhancedPredictionEngine() {
               <CardContent>
                 <div className="space-y-4">
                   {[
-                    { name: "数据完整性", value: 98.5, color: "bg-green-500" },
-                    { name: "数据准确性", value: 96.2, color: "bg-blue-500" },
-                    { name: "数据时效性", value: 94.8, color: "bg-purple-500" },
-                    { name: "数据一致性", value: 97.1, color: "bg-orange-500" },
+                    { name: '数据完整性', value: 98.5, color: 'bg-green-500' },
+                    { name: '数据准确性', value: 96.2, color: 'bg-blue-500' },
+                    { name: '数据时效性', value: 94.8, color: 'bg-purple-500' },
+                    { name: '数据一致性', value: 97.1, color: 'bg-orange-500' },
                   ].map((metric) => (
                     <div key={metric.name} className="space-y-2">
                       <div className="flex justify-between text-sm">
@@ -847,11 +847,11 @@ export function EnhancedPredictionEngine() {
                   <h4 className="font-medium">AI推荐的下一步行动</h4>
                   <ol className="space-y-2">
                     {[
-                      "立即启动客户满意度提升计划，重点关注问题产品线",
-                      "在周二和周四增加30%的营销投入，提高转化率",
-                      "调整定价策略，对高价值客户提供个性化优惠",
-                      "建立实时预警系统，及时发现业务异常",
-                      "加强数据收集，提高预测模型的准确性",
+                      '立即启动客户满意度提升计划，重点关注问题产品线',
+                      '在周二和周四增加30%的营销投入，提高转化率',
+                      '调整定价策略，对高价值客户提供个性化优惠',
+                      '建立实时预警系统，及时发现业务异常',
+                      '加强数据收集，提高预测模型的准确性',
                     ].map((action, index) => (
                       <li key={index} className="text-sm flex items-start space-x-2">
                         <span className="w-5 h-5 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0 mt-0.5">
@@ -868,5 +868,5 @@ export function EnhancedPredictionEngine() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

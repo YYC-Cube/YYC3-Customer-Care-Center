@@ -10,13 +10,13 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import type React from "react"
+import type React from 'react';
 
-import { useState, useEffect, useRef, useMemo, useCallback } from "react"
-import { FixedSizeList as List, VariableSizeList } from "react-window"
-import { FixedSizeGrid as Grid } from "react-window"
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { FixedSizeList as List, VariableSizeList } from 'react-window';
+import { FixedSizeGrid as Grid } from 'react-window';
 
 interface VirtualScrollProps<T> {
   items: T[]
@@ -35,15 +35,15 @@ export function VirtualScroll<T>({
   containerHeight,
   renderItem,
   overscan = 5,
-  className = "",
+  className = '',
   onScroll,
   estimatedItemSize = 50,
 }: VirtualScrollProps<T>) {
-  const listRef = useRef<any>(null)
+  const listRef = useRef<any>(null);
 
   // 固定高度的虚拟滚动
   const FixedHeightList = useMemo(() => {
-    if (typeof itemHeight === "number") {
+    if (typeof itemHeight === 'number') {
       return (
         <List
           ref={listRef}
@@ -57,14 +57,14 @@ export function VirtualScroll<T>({
         >
           {({ index, style, data }) => renderItem({ index, style, data: data[index] })}
         </List>
-      )
+      );
     }
-    return null
-  }, [items, itemHeight, containerHeight, overscan, className, onScroll, renderItem])
+    return null;
+  }, [items, itemHeight, containerHeight, overscan, className, onScroll, renderItem]);
 
   // 可变高度的虚拟滚动
   const VariableHeightList = useMemo(() => {
-    if (typeof itemHeight === "function") {
+    if (typeof itemHeight === 'function') {
       return (
         <VariableSizeList
           ref={listRef}
@@ -79,30 +79,30 @@ export function VirtualScroll<T>({
         >
           {({ index, style, data }) => renderItem({ index, style, data: data[index] })}
         </VariableSizeList>
-      )
+      );
     }
-    return null
-  }, [items, itemHeight, containerHeight, overscan, className, onScroll, renderItem, estimatedItemSize])
+    return null;
+  }, [items, itemHeight, containerHeight, overscan, className, onScroll, renderItem, estimatedItemSize]);
 
   // 滚动到指定项目
-  const scrollToItem = useCallback((index: number, align: "auto" | "smart" | "center" | "end" | "start" = "auto") => {
+  const scrollToItem = useCallback((index: number, align: 'auto' | 'smart' | 'center' | 'end' | 'start' = 'auto') => {
     if (listRef.current) {
-      listRef.current.scrollToItem(index, align)
+      listRef.current.scrollToItem(index, align);
     }
-  }, [])
+  }, []);
 
   // 滚动到指定位置
   const scrollTo = useCallback((scrollTop: number) => {
     if (listRef.current) {
-      listRef.current.scrollTo(scrollTop)
+      listRef.current.scrollTo(scrollTop);
     }
-  }, [])
+  }, []);
 
   return (
     <div className="virtual-scroll-container">
-      {typeof itemHeight === "number" ? FixedHeightList : VariableHeightList}
+      {typeof itemHeight === 'number' ? FixedHeightList : VariableHeightList}
     </div>
-  )
+  );
 }
 
 // 虚拟网格组件
@@ -132,19 +132,19 @@ export function VirtualGrid<T>({
   containerWidth,
   renderCell,
   overscan = 5,
-  className = "",
+  className = '',
 }: VirtualGridProps<T>) {
-  const gridRef = useRef<any>(null)
+  const gridRef = useRef<any>(null);
 
-  const rowCount = Math.ceil(items.length / columnCount)
+  const rowCount = Math.ceil(items.length / columnCount);
 
   const getCellData = useCallback(
     (rowIndex: number, columnIndex: number): T | undefined => {
-      const index = rowIndex * columnCount + columnIndex
-      return items[index]
+      const index = rowIndex * columnCount + columnIndex;
+      return items[index];
     },
     [items, columnCount],
-  )
+  );
 
   return (
     <Grid
@@ -168,37 +168,37 @@ export function VirtualGrid<T>({
         })
       }
     </Grid>
-  )
+  );
 }
 
 // 使用示例组件
 export function VirtualCustomerList() {
-  const [customers, setCustomers] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
+  const [customers, setCustomers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // 模拟加载大量客户数据
     const generateCustomers = () => {
-      const data = []
+      const data = [];
       for (let i = 0; i < 10000; i++) {
         data.push({
           id: i,
           name: `客户 ${i + 1}`,
           company: `公司 ${i + 1}`,
           email: `customer${i + 1}@example.com`,
-          phone: `138${String(i).padStart(8, "0")}`,
+          phone: `138${String(i).padStart(8, '0')}`,
           value: Math.floor(Math.random() * 1000000),
-          status: ["active", "inactive", "potential"][Math.floor(Math.random() * 3)],
-        })
+          status: ['active', 'inactive', 'potential'][Math.floor(Math.random() * 3)],
+        });
       }
-      return data
-    }
+      return data;
+    };
 
     setTimeout(() => {
-      setCustomers(generateCustomers())
-      setLoading(false)
-    }, 1000)
-  }, [])
+      setCustomers(generateCustomers());
+      setLoading(false);
+    }, 1000);
+  }, []);
 
   const renderCustomerItem = useCallback(
     ({ index, style, data }: { index: number; style: React.CSSProperties; data: any }) => (
@@ -219,7 +219,7 @@ export function VirtualCustomerList() {
       </div>
     ),
     [],
-  )
+  );
 
   if (loading) {
     return (
@@ -229,7 +229,7 @@ export function VirtualCustomerList() {
           <p className="text-gray-500">加载客户数据中...</p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -246,5 +246,5 @@ export function VirtualCustomerList() {
         className="border-t border-gray-200"
       />
     </div>
-  )
+  );
 }

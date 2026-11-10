@@ -10,11 +10,11 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
-import { Database, RefreshCw } from "lucide-react"
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Database, RefreshCw } from 'lucide-react';
 
 export default function InitializationLoading() {
   return (
@@ -137,5 +137,5 @@ export default function InitializationLoading() {
         </Card>
       </div>
     </div>
-  )
+  );
 }

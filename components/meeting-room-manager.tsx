@@ -10,15 +10,15 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState, useEffect, useRef } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Slider } from "@/components/ui/slider"
+import { useState, useEffect, useRef } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Slider } from '@/components/ui/slider';
 import {
   Video,
   VideoOff,
@@ -41,7 +41,7 @@ import {
   Copy,
   Share2,
   Presentation,
-} from "lucide-react"
+} from 'lucide-react';
 
 interface MeetingParticipant {
   id: string
@@ -53,7 +53,7 @@ interface MeetingParticipant {
   isHandRaised: boolean
   isScreenSharing: boolean
   joinTime: Date
-  status: "connected" | "connecting" | "disconnected"
+  status: 'connected' | 'connecting' | 'disconnected'
 }
 
 interface MeetingRoom {
@@ -76,16 +76,16 @@ interface MeetingRoomManagerProps {
 }
 
 export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManagerProps) {
-  const [currentRoom, setCurrentRoom] = useState<MeetingRoom | null>(null)
-  const [isVideoOn, setIsVideoOn] = useState(true)
-  const [isMuted, setIsMuted] = useState(false)
-  const [isScreenSharing, setIsScreenSharing] = useState(false)
-  const [isHandRaised, setIsHandRaised] = useState(false)
-  const [isRecording, setIsRecording] = useState(false)
-  const [volume, setVolume] = useState([50])
-  const [viewMode, setViewMode] = useState<"grid" | "speaker" | "presentation">("grid")
-  const [showChat, setShowChat] = useState(false)
-  const [showParticipants, setShowParticipants] = useState(true)
+  const [currentRoom, setCurrentRoom] = useState<MeetingRoom | null>(null);
+  const [isVideoOn, setIsVideoOn] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
+  const [isScreenSharing, setIsScreenSharing] = useState(false);
+  const [isHandRaised, setIsHandRaised] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
+  const [volume, setVolume] = useState([50]);
+  const [viewMode, setViewMode] = useState<'grid' | 'speaker' | 'presentation'>('grid');
+  const [showChat, setShowChat] = useState(false);
+  const [showParticipants, setShowParticipants] = useState(true);
   const [chatMessages, setChatMessages] = useState<
     Array<{
       id: string
@@ -93,80 +93,80 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
       message: string
       timestamp: Date
     }>
-  >([])
-  const [chatInput, setChatInput] = useState("")
+  >([]);
+  const [chatInput, setChatInput] = useState('');
 
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const screenShareRef = useRef<HTMLVideoElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const screenShareRef = useRef<HTMLVideoElement>(null);
 
   // 模拟会议室数据
   useEffect(() => {
     if (roomId) {
       const mockRoom: MeetingRoom = {
         id: roomId,
-        title: "产品开发周会",
-        description: "讨论本周产品开发进度和下周计划",
+        title: '产品开发周会',
+        description: '讨论本周产品开发进度和下周计划',
         startTime: new Date(Date.now() - 30 * 60 * 1000), // 30分钟前开始
         endTime: new Date(Date.now() + 30 * 60 * 1000), // 30分钟后结束
         participants: [
           {
-            id: "user1",
-            name: "张产品经理",
-            avatar: "",
+            id: 'user1',
+            name: '张产品经理',
+            avatar: '',
             isHost: true,
             isMuted: false,
             isVideoOn: true,
             isHandRaised: false,
             isScreenSharing: false,
             joinTime: new Date(Date.now() - 25 * 60 * 1000),
-            status: "connected",
+            status: 'connected',
           },
           {
-            id: "user2",
-            name: "李开发工程师",
-            avatar: "",
+            id: 'user2',
+            name: '李开发工程师',
+            avatar: '',
             isHost: false,
             isMuted: true,
             isVideoOn: true,
             isHandRaised: false,
             isScreenSharing: false,
             joinTime: new Date(Date.now() - 20 * 60 * 1000),
-            status: "connected",
+            status: 'connected',
           },
           {
-            id: "user3",
-            name: "王设计师",
-            avatar: "",
+            id: 'user3',
+            name: '王设计师',
+            avatar: '',
             isHost: false,
             isMuted: false,
             isVideoOn: false,
             isHandRaised: true,
             isScreenSharing: false,
             joinTime: new Date(Date.now() - 15 * 60 * 1000),
-            status: "connected",
+            status: 'connected',
           },
           {
-            id: "user4",
-            name: "陈测试工程师",
-            avatar: "",
+            id: 'user4',
+            name: '陈测试工程师',
+            avatar: '',
             isHost: false,
             isMuted: true,
             isVideoOn: true,
             isHandRaised: false,
             isScreenSharing: false,
             joinTime: new Date(Date.now() - 10 * 60 * 1000),
-            status: "connecting",
+            status: 'connecting',
           },
         ],
         maxParticipants: 50,
         isRecording: false,
         isLocked: false,
         roomUrl: `https://meet.company.com/room/${roomId}`,
-        hostId: "user1",
-      }
-      setCurrentRoom(mockRoom)
+        hostId: 'user1',
+      };
+      setCurrentRoom(mockRoom);
     }
-  }, [roomId])
+  }, [roomId]);
 
   // 初始化摄像头
   useEffect(() => {
@@ -175,139 +175,139 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
         .getUserMedia({ video: true, audio: true })
         .then((stream) => {
           if (videoRef.current) {
-            videoRef.current.srcObject = stream
+            videoRef.current.srcObject = stream;
           }
         })
-        .catch((err) => console.error("获取媒体设备失败:", err))
+        .catch((err) => console.error('获取媒体设备失败:', err));
     }
-  }, [isVideoOn])
+  }, [isVideoOn]);
 
   const toggleVideo = () => {
-    setIsVideoOn(!isVideoOn)
+    setIsVideoOn(!isVideoOn);
     if (currentRoom) {
       // 更新参与者状态
       setCurrentRoom((prev) =>
         prev
           ? {
-              ...prev,
-              participants: prev.participants.map((p) =>
-                p.id === currentUserId ? { ...p, isVideoOn: !isVideoOn } : p,
-              ),
-            }
+            ...prev,
+            participants: prev.participants.map((p) =>
+              p.id === currentUserId ? { ...p, isVideoOn: !isVideoOn } : p,
+            ),
+          }
           : null,
-      )
+      );
     }
-  }
+  };
 
   const toggleMute = () => {
-    setIsMuted(!isMuted)
+    setIsMuted(!isMuted);
     if (currentRoom) {
       // 更新参与者状态
       setCurrentRoom((prev) =>
         prev
           ? {
-              ...prev,
-              participants: prev.participants.map((p) => (p.id === currentUserId ? { ...p, isMuted: !isMuted } : p)),
-            }
+            ...prev,
+            participants: prev.participants.map((p) => (p.id === currentUserId ? { ...p, isMuted: !isMuted } : p)),
+          }
           : null,
-      )
+      );
     }
-  }
+  };
 
   const toggleScreenShare = async () => {
     if (!isScreenSharing) {
       try {
-        const stream = await navigator.mediaDevices.getDisplayMedia({ video: true })
+        const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
         if (screenShareRef.current) {
-          screenShareRef.current.srcObject = stream
+          screenShareRef.current.srcObject = stream;
         }
-        setIsScreenSharing(true)
-        setViewMode("presentation")
+        setIsScreenSharing(true);
+        setViewMode('presentation');
       } catch (err) {
-        console.error("屏幕共享失败:", err)
+        console.error('屏幕共享失败:', err);
       }
     } else {
       if (screenShareRef.current && screenShareRef.current.srcObject) {
-        const stream = screenShareRef.current.srcObject as MediaStream
-        stream.getTracks().forEach((track) => track.stop())
-        screenShareRef.current.srcObject = null
+        const stream = screenShareRef.current.srcObject as MediaStream;
+        stream.getTracks().forEach((track) => track.stop());
+        screenShareRef.current.srcObject = null;
       }
-      setIsScreenSharing(false)
-      setViewMode("grid")
+      setIsScreenSharing(false);
+      setViewMode('grid');
     }
-  }
+  };
 
   const toggleHandRaise = () => {
-    setIsHandRaised(!isHandRaised)
+    setIsHandRaised(!isHandRaised);
     if (currentRoom) {
       setCurrentRoom((prev) =>
         prev
           ? {
-              ...prev,
-              participants: prev.participants.map((p) =>
-                p.id === currentUserId ? { ...p, isHandRaised: !isHandRaised } : p,
-              ),
-            }
+            ...prev,
+            participants: prev.participants.map((p) =>
+              p.id === currentUserId ? { ...p, isHandRaised: !isHandRaised } : p,
+            ),
+          }
           : null,
-      )
+      );
     }
-  }
+  };
 
   const toggleRecording = () => {
-    setIsRecording(!isRecording)
+    setIsRecording(!isRecording);
     if (currentRoom) {
-      setCurrentRoom((prev) => (prev ? { ...prev, isRecording: !isRecording } : null))
+      setCurrentRoom((prev) => (prev ? { ...prev, isRecording: !isRecording } : null));
     }
-  }
+  };
 
   const leaveRoom = () => {
     // 停止所有媒体流
     if (videoRef.current && videoRef.current.srcObject) {
-      const stream = videoRef.current.srcObject as MediaStream
-      stream.getTracks().forEach((track) => track.stop())
+      const stream = videoRef.current.srcObject as MediaStream;
+      stream.getTracks().forEach((track) => track.stop());
     }
     if (screenShareRef.current && screenShareRef.current.srcObject) {
-      const stream = screenShareRef.current.srcObject as MediaStream
-      stream.getTracks().forEach((track) => track.stop())
+      const stream = screenShareRef.current.srcObject as MediaStream;
+      stream.getTracks().forEach((track) => track.stop());
     }
 
     // 离开房间逻辑
-    console.log("离开会议室")
-  }
+    console.log('离开会议室');
+  };
 
   const sendChatMessage = () => {
     if (chatInput.trim()) {
       const newMessage = {
         id: Date.now().toString(),
-        sender: "我",
+        sender: '我',
         message: chatInput.trim(),
         timestamp: new Date(),
-      }
-      setChatMessages((prev) => [...prev, newMessage])
-      setChatInput("")
+      };
+      setChatMessages((prev) => [...prev, newMessage]);
+      setChatInput('');
     }
-  }
+  };
 
   const copyRoomUrl = () => {
     if (currentRoom) {
-      navigator.clipboard.writeText(currentRoom.roomUrl)
+      navigator.clipboard.writeText(currentRoom.roomUrl);
       // 显示复制成功提示
     }
-  }
+  };
 
   const formatDuration = (startTime: Date) => {
-    const duration = Date.now() - startTime.getTime()
-    const minutes = Math.floor(duration / (1000 * 60))
-    const hours = Math.floor(minutes / 60)
-    const remainingMinutes = minutes % 60
+    const duration = Date.now() - startTime.getTime();
+    const minutes = Math.floor(duration / (1000 * 60));
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
 
     if (hours > 0) {
-      return `${hours}:${remainingMinutes.toString().padStart(2, "0")}`
+      return `${hours}:${remainingMinutes.toString().padStart(2, '0')}`;
     }
     return `${remainingMinutes}:${Math.floor((duration % (1000 * 60)) / 1000)
       .toString()
-      .padStart(2, "0")}`
-  }
+      .padStart(2, '0')}`;
+  };
 
   if (!currentRoom) {
     return (
@@ -318,7 +318,7 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
           <p className="text-gray-500">请检查会议室链接是否正确</p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -358,7 +358,7 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
       <div className="flex-1 flex">
         {/* 视频区域 */}
         <div className="flex-1 relative">
-          {viewMode === "presentation" && isScreenSharing ? (
+          {viewMode === 'presentation' && isScreenSharing ? (
             // 演示模式
             <div className="h-full bg-black flex items-center justify-center">
               <video ref={screenShareRef} autoPlay muted className="max-w-full max-h-full" />
@@ -369,10 +369,10 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
               <div
                 className={`grid gap-4 h-full ${
                   currentRoom.participants.length <= 4
-                    ? "grid-cols-2 grid-rows-2"
+                    ? 'grid-cols-2 grid-rows-2'
                     : currentRoom.participants.length <= 9
-                      ? "grid-cols-3 grid-rows-3"
-                      : "grid-cols-4 grid-rows-3"
+                      ? 'grid-cols-3 grid-rows-3'
+                      : 'grid-cols-4 grid-rows-3'
                 }`}
               >
                 {currentRoom.participants.map((participant) => (
@@ -421,11 +421,11 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
                     {/* 连接状态指示器 */}
                     <div
                       className={`absolute top-2 right-2 w-3 h-3 rounded-full ${
-                        participant.status === "connected"
-                          ? "bg-green-500"
-                          : participant.status === "connecting"
-                            ? "bg-yellow-500 animate-pulse"
-                            : "bg-red-500"
+                        participant.status === 'connected'
+                          ? 'bg-green-500'
+                          : participant.status === 'connecting'
+                            ? 'bg-yellow-500 animate-pulse'
+                            : 'bg-red-500'
                       }`}
                     />
                   </div>
@@ -437,24 +437,24 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
           {/* 视图模式切换 */}
           <div className="absolute top-4 right-4 flex space-x-2">
             <Button
-              variant={viewMode === "grid" ? "default" : "secondary"}
+              variant={viewMode === 'grid' ? 'default' : 'secondary'}
               size="sm"
-              onClick={() => setViewMode("grid")}
+              onClick={() => setViewMode('grid')}
             >
               <Grid3X3 className="w-4 h-4" />
             </Button>
             <Button
-              variant={viewMode === "speaker" ? "default" : "secondary"}
+              variant={viewMode === 'speaker' ? 'default' : 'secondary'}
               size="sm"
-              onClick={() => setViewMode("speaker")}
+              onClick={() => setViewMode('speaker')}
             >
               <Maximize className="w-4 h-4" />
             </Button>
             {isScreenSharing && (
               <Button
-                variant={viewMode === "presentation" ? "default" : "secondary"}
+                variant={viewMode === 'presentation' ? 'default' : 'secondary'}
                 size="sm"
-                onClick={() => setViewMode("presentation")}
+                onClick={() => setViewMode('presentation')}
               >
                 <Presentation className="w-4 h-4" />
               </Button>
@@ -468,22 +468,22 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
             {/* 面板切换 */}
             <div className="flex border-b border-gray-700">
               <Button
-                variant={showParticipants ? "default" : "ghost"}
+                variant={showParticipants ? 'default' : 'ghost'}
                 className="flex-1 rounded-none"
                 onClick={() => {
-                  setShowParticipants(true)
-                  setShowChat(false)
+                  setShowParticipants(true);
+                  setShowChat(false);
                 }}
               >
                 <Users className="w-4 h-4 mr-2" />
                 参与者 ({currentRoom.participants.length})
               </Button>
               <Button
-                variant={showChat ? "default" : "ghost"}
+                variant={showChat ? 'default' : 'ghost'}
                 className="flex-1 rounded-none"
                 onClick={() => {
-                  setShowParticipants(false)
-                  setShowChat(true)
+                  setShowParticipants(false);
+                  setShowChat(true);
                 }}
               >
                 <MessageSquare className="w-4 h-4 mr-2" />
@@ -514,11 +514,11 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
                         </Avatar>
                         <div
                           className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-gray-800 ${
-                            participant.status === "connected"
-                              ? "bg-green-500"
-                              : participant.status === "connecting"
-                                ? "bg-yellow-500"
-                                : "bg-red-500"
+                            participant.status === 'connected'
+                              ? 'bg-green-500'
+                              : participant.status === 'connecting'
+                                ? 'bg-yellow-500'
+                                : 'bg-red-500'
                           }`}
                         />
                       </div>
@@ -533,10 +533,10 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
                           )}
                         </div>
                         <p className="text-xs text-gray-400">
-                          {new Date(participant.joinTime).toLocaleTimeString("zh-CN", {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}{" "}
+                          {new Date(participant.joinTime).toLocaleTimeString('zh-CN', {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          })}{' '}
                           加入
                         </p>
                       </div>
@@ -573,9 +573,9 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
                         <div className="flex items-center space-x-2">
                           <span className="text-sm font-medium">{message.sender}</span>
                           <span className="text-xs text-gray-400">
-                            {message.timestamp.toLocaleTimeString("zh-CN", {
-                              hour: "2-digit",
-                              minute: "2-digit",
+                            {message.timestamp.toLocaleTimeString('zh-CN', {
+                              hour: '2-digit',
+                              minute: '2-digit',
                             })}
                           </span>
                         </div>
@@ -591,7 +591,7 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
                       placeholder="输入消息..."
                       value={chatInput}
                       onChange={(e) => setChatInput(e.target.value)}
-                      onKeyPress={(e) => e.key === "Enter" && sendChatMessage()}
+                      onKeyPress={(e) => e.key === 'Enter' && sendChatMessage()}
                       className="bg-gray-700 border-gray-600"
                     />
                     <Button onClick={sendChatMessage} size="sm">
@@ -611,7 +611,7 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
           {/* 左侧控制 */}
           <div className="flex items-center space-x-4">
             <Button
-              variant={isMuted ? "destructive" : "secondary"}
+              variant={isMuted ? 'destructive' : 'secondary'}
               size="lg"
               onClick={toggleMute}
               className="rounded-full w-12 h-12"
@@ -620,7 +620,7 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
             </Button>
 
             <Button
-              variant={isVideoOn ? "secondary" : "destructive"}
+              variant={isVideoOn ? 'secondary' : 'destructive'}
               size="lg"
               onClick={toggleVideo}
               className="rounded-full w-12 h-12"
@@ -629,7 +629,7 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
             </Button>
 
             <Button
-              variant={isScreenSharing ? "default" : "secondary"}
+              variant={isScreenSharing ? 'default' : 'secondary'}
               size="lg"
               onClick={toggleScreenShare}
               className="rounded-full w-12 h-12"
@@ -640,24 +640,24 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
 
           {/* 中间控制 */}
           <div className="flex items-center space-x-2">
-            <Button variant={isHandRaised ? "default" : "secondary"} onClick={toggleHandRaise}>
+            <Button variant={isHandRaised ? 'default' : 'secondary'} onClick={toggleHandRaise}>
               <Hand className="w-4 h-4 mr-2" />
-              {isHandRaised ? "放下手" : "举手"}
+              {isHandRaised ? '放下手' : '举手'}
             </Button>
 
-            <Button variant={isRecording ? "destructive" : "secondary"} onClick={toggleRecording}>
+            <Button variant={isRecording ? 'destructive' : 'secondary'} onClick={toggleRecording}>
               {isRecording ? <StopCircle className="w-4 h-4 mr-2" /> : <Record className="w-4 h-4 mr-2" />}
-              {isRecording ? "停止录制" : "开始录制"}
+              {isRecording ? '停止录制' : '开始录制'}
             </Button>
 
             <Button
-              variant={showParticipants || showChat ? "default" : "secondary"}
+              variant={showParticipants || showChat ? 'default' : 'secondary'}
               onClick={() => {
                 if (!showParticipants && !showChat) {
-                  setShowParticipants(true)
+                  setShowParticipants(true);
                 } else {
-                  setShowParticipants(false)
-                  setShowChat(false)
+                  setShowParticipants(false);
+                  setShowChat(false);
                 }
               }}
             >
@@ -665,7 +665,7 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
               参与者
             </Button>
 
-            <Button variant={showChat ? "default" : "secondary"} onClick={() => setShowChat(!showChat)}>
+            <Button variant={showChat ? 'default' : 'secondary'} onClick={() => setShowChat(!showChat)}>
               <MessageSquare className="w-4 h-4 mr-2" />
               聊天
             </Button>
@@ -686,5 +686,5 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
         </div>
       </div>
     </div>
-  )
+  );
 }

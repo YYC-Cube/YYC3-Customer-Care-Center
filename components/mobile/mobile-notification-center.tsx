@@ -10,15 +10,15 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Bell, Check, CheckCheck, Trash2, X, MessageSquare, ClipboardList, AlertCircle, Settings } from "lucide-react"
-import { mobileNotificationFallback } from "@/lib/mobile-notifications-fallback"
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Bell, Check, CheckCheck, Trash2, X, MessageSquare, ClipboardList, AlertCircle, Settings } from 'lucide-react';
+import { mobileNotificationFallback } from '@/lib/mobile-notifications-fallback';
 
 interface Notification {
   id: string
@@ -31,107 +31,107 @@ interface Notification {
 }
 
 export function MobileNotificationCenter() {
-  const [notifications, setNotifications] = useState<Notification[]>([])
-  const [unreadCount, setUnreadCount] = useState(0)
-  const [isOpen, setIsOpen] = useState(false)
-  const [filter, setFilter] = useState<string>("all")
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+  const [filter, setFilter] = useState<string>('all');
 
   useEffect(() => {
     // 初始化通知数据
-    loadNotifications()
+    loadNotifications();
 
     // 监听通知事件
     const handleNewNotification = (event: CustomEvent) => {
-      loadNotifications()
-    }
+      loadNotifications();
+    };
 
     const handleNotificationRead = () => {
-      loadNotifications()
-    }
+      loadNotifications();
+    };
 
     const handleAllNotificationsRead = () => {
-      loadNotifications()
-    }
+      loadNotifications();
+    };
 
     const handleNotificationRemoved = () => {
-      loadNotifications()
-    }
+      loadNotifications();
+    };
 
     const handleAllNotificationsCleared = () => {
-      loadNotifications()
-    }
+      loadNotifications();
+    };
 
-    window.addEventListener("mobile-notification", handleNewNotification as EventListener)
-    window.addEventListener("notification-read", handleNotificationRead)
-    window.addEventListener("all-notifications-read", handleAllNotificationsRead)
-    window.addEventListener("notification-removed", handleNotificationRemoved)
-    window.addEventListener("all-notifications-cleared", handleAllNotificationsCleared)
+    window.addEventListener('mobile-notification', handleNewNotification as EventListener);
+    window.addEventListener('notification-read', handleNotificationRead);
+    window.addEventListener('all-notifications-read', handleAllNotificationsRead);
+    window.addEventListener('notification-removed', handleNotificationRemoved);
+    window.addEventListener('all-notifications-cleared', handleAllNotificationsCleared);
 
     return () => {
-      window.removeEventListener("mobile-notification", handleNewNotification as EventListener)
-      window.removeEventListener("notification-read", handleNotificationRead)
-      window.removeEventListener("all-notifications-read", handleAllNotificationsRead)
-      window.removeEventListener("notification-removed", handleNotificationRemoved)
-      window.removeEventListener("all-notifications-cleared", handleAllNotificationsCleared)
-    }
-  }, [])
+      window.removeEventListener('mobile-notification', handleNewNotification as EventListener);
+      window.removeEventListener('notification-read', handleNotificationRead);
+      window.removeEventListener('all-notifications-read', handleAllNotificationsRead);
+      window.removeEventListener('notification-removed', handleNotificationRemoved);
+      window.removeEventListener('all-notifications-cleared', handleAllNotificationsCleared);
+    };
+  }, []);
 
   const loadNotifications = () => {
-    const allNotifications = mobileNotificationFallback.getNotifications()
-    setNotifications(allNotifications)
-    setUnreadCount(mobileNotificationFallback.getUnreadCount())
-  }
+    const allNotifications = mobileNotificationFallback.getNotifications();
+    setNotifications(allNotifications);
+    setUnreadCount(mobileNotificationFallback.getUnreadCount());
+  };
 
   const handleMarkAsRead = (notificationId: string) => {
-    mobileNotificationFallback.markAsRead(notificationId)
-  }
+    mobileNotificationFallback.markAsRead(notificationId);
+  };
 
   const handleMarkAllAsRead = () => {
-    mobileNotificationFallback.markAllAsRead()
-  }
+    mobileNotificationFallback.markAllAsRead();
+  };
 
   const handleRemoveNotification = (notificationId: string) => {
-    mobileNotificationFallback.removeNotification(notificationId)
-  }
+    mobileNotificationFallback.removeNotification(notificationId);
+  };
 
   const handleClearAll = () => {
-    mobileNotificationFallback.clearAllNotifications()
-  }
+    mobileNotificationFallback.clearAllNotifications();
+  };
 
   const getNotificationIcon = (type: string) => {
     switch (type) {
-      case "task":
-        return <ClipboardList className="w-4 h-4 text-blue-500" />
-      case "approval":
-        return <AlertCircle className="w-4 h-4 text-orange-500" />
-      case "message":
-        return <MessageSquare className="w-4 h-4 text-green-500" />
-      case "system":
-        return <Settings className="w-4 h-4 text-gray-500" />
-      default:
-        return <Bell className="w-4 h-4 text-gray-500" />
+    case 'task':
+      return <ClipboardList className="w-4 h-4 text-blue-500" />;
+    case 'approval':
+      return <AlertCircle className="w-4 h-4 text-orange-500" />;
+    case 'message':
+      return <MessageSquare className="w-4 h-4 text-green-500" />;
+    case 'system':
+      return <Settings className="w-4 h-4 text-gray-500" />;
+    default:
+      return <Bell className="w-4 h-4 text-gray-500" />;
     }
-  }
+  };
 
   const getFilteredNotifications = () => {
-    if (filter === "all") return notifications
-    if (filter === "unread") return notifications.filter((n) => !n.read)
-    return notifications.filter((n) => n.type === filter)
-  }
+    if (filter === 'all') return notifications;
+    if (filter === 'unread') return notifications.filter((n) => !n.read);
+    return notifications.filter((n) => n.type === filter);
+  };
 
   const formatTime = (timestamp: number) => {
-    const now = Date.now()
-    const diff = now - timestamp
-    const minutes = Math.floor(diff / 60000)
-    const hours = Math.floor(diff / 3600000)
-    const days = Math.floor(diff / 86400000)
+    const now = Date.now();
+    const diff = now - timestamp;
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(diff / 3600000);
+    const days = Math.floor(diff / 86400000);
 
-    if (minutes < 1) return "刚刚"
-    if (minutes < 60) return `${minutes}分钟前`
-    if (hours < 24) return `${hours}小时前`
-    if (days < 7) return `${days}天前`
-    return new Date(timestamp).toLocaleDateString("zh-CN")
-  }
+    if (minutes < 1) return '刚刚';
+    if (minutes < 60) return `${minutes}分钟前`;
+    if (hours < 24) return `${hours}小时前`;
+    if (days < 7) return `${days}天前`;
+    return new Date(timestamp).toLocaleDateString('zh-CN');
+  };
 
   return (
     <>
@@ -140,7 +140,7 @@ export function MobileNotificationCenter() {
         <Bell className="w-5 h-5" />
         {unreadCount > 0 && (
           <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 text-xs bg-red-500 hover:bg-red-600">
-            {unreadCount > 99 ? "99+" : unreadCount.toString()}
+            {unreadCount > 99 ? '99+' : unreadCount.toString()}
           </Badge>
         )}
       </Button>
@@ -153,7 +153,7 @@ export function MobileNotificationCenter() {
               <div className="flex items-center justify-between">
                 <div>
                   <CardTitle className="text-lg">通知中心</CardTitle>
-                  <CardDescription>{unreadCount > 0 ? `${unreadCount}条未读消息` : "暂无未读消息"}</CardDescription>
+                  <CardDescription>{unreadCount > 0 ? `${unreadCount}条未读消息` : '暂无未读消息'}</CardDescription>
                 </div>
                 <Button variant="ghost" size="sm" onClick={() => setIsOpen(false)}>
                   <X className="w-4 h-4" />
@@ -163,33 +163,33 @@ export function MobileNotificationCenter() {
               {/* 过滤器 */}
               <div className="flex space-x-2 mt-3">
                 <Button
-                  variant={filter === "all" ? "default" : "outline"}
+                  variant={filter === 'all' ? 'default' : 'outline'}
                   size="sm"
-                  onClick={() => setFilter("all")}
+                  onClick={() => setFilter('all')}
                   className="text-xs"
                 >
                   全部
                 </Button>
                 <Button
-                  variant={filter === "unread" ? "default" : "outline"}
+                  variant={filter === 'unread' ? 'default' : 'outline'}
                   size="sm"
-                  onClick={() => setFilter("unread")}
+                  onClick={() => setFilter('unread')}
                   className="text-xs"
                 >
                   未读
                 </Button>
                 <Button
-                  variant={filter === "task" ? "default" : "outline"}
+                  variant={filter === 'task' ? 'default' : 'outline'}
                   size="sm"
-                  onClick={() => setFilter("task")}
+                  onClick={() => setFilter('task')}
                   className="text-xs"
                 >
                   任务
                 </Button>
                 <Button
-                  variant={filter === "approval" ? "default" : "outline"}
+                  variant={filter === 'approval' ? 'default' : 'outline'}
                   size="sm"
-                  onClick={() => setFilter("approval")}
+                  onClick={() => setFilter('approval')}
                   className="text-xs"
                 >
                   审批
@@ -226,7 +226,7 @@ export function MobileNotificationCenter() {
                       <div
                         key={notification.id}
                         className={`p-3 rounded-lg border transition-colors ${
-                          notification.read ? "bg-gray-50 border-gray-200" : "bg-blue-50 border-blue-200"
+                          notification.read ? 'bg-gray-50 border-gray-200' : 'bg-blue-50 border-blue-200'
                         }`}
                       >
                         <div className="flex items-start space-x-3">
@@ -235,7 +235,7 @@ export function MobileNotificationCenter() {
                             <div className="flex items-start justify-between">
                               <h4
                                 className={`text-sm font-medium truncate ${
-                                  notification.read ? "text-gray-700" : "text-gray-900"
+                                  notification.read ? 'text-gray-700' : 'text-gray-900'
                                 }`}
                               >
                                 {notification.title}
@@ -261,7 +261,7 @@ export function MobileNotificationCenter() {
                                 </Button>
                               </div>
                             </div>
-                            <p className={`text-sm mt-1 ${notification.read ? "text-gray-500" : "text-gray-700"}`}>
+                            <p className={`text-sm mt-1 ${notification.read ? 'text-gray-500' : 'text-gray-700'}`}>
                               {notification.body}
                             </p>
                             <p className="text-xs text-gray-400 mt-2">{formatTime(notification.timestamp)}</p>
@@ -277,5 +277,5 @@ export function MobileNotificationCenter() {
         </div>
       )}
     </>
-  )
+  );
 }

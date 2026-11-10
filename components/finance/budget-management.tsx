@@ -10,17 +10,17 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import {
   Dialog,
   DialogContent,
@@ -28,7 +28,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from '@/components/ui/dialog';
 import {
   TrendingUp,
   TrendingDown,
@@ -41,7 +41,7 @@ import {
   DollarSign,
   CheckCircle,
   XCircle,
-} from "lucide-react"
+} from 'lucide-react';
 
 interface BudgetItem {
   id: string
@@ -50,7 +50,7 @@ interface BudgetItem {
   budgetAmount: number
   actualAmount: number
   period: string
-  status: "on-track" | "over-budget" | "under-budget"
+  status: 'on-track' | 'over-budget' | 'under-budget'
   variance: number
   variancePercent: number
   lastUpdated: Date
@@ -58,7 +58,7 @@ interface BudgetItem {
 
 interface BudgetAlert {
   id: string
-  type: "warning" | "danger" | "info"
+  type: 'warning' | 'danger' | 'info'
   category: string
   message: string
   threshold: number
@@ -69,87 +69,87 @@ interface BudgetAlert {
 export function BudgetManagement() {
   const [budgetItems, setBudgetItems] = useState<BudgetItem[]>([
     {
-      id: "1",
-      category: "运营费用",
-      subcategory: "人力成本",
+      id: '1',
+      category: '运营费用',
+      subcategory: '人力成本',
       budgetAmount: 500000,
       actualAmount: 480000,
-      period: "2024-Q1",
-      status: "under-budget",
+      period: '2024-Q1',
+      status: 'under-budget',
       variance: -20000,
       variancePercent: -4.0,
       lastUpdated: new Date(),
     },
     {
-      id: "2",
-      category: "运营费用",
-      subcategory: "办公租金",
+      id: '2',
+      category: '运营费用',
+      subcategory: '办公租金',
       budgetAmount: 120000,
       actualAmount: 125000,
-      period: "2024-Q1",
-      status: "over-budget",
+      period: '2024-Q1',
+      status: 'over-budget',
       variance: 5000,
       variancePercent: 4.2,
       lastUpdated: new Date(),
     },
     {
-      id: "3",
-      category: "营销费用",
-      subcategory: "广告投放",
+      id: '3',
+      category: '营销费用',
+      subcategory: '广告投放',
       budgetAmount: 200000,
       actualAmount: 180000,
-      period: "2024-Q1",
-      status: "under-budget",
+      period: '2024-Q1',
+      status: 'under-budget',
       variance: -20000,
       variancePercent: -10.0,
       lastUpdated: new Date(),
     },
     {
-      id: "4",
-      category: "研发费用",
-      subcategory: "技术设备",
+      id: '4',
+      category: '研发费用',
+      subcategory: '技术设备',
       budgetAmount: 300000,
       actualAmount: 320000,
-      period: "2024-Q1",
-      status: "over-budget",
+      period: '2024-Q1',
+      status: 'over-budget',
       variance: 20000,
       variancePercent: 6.7,
       lastUpdated: new Date(),
     },
-  ])
+  ]);
 
   const [budgetAlerts, setBudgetAlerts] = useState<BudgetAlert[]>([
     {
-      id: "1",
-      type: "warning",
-      category: "办公租金",
-      message: "办公租金支出超出预算4.2%，建议关注",
+      id: '1',
+      type: 'warning',
+      category: '办公租金',
+      message: '办公租金支出超出预算4.2%，建议关注',
       threshold: 120000,
       currentValue: 125000,
       timestamp: new Date(),
     },
     {
-      id: "2",
-      type: "danger",
-      category: "技术设备",
-      message: "技术设备支出超出预算6.7%，需要立即处理",
+      id: '2',
+      type: 'danger',
+      category: '技术设备',
+      message: '技术设备支出超出预算6.7%，需要立即处理',
       threshold: 300000,
       currentValue: 320000,
       timestamp: new Date(),
     },
     {
-      id: "3",
-      type: "info",
-      category: "广告投放",
-      message: "广告投放预算使用率90%，可考虑增加投入",
+      id: '3',
+      type: 'info',
+      category: '广告投放',
+      message: '广告投放预算使用率90%，可考虑增加投入',
       threshold: 200000,
       currentValue: 180000,
       timestamp: new Date(),
     },
-  ])
+  ]);
 
-  const [selectedPeriod, setSelectedPeriod] = useState("2024-Q1")
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
+  const [selectedPeriod, setSelectedPeriod] = useState('2024-Q1');
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
   // 计算总体预算统计
   const budgetStats = {
@@ -159,36 +159,36 @@ export function BudgetManagement() {
     utilizationRate:
       budgetItems.reduce((sum, item) => sum + item.actualAmount, 0) /
       budgetItems.reduce((sum, item) => sum + item.budgetAmount, 0),
-    overBudgetCount: budgetItems.filter((item) => item.status === "over-budget").length,
-    onTrackCount: budgetItems.filter((item) => item.status === "on-track").length,
-  }
+    overBudgetCount: budgetItems.filter((item) => item.status === 'over-budget').length,
+    onTrackCount: budgetItems.filter((item) => item.status === 'on-track').length,
+  };
 
-  const getStatusBadge = (status: BudgetItem["status"]) => {
+  const getStatusBadge = (status: BudgetItem['status']) => {
     const statusConfig = {
-      "on-track": { label: "正常", className: "bg-green-100 text-green-800" },
-      "over-budget": { label: "超预算", className: "bg-red-100 text-red-800" },
-      "under-budget": { label: "节约", className: "bg-blue-100 text-blue-800" },
-    }
-    const config = statusConfig[status]
-    return <Badge className={config.className}>{config.label}</Badge>
-  }
+      'on-track': { label: '正常', className: 'bg-green-100 text-green-800' },
+      'over-budget': { label: '超预算', className: 'bg-red-100 text-red-800' },
+      'under-budget': { label: '节约', className: 'bg-blue-100 text-blue-800' },
+    };
+    const config = statusConfig[status];
+    return <Badge className={config.className}>{config.label}</Badge>;
+  };
 
-  const getAlertIcon = (type: BudgetAlert["type"]) => {
+  const getAlertIcon = (type: BudgetAlert['type']) => {
     switch (type) {
-      case "danger":
-        return <XCircle className="w-4 h-4 text-red-600" />
-      case "warning":
-        return <AlertTriangle className="w-4 h-4 text-yellow-600" />
-      case "info":
-        return <CheckCircle className="w-4 h-4 text-blue-600" />
+    case 'danger':
+      return <XCircle className="w-4 h-4 text-red-600" />;
+    case 'warning':
+      return <AlertTriangle className="w-4 h-4 text-yellow-600" />;
+    case 'info':
+      return <CheckCircle className="w-4 h-4 text-blue-600" />;
     }
-  }
+  };
 
   const getVarianceColor = (variance: number) => {
-    if (variance > 0) return "text-red-600"
-    if (variance < 0) return "text-green-600"
-    return "text-gray-600"
-  }
+    if (variance > 0) return 'text-red-600';
+    if (variance < 0) return 'text-green-600';
+    return 'text-gray-600';
+  };
 
   return (
     <div className="p-6 space-y-6 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 min-h-screen">
@@ -272,7 +272,7 @@ export function BudgetManagement() {
           </CardHeader>
           <CardContent>
             <div className={`text-2xl font-bold ${getVarianceColor(budgetStats.totalVariance)}`}>
-              {budgetStats.totalVariance >= 0 ? "+" : ""}¥{budgetStats.totalVariance.toLocaleString()}
+              {budgetStats.totalVariance >= 0 ? '+' : ''}¥{budgetStats.totalVariance.toLocaleString()}
             </div>
             <p className="text-xs text-gray-600">
               {((budgetStats.totalVariance / budgetStats.totalBudget) * 100).toFixed(1)}% 差异
@@ -354,13 +354,13 @@ export function BudgetManagement() {
                   {Object.entries(
                     budgetItems.reduce(
                       (acc, item) => {
-                        acc[item.category] = (acc[item.category] || 0) + item.budgetAmount
-                        return acc
+                        acc[item.category] = (acc[item.category] || 0) + item.budgetAmount;
+                        return acc;
                       },
                       {} as Record<string, number>,
                     ),
                   ).map(([category, amount]) => {
-                    const percentage = (amount / budgetStats.totalBudget) * 100
+                    const percentage = (amount / budgetStats.totalBudget) * 100;
                     return (
                       <div key={category} className="space-y-2">
                         <div className="flex justify-between">
@@ -375,7 +375,7 @@ export function BudgetManagement() {
                         </div>
                         <div className="text-xs text-muted-foreground text-right">{percentage.toFixed(1)}%</div>
                       </div>
-                    )
+                    );
                   })}
                 </div>
               </CardContent>
@@ -410,10 +410,10 @@ export function BudgetManagement() {
                       <TableCell>¥{item.budgetAmount.toLocaleString()}</TableCell>
                       <TableCell>¥{item.actualAmount.toLocaleString()}</TableCell>
                       <TableCell className={getVarianceColor(item.variance)}>
-                        {item.variance >= 0 ? "+" : ""}¥{item.variance.toLocaleString()}
+                        {item.variance >= 0 ? '+' : ''}¥{item.variance.toLocaleString()}
                         <br />
                         <span className="text-xs">
-                          ({item.variancePercent >= 0 ? "+" : ""}
+                          ({item.variancePercent >= 0 ? '+' : ''}
                           {item.variancePercent.toFixed(1)}%)
                         </span>
                       </TableCell>
@@ -456,11 +456,11 @@ export function BudgetManagement() {
                   <div
                     key={alert.id}
                     className={`p-4 rounded-lg border transition-all duration-300 hover:scale-105 ${
-                      alert.type === "danger"
-                        ? "border-red-200 bg-red-50"
-                        : alert.type === "warning"
-                          ? "border-yellow-200 bg-yellow-50"
-                          : "border-blue-200 bg-blue-50"
+                      alert.type === 'danger'
+                        ? 'border-red-200 bg-red-50'
+                        : alert.type === 'warning'
+                          ? 'border-yellow-200 bg-yellow-50'
+                          : 'border-blue-200 bg-blue-50'
                     }`}
                   >
                     <div className="flex items-start space-x-3">
@@ -471,7 +471,7 @@ export function BudgetManagement() {
                         <div className="flex items-center space-x-4 mt-2 text-xs text-muted-foreground">
                           <span>阈值: ¥{alert.threshold.toLocaleString()}</span>
                           <span>当前: ¥{alert.currentValue.toLocaleString()}</span>
-                          <span>{alert.timestamp.toLocaleString("zh-CN")}</span>
+                          <span>{alert.timestamp.toLocaleString('zh-CN')}</span>
                         </div>
                       </div>
                       <Button variant="ghost" size="sm" className="transition-all duration-300 hover:scale-105 group">
@@ -543,17 +543,17 @@ export function BudgetManagement() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }
 
 function CreateBudgetForm({ onClose }: { onClose: () => void }) {
   const [formData, setFormData] = useState({
-    category: "",
-    subcategory: "",
-    budgetAmount: "",
-    period: "2024-Q2",
-    description: "",
-  })
+    category: '',
+    subcategory: '',
+    budgetAmount: '',
+    period: '2024-Q2',
+    description: '',
+  });
 
   return (
     <div className="space-y-4">
@@ -640,5 +640,5 @@ function CreateBudgetForm({ onClose }: { onClose: () => void }) {
         </Button>
       </div>
     </div>
-  )
+  );
 }

@@ -10,17 +10,17 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { EnhancedCard } from "@/components/ui/enhanced-card"
-import { EnhancedButton } from "@/components/ui/enhanced-button"
-import { PageContainer } from "@/components/layout/page-container"
-import { commonStyles } from "@/lib/design-system"
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { EnhancedButton } from '@/components/ui/enhanced-button';
+import { PageContainer } from '@/components/layout/page-container';
+import { commonStyles } from '@/lib/design-system';
 import {
   Search,
   Plus,
@@ -40,115 +40,115 @@ import {
   BarChart3,
   Clock,
   FileIcon as FileTemplate,
-} from "lucide-react"
+} from 'lucide-react';
 
-import { TimeTracker } from "./time-tracker"
-import { TaskTemplates } from "./task-templates"
+import { TimeTracker } from './time-tracker';
+import { TaskTemplates } from './task-templates';
 
 const tasks = [
   {
     id: 1,
-    title: "Q4销售报告制作",
-    description: "整理Q4季度销售数据，制作详细分析报告",
-    status: "进行中",
-    priority: "高",
-    assignee: "张经理",
-    dueDate: "2025-06-25",
+    title: 'Q4销售报告制作',
+    description: '整理Q4季度销售数据，制作详细分析报告',
+    status: '进行中',
+    priority: '高',
+    assignee: '张经理',
+    dueDate: '2025-06-25',
     progress: 75,
-    tags: ["销售", "报告"],
+    tags: ['销售', '报告'],
     comments: 5,
     attachments: 3,
-    timeSpent: "12h 30m",
-    estimatedTime: "16h",
+    timeSpent: '12h 30m',
+    estimatedTime: '16h',
   },
   {
     id: 2,
-    title: "客户满意度调研",
-    description: "对重点客户进行满意度调研，收集反馈意见",
-    status: "待开始",
-    priority: "中",
-    assignee: "李专员",
-    dueDate: "2025-06-28",
+    title: '客户满意度调研',
+    description: '对重点客户进行满意度调研，收集反馈意见',
+    status: '待开始',
+    priority: '中',
+    assignee: '李专员',
+    dueDate: '2025-06-28',
     progress: 0,
-    tags: ["客户", "调研"],
+    tags: ['客户', '调研'],
     comments: 2,
     attachments: 1,
-    timeSpent: "0h",
-    estimatedTime: "8h",
+    timeSpent: '0h',
+    estimatedTime: '8h',
   },
   {
     id: 3,
-    title: "产品库存盘点",
-    description: "对仓库所有产品进行全面盘点，更新库存数据",
-    status: "已完成",
-    priority: "高",
-    assignee: "王主管",
-    dueDate: "2025-06-20",
+    title: '产品库存盘点',
+    description: '对仓库所有产品进行全面盘点，更新库存数据',
+    status: '已完成',
+    priority: '高',
+    assignee: '王主管',
+    dueDate: '2025-06-20',
     progress: 100,
-    tags: ["库存", "盘点"],
+    tags: ['库存', '盘点'],
     comments: 8,
     attachments: 5,
-    timeSpent: "24h 15m",
-    estimatedTime: "20h",
+    timeSpent: '24h 15m',
+    estimatedTime: '20h',
   },
-]
+];
 
 const taskStats = [
-  { label: "总任务数", value: "156", change: "+12", icon: Target, color: "from-blue-400 to-sky-500" },
-  { label: "进行中", value: "42", change: "+8", icon: PlayCircle, color: "from-emerald-400 to-teal-500" },
-  { label: "已完成", value: "98", change: "+15", icon: CheckCircle, color: "from-purple-400 to-indigo-500" },
-  { label: "完成率", value: "87.5%", change: "+5.2%", icon: BarChart3, color: "from-orange-400 to-red-500" },
-]
+  { label: '总任务数', value: '156', change: '+12', icon: Target, color: 'from-blue-400 to-sky-500' },
+  { label: '进行中', value: '42', change: '+8', icon: PlayCircle, color: 'from-emerald-400 to-teal-500' },
+  { label: '已完成', value: '98', change: '+15', icon: CheckCircle, color: 'from-purple-400 to-indigo-500' },
+  { label: '完成率', value: '87.5%', change: '+5.2%', icon: BarChart3, color: 'from-orange-400 to-red-500' },
+];
 
 export function TaskManagementEnhanced() {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [selectedTask, setSelectedTask] = useState<number | null>(null)
-  const [activeTab, setActiveTab] = useState("kanban")
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedTask, setSelectedTask] = useState<number | null>(null);
+  const [activeTab, setActiveTab] = useState('kanban');
 
-  const [selectedTasks, setSelectedTasks] = useState<string[]>([])
-  const [showTimeTracker, setShowTimeTracker] = useState(false)
-  const [showTemplates, setShowTemplates] = useState(false)
-  const [showImportExport, setShowImportExport] = useState(false)
-  const [trackingTaskId, setTrackingTaskId] = useState<string | null>(null)
+  const [selectedTasks, setSelectedTasks] = useState<string[]>([]);
+  const [showTimeTracker, setShowTimeTracker] = useState(false);
+  const [showTemplates, setShowTemplates] = useState(false);
+  const [showImportExport, setShowImportExport] = useState(false);
+  const [trackingTaskId, setTrackingTaskId] = useState<string | null>(null);
 
   const filteredTasks = tasks.filter(
     (task) =>
       task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       task.assignee.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+  );
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "已完成":
-        return commonStyles.badge.success
-      case "进行中":
-        return commonStyles.badge.primary
-      case "待开始":
-        return commonStyles.badge.warning
-      default:
-        return commonStyles.badge.secondary
+    case '已完成':
+      return commonStyles.badge.success;
+    case '进行中':
+      return commonStyles.badge.primary;
+    case '待开始':
+      return commonStyles.badge.warning;
+    default:
+      return commonStyles.badge.secondary;
     }
-  }
+  };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case "高":
-        return "border-red-200 text-red-700 bg-red-50"
-      case "中":
-        return "border-yellow-200 text-yellow-700 bg-yellow-50"
-      case "低":
-        return "border-green-200 text-green-700 bg-green-50"
-      default:
-        return commonStyles.badge.secondary
+    case '高':
+      return 'border-red-200 text-red-700 bg-red-50';
+    case '中':
+      return 'border-yellow-200 text-yellow-700 bg-yellow-50';
+    case '低':
+      return 'border-green-200 text-green-700 bg-green-50';
+    default:
+      return commonStyles.badge.secondary;
     }
-  }
+  };
 
   return (
     <PageContainer title="任务管理" description="高效管理团队任务，提升工作协作效率">
       {/* 统计卡片 */}
-      <div className={commonStyles.layout.grid + " grid-cols-1 md:grid-cols-2 lg:grid-cols-4"}>
+      <div className={commonStyles.layout.grid + ' grid-cols-1 md:grid-cols-2 lg:grid-cols-4'}>
         {taskStats.map((stat, index) => {
-          const Icon = stat.icon
+          const Icon = stat.icon;
           return (
             <EnhancedCard key={index} variant="glass">
               <div className="flex items-center justify-between">
@@ -168,7 +168,7 @@ export function TaskManagementEnhanced() {
                 </div>
               </div>
             </EnhancedCard>
-          )
+          );
         })}
       </div>
 
@@ -207,7 +207,7 @@ export function TaskManagementEnhanced() {
                   placeholder="搜索任务..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className={commonStyles.input + " pl-10 w-64"}
+                  className={commonStyles.input + ' pl-10 w-64'}
                 />
               </div>
               <EnhancedButton variant="secondary" icon={Filter}>
@@ -233,12 +233,12 @@ export function TaskManagementEnhanced() {
                     待开始
                   </h3>
                   <Badge variant="outline" className="bg-orange-50 text-orange-700 border-orange-200">
-                    {filteredTasks.filter((t) => t.status === "待开始").length}
+                    {filteredTasks.filter((t) => t.status === '待开始').length}
                   </Badge>
                 </div>
                 <div className="space-y-3">
                   {filteredTasks
-                    .filter((task) => task.status === "待开始")
+                    .filter((task) => task.status === '待开始')
                     .map((task) => (
                       <div key={task.id} className={`${commonStyles.card} p-4 hover:scale-[1.02] cursor-pointer`}>
                         <div className="space-y-3">
@@ -301,12 +301,12 @@ export function TaskManagementEnhanced() {
                     进行中
                   </h3>
                   <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
-                    {filteredTasks.filter((t) => t.status === "进行中").length}
+                    {filteredTasks.filter((t) => t.status === '进行中').length}
                   </Badge>
                 </div>
                 <div className="space-y-3">
                   {filteredTasks
-                    .filter((task) => task.status === "进行中")
+                    .filter((task) => task.status === '进行中')
                     .map((task) => (
                       <div
                         key={task.id}
@@ -389,12 +389,12 @@ export function TaskManagementEnhanced() {
                     已完成
                   </h3>
                   <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200">
-                    {filteredTasks.filter((t) => t.status === "已完成").length}
+                    {filteredTasks.filter((t) => t.status === '已完成').length}
                   </Badge>
                 </div>
                 <div className="space-y-3">
                   {filteredTasks
-                    .filter((task) => task.status === "已完成")
+                    .filter((task) => task.status === '已完成')
                     .map((task) => (
                       <div
                         key={task.id}
@@ -466,18 +466,18 @@ export function TaskManagementEnhanced() {
                     <div className="flex items-center space-x-4 flex-1">
                       <div
                         className={`w-3 h-3 rounded-full ${
-                          task.status === "已完成"
-                            ? "bg-emerald-400"
-                            : task.status === "进行中"
-                              ? "bg-blue-400"
-                              : "bg-orange-400"
+                          task.status === '已完成'
+                            ? 'bg-emerald-400'
+                            : task.status === '进行中'
+                              ? 'bg-blue-400'
+                              : 'bg-orange-400'
                         }`}
                       />
 
                       <div className="flex-1">
                         <div className="flex items-center space-x-3 mb-2">
                           <h3
-                            className={`font-semibold text-slate-800 ${task.status === "已完成" ? "line-through decoration-emerald-400" : ""}`}
+                            className={`font-semibold text-slate-800 ${task.status === '已完成' ? 'line-through decoration-emerald-400' : ''}`}
                           >
                             {task.title}
                           </h3>
@@ -515,7 +515,7 @@ export function TaskManagementEnhanced() {
                     </div>
 
                     <div className="flex items-center space-x-4">
-                      {task.status === "进行中" && (
+                      {task.status === '进行中' && (
                         <div className="text-right">
                           <p className="text-sm text-slate-600 mb-1">完成进度</p>
                           <div className="flex items-center">
@@ -542,9 +542,9 @@ export function TaskManagementEnhanced() {
                           size="sm"
                           icon={Timer}
                           onClick={() => {
-                            setTrackingTaskId(task.id.toString())
-                            setShowTimeTracker(true)
-                            setActiveTab("time-tracking")
+                            setTrackingTaskId(task.id.toString());
+                            setShowTimeTracker(true);
+                            setActiveTab('time-tracking');
                           }}
                         >
                           计时
@@ -675,7 +675,7 @@ export function TaskManagementEnhanced() {
           <TabsContent value="templates" className="space-y-6">
             <TaskTemplates
               onUseTemplate={(template) => {
-                console.log("使用模板:", template)
+                console.log('使用模板:', template);
                 // 处理模板使用逻辑
               }}
             />
@@ -686,7 +686,7 @@ export function TaskManagementEnhanced() {
               taskId={trackingTaskId || undefined}
               taskName={trackingTaskId ? tasks.find((t) => t.id.toString() === trackingTaskId)?.title : undefined}
               onTimeUpdate={(totalTime) => {
-                console.log("时间更新:", totalTime)
+                console.log('时间更新:', totalTime);
                 // 更新任务时间
               }}
             />
@@ -694,5 +694,5 @@ export function TaskManagementEnhanced() {
         </Tabs>
       </EnhancedCard>
     </PageContainer>
-  )
+  );
 }

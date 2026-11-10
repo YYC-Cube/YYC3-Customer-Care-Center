@@ -10,9 +10,9 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,8 +20,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Zap, type LucideIcon } from "lucide-react"
+} from '@/components/ui/dropdown-menu';
+import { Zap, type LucideIcon } from 'lucide-react';
 
 interface QuickAction {
   icon: LucideIcon
@@ -59,5 +59,5 @@ export function QuickActionsMenu({ actions }: QuickActionsMenuProps) {
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

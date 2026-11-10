@@ -10,35 +10,35 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState } from "react"
-import { ResponsiveLayout } from "@/components/layout/responsive-layout"
-import { ResponsiveContainer } from "@/components/layout/responsive-container"
-import { ResponsiveGrid, ResponsiveGridItem } from "@/components/layout/responsive-grid"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Switch } from "@/components/ui/switch"
-import { Slider } from "@/components/ui/slider"
-import { useResponsiveLayout, type LayoutConfig } from "@/lib/responsive-layout"
-import { useLayoutContext } from "@/components/layout/responsive-layout"
-import { Monitor, Smartphone, Tablet, Layout, Grid, Maximize, Save, RotateCcw } from "lucide-react"
+import { useState } from 'react';
+import { ResponsiveLayout } from '@/components/layout/responsive-layout';
+import { ResponsiveContainer } from '@/components/layout/responsive-container';
+import { ResponsiveGrid, ResponsiveGridItem } from '@/components/layout/responsive-grid';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
+import { Slider } from '@/components/ui/slider';
+import { useResponsiveLayout, type LayoutConfig } from '@/lib/responsive-layout';
+import { useLayoutContext } from '@/components/layout/responsive-layout';
+import { Monitor, Smartphone, Tablet, Layout, Grid, Maximize, Save, RotateCcw } from 'lucide-react';
 
 export default function LayoutSettingsPage() {
-  const { screenSize, windowSize, isMobile, isTablet, isDesktop, orientation } = useResponsiveLayout()
+  const { screenSize, windowSize, isMobile, isTablet, isDesktop, orientation } = useResponsiveLayout();
 
-  const { layoutConfig, updateLayoutConfig } = useLayoutContext()
-  const [tempConfig, setTempConfig] = useState<LayoutConfig>(layoutConfig)
+  const { layoutConfig, updateLayoutConfig } = useLayoutContext();
+  const [tempConfig, setTempConfig] = useState<LayoutConfig>(layoutConfig);
 
   const handleConfigChange = (updates: Partial<LayoutConfig>) => {
-    setTempConfig((prev) => ({ ...prev, ...updates }))
-  }
+    setTempConfig((prev) => ({ ...prev, ...updates }));
+  };
 
   const saveConfig = () => {
-    updateLayoutConfig(tempConfig)
+    updateLayoutConfig(tempConfig);
     // 保存到本地存储
-    localStorage.setItem("layout-config", JSON.stringify(tempConfig))
-  }
+    localStorage.setItem('layout-config', JSON.stringify(tempConfig));
+  };
 
   const resetConfig = () => {
     const defaultConfig: LayoutConfig = {
@@ -63,15 +63,15 @@ export default function LayoutSettingsPage() {
         columns: { mobile: 1, tablet: 2, desktop: 3 },
         gap: { mobile: 16, tablet: 20, desktop: 24 },
       },
-    }
-    setTempConfig(defaultConfig)
-  }
+    };
+    setTempConfig(defaultConfig);
+  };
 
   const getDeviceIcon = () => {
-    if (isMobile) return <Smartphone className="h-5 w-5" />
-    if (isTablet) return <Tablet className="h-5 w-5" />
-    return <Monitor className="h-5 w-5" />
-  }
+    if (isMobile) return <Smartphone className="h-5 w-5" />;
+    if (isTablet) return <Tablet className="h-5 w-5" />;
+    return <Monitor className="h-5 w-5" />;
+  };
 
   return (
     <ResponsiveLayout>
@@ -114,7 +114,7 @@ export default function LayoutSettingsPage() {
                 </div>
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
                   <div className="text-2xl font-bold text-orange-600">
-                    {isMobile ? "移动" : isTablet ? "平板" : "桌面"}
+                    {isMobile ? '移动' : isTablet ? '平板' : '桌面'}
                   </div>
                   <div className="text-sm text-gray-500">设备类型</div>
                 </div>
@@ -486,5 +486,5 @@ export default function LayoutSettingsPage() {
         </div>
       </ResponsiveContainer>
     </ResponsiveLayout>
-  )
+  );
 }

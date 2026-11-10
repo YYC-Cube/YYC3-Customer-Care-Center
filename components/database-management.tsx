@@ -10,19 +10,19 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Progress } from "@/components/ui/progress"
-import { Alert, AlertDescription } from "@/components/ui/alert"
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Progress } from '@/components/ui/progress';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import {
   Dialog,
   DialogContent,
@@ -30,8 +30,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+} from '@/components/ui/dialog';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
   Database,
   Server,
@@ -48,17 +48,17 @@ import {
   BarChart3,
   Clock,
   Shield,
-} from "lucide-react"
+} from 'lucide-react';
 
 interface DatabaseConnection {
   id: string
   name: string
-  type: "mysql" | "postgresql" | "mongodb" | "redis" | "sqlite"
+  type: 'mysql' | 'postgresql' | 'mongodb' | 'redis' | 'sqlite'
   host: string
   port: number
   database: string
   username: string
-  status: "connected" | "disconnected" | "error"
+  status: 'connected' | 'disconnected' | 'error'
   lastConnected: Date
   connectionPool: {
     active: number
@@ -85,9 +85,9 @@ interface BackupJob {
   id: string
   name: string
   database: string
-  type: "full" | "incremental" | "differential"
+  type: 'full' | 'incremental' | 'differential'
   schedule: string
-  status: "running" | "completed" | "failed" | "scheduled"
+  status: 'running' | 'completed' | 'failed' | 'scheduled'
   lastRun: Date
   nextRun: Date
   size: string
@@ -100,141 +100,141 @@ interface QueryLog {
   database: string
   duration: number
   timestamp: Date
-  status: "success" | "error"
+  status: 'success' | 'error'
   rows: number
 }
 
 export function DatabaseManagement() {
   const [connections, setConnections] = useState<DatabaseConnection[]>([
     {
-      id: "main_db",
-      name: "主数据库",
-      type: "mysql",
-      host: "localhost",
+      id: 'main_db',
+      name: '主数据库',
+      type: 'mysql',
+      host: 'localhost',
       port: 3306,
-      database: "enterprise_db",
-      username: "admin",
-      status: "connected",
+      database: 'enterprise_db',
+      username: 'admin',
+      status: 'connected',
       lastConnected: new Date(),
       connectionPool: { active: 15, idle: 5, max: 50 },
       performance: { queryTime: 45.2, throughput: 1250, errorRate: 0.02 },
     },
     {
-      id: "cache_db",
-      name: "缓存数据库",
-      type: "redis",
-      host: "localhost",
+      id: 'cache_db',
+      name: '缓存数据库',
+      type: 'redis',
+      host: 'localhost',
       port: 6379,
-      database: "0",
-      username: "default",
-      status: "connected",
+      database: '0',
+      username: 'default',
+      status: 'connected',
       lastConnected: new Date(),
       connectionPool: { active: 8, idle: 2, max: 20 },
       performance: { queryTime: 2.1, throughput: 5000, errorRate: 0.001 },
     },
     {
-      id: "analytics_db",
-      name: "分析数据库",
-      type: "postgresql",
-      host: "analytics.internal",
+      id: 'analytics_db',
+      name: '分析数据库',
+      type: 'postgresql',
+      host: 'analytics.internal',
       port: 5432,
-      database: "analytics",
-      username: "analyst",
-      status: "error",
+      database: 'analytics',
+      username: 'analyst',
+      status: 'error',
       lastConnected: new Date(Date.now() - 3600000),
       connectionPool: { active: 0, idle: 0, max: 30 },
       performance: { queryTime: 0, throughput: 0, errorRate: 1.0 },
     },
-  ])
+  ]);
 
   const [tables, setTables] = useState<DatabaseTable[]>([
     {
-      name: "customers",
+      name: 'customers',
       rows: 15420,
-      size: "2.3 MB",
-      engine: "InnoDB",
-      collation: "utf8mb4_unicode_ci",
+      size: '2.3 MB',
+      engine: 'InnoDB',
+      collation: 'utf8mb4_unicode_ci',
       lastUpdated: new Date(),
     },
     {
-      name: "orders",
+      name: 'orders',
       rows: 45680,
-      size: "8.7 MB",
-      engine: "InnoDB",
-      collation: "utf8mb4_unicode_ci",
+      size: '8.7 MB',
+      engine: 'InnoDB',
+      collation: 'utf8mb4_unicode_ci',
       lastUpdated: new Date(Date.now() - 1800000),
     },
     {
-      name: "products",
+      name: 'products',
       rows: 2340,
-      size: "1.1 MB",
-      engine: "InnoDB",
-      collation: "utf8mb4_unicode_ci",
+      size: '1.1 MB',
+      engine: 'InnoDB',
+      collation: 'utf8mb4_unicode_ci',
       lastUpdated: new Date(Date.now() - 3600000),
     },
-  ])
+  ]);
 
   const [backupJobs, setBackupJobs] = useState<BackupJob[]>([
     {
-      id: "daily_backup",
-      name: "每日全量备份",
-      database: "enterprise_db",
-      type: "full",
-      schedule: "0 2 * * *",
-      status: "completed",
+      id: 'daily_backup',
+      name: '每日全量备份',
+      database: 'enterprise_db',
+      type: 'full',
+      schedule: '0 2 * * *',
+      status: 'completed',
       lastRun: new Date(Date.now() - 86400000),
       nextRun: new Date(Date.now() + 86400000 - (Date.now() % 86400000)),
-      size: "1.2 GB",
+      size: '1.2 GB',
       duration: 1800,
     },
     {
-      id: "hourly_backup",
-      name: "每小时增量备份",
-      database: "enterprise_db",
-      type: "incremental",
-      schedule: "0 * * * *",
-      status: "running",
+      id: 'hourly_backup',
+      name: '每小时增量备份',
+      database: 'enterprise_db',
+      type: 'incremental',
+      schedule: '0 * * * *',
+      status: 'running',
       lastRun: new Date(Date.now() - 3600000),
       nextRun: new Date(Date.now() + 3600000 - (Date.now() % 3600000)),
-      size: "45 MB",
+      size: '45 MB',
       duration: 120,
     },
-  ])
+  ]);
 
   const [queryLogs, setQueryLogs] = useState<QueryLog[]>([
     {
-      id: "1",
-      query: "SELECT * FROM customers WHERE status = 'active'",
-      database: "enterprise_db",
+      id: '1',
+      query: 'SELECT * FROM customers WHERE status = \'active\'',
+      database: 'enterprise_db',
       duration: 23.5,
       timestamp: new Date(),
-      status: "success",
+      status: 'success',
       rows: 1247,
     },
     {
-      id: "2",
-      query: "UPDATE orders SET status = 'shipped' WHERE id IN (...)",
-      database: "enterprise_db",
+      id: '2',
+      query: 'UPDATE orders SET status = \'shipped\' WHERE id IN (...)',
+      database: 'enterprise_db',
       duration: 156.8,
       timestamp: new Date(Date.now() - 300000),
-      status: "success",
+      status: 'success',
       rows: 45,
     },
     {
-      id: "3",
-      query: "SELECT COUNT(*) FROM products WHERE category = 'electronics'",
-      database: "enterprise_db",
+      id: '3',
+      query: 'SELECT COUNT(*) FROM products WHERE category = \'electronics\'',
+      database: 'enterprise_db',
       duration: 2.1,
       timestamp: new Date(Date.now() - 600000),
-      status: "success",
+      status: 'success',
       rows: 1,
     },
-  ])
+  ]);
 
-  const [selectedConnection, setSelectedConnection] = useState<string>("main_db")
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
-  const [queryInput, setQueryInput] = useState("")
-  const [isExecutingQuery, setIsExecutingQuery] = useState(false)
+  const [selectedConnection, setSelectedConnection] = useState<string>('main_db');
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [queryInput, setQueryInput] = useState('');
+  const [isExecutingQuery, setIsExecutingQuery] = useState(false);
 
   // 模拟实时数据更新
   useEffect(() => {
@@ -255,71 +255,71 @@ export function DatabaseManagement() {
             ),
           },
         })),
-      )
-    }, 5000)
+      );
+    }, 5000);
 
-    return () => clearInterval(interval)
-  }, [])
+    return () => clearInterval(interval);
+  }, []);
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "connected":
-      case "completed":
-      case "success":
-        return "bg-green-100 text-green-800"
-      case "disconnected":
-      case "scheduled":
-        return "bg-gray-100 text-gray-800"
-      case "error":
-      case "failed":
-        return "bg-red-100 text-red-800"
-      case "running":
-        return "bg-blue-100 text-blue-800"
-      default:
-        return "bg-gray-100 text-gray-800"
+    case 'connected':
+    case 'completed':
+    case 'success':
+      return 'bg-green-100 text-green-800';
+    case 'disconnected':
+    case 'scheduled':
+      return 'bg-gray-100 text-gray-800';
+    case 'error':
+    case 'failed':
+      return 'bg-red-100 text-red-800';
+    case 'running':
+      return 'bg-blue-100 text-blue-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
     }
-  }
+  };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case "connected":
-      case "completed":
-      case "success":
-        return <CheckCircle className="w-4 h-4 text-green-600" />
-      case "error":
-      case "failed":
-        return <AlertTriangle className="w-4 h-4 text-red-600" />
-      case "running":
-        return <RefreshCw className="w-4 h-4 text-blue-600 animate-spin" />
-      default:
-        return <Clock className="w-4 h-4 text-gray-600" />
+    case 'connected':
+    case 'completed':
+    case 'success':
+      return <CheckCircle className="w-4 h-4 text-green-600" />;
+    case 'error':
+    case 'failed':
+      return <AlertTriangle className="w-4 h-4 text-red-600" />;
+    case 'running':
+      return <RefreshCw className="w-4 h-4 text-blue-600 animate-spin" />;
+    default:
+      return <Clock className="w-4 h-4 text-gray-600" />;
     }
-  }
+  };
 
   const getDatabaseIcon = (type: string) => {
     switch (type) {
-      case "mysql":
-        return <Database className="w-5 h-5 text-blue-600" />
-      case "postgresql":
-        return <Database className="w-5 h-5 text-blue-800" />
-      case "mongodb":
-        return <Database className="w-5 h-5 text-green-600" />
-      case "redis":
-        return <Server className="w-5 h-5 text-red-600" />
-      case "sqlite":
-        return <HardDrive className="w-5 h-5 text-gray-600" />
-      default:
-        return <Database className="w-5 h-5 text-gray-600" />
+    case 'mysql':
+      return <Database className="w-5 h-5 text-blue-600" />;
+    case 'postgresql':
+      return <Database className="w-5 h-5 text-blue-800" />;
+    case 'mongodb':
+      return <Database className="w-5 h-5 text-green-600" />;
+    case 'redis':
+      return <Server className="w-5 h-5 text-red-600" />;
+    case 'sqlite':
+      return <HardDrive className="w-5 h-5 text-gray-600" />;
+    default:
+      return <Database className="w-5 h-5 text-gray-600" />;
     }
-  }
+  };
 
   const executeQuery = async () => {
-    if (!queryInput.trim()) return
+    if (!queryInput.trim()) return;
 
-    setIsExecutingQuery(true)
+    setIsExecutingQuery(true);
     try {
       // 模拟查询执行
-      await new Promise((resolve) => setTimeout(resolve, 1000 + Math.random() * 2000))
+      await new Promise((resolve) => setTimeout(resolve, 1000 + Math.random() * 2000));
 
       const newLog: QueryLog = {
         id: Date.now().toString(),
@@ -327,18 +327,18 @@ export function DatabaseManagement() {
         database: selectedConnection,
         duration: Math.random() * 100 + 10,
         timestamp: new Date(),
-        status: Math.random() > 0.1 ? "success" : "error",
+        status: Math.random() > 0.1 ? 'success' : 'error',
         rows: Math.floor(Math.random() * 1000),
-      }
+      };
 
-      setQueryLogs((prev) => [newLog, ...prev.slice(0, 9)])
-      setQueryInput("")
+      setQueryLogs((prev) => [newLog, ...prev.slice(0, 9)]);
+      setQueryInput('');
     } catch (error) {
-      console.error("查询执行失败:", error)
+      console.error('查询执行失败:', error);
     } finally {
-      setIsExecutingQuery(false)
+      setIsExecutingQuery(false);
     }
-  }
+  };
 
   return (
     <div className="p-6 space-y-6">
@@ -382,7 +382,7 @@ export function DatabaseManagement() {
           <CardContent>
             <div className="text-3xl font-bold">{connections.length}</div>
             <p className="text-sm text-muted-foreground">
-              活跃: {connections.filter((c) => c.status === "connected").length}
+              活跃: {connections.filter((c) => c.status === 'connected').length}
             </p>
           </CardContent>
         </Card>
@@ -464,7 +464,7 @@ export function DatabaseManagement() {
                       <Badge className={getStatusColor(conn.status)}>
                         {getStatusIcon(conn.status)}
                         <span className="ml-1">
-                          {conn.status === "connected" ? "已连接" : conn.status === "disconnected" ? "已断开" : "错误"}
+                          {conn.status === 'connected' ? '已连接' : conn.status === 'disconnected' ? '已断开' : '错误'}
                         </span>
                       </Badge>
                     </div>
@@ -625,7 +625,7 @@ export function DatabaseManagement() {
                   </SelectTrigger>
                   <SelectContent>
                     {connections
-                      .filter((c) => c.status === "connected")
+                      .filter((c) => c.status === 'connected')
                       .map((conn) => (
                         <SelectItem key={conn.id} value={conn.id}>
                           {conn.name}
@@ -664,7 +664,7 @@ export function DatabaseManagement() {
                     </>
                   )}
                 </Button>
-                <Button variant="outline" onClick={() => setQueryInput("")}>
+                <Button variant="outline" onClick={() => setQueryInput('')}>
                   清空
                 </Button>
               </div>
@@ -694,7 +694,7 @@ export function DatabaseManagement() {
                     <code className="text-sm bg-gray-100 p-2 rounded block">{log.query}</code>
                     <div className="flex justify-between text-xs text-muted-foreground mt-2">
                       <span>返回行数: {log.rows}</span>
-                      <span>状态: {log.status === "success" ? "成功" : "失败"}</span>
+                      <span>状态: {log.status === 'success' ? '成功' : '失败'}</span>
                     </div>
                   </div>
                 ))}
@@ -720,20 +720,20 @@ export function DatabaseManagement() {
                     <div>
                       <CardTitle className="text-lg">{job.name}</CardTitle>
                       <CardDescription>
-                        {job.database} •{" "}
-                        {job.type === "full" ? "全量备份" : job.type === "incremental" ? "增量备份" : "差异备份"}
+                        {job.database} •{' '}
+                        {job.type === 'full' ? '全量备份' : job.type === 'incremental' ? '增量备份' : '差异备份'}
                       </CardDescription>
                     </div>
                     <Badge className={getStatusColor(job.status)}>
                       {getStatusIcon(job.status)}
                       <span className="ml-1">
-                        {job.status === "running"
-                          ? "运行中"
-                          : job.status === "completed"
-                            ? "已完成"
-                            : job.status === "failed"
-                              ? "失败"
-                              : "已计划"}
+                        {job.status === 'running'
+                          ? '运行中'
+                          : job.status === 'completed'
+                            ? '已完成'
+                            : job.status === 'failed'
+                              ? '失败'
+                              : '已计划'}
                       </span>
                     </Badge>
                   </div>
@@ -840,14 +840,14 @@ export function DatabaseManagement() {
             <CardContent>
               <div className="space-y-3">
                 {connections
-                  .filter((c) => c.status === "error" || c.performance.errorRate > 0.1)
+                  .filter((c) => c.status === 'error' || c.performance.errorRate > 0.1)
                   .map((conn) => (
                     <Alert key={conn.id} className="border-red-200 bg-red-50">
                       <AlertTriangle className="h-4 w-4" />
                       <AlertDescription>
                         <strong>{conn.name}</strong>:
-                        {conn.status === "error"
-                          ? " 连接失败"
+                        {conn.status === 'error'
+                          ? ' 连接失败'
                           : ` 错误率过高 (${(conn.performance.errorRate * 100).toFixed(2)}%)`}
                       </AlertDescription>
                     </Alert>
@@ -867,7 +867,7 @@ export function DatabaseManagement() {
 
                 {connections.every(
                   (c) =>
-                    c.status === "connected" &&
+                    c.status === 'connected' &&
                     c.performance.errorRate <= 0.1 &&
                     c.connectionPool.active / c.connectionPool.max <= 0.8,
                 ) && (
@@ -882,19 +882,19 @@ export function DatabaseManagement() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }
 
 function CreateConnectionForm({ onClose }: { onClose: () => void }) {
   const [formData, setFormData] = useState({
-    name: "",
-    type: "mysql",
-    host: "",
-    port: "",
-    database: "",
-    username: "",
-    password: "",
-  })
+    name: '',
+    type: 'mysql',
+    host: '',
+    port: '',
+    database: '',
+    username: '',
+    password: '',
+  });
 
   return (
     <div className="space-y-4">
@@ -989,5 +989,5 @@ function CreateConnectionForm({ onClose }: { onClose: () => void }) {
         </Button>
       </div>
     </div>
-  )
+  );
 }

@@ -10,15 +10,15 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Alert } from "@/components/ui/alert"
-import { Progress } from "@/components/ui/progress"
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Alert } from '@/components/ui/alert';
+import { Progress } from '@/components/ui/progress';
 import {
   Shield,
   AlertTriangle,
@@ -34,9 +34,9 @@ import {
   Smartphone,
   Monitor,
   Download,
-} from "lucide-react"
-import { permissionSystem, type SecurityAuditLog } from "@/lib/security/permission-system"
-import { useTranslation } from "@/components/i18n/language-switcher"
+} from 'lucide-react';
+import { permissionSystem, type SecurityAuditLog } from '@/lib/security/permission-system';
+import { useTranslation } from '@/components/i18n/language-switcher';
 
 interface SecurityMetrics {
   totalEvents: number
@@ -45,7 +45,7 @@ interface SecurityMetrics {
   suspiciousActivity: number
   activeUsers: number
   securityScore: number
-  riskLevel: "low" | "medium" | "high" | "critical"
+  riskLevel: 'low' | 'medium' | 'high' | 'critical'
   trends: {
     accessAttempts: number[]
     deniedRequests: number[]
@@ -55,8 +55,8 @@ interface SecurityMetrics {
 
 interface SecurityAlert {
   id: string
-  type: "multiple_failures" | "unusual_access" | "permission_escalation" | "data_breach"
-  severity: "low" | "medium" | "high" | "critical"
+  type: 'multiple_failures' | 'unusual_access' | 'permission_escalation' | 'data_breach'
+  severity: 'low' | 'medium' | 'high' | 'critical'
   title: string
   description: string
   timestamp: Date
@@ -66,82 +66,82 @@ interface SecurityAlert {
 }
 
 export function SecurityAuditDashboard() {
-  const { t } = useTranslation()
-  const [auditLogs, setAuditLogs] = useState<SecurityAuditLog[]>([])
-  const [metrics, setMetrics] = useState<SecurityMetrics | null>(null)
-  const [alerts, setAlerts] = useState<SecurityAlert[]>([])
-  const [selectedTimeRange, setSelectedTimeRange] = useState<"1h" | "24h" | "7d" | "30d">("24h")
-  const [loading, setLoading] = useState(true)
+  const { t } = useTranslation();
+  const [auditLogs, setAuditLogs] = useState<SecurityAuditLog[]>([]);
+  const [metrics, setMetrics] = useState<SecurityMetrics | null>(null);
+  const [alerts, setAlerts] = useState<SecurityAlert[]>([]);
+  const [selectedTimeRange, setSelectedTimeRange] = useState<'1h' | '24h' | '7d' | '30d'>('24h');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadSecurityData()
+    loadSecurityData();
 
     // 定期刷新数据
-    const interval = setInterval(loadSecurityData, 30000) // 30秒刷新一次
+    const interval = setInterval(loadSecurityData, 30000); // 30秒刷新一次
 
-    return () => clearInterval(interval)
-  }, [selectedTimeRange])
+    return () => clearInterval(interval);
+  }, [selectedTimeRange]);
 
   const loadSecurityData = async () => {
-    setLoading(true)
+    setLoading(true);
 
     try {
       // 获取审计日志
-      const logs = permissionSystem.getAuditLog()
-      setAuditLogs(logs)
+      const logs = permissionSystem.getAuditLog();
+      setAuditLogs(logs);
 
       // 计算安全指标
-      const calculatedMetrics = calculateSecurityMetrics(logs)
-      setMetrics(calculatedMetrics)
+      const calculatedMetrics = calculateSecurityMetrics(logs);
+      setMetrics(calculatedMetrics);
 
       // 生成安全警报
-      const generatedAlerts = generateSecurityAlerts(logs)
-      setAlerts(generatedAlerts)
+      const generatedAlerts = generateSecurityAlerts(logs);
+      setAlerts(generatedAlerts);
     } catch (error) {
-      console.error("加载安全数据失败:", error)
+      console.error('加载安全数据失败:', error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const calculateSecurityMetrics = (logs: SecurityAuditLog[]): SecurityMetrics => {
-    const now = Date.now()
+    const now = Date.now();
     const timeRanges = {
-      "1h": 60 * 60 * 1000,
-      "24h": 24 * 60 * 60 * 1000,
-      "7d": 7 * 24 * 60 * 60 * 1000,
-      "30d": 30 * 24 * 60 * 60 * 1000,
-    }
+      '1h': 60 * 60 * 1000,
+      '24h': 24 * 60 * 60 * 1000,
+      '7d': 7 * 24 * 60 * 60 * 1000,
+      '30d': 30 * 24 * 60 * 60 * 1000,
+    };
 
-    const cutoffTime = now - timeRanges[selectedTimeRange]
-    const recentLogs = logs.filter((log) => log.timestamp.getTime() > cutoffTime)
+    const cutoffTime = now - timeRanges[selectedTimeRange];
+    const recentLogs = logs.filter((log) => log.timestamp.getTime() > cutoffTime);
 
-    const totalEvents = recentLogs.length
-    const successfulAccess = recentLogs.filter((log) => log.type === "permission_granted").length
-    const deniedAccess = recentLogs.filter((log) => log.type === "permission_denied").length
+    const totalEvents = recentLogs.length;
+    const successfulAccess = recentLogs.filter((log) => log.type === 'permission_granted').length;
+    const deniedAccess = recentLogs.filter((log) => log.type === 'permission_denied').length;
     const suspiciousActivity = recentLogs.filter(
-      (log) => log.type === "permission_condition_failed" || log.type === "permission_check_error",
-    ).length
+      (log) => log.type === 'permission_condition_failed' || log.type === 'permission_check_error',
+    ).length;
 
-    const uniqueUsers = new Set(recentLogs.map((log) => log.userId)).size
+    const uniqueUsers = new Set(recentLogs.map((log) => log.userId)).size;
 
     // 计算安全评分 (0-100)
-    const successRate = totalEvents > 0 ? (successfulAccess / totalEvents) * 100 : 100
-    const suspiciousRate = totalEvents > 0 ? (suspiciousActivity / totalEvents) * 100 : 0
-    const securityScore = Math.max(0, Math.min(100, successRate - suspiciousRate * 2))
+    const successRate = totalEvents > 0 ? (successfulAccess / totalEvents) * 100 : 100;
+    const suspiciousRate = totalEvents > 0 ? (suspiciousActivity / totalEvents) * 100 : 0;
+    const securityScore = Math.max(0, Math.min(100, successRate - suspiciousRate * 2));
 
     // 确定风险等级
-    let riskLevel: "low" | "medium" | "high" | "critical" = "low"
-    if (securityScore < 50) riskLevel = "critical"
-    else if (securityScore < 70) riskLevel = "high"
-    else if (securityScore < 85) riskLevel = "medium"
+    let riskLevel: 'low' | 'medium' | 'high' | 'critical' = 'low';
+    if (securityScore < 50) riskLevel = 'critical';
+    else if (securityScore < 70) riskLevel = 'high';
+    else if (securityScore < 85) riskLevel = 'medium';
 
     // 生成趋势数据（简化版）
     const trends = {
       accessAttempts: Array.from({ length: 24 }, (_, i) => Math.floor(Math.random() * 50)),
       deniedRequests: Array.from({ length: 24 }, (_, i) => Math.floor(Math.random() * 10)),
       suspiciousEvents: Array.from({ length: 24 }, (_, i) => Math.floor(Math.random() * 5)),
-    }
+    };
 
     return {
       totalEvents,
@@ -152,96 +152,96 @@ export function SecurityAuditDashboard() {
       securityScore,
       riskLevel,
       trends,
-    }
-  }
+    };
+  };
 
   const generateSecurityAlerts = (logs: SecurityAuditLog[]): SecurityAlert[] => {
-    const alerts: SecurityAlert[] = []
+    const alerts: SecurityAlert[] = [];
 
     // 检查多次失败登录
-    const deniedLogs = logs.filter((log) => log.type === "permission_denied")
-    const userFailures = new Map<string, number>()
+    const deniedLogs = logs.filter((log) => log.type === 'permission_denied');
+    const userFailures = new Map<string, number>();
 
     deniedLogs.forEach((log) => {
-      const count = userFailures.get(log.userId) || 0
-      userFailures.set(log.userId, count + 1)
-    })
+      const count = userFailures.get(log.userId) || 0;
+      userFailures.set(log.userId, count + 1);
+    });
 
     userFailures.forEach((count, userId) => {
       if (count >= 5) {
         alerts.push({
           id: `multiple_failures_${userId}`,
-          type: "multiple_failures",
-          severity: count >= 10 ? "critical" : "high",
-          title: "多次访问失败",
+          type: 'multiple_failures',
+          severity: count >= 10 ? 'critical' : 'high',
+          title: '多次访问失败',
           description: `用户 ${userId} 在短时间内有 ${count} 次访问失败`,
           timestamp: new Date(),
           userId,
           resolved: false,
-        })
+        });
       }
-    })
+    });
 
     // 检查异常访问时间
     const nightAccess = logs.filter((log) => {
-      const hour = log.timestamp.getHours()
-      return hour < 6 || hour > 22
-    })
+      const hour = log.timestamp.getHours();
+      return hour < 6 || hour > 22;
+    });
 
     if (nightAccess.length > 10) {
       alerts.push({
-        id: "unusual_access_time",
-        type: "unusual_access",
-        severity: "medium",
-        title: "异常访问时间",
+        id: 'unusual_access_time',
+        type: 'unusual_access',
+        severity: 'medium',
+        title: '异常访问时间',
         description: `检测到 ${nightAccess.length} 次非工作时间访问`,
         timestamp: new Date(),
         resolved: false,
-      })
+      });
     }
 
-    return alerts
-  }
+    return alerts;
+  };
 
   const getRiskLevelColor = (level: string) => {
     switch (level) {
-      case "low":
-        return "text-green-600 bg-green-100"
-      case "medium":
-        return "text-yellow-600 bg-yellow-100"
-      case "high":
-        return "text-orange-600 bg-orange-100"
-      case "critical":
-        return "text-red-600 bg-red-100"
-      default:
-        return "text-gray-600 bg-gray-100"
+    case 'low':
+      return 'text-green-600 bg-green-100';
+    case 'medium':
+      return 'text-yellow-600 bg-yellow-100';
+    case 'high':
+      return 'text-orange-600 bg-orange-100';
+    case 'critical':
+      return 'text-red-600 bg-red-100';
+    default:
+      return 'text-gray-600 bg-gray-100';
     }
-  }
+  };
 
   const getSeverityIcon = (severity: string) => {
     switch (severity) {
-      case "low":
-        return <CheckCircle className="h-4 w-4 text-green-500" />
-      case "medium":
-        return <AlertTriangle className="h-4 w-4 text-yellow-500" />
-      case "high":
-        return <AlertTriangle className="h-4 w-4 text-orange-500" />
-      case "critical":
-        return <XCircle className="h-4 w-4 text-red-500" />
-      default:
-        return <Eye className="h-4 w-4 text-gray-500" />
+    case 'low':
+      return <CheckCircle className="h-4 w-4 text-green-500" />;
+    case 'medium':
+      return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
+    case 'high':
+      return <AlertTriangle className="h-4 w-4 text-orange-500" />;
+    case 'critical':
+      return <XCircle className="h-4 w-4 text-red-500" />;
+    default:
+      return <Eye className="h-4 w-4 text-gray-500" />;
     }
-  }
+  };
 
   const formatEventType = (type: string) => {
     const types: Record<string, string> = {
-      permission_granted: "权限授予",
-      permission_denied: "权限拒绝",
-      permission_condition_failed: "条件检查失败",
-      permission_check_error: "权限检查错误",
-    }
-    return types[type] || type
-  }
+      permission_granted: '权限授予',
+      permission_denied: '权限拒绝',
+      permission_condition_failed: '条件检查失败',
+      permission_check_error: '权限检查错误',
+    };
+    return types[type] || type;
+  };
 
   if (loading) {
     return (
@@ -249,7 +249,7 @@ export function SecurityAuditDashboard() {
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
         <span className="ml-3">加载安全数据中...</span>
       </div>
-    )
+    );
   }
 
   return (
@@ -263,29 +263,29 @@ export function SecurityAuditDashboard() {
         <div className="flex space-x-2">
           <Button
             variant="outline"
-            onClick={() => setSelectedTimeRange("1h")}
-            className={selectedTimeRange === "1h" ? "bg-blue-50 border-blue-300" : ""}
+            onClick={() => setSelectedTimeRange('1h')}
+            className={selectedTimeRange === '1h' ? 'bg-blue-50 border-blue-300' : ''}
           >
             1小时
           </Button>
           <Button
             variant="outline"
-            onClick={() => setSelectedTimeRange("24h")}
-            className={selectedTimeRange === "24h" ? "bg-blue-50 border-blue-300" : ""}
+            onClick={() => setSelectedTimeRange('24h')}
+            className={selectedTimeRange === '24h' ? 'bg-blue-50 border-blue-300' : ''}
           >
             24小时
           </Button>
           <Button
             variant="outline"
-            onClick={() => setSelectedTimeRange("7d")}
-            className={selectedTimeRange === "7d" ? "bg-blue-50 border-blue-300" : ""}
+            onClick={() => setSelectedTimeRange('7d')}
+            className={selectedTimeRange === '7d' ? 'bg-blue-50 border-blue-300' : ''}
           >
             7天
           </Button>
           <Button
             variant="outline"
-            onClick={() => setSelectedTimeRange("30d")}
-            className={selectedTimeRange === "30d" ? "bg-blue-50 border-blue-300" : ""}
+            onClick={() => setSelectedTimeRange('30d')}
+            className={selectedTimeRange === '30d' ? 'bg-blue-50 border-blue-300' : ''}
           >
             30天
           </Button>
@@ -386,13 +386,13 @@ export function SecurityAuditDashboard() {
                 <Alert
                   key={alert.id}
                   className={`border-l-4 ${
-                    alert.severity === "critical"
-                      ? "border-l-red-500 bg-red-50"
-                      : alert.severity === "high"
-                        ? "border-l-orange-500 bg-orange-50"
-                        : alert.severity === "medium"
-                          ? "border-l-yellow-500 bg-yellow-50"
-                          : "border-l-blue-500 bg-blue-50"
+                    alert.severity === 'critical'
+                      ? 'border-l-red-500 bg-red-50'
+                      : alert.severity === 'high'
+                        ? 'border-l-orange-500 bg-orange-50'
+                        : alert.severity === 'medium'
+                          ? 'border-l-yellow-500 bg-yellow-50'
+                          : 'border-l-blue-500 bg-blue-50'
                   }`}
                 >
                   <div className="flex items-start justify-between">
@@ -404,7 +404,7 @@ export function SecurityAuditDashboard() {
                         <div className="flex items-center space-x-4 mt-2 text-xs text-gray-500">
                           <span className="flex items-center">
                             <Clock className="h-3 w-3 mr-1" />
-                            {alert.timestamp.toLocaleString("zh-CN")}
+                            {alert.timestamp.toLocaleString('zh-CN')}
                           </span>
                           {alert.userId && (
                             <span className="flex items-center">
@@ -421,8 +421,8 @@ export function SecurityAuditDashboard() {
                         </div>
                       </div>
                     </div>
-                    <Badge variant={alert.resolved ? "secondary" : "destructive"}>
-                      {alert.resolved ? "已处理" : "待处理"}
+                    <Badge variant={alert.resolved ? 'secondary' : 'destructive'}>
+                      {alert.resolved ? '已处理' : '待处理'}
                     </Badge>
                   </div>
                 </Alert>
@@ -453,9 +453,9 @@ export function SecurityAuditDashboard() {
                   <div key={index} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
                     <div className="flex items-center space-x-4">
                       <div className="flex-shrink-0">
-                        {log.type === "permission_granted" ? (
+                        {log.type === 'permission_granted' ? (
                           <CheckCircle className="h-5 w-5 text-green-500" />
-                        ) : log.type === "permission_denied" ? (
+                        ) : log.type === 'permission_denied' ? (
                           <XCircle className="h-5 w-5 text-red-500" />
                         ) : (
                           <AlertTriangle className="h-5 w-5 text-yellow-500" />
@@ -475,7 +475,7 @@ export function SecurityAuditDashboard() {
                           </span>
                           <span className="flex items-center">
                             <Clock className="h-3 w-3 mr-1" />
-                            {log.timestamp.toLocaleString("zh-CN")}
+                            {log.timestamp.toLocaleString('zh-CN')}
                           </span>
                           {log.context.ip && (
                             <span className="flex items-center">
@@ -485,12 +485,12 @@ export function SecurityAuditDashboard() {
                           )}
                           {log.context.userAgent && (
                             <span className="flex items-center">
-                              {log.context.userAgent.includes("Mobile") ? (
+                              {log.context.userAgent.includes('Mobile') ? (
                                 <Smartphone className="h-3 w-3 mr-1" />
                               ) : (
                                 <Monitor className="h-3 w-3 mr-1" />
                               )}
-                              {log.context.userAgent.includes("Mobile") ? "移动端" : "桌面端"}
+                              {log.context.userAgent.includes('Mobile') ? '移动端' : '桌面端'}
                             </span>
                           )}
                         </div>
@@ -549,5 +549,5 @@ export function SecurityAuditDashboard() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

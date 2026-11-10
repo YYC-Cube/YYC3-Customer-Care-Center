@@ -10,26 +10,26 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { GitBranch, ArrowRight, AlertTriangle, CheckCircle, Clock, Plus } from "lucide-react"
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { GitBranch, ArrowRight, AlertTriangle, CheckCircle, Clock, Plus } from 'lucide-react';
 
 interface TaskDependency {
   id: string
   fromTask: string
   toTask: string
-  type: "finish-to-start" | "start-to-start" | "finish-to-finish"
-  status: "active" | "completed" | "blocked"
+  type: 'finish-to-start' | 'start-to-start' | 'finish-to-finish'
+  status: 'active' | 'completed' | 'blocked'
 }
 
 interface TaskNode {
   id: string
   title: string
-  status: "todo" | "in-progress" | "completed"
+  status: 'todo' | 'in-progress' | 'completed'
   assignee: string
   dueDate: string
 }
@@ -37,97 +37,97 @@ interface TaskNode {
 export function TaskDependencies() {
   const [dependencies] = useState<TaskDependency[]>([
     {
-      id: "1",
-      fromTask: "需求分析",
-      toTask: "原型设计",
-      type: "finish-to-start",
-      status: "completed",
+      id: '1',
+      fromTask: '需求分析',
+      toTask: '原型设计',
+      type: 'finish-to-start',
+      status: 'completed',
     },
     {
-      id: "2",
-      fromTask: "原型设计",
-      toTask: "UI设计",
-      type: "finish-to-start",
-      status: "active",
+      id: '2',
+      fromTask: '原型设计',
+      toTask: 'UI设计',
+      type: 'finish-to-start',
+      status: 'active',
     },
     {
-      id: "3",
-      fromTask: "UI设计",
-      toTask: "前端开发",
-      type: "finish-to-start",
-      status: "blocked",
+      id: '3',
+      fromTask: 'UI设计',
+      toTask: '前端开发',
+      type: 'finish-to-start',
+      status: 'blocked',
     },
-  ])
+  ]);
 
   const [tasks] = useState<TaskNode[]>([
     {
-      id: "1",
-      title: "需求分析",
-      status: "completed",
-      assignee: "产品经理",
-      dueDate: "2025-06-15",
+      id: '1',
+      title: '需求分析',
+      status: 'completed',
+      assignee: '产品经理',
+      dueDate: '2025-06-15',
     },
     {
-      id: "2",
-      title: "原型设计",
-      status: "in-progress",
-      assignee: "设计师",
-      dueDate: "2025-06-25",
+      id: '2',
+      title: '原型设计',
+      status: 'in-progress',
+      assignee: '设计师',
+      dueDate: '2025-06-25',
     },
     {
-      id: "3",
-      title: "UI设计",
-      status: "todo",
-      assignee: "UI设计师",
-      dueDate: "2025-07-05",
+      id: '3',
+      title: 'UI设计',
+      status: 'todo',
+      assignee: 'UI设计师',
+      dueDate: '2025-07-05',
     },
     {
-      id: "4",
-      title: "前端开发",
-      status: "todo",
-      assignee: "前端工程师",
-      dueDate: "2025-07-15",
+      id: '4',
+      title: '前端开发',
+      status: 'todo',
+      assignee: '前端工程师',
+      dueDate: '2025-07-15',
     },
-  ])
+  ]);
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case "completed":
-        return <CheckCircle className="w-4 h-4 text-green-500" />
-      case "in-progress":
-        return <Clock className="w-4 h-4 text-blue-500" />
-      case "blocked":
-        return <AlertTriangle className="w-4 h-4 text-red-500" />
-      default:
-        return <Clock className="w-4 h-4 text-gray-400" />
+    case 'completed':
+      return <CheckCircle className="w-4 h-4 text-green-500" />;
+    case 'in-progress':
+      return <Clock className="w-4 h-4 text-blue-500" />;
+    case 'blocked':
+      return <AlertTriangle className="w-4 h-4 text-red-500" />;
+    default:
+      return <Clock className="w-4 h-4 text-gray-400" />;
     }
-  }
+  };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case "completed":
-        return <Badge className="bg-green-100 text-green-800">已完成</Badge>
-      case "in-progress":
-        return <Badge className="bg-blue-100 text-blue-800">进行中</Badge>
-      case "todo":
-        return <Badge className="bg-gray-100 text-gray-800">待开始</Badge>
-      default:
-        return <Badge variant="secondary">未知</Badge>
+    case 'completed':
+      return <Badge className="bg-green-100 text-green-800">已完成</Badge>;
+    case 'in-progress':
+      return <Badge className="bg-blue-100 text-blue-800">进行中</Badge>;
+    case 'todo':
+      return <Badge className="bg-gray-100 text-gray-800">待开始</Badge>;
+    default:
+      return <Badge variant="secondary">未知</Badge>;
     }
-  }
+  };
 
   const getDependencyStatus = (status: string) => {
     switch (status) {
-      case "completed":
-        return <Badge className="bg-green-100 text-green-800">已完成</Badge>
-      case "active":
-        return <Badge className="bg-blue-100 text-blue-800">进行中</Badge>
-      case "blocked":
-        return <Badge className="bg-red-100 text-red-800">阻塞</Badge>
-      default:
-        return <Badge variant="secondary">未知</Badge>
+    case 'completed':
+      return <Badge className="bg-green-100 text-green-800">已完成</Badge>;
+    case 'active':
+      return <Badge className="bg-blue-100 text-blue-800">进行中</Badge>;
+    case 'blocked':
+      return <Badge className="bg-red-100 text-red-800">阻塞</Badge>;
+    default:
+      return <Badge variant="secondary">未知</Badge>;
     }
-  }
+  };
 
   return (
     <div className="space-y-6">
@@ -157,11 +157,11 @@ export function TaskDependencies() {
                 </div>
                 <div className="flex items-center space-x-2">
                   <Badge variant="outline" className="text-xs">
-                    {dep.type === "finish-to-start"
-                      ? "完成后开始"
-                      : dep.type === "start-to-start"
-                        ? "同时开始"
-                        : "同时完成"}
+                    {dep.type === 'finish-to-start'
+                      ? '完成后开始'
+                      : dep.type === 'start-to-start'
+                        ? '同时开始'
+                        : '同时完成'}
                   </Badge>
                   {getDependencyStatus(dep.status)}
                 </div>
@@ -202,5 +202,5 @@ export function TaskDependencies() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

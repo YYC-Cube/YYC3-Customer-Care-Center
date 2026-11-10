@@ -10,16 +10,16 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { useSearchParams } from "next/navigation"
-import { MeetingRoomManager } from "@/components/meeting-room-manager"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Video, Calendar, Clock, Users, Plus, Settings, Monitor, Play, Square } from "lucide-react"
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { MeetingRoomManager } from '@/components/meeting-room-manager';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Video, Calendar, Clock, Users, Plus, Settings, Monitor, Play, Square } from 'lucide-react';
 
 interface ScheduledMeeting {
   id: string
@@ -29,16 +29,16 @@ interface ScheduledMeeting {
   endTime: Date
   organizer: string
   participants: string[]
-  status: "upcoming" | "ongoing" | "ended"
+  status: 'upcoming' | 'ongoing' | 'ended'
   roomUrl: string
 }
 
 export default function MeetingsPage() {
-  const searchParams = useSearchParams()
-  const [selectedMeetingId, setSelectedMeetingId] = useState<string | undefined>(searchParams.get("id") || undefined)
-  const [currentUserId] = useState("current-user")
-  const [meetings, setMeetings] = useState<ScheduledMeeting[]>([])
-  const [showMeetingRoom, setShowMeetingRoom] = useState(false)
+  const searchParams = useSearchParams();
+  const [selectedMeetingId, setSelectedMeetingId] = useState<string | undefined>(searchParams.get('id') || undefined);
+  const [currentUserId] = useState('current-user');
+  const [meetings, setMeetings] = useState<ScheduledMeeting[]>([]);
+  const [showMeetingRoom, setShowMeetingRoom] = useState(false);
 
   // 会议统计数据
   const [meetingStats, setMeetingStats] = useState({
@@ -46,99 +46,99 @@ export default function MeetingsPage() {
     ongoingMeetings: 2,
     totalParticipants: 34,
     averageDuration: 45,
-  })
+  });
 
   // 模拟会议数据
   useEffect(() => {
     const mockMeetings: ScheduledMeeting[] = [
       {
-        id: "meeting-1",
-        title: "产品开发周会",
-        description: "讨论本周产品开发进度和下周计划",
+        id: 'meeting-1',
+        title: '产品开发周会',
+        description: '讨论本周产品开发进度和下周计划',
         startTime: new Date(Date.now() + 30 * 60 * 1000), // 30分钟后
         endTime: new Date(Date.now() + 90 * 60 * 1000), // 90分钟后
-        organizer: "张产品经理",
-        participants: ["李开发", "王设计师", "陈测试"],
-        status: "upcoming",
-        roomUrl: "https://meet.company.com/room/meeting-1",
+        organizer: '张产品经理',
+        participants: ['李开发', '王设计师', '陈测试'],
+        status: 'upcoming',
+        roomUrl: 'https://meet.company.com/room/meeting-1',
       },
       {
-        id: "meeting-2",
-        title: "技术架构评审",
-        description: "新系统技术架构方案评审",
+        id: 'meeting-2',
+        title: '技术架构评审',
+        description: '新系统技术架构方案评审',
         startTime: new Date(Date.now() - 15 * 60 * 1000), // 15分钟前开始
         endTime: new Date(Date.now() + 45 * 60 * 1000), // 45分钟后结束
-        organizer: "李技术总监",
-        participants: ["张架构师", "王开发", "赵运维"],
-        status: "ongoing",
-        roomUrl: "https://meet.company.com/room/meeting-2",
+        organizer: '李技术总监',
+        participants: ['张架构师', '王开发', '赵运维'],
+        status: 'ongoing',
+        roomUrl: 'https://meet.company.com/room/meeting-2',
       },
       {
-        id: "meeting-3",
-        title: "客户需求讨论",
-        description: "与客户讨论新功能需求",
+        id: 'meeting-3',
+        title: '客户需求讨论',
+        description: '与客户讨论新功能需求',
         startTime: new Date(Date.now() + 2 * 60 * 60 * 1000), // 2小时后
         endTime: new Date(Date.now() + 3 * 60 * 60 * 1000), // 3小时后
-        organizer: "王销售经理",
-        participants: ["张产品经理", "李客服"],
-        status: "upcoming",
-        roomUrl: "https://meet.company.com/room/meeting-3",
+        organizer: '王销售经理',
+        participants: ['张产品经理', '李客服'],
+        status: 'upcoming',
+        roomUrl: 'https://meet.company.com/room/meeting-3',
       },
-    ]
-    setMeetings(mockMeetings)
-  }, [])
+    ];
+    setMeetings(mockMeetings);
+  }, []);
 
   const joinMeeting = (meetingId: string) => {
-    setSelectedMeetingId(meetingId)
-    setShowMeetingRoom(true)
-  }
+    setSelectedMeetingId(meetingId);
+    setShowMeetingRoom(true);
+  };
 
   const leaveMeeting = () => {
-    setShowMeetingRoom(false)
-    setSelectedMeetingId(undefined)
-  }
+    setShowMeetingRoom(false);
+    setSelectedMeetingId(undefined);
+  };
 
-  const getStatusColor = (status: ScheduledMeeting["status"]) => {
+  const getStatusColor = (status: ScheduledMeeting['status']) => {
     switch (status) {
-      case "upcoming":
-        return "bg-blue-100 text-blue-800"
-      case "ongoing":
-        return "bg-green-100 text-green-800"
-      case "ended":
-        return "bg-gray-100 text-gray-800"
-      default:
-        return "bg-gray-100 text-gray-800"
+    case 'upcoming':
+      return 'bg-blue-100 text-blue-800';
+    case 'ongoing':
+      return 'bg-green-100 text-green-800';
+    case 'ended':
+      return 'bg-gray-100 text-gray-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
     }
-  }
+  };
 
-  const getStatusText = (status: ScheduledMeeting["status"]) => {
+  const getStatusText = (status: ScheduledMeeting['status']) => {
     switch (status) {
-      case "upcoming":
-        return "即将开始"
-      case "ongoing":
-        return "进行中"
-      case "ended":
-        return "已结束"
-      default:
-        return "未知"
+    case 'upcoming':
+      return '即将开始';
+    case 'ongoing':
+      return '进行中';
+    case 'ended':
+      return '已结束';
+    default:
+      return '未知';
     }
-  }
+  };
 
   const formatTime = (date: Date) => {
-    return date.toLocaleTimeString("zh-CN", {
-      hour: "2-digit",
-      minute: "2-digit",
-    })
-  }
+    return date.toLocaleTimeString('zh-CN', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
 
   const formatDuration = (start: Date, end: Date) => {
-    const duration = end.getTime() - start.getTime()
-    const minutes = Math.floor(duration / (1000 * 60))
-    return `${minutes}分钟`
-  }
+    const duration = end.getTime() - start.getTime();
+    const minutes = Math.floor(duration / (1000 * 60));
+    return `${minutes}分钟`;
+  };
 
   if (showMeetingRoom && selectedMeetingId) {
-    return <MeetingRoomManager currentUserId={currentUserId} roomId={selectedMeetingId} />
+    return <MeetingRoomManager currentUserId={currentUserId} roomId={selectedMeetingId} />;
   }
 
   return (
@@ -249,7 +249,7 @@ export default function MeetingsPage() {
                     <div className="flex items-center space-x-3 mb-2">
                       <h3 className="font-medium text-lg text-blue-700">{meeting.title}</h3>
                       <Badge className={getStatusColor(meeting.status)}>{getStatusText(meeting.status)}</Badge>
-                      {meeting.status === "ongoing" && (
+                      {meeting.status === 'ongoing' && (
                         <Badge variant="destructive" className="animate-pulse">
                           <div className="w-2 h-2 bg-white rounded-full mr-2"></div>
                           直播中
@@ -307,7 +307,7 @@ export default function MeetingsPage() {
                   </div>
 
                   <div className="flex items-center space-x-2 ml-4">
-                    {meeting.status === "ongoing" ? (
+                    {meeting.status === 'ongoing' ? (
                       <Button
                         onClick={() => joinMeeting(meeting.id)}
                         className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group"
@@ -315,7 +315,7 @@ export default function MeetingsPage() {
                         <Video className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
                         加入会议
                       </Button>
-                    ) : meeting.status === "upcoming" ? (
+                    ) : meeting.status === 'upcoming' ? (
                       <>
                         <Button
                           variant="outline"
@@ -384,5 +384,5 @@ export default function MeetingsPage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

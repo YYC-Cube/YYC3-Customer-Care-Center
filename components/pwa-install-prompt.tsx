@@ -10,106 +10,106 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Download, X, Smartphone, Monitor } from "lucide-react"
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Download, X, Smartphone, Monitor } from 'lucide-react';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<void>
-  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>
 }
 
 export function PWAInstallPrompt() {
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null)
-  const [showInstallPrompt, setShowInstallPrompt] = useState(false)
-  const [isInstalled, setIsInstalled] = useState(false)
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [showInstallPrompt, setShowInstallPrompt] = useState(false);
+  const [isInstalled, setIsInstalled] = useState(false);
 
   useEffect(() => {
     // 检查是否已安装
     const checkInstalled = () => {
-      if (window.matchMedia("(display-mode: standalone)").matches || (window.navigator as any).standalone === true) {
-        setIsInstalled(true)
+      if (window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone === true) {
+        setIsInstalled(true);
       }
-    }
+    };
 
-    checkInstalled()
+    checkInstalled();
 
     // 监听安装提示事件
     const handleBeforeInstallPrompt = (e: Event) => {
-      e.preventDefault()
-      setDeferredPrompt(e as BeforeInstallPromptEvent)
-      setShowInstallPrompt(true)
-    }
+      e.preventDefault();
+      setDeferredPrompt(e as BeforeInstallPromptEvent);
+      setShowInstallPrompt(true);
+    };
 
     // 监听应用安装事件
     const handleAppInstalled = () => {
-      setIsInstalled(true)
-      setShowInstallPrompt(false)
-      setDeferredPrompt(null)
+      setIsInstalled(true);
+      setShowInstallPrompt(false);
+      setDeferredPrompt(null);
 
       // 显示安装成功提示
-      if ("serviceWorker" in navigator && "Notification" in window) {
-        new Notification("ZUOYOU 企业管理系统", {
-          body: "应用已成功安装到您的设备！",
-          icon: "/yyc3-pwa-icon.png",
-        })
+      if ('serviceWorker' in navigator && 'Notification' in window) {
+        new Notification('ZUOYOU 企业管理系统', {
+          body: '应用已成功安装到您的设备！',
+          icon: '/yyc3-pwa-icon.png',
+        });
       }
-    }
+    };
 
-    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt)
-    window.addEventListener("appinstalled", handleAppInstalled)
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('appinstalled', handleAppInstalled);
 
     return () => {
-      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt)
-      window.removeEventListener("appinstalled", handleAppInstalled)
-    }
-  }, [])
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('appinstalled', handleAppInstalled);
+    };
+  }, []);
 
   const handleInstallClick = async () => {
-    if (!deferredPrompt) return
+    if (!deferredPrompt) return;
 
     try {
-      await deferredPrompt.prompt()
-      const { outcome } = await deferredPrompt.userChoice
+      await deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
 
-      if (outcome === "accepted") {
-        console.log("用户接受了安装提示")
+      if (outcome === 'accepted') {
+        console.log('用户接受了安装提示');
       } else {
-        console.log("用户拒绝了安装提示")
+        console.log('用户拒绝了安装提示');
       }
 
-      setDeferredPrompt(null)
-      setShowInstallPrompt(false)
+      setDeferredPrompt(null);
+      setShowInstallPrompt(false);
     } catch (error) {
-      console.error("安装提示失败:", error)
+      console.error('安装提示失败:', error);
     }
-  }
+  };
 
   const handleDismiss = () => {
-    setShowInstallPrompt(false)
+    setShowInstallPrompt(false);
     // 24小时后再次显示
-    localStorage.setItem("pwa-install-dismissed", Date.now().toString())
-  }
+    localStorage.setItem('pwa-install-dismissed', Date.now().toString());
+  };
 
   // 检查是否在24小时内被拒绝过
   useEffect(() => {
-    const dismissed = localStorage.getItem("pwa-install-dismissed")
+    const dismissed = localStorage.getItem('pwa-install-dismissed');
     if (dismissed) {
-      const dismissedTime = Number.parseInt(dismissed)
-      const now = Date.now()
-      const hoursPassed = (now - dismissedTime) / (1000 * 60 * 60)
+      const dismissedTime = Number.parseInt(dismissed);
+      const now = Date.now();
+      const hoursPassed = (now - dismissedTime) / (1000 * 60 * 60);
 
       if (hoursPassed < 24) {
-        setShowInstallPrompt(false)
+        setShowInstallPrompt(false);
       }
     }
-  }, [])
+  }, []);
 
   if (isInstalled || !showInstallPrompt || !deferredPrompt) {
-    return null
+    return null;
   }
 
   return (
@@ -164,5 +164,5 @@ export function PWAInstallPrompt() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

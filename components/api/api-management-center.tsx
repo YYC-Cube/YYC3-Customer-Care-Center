@@ -10,19 +10,19 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Progress } from "@/components/ui/progress"
-import { Alert, AlertDescription } from "@/components/ui/alert"
+import { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Progress } from '@/components/ui/progress';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import {
   Dialog,
   DialogContent,
@@ -30,9 +30,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts"
+} from '@/components/ui/dialog';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
 import {
   Globe,
   Key,
@@ -50,14 +50,14 @@ import {
   Code,
   Monitor,
   RefreshCw,
-} from "lucide-react"
+} from 'lucide-react';
 
 interface APIEndpoint {
   id: string
   name: string
   url: string
-  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
-  status: "active" | "inactive" | "deprecated"
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
+  status: 'active' | 'inactive' | 'deprecated'
   version: string
   category: string
   description: string
@@ -66,7 +66,7 @@ interface APIEndpoint {
   requestsToday: number
   lastUsed: Date
   rateLimit: number
-  authentication: "none" | "api-key" | "oauth" | "jwt"
+  authentication: 'none' | 'api-key' | 'oauth' | 'jwt'
 }
 
 interface APIKey {
@@ -77,14 +77,14 @@ interface APIKey {
   expiresAt: Date
   lastUsed: Date
   requestCount: number
-  status: "active" | "revoked" | "expired"
+  status: 'active' | 'revoked' | 'expired'
 }
 
 interface Integration {
   id: string
   name: string
-  type: "webhook" | "database" | "cloud-service" | "payment" | "analytics"
-  status: "connected" | "disconnected" | "error"
+  type: 'webhook' | 'database' | 'cloud-service' | 'payment' | 'analytics'
+  status: 'connected' | 'disconnected' | 'error'
   provider: string
   description: string
   lastSync: Date
@@ -95,126 +95,126 @@ interface Integration {
 export function APIManagementCenter() {
   const [endpoints] = useState<APIEndpoint[]>([
     {
-      id: "api_1",
-      name: "获取客户列表",
-      url: "/api/customers",
-      method: "GET",
-      status: "active",
-      version: "v1.2",
-      category: "客户管理",
-      description: "获取所有客户的基本信息",
+      id: 'api_1',
+      name: '获取客户列表',
+      url: '/api/customers',
+      method: 'GET',
+      status: 'active',
+      version: 'v1.2',
+      category: '客户管理',
+      description: '获取所有客户的基本信息',
       responseTime: 245,
       successRate: 99.2,
       requestsToday: 1247,
       lastUsed: new Date(),
       rateLimit: 1000,
-      authentication: "api-key",
+      authentication: 'api-key',
     },
     {
-      id: "api_2",
-      name: "创建订单",
-      url: "/api/orders",
-      method: "POST",
-      status: "active",
-      version: "v2.0",
-      category: "订单管理",
-      description: "创建新的订单记录",
+      id: 'api_2',
+      name: '创建订单',
+      url: '/api/orders',
+      method: 'POST',
+      status: 'active',
+      version: 'v2.0',
+      category: '订单管理',
+      description: '创建新的订单记录',
       responseTime: 156,
       successRate: 98.7,
       requestsToday: 892,
       lastUsed: new Date(),
       rateLimit: 500,
-      authentication: "jwt",
+      authentication: 'jwt',
     },
     {
-      id: "api_3",
-      name: "更新产品信息",
-      url: "/api/products/{id}",
-      method: "PUT",
-      status: "deprecated",
-      version: "v1.0",
-      category: "产品管理",
-      description: "更新指定产品的详细信息",
+      id: 'api_3',
+      name: '更新产品信息',
+      url: '/api/products/{id}',
+      method: 'PUT',
+      status: 'deprecated',
+      version: 'v1.0',
+      category: '产品管理',
+      description: '更新指定产品的详细信息',
       responseTime: 312,
       successRate: 95.4,
       requestsToday: 156,
       lastUsed: new Date(Date.now() - 86400000),
       rateLimit: 200,
-      authentication: "oauth",
+      authentication: 'oauth',
     },
-  ])
+  ]);
 
   const [apiKeys] = useState<APIKey[]>([
     {
-      id: "key_1",
-      name: "生产环境密钥",
-      key: "ak_prod_1234567890abcdef",
-      permissions: ["read", "write", "delete"],
+      id: 'key_1',
+      name: '生产环境密钥',
+      key: 'ak_prod_1234567890abcdef',
+      permissions: ['read', 'write', 'delete'],
       expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
       lastUsed: new Date(),
       requestCount: 15420,
-      status: "active",
+      status: 'active',
     },
     {
-      id: "key_2",
-      name: "测试环境密钥",
-      key: "ak_test_abcdef1234567890",
-      permissions: ["read", "write"],
+      id: 'key_2',
+      name: '测试环境密钥',
+      key: 'ak_test_abcdef1234567890',
+      permissions: ['read', 'write'],
       expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       lastUsed: new Date(Date.now() - 3600000),
       requestCount: 2847,
-      status: "active",
+      status: 'active',
     },
     {
-      id: "key_3",
-      name: "已撤销密钥",
-      key: "ak_revoked_fedcba0987654321",
-      permissions: ["read"],
+      id: 'key_3',
+      name: '已撤销密钥',
+      key: 'ak_revoked_fedcba0987654321',
+      permissions: ['read'],
       expiresAt: new Date(Date.now() - 24 * 60 * 60 * 1000),
       lastUsed: new Date(Date.now() - 86400000),
       requestCount: 892,
-      status: "revoked",
+      status: 'revoked',
     },
-  ])
+  ]);
 
   const [integrations] = useState<Integration[]>([
     {
-      id: "int_1",
-      name: "微信支付",
-      type: "payment",
-      status: "connected",
-      provider: "WeChat Pay",
-      description: "微信支付接口集成",
+      id: 'int_1',
+      name: '微信支付',
+      type: 'payment',
+      status: 'connected',
+      provider: 'WeChat Pay',
+      description: '微信支付接口集成',
       lastSync: new Date(),
       dataTransferred: 2.4,
       errorCount: 0,
     },
     {
-      id: "int_2",
-      name: "阿里云OSS",
-      type: "cloud-service",
-      status: "connected",
-      provider: "Alibaba Cloud",
-      description: "对象存储服务",
+      id: 'int_2',
+      name: '阿里云OSS',
+      type: 'cloud-service',
+      status: 'connected',
+      provider: 'Alibaba Cloud',
+      description: '对象存储服务',
       lastSync: new Date(Date.now() - 1800000),
       dataTransferred: 15.7,
       errorCount: 2,
     },
     {
-      id: "int_3",
-      name: "MySQL数据库",
-      type: "database",
-      status: "error",
-      provider: "MySQL",
-      description: "主数据库连接",
+      id: 'int_3',
+      name: 'MySQL数据库',
+      type: 'database',
+      status: 'error',
+      provider: 'MySQL',
+      description: '主数据库连接',
       lastSync: new Date(Date.now() - 3600000),
       dataTransferred: 0,
       errorCount: 5,
     },
-  ])
+  ]);
 
-  const [selectedEndpoint, setSelectedEndpoint] = useState<string>("all")
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
+  const [selectedEndpoint, setSelectedEndpoint] = useState<string>('all');
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
   // 模拟API性能数据
   const performanceData = Array.from({ length: 24 }, (_, i) => ({
@@ -222,66 +222,66 @@ export function APIManagementCenter() {
     requests: Math.floor(Math.random() * 1000) + 200,
     responseTime: Math.floor(Math.random() * 200) + 100,
     errors: Math.floor(Math.random() * 20),
-  }))
+  }));
 
   // 获取状态颜色
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "active":
-      case "connected":
-        return "bg-green-100 text-green-800"
-      case "inactive":
-      case "disconnected":
-        return "bg-gray-100 text-gray-800"
-      case "deprecated":
-      case "error":
-        return "bg-red-100 text-red-800"
-      case "revoked":
-      case "expired":
-        return "bg-yellow-100 text-yellow-800"
-      default:
-        return "bg-gray-100 text-gray-800"
+    case 'active':
+    case 'connected':
+      return 'bg-green-100 text-green-800';
+    case 'inactive':
+    case 'disconnected':
+      return 'bg-gray-100 text-gray-800';
+    case 'deprecated':
+    case 'error':
+      return 'bg-red-100 text-red-800';
+    case 'revoked':
+    case 'expired':
+      return 'bg-yellow-100 text-yellow-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
     }
-  }
+  };
 
   // 获取方法颜色
   const getMethodColor = (method: string) => {
     switch (method) {
-      case "GET":
-        return "bg-blue-100 text-blue-800"
-      case "POST":
-        return "bg-green-100 text-green-800"
-      case "PUT":
-        return "bg-yellow-100 text-yellow-800"
-      case "DELETE":
-        return "bg-red-100 text-red-800"
-      case "PATCH":
-        return "bg-purple-100 text-purple-800"
-      default:
-        return "bg-gray-100 text-gray-800"
+    case 'GET':
+      return 'bg-blue-100 text-blue-800';
+    case 'POST':
+      return 'bg-green-100 text-green-800';
+    case 'PUT':
+      return 'bg-yellow-100 text-yellow-800';
+    case 'DELETE':
+      return 'bg-red-100 text-red-800';
+    case 'PATCH':
+      return 'bg-purple-100 text-purple-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
     }
-  }
+  };
 
   // 获取集成类型图标
   const getIntegrationIcon = (type: string) => {
     switch (type) {
-      case "webhook":
-        return <Webhook className="w-5 h-5" />
-      case "database":
-        return <Database className="w-5 h-5" />
-      case "cloud-service":
-        return <Cloud className="w-5 h-5" />
-      case "payment":
-        return <Zap className="w-5 h-5" />
-      case "analytics":
-        return <Monitor className="w-5 h-5" />
-      default:
-        return <Globe className="w-5 h-5" />
+    case 'webhook':
+      return <Webhook className="w-5 h-5" />;
+    case 'database':
+      return <Database className="w-5 h-5" />;
+    case 'cloud-service':
+      return <Cloud className="w-5 h-5" />;
+    case 'payment':
+      return <Zap className="w-5 h-5" />;
+    case 'analytics':
+      return <Monitor className="w-5 h-5" />;
+    default:
+      return <Globe className="w-5 h-5" />;
     }
-  }
+  };
 
   const filteredEndpoints =
-    selectedEndpoint === "all" ? endpoints : endpoints.filter((e) => e.category === selectedEndpoint)
+    selectedEndpoint === 'all' ? endpoints : endpoints.filter((e) => e.category === selectedEndpoint);
 
   return (
     <div className="p-6 space-y-6">
@@ -384,7 +384,7 @@ export function APIManagementCenter() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">{apiKeys.filter((key) => key.status === "active").length}</div>
+            <div className="text-3xl font-bold">{apiKeys.filter((key) => key.status === 'active').length}</div>
             <p className="text-sm text-muted-foreground">个密钥</p>
           </CardContent>
         </Card>
@@ -449,7 +449,7 @@ export function APIManagementCenter() {
                       </TableCell>
                       <TableCell>
                         <Badge className={getStatusColor(endpoint.status)}>
-                          {endpoint.status === "active" ? "活跃" : endpoint.status === "inactive" ? "停用" : "已弃用"}
+                          {endpoint.status === 'active' ? '活跃' : endpoint.status === 'inactive' ? '停用' : '已弃用'}
                         </Badge>
                       </TableCell>
                       <TableCell>
@@ -508,12 +508,12 @@ export function APIManagementCenter() {
                     <div>
                       <CardTitle className="text-lg">{key.name}</CardTitle>
                       <CardDescription>
-                        创建时间: {key.lastUsed.toLocaleDateString("zh-CN")} • 使用次数:{" "}
+                        创建时间: {key.lastUsed.toLocaleDateString('zh-CN')} • 使用次数:{' '}
                         {key.requestCount.toLocaleString()}
                       </CardDescription>
                     </div>
                     <Badge className={getStatusColor(key.status)}>
-                      {key.status === "active" ? "活跃" : key.status === "revoked" ? "已撤销" : "已过期"}
+                      {key.status === 'active' ? '活跃' : key.status === 'revoked' ? '已撤销' : '已过期'}
                     </Badge>
                   </div>
                 </CardHeader>
@@ -542,7 +542,7 @@ export function APIManagementCenter() {
                       </div>
                       <div>
                         <Label>过期时间</Label>
-                        <p className="text-sm mt-1">{key.expiresAt.toLocaleDateString("zh-CN")}</p>
+                        <p className="text-sm mt-1">{key.expiresAt.toLocaleDateString('zh-CN')}</p>
                       </div>
                     </div>
 
@@ -555,7 +555,7 @@ export function APIManagementCenter() {
                         <RefreshCw className="w-4 h-4 mr-2" />
                         重新生成
                       </Button>
-                      {key.status === "active" && (
+                      {key.status === 'active' && (
                         <Button variant="destructive" size="sm">
                           撤销
                         </Button>
@@ -590,11 +590,11 @@ export function APIManagementCenter() {
                       </div>
                     </div>
                     <Badge className={getStatusColor(integration.status)}>
-                      {integration.status === "connected"
-                        ? "已连接"
-                        : integration.status === "disconnected"
-                          ? "未连接"
-                          : "错误"}
+                      {integration.status === 'connected'
+                        ? '已连接'
+                        : integration.status === 'disconnected'
+                          ? '未连接'
+                          : '错误'}
                     </Badge>
                   </div>
                 </CardHeader>
@@ -605,7 +605,7 @@ export function APIManagementCenter() {
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
                         <p className="text-muted-foreground">最后同步</p>
-                        <p className="font-medium">{integration.lastSync.toLocaleString("zh-CN")}</p>
+                        <p className="font-medium">{integration.lastSync.toLocaleString('zh-CN')}</p>
                       </div>
                       <div>
                         <p className="text-muted-foreground">数据传输</p>
@@ -629,7 +629,7 @@ export function APIManagementCenter() {
                         <Monitor className="w-4 h-4 mr-2" />
                         监控
                       </Button>
-                      {integration.status === "error" && (
+                      {integration.status === 'error' && (
                         <Button size="sm">
                           <RefreshCw className="w-4 h-4 mr-2" />
                           重试
@@ -712,19 +712,19 @@ export function APIManagementCenter() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }
 
 function CreateAPIForm({ onClose }: { onClose: () => void }) {
   const [formData, setFormData] = useState({
-    name: "",
-    url: "",
-    method: "GET",
-    category: "",
-    description: "",
-    authentication: "api-key",
-    rateLimit: "1000",
-  })
+    name: '',
+    url: '',
+    method: 'GET',
+    category: '',
+    description: '',
+    authentication: 'api-key',
+    rateLimit: '1000',
+  });
 
   return (
     <div className="space-y-4">
@@ -807,5 +807,5 @@ function CreateAPIForm({ onClose }: { onClose: () => void }) {
         <Button onClick={onClose}>创建接口</Button>
       </div>
     </div>
-  )
+  );
 }

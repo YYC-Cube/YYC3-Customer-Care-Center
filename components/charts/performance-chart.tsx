@@ -10,10 +10,10 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import {
   LineChart,
   Line,
@@ -28,45 +28,45 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
   Radar,
-} from "recharts"
+} from 'recharts';
 
 // 绩效趋势数据
 const performanceTrendData = [
-  { month: "1月", teamA: 85, teamB: 78, teamC: 92, average: 85 },
-  { month: "2月", teamA: 88, teamB: 82, teamC: 89, average: 86 },
-  { month: "3月", teamA: 92, teamB: 85, teamC: 94, average: 90 },
-  { month: "4月", teamA: 87, teamB: 88, teamC: 91, average: 89 },
-  { month: "5月", teamA: 94, teamB: 90, teamC: 96, average: 93 },
-  { month: "6月", teamA: 91, teamB: 87, teamC: 93, average: 90 },
-]
+  { month: '1月', teamA: 85, teamB: 78, teamC: 92, average: 85 },
+  { month: '2月', teamA: 88, teamB: 82, teamC: 89, average: 86 },
+  { month: '3月', teamA: 92, teamB: 85, teamC: 94, average: 90 },
+  { month: '4月', teamA: 87, teamB: 88, teamC: 91, average: 89 },
+  { month: '5月', teamA: 94, teamB: 90, teamC: 96, average: 93 },
+  { month: '6月', teamA: 91, teamB: 87, teamC: 93, average: 90 },
+];
 
 // KPI达成情况
 const kpiData = [
-  { kpi: "销售目标", achievement: 105, target: 100 },
-  { kpi: "客户满意度", achievement: 92, target: 90 },
-  { kpi: "项目完成率", achievement: 88, target: 95 },
-  { kpi: "团队协作", achievement: 94, target: 85 },
-  { kpi: "创新指标", achievement: 78, target: 80 },
-]
+  { kpi: '销售目标', achievement: 105, target: 100 },
+  { kpi: '客户满意度', achievement: 92, target: 90 },
+  { kpi: '项目完成率', achievement: 88, target: 95 },
+  { kpi: '团队协作', achievement: 94, target: 85 },
+  { kpi: '创新指标', achievement: 78, target: 80 },
+];
 
 // 员工绩效排行
 const employeePerformanceData = [
-  { name: "张三", score: 95, department: "销售部" },
-  { name: "李四", score: 92, department: "技术部" },
-  { name: "王五", score: 89, department: "市场部" },
-  { name: "赵六", score: 87, department: "运营部" },
-  { name: "钱七", score: 85, department: "财务部" },
-]
+  { name: '张三', score: 95, department: '销售部' },
+  { name: '李四', score: 92, department: '技术部' },
+  { name: '王五', score: 89, department: '市场部' },
+  { name: '赵六', score: 87, department: '运营部' },
+  { name: '钱七', score: 85, department: '财务部' },
+];
 
 // 雷达图数据
 const radarData = [
-  { subject: "销售能力", A: 120, B: 110, fullMark: 150 },
-  { subject: "技术能力", A: 98, B: 130, fullMark: 150 },
-  { subject: "沟通能力", A: 86, B: 130, fullMark: 150 },
-  { subject: "创新能力", A: 99, B: 100, fullMark: 150 },
-  { subject: "执行能力", A: 85, B: 90, fullMark: 150 },
-  { subject: "团队协作", A: 65, B: 85, fullMark: 150 },
-]
+  { subject: '销售能力', A: 120, B: 110, fullMark: 150 },
+  { subject: '技术能力', A: 98, B: 130, fullMark: 150 },
+  { subject: '沟通能力', A: 86, B: 130, fullMark: 150 },
+  { subject: '创新能力', A: 99, B: 100, fullMark: 150 },
+  { subject: '执行能力', A: 85, B: 90, fullMark: 150 },
+  { subject: '团队协作', A: 65, B: 85, fullMark: 150 },
+];
 
 export function PerformanceChart() {
   return (
@@ -81,20 +81,20 @@ export function PerformanceChart() {
           <ChartContainer
             config={{
               teamA: {
-                label: "团队A",
-                color: "hsl(var(--chart-1))",
+                label: '团队A',
+                color: 'hsl(var(--chart-1))',
               },
               teamB: {
-                label: "团队B",
-                color: "hsl(var(--chart-2))",
+                label: '团队B',
+                color: 'hsl(var(--chart-2))',
               },
               teamC: {
-                label: "团队C",
-                color: "hsl(var(--chart-3))",
+                label: '团队C',
+                color: 'hsl(var(--chart-3))',
               },
               average: {
-                label: "平均值",
-                color: "hsl(var(--chart-4))",
+                label: '平均值',
+                color: 'hsl(var(--chart-4))',
               },
             }}
             className="h-[300px]"
@@ -110,21 +110,21 @@ export function PerformanceChart() {
                   dataKey="teamA"
                   stroke="var(--color-teamA)"
                   strokeWidth={2}
-                  dot={{ fill: "var(--color-teamA)", strokeWidth: 2, r: 3 }}
+                  dot={{ fill: 'var(--color-teamA)', strokeWidth: 2, r: 3 }}
                 />
                 <Line
                   type="monotone"
                   dataKey="teamB"
                   stroke="var(--color-teamB)"
                   strokeWidth={2}
-                  dot={{ fill: "var(--color-teamB)", strokeWidth: 2, r: 3 }}
+                  dot={{ fill: 'var(--color-teamB)', strokeWidth: 2, r: 3 }}
                 />
                 <Line
                   type="monotone"
                   dataKey="teamC"
                   stroke="var(--color-teamC)"
                   strokeWidth={2}
-                  dot={{ fill: "var(--color-teamC)", strokeWidth: 2, r: 3 }}
+                  dot={{ fill: 'var(--color-teamC)', strokeWidth: 2, r: 3 }}
                 />
                 <Line
                   type="monotone"
@@ -132,7 +132,7 @@ export function PerformanceChart() {
                   stroke="var(--color-average)"
                   strokeWidth={3}
                   strokeDasharray="5 5"
-                  dot={{ fill: "var(--color-average)", strokeWidth: 2, r: 4 }}
+                  dot={{ fill: 'var(--color-average)', strokeWidth: 2, r: 4 }}
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -151,12 +151,12 @@ export function PerformanceChart() {
             <ChartContainer
               config={{
                 achievement: {
-                  label: "实际达成",
-                  color: "hsl(var(--chart-1))",
+                  label: '实际达成',
+                  color: 'hsl(var(--chart-1))',
                 },
                 target: {
-                  label: "目标值",
-                  color: "hsl(var(--chart-2))",
+                  label: '目标值',
+                  color: 'hsl(var(--chart-2))',
                 },
               }}
               className="h-[250px]"
@@ -215,12 +215,12 @@ export function PerformanceChart() {
           <ChartContainer
             config={{
               A: {
-                label: "团队A",
-                color: "hsl(var(--chart-1))",
+                label: '团队A',
+                color: 'hsl(var(--chart-1))',
               },
               B: {
-                label: "团队B",
-                color: "hsl(var(--chart-2))",
+                label: '团队B',
+                color: 'hsl(var(--chart-2))',
               },
             }}
             className="h-[400px]"
@@ -253,5 +253,5 @@ export function PerformanceChart() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

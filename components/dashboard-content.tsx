@@ -10,12 +10,12 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
-import { BarChart3, TrendingUp, Users, DollarSign, Target, Activity, ArrowUpRight, ArrowDownRight, FileText, CheckCircle } from 'lucide-react'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
+import { BarChart3, TrendingUp, Users, DollarSign, Target, Activity, ArrowUpRight, ArrowDownRight, FileText, CheckCircle } from 'lucide-react';
 
 export function DashboardContent() {
   return (
@@ -28,12 +28,12 @@ export function DashboardContent() {
             欢迎回来！
           </h1>
           <p className="text-gray-600 mt-2">
-            今天是{" "}
-            {new Date().toLocaleDateString("zh-CN", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-              weekday: "long",
+            今天是{' '}
+            {new Date().toLocaleDateString('zh-CN', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+              weekday: 'long',
             })}
           </p>
         </div>
@@ -176,7 +176,7 @@ export function DashboardContent() {
                   <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                     <div
                       className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full transition-all duration-500"
-                      style={{ width: "73%" }}
+                      style={{ width: '73%' }}
                     ></div>
                   </div>
                 </div>
@@ -188,7 +188,7 @@ export function DashboardContent() {
                   <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                     <div
                       className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full transition-all duration-500"
-                      style={{ width: "68%" }}
+                      style={{ width: '68%' }}
                     ></div>
                   </div>
                 </div>
@@ -200,7 +200,7 @@ export function DashboardContent() {
                   <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                     <div
                       className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full transition-all duration-500"
-                      style={{ width: "82%" }}
+                      style={{ width: '82%' }}
                     ></div>
                   </div>
                 </div>
@@ -270,31 +270,31 @@ export function DashboardContent() {
             <div className="space-y-3">
               {[
                 {
-                  type: "success",
-                  title: "月度销售报告已生成",
-                  description: "2024年1月销售数据分析完成",
-                  time: "2小时前",
+                  type: 'success',
+                  title: '月度销售报告已生成',
+                  description: '2024年1月销售数据分析完成',
+                  time: '2小时前',
                   icon: FileText,
                 },
                 {
-                  type: "info",
-                  title: "新客户注册",
-                  description: "ABC公司完成注册并提交了首个订单",
-                  time: "4小时前",
+                  type: 'info',
+                  title: '新客户注册',
+                  description: 'ABC公司完成注册并提交了首个订单',
+                  time: '4小时前',
                   icon: Users,
                 },
                 {
-                  type: "warning",
-                  title: "KPI预警",
-                  description: "客户转化率低于预期目标",
-                  time: "6小时前",
+                  type: 'warning',
+                  title: 'KPI预警',
+                  description: '客户转化率低于预期目标',
+                  time: '6小时前',
                   icon: Target,
                 },
                 {
-                  type: "success",
-                  title: "系统更新完成",
-                  description: "数据分析模块功能优化上线",
-                  time: "1天前",
+                  type: 'success',
+                  title: '系统更新完成',
+                  description: '数据分析模块功能优化上线',
+                  time: '1天前',
                   icon: Activity,
                 },
               ].map((activity, index) => (
@@ -304,24 +304,24 @@ export function DashboardContent() {
                 >
                   <div
                     className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                      activity.type === "success"
-                        ? "bg-emerald-100"
-                        : activity.type === "info"
-                          ? "bg-blue-100"
-                          : activity.type === "warning"
-                            ? "bg-orange-100"
-                            : "bg-gray-100"
+                      activity.type === 'success'
+                        ? 'bg-emerald-100'
+                        : activity.type === 'info'
+                          ? 'bg-blue-100'
+                          : activity.type === 'warning'
+                            ? 'bg-orange-100'
+                            : 'bg-gray-100'
                     }`}
                   >
                     <activity.icon
                       className={`w-4 h-4 ${
-                        activity.type === "success"
-                          ? "text-emerald-600"
-                          : activity.type === "info"
-                            ? "text-blue-600"
-                            : activity.type === "warning"
-                              ? "text-orange-600"
-                              : "text-gray-600"
+                        activity.type === 'success'
+                          ? 'text-emerald-600'
+                          : activity.type === 'info'
+                            ? 'text-blue-600'
+                            : activity.type === 'warning'
+                              ? 'text-orange-600'
+                              : 'text-gray-600'
                       }`}
                     />
                   </div>
@@ -337,5 +337,5 @@ export function DashboardContent() {
         </Card>
       </div>
     </div>
-  )
+  );
 }

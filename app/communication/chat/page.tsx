@@ -10,20 +10,20 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState } from "react"
-import { useSearchParams } from "next/navigation"
-import { RealTimeChat } from "@/components/real-time-chat"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { MessageSquare, Users, Plus, Settings, Search, Filter, Zap, TrendingUp } from "lucide-react"
+import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { RealTimeChat } from '@/components/real-time-chat';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { MessageSquare, Users, Plus, Settings, Search, Filter, Zap, TrendingUp } from 'lucide-react';
 
 export default function ChatPage() {
-  const searchParams = useSearchParams()
-  const [selectedRoomId, setSelectedRoomId] = useState<string | undefined>(searchParams.get("id") || undefined)
-  const [currentUserId] = useState("current-user") // 实际应用中从认证系统获取
+  const searchParams = useSearchParams();
+  const [selectedRoomId, setSelectedRoomId] = useState<string | undefined>(searchParams.get('id') || undefined);
+  const [currentUserId] = useState('current-user'); // 实际应用中从认证系统获取
 
   // 聊天统计数据
   const [chatStats, setChatStats] = useState({
@@ -31,7 +31,7 @@ export default function ChatPage() {
     activeChats: 8,
     onlineUsers: 23,
     todayMessages: 156,
-  })
+  });
 
   return (
     <div className="p-6 space-y-6 bg-gradient-to-br from-blue-50 via-sky-50 to-indigo-50 min-h-screen">
@@ -188,5 +188,5 @@ export default function ChatPage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

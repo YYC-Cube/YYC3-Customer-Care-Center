@@ -10,14 +10,14 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Input } from "@/components/ui/input"
-import { FileText, Clock, CheckCircle, XCircle, User, Calendar } from "lucide-react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Input } from '@/components/ui/input';
+import { FileText, Clock, CheckCircle, XCircle, User, Calendar } from 'lucide-react';
 
 export function ApprovalModule() {
   return (
@@ -138,36 +138,36 @@ export function ApprovalModule() {
               <div className="space-y-3">
                 {[
                   {
-                    title: "年度预算申请",
-                    applicant: "财务部-张三",
-                    type: "预算申请",
-                    amount: "¥500,000",
-                    submitTime: "2024-01-15 09:30",
-                    urgency: "高",
+                    title: '年度预算申请',
+                    applicant: '财务部-张三',
+                    type: '预算申请',
+                    amount: '¥500,000',
+                    submitTime: '2024-01-15 09:30',
+                    urgency: '高',
                   },
                   {
-                    title: "设备采购申请",
-                    applicant: "技术部-李四",
-                    type: "采购申请",
-                    amount: "¥120,000",
-                    submitTime: "2024-01-14 14:20",
-                    urgency: "中",
+                    title: '设备采购申请',
+                    applicant: '技术部-李四',
+                    type: '采购申请',
+                    amount: '¥120,000',
+                    submitTime: '2024-01-14 14:20',
+                    urgency: '中',
                   },
                   {
-                    title: "员工调薪申请",
-                    applicant: "人事部-王五",
-                    type: "人事申请",
-                    amount: "¥8,000/月",
-                    submitTime: "2024-01-13 16:45",
-                    urgency: "低",
+                    title: '员工调薪申请',
+                    applicant: '人事部-王五',
+                    type: '人事申请',
+                    amount: '¥8,000/月',
+                    submitTime: '2024-01-13 16:45',
+                    urgency: '低',
                   },
                   {
-                    title: "差旅费用报销",
-                    applicant: "销售部-赵六",
-                    type: "费用报销",
-                    amount: "¥3,200",
-                    submitTime: "2024-01-12 11:15",
-                    urgency: "中",
+                    title: '差旅费用报销',
+                    applicant: '销售部-赵六',
+                    type: '费用报销',
+                    amount: '¥3,200',
+                    submitTime: '2024-01-12 11:15',
+                    urgency: '中',
                   },
                 ].map((item, index) => (
                   <Card
@@ -181,7 +181,7 @@ export function ApprovalModule() {
                             <h3 className="font-medium">{item.title}</h3>
                             <Badge
                               variant={
-                                item.urgency === "高" ? "destructive" : item.urgency === "中" ? "default" : "secondary"
+                                item.urgency === '高' ? 'destructive' : item.urgency === '中' ? 'default' : 'secondary'
                               }
                             >
                               {item.urgency}
@@ -233,28 +233,28 @@ export function ApprovalModule() {
               <div className="space-y-3">
                 {[
                   {
-                    title: "办公用品采购",
-                    applicant: "行政部-钱七",
-                    approver: "总经理-孙八",
-                    amount: "¥15,000",
-                    approveTime: "2024-01-10 15:30",
-                    duration: "1.5天",
+                    title: '办公用品采购',
+                    applicant: '行政部-钱七',
+                    approver: '总经理-孙八',
+                    amount: '¥15,000',
+                    approveTime: '2024-01-10 15:30',
+                    duration: '1.5天',
                   },
                   {
-                    title: "培训费用申请",
-                    applicant: "技术部-周九",
-                    approver: "技术总监-吴十",
-                    amount: "¥25,000",
-                    approveTime: "2024-01-08 10:20",
-                    duration: "2天",
+                    title: '培训费用申请',
+                    applicant: '技术部-周九',
+                    approver: '技术总监-吴十',
+                    amount: '¥25,000',
+                    approveTime: '2024-01-08 10:20',
+                    duration: '2天',
                   },
                   {
-                    title: "市场推广预算",
-                    applicant: "市场部-郑一",
-                    approver: "副总经理-王二",
-                    amount: "¥80,000",
-                    approveTime: "2024-01-05 14:45",
-                    duration: "3天",
+                    title: '市场推广预算',
+                    applicant: '市场部-郑一',
+                    approver: '副总经理-王二',
+                    amount: '¥80,000',
+                    approveTime: '2024-01-05 14:45',
+                    duration: '3天',
                   },
                 ].map((item, index) => (
                   <Card
@@ -297,20 +297,20 @@ export function ApprovalModule() {
               <div className="space-y-3">
                 {[
                   {
-                    title: "高端设备采购",
-                    applicant: "研发部-李三",
-                    rejector: "财务总监-张四",
-                    amount: "¥200,000",
-                    rejectTime: "2024-01-09 16:20",
-                    reason: "预算超出年度计划，建议分期采购",
+                    title: '高端设备采购',
+                    applicant: '研发部-李三',
+                    rejector: '财务总监-张四',
+                    amount: '¥200,000',
+                    rejectTime: '2024-01-09 16:20',
+                    reason: '预算超出年度计划，建议分期采购',
                   },
                   {
-                    title: "团建活动申请",
-                    applicant: "人事部-王五",
-                    rejector: "总经理-赵六",
-                    amount: "¥30,000",
-                    rejectTime: "2024-01-07 11:30",
-                    reason: "当前季度团建预算已用完",
+                    title: '团建活动申请',
+                    applicant: '人事部-王五',
+                    rejector: '总经理-赵六',
+                    amount: '¥30,000',
+                    rejectTime: '2024-01-07 11:30',
+                    reason: '当前季度团建预算已用完',
                   },
                 ].map((item, index) => (
                   <Card
@@ -358,32 +358,32 @@ export function ApprovalModule() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
                   {
-                    name: "费用报销流程",
+                    name: '费用报销流程',
                     steps: 4,
-                    avgTime: "1.5天",
-                    usage: "高频使用",
-                    description: "员工费用报销标准流程",
+                    avgTime: '1.5天',
+                    usage: '高频使用',
+                    description: '员工费用报销标准流程',
                   },
                   {
-                    name: "采购申请流程",
+                    name: '采购申请流程',
                     steps: 5,
-                    avgTime: "3天",
-                    usage: "中频使用",
-                    description: "设备和物品采购审批流程",
+                    avgTime: '3天',
+                    usage: '中频使用',
+                    description: '设备和物品采购审批流程',
                   },
                   {
-                    name: "预算申请流程",
+                    name: '预算申请流程',
                     steps: 6,
-                    avgTime: "5天",
-                    usage: "低频使用",
-                    description: "部门预算和大额支出审批",
+                    avgTime: '5天',
+                    usage: '低频使用',
+                    description: '部门预算和大额支出审批',
                   },
                   {
-                    name: "人事变动流程",
+                    name: '人事变动流程',
                     steps: 4,
-                    avgTime: "2天",
-                    usage: "中频使用",
-                    description: "员工入职、调岗、离职流程",
+                    avgTime: '2天',
+                    usage: '中频使用',
+                    description: '员工入职、调岗、离职流程',
                   },
                 ].map((workflow, index) => (
                   <Card
@@ -408,11 +408,11 @@ export function ApprovalModule() {
                           <span className="text-sm">使用频率</span>
                           <Badge
                             variant={
-                              workflow.usage === "高频使用"
-                                ? "default"
-                                : workflow.usage === "中频使用"
-                                  ? "secondary"
-                                  : "outline"
+                              workflow.usage === '高频使用'
+                                ? 'default'
+                                : workflow.usage === '中频使用'
+                                  ? 'secondary'
+                                  : 'outline'
                             }
                           >
                             {workflow.usage}
@@ -444,5 +444,5 @@ export function ApprovalModule() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

@@ -10,13 +10,13 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Checkbox } from "@/components/ui/checkbox"
-import { EnhancedButton } from "@/components/ui/enhanced-button"
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Checkbox } from '@/components/ui/checkbox';
+import { EnhancedButton } from '@/components/ui/enhanced-button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,7 +24,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from '@/components/ui/dropdown-menu';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -34,14 +34,14 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { CheckSquare, Trash2, Download, Tag, Users, Calendar, Mail, Archive, Star, MoreHorizontal } from "lucide-react"
+} from '@/components/ui/alert-dialog';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { CheckSquare, Trash2, Download, Tag, Users, Calendar, Mail, Archive, Star, MoreHorizontal } from 'lucide-react';
 
 interface BatchOperationsProps {
   selectedItems: string[]
   totalItems: number
-  itemType: "customer" | "task" | "finance"
+  itemType: 'customer' | 'task' | 'finance'
   onSelectAll: (selected: boolean) => void
   onBatchAction: (action: string, options?: any) => void
   onClearSelection: () => void
@@ -55,62 +55,62 @@ export function BatchOperations({
   onBatchAction,
   onClearSelection,
 }: BatchOperationsProps) {
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
-  const [showAssignDialog, setShowAssignDialog] = useState(false)
-  const [batchAction, setBatchAction] = useState<string>("")
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [showAssignDialog, setShowAssignDialog] = useState(false);
+  const [batchAction, setBatchAction] = useState<string>('');
 
   const itemTypeLabels = {
-    customer: "客户",
-    task: "任务",
-    finance: "财务记录",
-  }
+    customer: '客户',
+    task: '任务',
+    finance: '财务记录',
+  };
 
   const batchActions = {
     customer: [
-      { id: "delete", label: "删除客户", icon: Trash2, variant: "destructive" },
-      { id: "export", label: "导出数据", icon: Download, variant: "default" },
-      { id: "assign", label: "分配负责人", icon: Users, variant: "default" },
-      { id: "tag", label: "添加标签", icon: Tag, variant: "default" },
-      { id: "email", label: "发送邮件", icon: Mail, variant: "default" },
-      { id: "archive", label: "归档", icon: Archive, variant: "default" },
+      { id: 'delete', label: '删除客户', icon: Trash2, variant: 'destructive' },
+      { id: 'export', label: '导出数据', icon: Download, variant: 'default' },
+      { id: 'assign', label: '分配负责人', icon: Users, variant: 'default' },
+      { id: 'tag', label: '添加标签', icon: Tag, variant: 'default' },
+      { id: 'email', label: '发送邮件', icon: Mail, variant: 'default' },
+      { id: 'archive', label: '归档', icon: Archive, variant: 'default' },
     ],
     task: [
-      { id: "delete", label: "删除任务", icon: Trash2, variant: "destructive" },
-      { id: "complete", label: "标记完成", icon: CheckSquare, variant: "default" },
-      { id: "assign", label: "分配负责人", icon: Users, variant: "default" },
-      { id: "priority", label: "设置优先级", icon: Star, variant: "default" },
-      { id: "deadline", label: "设置截止日期", icon: Calendar, variant: "default" },
-      { id: "export", label: "导出任务", icon: Download, variant: "default" },
+      { id: 'delete', label: '删除任务', icon: Trash2, variant: 'destructive' },
+      { id: 'complete', label: '标记完成', icon: CheckSquare, variant: 'default' },
+      { id: 'assign', label: '分配负责人', icon: Users, variant: 'default' },
+      { id: 'priority', label: '设置优先级', icon: Star, variant: 'default' },
+      { id: 'deadline', label: '设置截止日期', icon: Calendar, variant: 'default' },
+      { id: 'export', label: '导出任务', icon: Download, variant: 'default' },
     ],
     finance: [
-      { id: "delete", label: "删除记录", icon: Trash2, variant: "destructive" },
-      { id: "export", label: "导出数据", icon: Download, variant: "default" },
-      { id: "approve", label: "批量审批", icon: CheckSquare, variant: "default" },
-      { id: "tag", label: "添加标签", icon: Tag, variant: "default" },
-      { id: "archive", label: "归档", icon: Archive, variant: "default" },
+      { id: 'delete', label: '删除记录', icon: Trash2, variant: 'destructive' },
+      { id: 'export', label: '导出数据', icon: Download, variant: 'default' },
+      { id: 'approve', label: '批量审批', icon: CheckSquare, variant: 'default' },
+      { id: 'tag', label: '添加标签', icon: Tag, variant: 'default' },
+      { id: 'archive', label: '归档', icon: Archive, variant: 'default' },
     ],
-  }
+  };
 
   const handleBatchAction = (actionId: string) => {
-    setBatchAction(actionId)
+    setBatchAction(actionId);
 
-    if (actionId === "delete") {
-      setShowDeleteDialog(true)
-    } else if (actionId === "assign") {
-      setShowAssignDialog(true)
+    if (actionId === 'delete') {
+      setShowDeleteDialog(true);
+    } else if (actionId === 'assign') {
+      setShowAssignDialog(true);
     } else {
-      onBatchAction(actionId)
+      onBatchAction(actionId);
     }
-  }
+  };
 
   const confirmDelete = () => {
-    onBatchAction("delete")
-    setShowDeleteDialog(false)
-    onClearSelection()
-  }
+    onBatchAction('delete');
+    setShowDeleteDialog(false);
+    onClearSelection();
+  };
 
-  const isAllSelected = selectedItems.length === totalItems && totalItems > 0
-  const isPartialSelected = selectedItems.length > 0 && selectedItems.length < totalItems
+  const isAllSelected = selectedItems.length === totalItems && totalItems > 0;
+  const isPartialSelected = selectedItems.length > 0 && selectedItems.length < totalItems;
 
   return (
     <>
@@ -123,7 +123,7 @@ export function BatchOperations({
                   <Checkbox
                     checked={isAllSelected}
                     ref={(el) => {
-                      if (el) el.indeterminate = isPartialSelected
+                      if (el) el.indeterminate = isPartialSelected;
                     }}
                     onCheckedChange={(checked) => onSelectAll(!!checked)}
                   />
@@ -150,19 +150,19 @@ export function BatchOperations({
                     <DropdownMenuLabel>选择操作</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     {batchActions[itemType].map((action) => {
-                      const Icon = action.icon
+                      const Icon = action.icon;
                       return (
                         <DropdownMenuItem
                           key={action.id}
                           onClick={() => handleBatchAction(action.id)}
                           className={`cursor-pointer ${
-                            action.variant === "destructive" ? "text-red-600 focus:text-red-600 focus:bg-red-50" : ""
+                            action.variant === 'destructive' ? 'text-red-600 focus:text-red-600 focus:bg-red-50' : ''
                           }`}
                         >
                           <Icon className="mr-2 h-4 w-4" />
                           <span>{action.label}</span>
                         </DropdownMenuItem>
-                      )
+                      );
                     })}
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -225,9 +225,9 @@ export function BatchOperations({
             <AlertDialogCancel>取消</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => {
-                onBatchAction("assign", { assignee: "selected_user" })
-                setShowAssignDialog(false)
-                onClearSelection()
+                onBatchAction('assign', { assignee: 'selected_user' });
+                setShowAssignDialog(false);
+                onClearSelection();
               }}
             >
               确认分配
@@ -236,5 +236,5 @@ export function BatchOperations({
         </AlertDialogContent>
       </AlertDialog>
     </>
-  )
+  );
 }

@@ -10,48 +10,48 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Calendar, User, Settings, Bell, Save, X } from "lucide-react"
-import { actionManager } from "@/lib/action-manager"
-import { AvatarUpload } from "@/components/avatar-upload"
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Calendar, User, Settings, Bell, Save, X } from 'lucide-react';
+import { actionManager } from '@/lib/action-manager';
+import { AvatarUpload } from '@/components/avatar-upload';
 
 interface QuickActionHandlerProps {
   onActionComplete?: (action: string, data?: any) => void
 }
 
 export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps) {
-  const [isScheduleOpen, setIsScheduleOpen] = useState(false)
-  const [isProfileOpen, setIsProfileOpen] = useState(false)
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
-  const [userAvatar, setUserAvatar] = useState<string | null>(null)
+  const [isScheduleOpen, setIsScheduleOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [userAvatar, setUserAvatar] = useState<string | null>(null);
   const [scheduleForm, setScheduleForm] = useState({
-    title: "",
-    date: "",
-    time: "",
-    duration: "60",
-    location: "",
-    description: "",
-    attendees: "",
-    priority: "medium",
-  })
+    title: '',
+    date: '',
+    time: '',
+    duration: '60',
+    location: '',
+    description: '',
+    attendees: '',
+    priority: 'medium',
+  });
   const [profileForm, setProfileForm] = useState({
-    username: "管理员",
-    email: "admin@yanyu.cloud",
-    phone: "",
-    department: "系统管理部",
-    position: "系统管理员",
-    bio: "",
-    location: "",
-    website: "",
-  })
+    username: '管理员',
+    email: 'admin@yanyu.cloud',
+    phone: '',
+    department: '系统管理部',
+    position: '系统管理员',
+    bio: '',
+    location: '',
+    website: '',
+  });
   const [settingsForm, setSettingsForm] = useState({
     notifications: {
       desktop: true,
@@ -63,136 +63,136 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
       darkMode: false,
       compactLayout: true,
       showTips: true,
-      language: "zh-CN",
+      language: 'zh-CN',
     },
     privacy: {
       profileVisible: true,
       activityVisible: false,
       emailVisible: false,
     },
-  })
+  });
 
   // 从本地存储加载用户头像和资料
   useEffect(() => {
-    const savedAvatar = localStorage.getItem("userAvatar")
+    const savedAvatar = localStorage.getItem('userAvatar');
     if (savedAvatar) {
-      setUserAvatar(savedAvatar)
+      setUserAvatar(savedAvatar);
     }
 
-    const savedProfile = localStorage.getItem("userProfile")
+    const savedProfile = localStorage.getItem('userProfile');
     if (savedProfile) {
       try {
-        const profile = JSON.parse(savedProfile)
-        setProfileForm((prev) => ({ ...prev, ...profile }))
+        const profile = JSON.parse(savedProfile);
+        setProfileForm((prev) => ({ ...prev, ...profile }));
       } catch (error) {
-        console.error("加载用户资料失败:", error)
+        console.error('加载用户资料失败:', error);
       }
     }
 
-    const savedSettings = localStorage.getItem("userSettings")
+    const savedSettings = localStorage.getItem('userSettings');
     if (savedSettings) {
       try {
-        const settings = JSON.parse(savedSettings)
-        setSettingsForm((prev) => ({ ...prev, ...settings }))
+        const settings = JSON.parse(savedSettings);
+        setSettingsForm((prev) => ({ ...prev, ...settings }));
       } catch (error) {
-        console.error("加载用户设置失败:", error)
+        console.error('加载用户设置失败:', error);
       }
     }
-  }, [])
+  }, []);
 
   // 监听全局操作触发
   useEffect(() => {
-    const handleScheduleAction = () => setIsScheduleOpen(true)
-    const handleProfileAction = () => setIsProfileOpen(true)
-    const handleSettingsAction = () => setIsSettingsOpen(true)
+    const handleScheduleAction = () => setIsScheduleOpen(true);
+    const handleProfileAction = () => setIsProfileOpen(true);
+    const handleSettingsAction = () => setIsSettingsOpen(true);
     const handleNotificationAction = () => {
       // 请求通知权限并发送测试通知
-      if ("Notification" in window) {
+      if ('Notification' in window) {
         Notification.requestPermission().then((permission) => {
-          if (permission === "granted") {
-            new Notification("通知测试", {
-              body: "通知功能测试成功！",
-              icon: "/yyc3-pwa-icon.png",
-            })
-            actionManager.trigger("notifications", { message: "通知功能测试成功！" })
+          if (permission === 'granted') {
+            new Notification('通知测试', {
+              body: '通知功能测试成功！',
+              icon: '/yyc3-pwa-icon.png',
+            });
+            actionManager.trigger('notifications', { message: '通知功能测试成功！' });
           } else {
-            alert("通知权限被拒绝，请在浏览器设置中允许通知")
+            alert('通知权限被拒绝，请在浏览器设置中允许通知');
           }
-        })
+        });
       } else {
-        alert("您的浏览器不支持通知功能")
+        alert('您的浏览器不支持通知功能');
       }
-    }
+    };
 
     // 注册全局操作监听器
-    actionManager.on("schedule", handleScheduleAction)
-    actionManager.on("profile", handleProfileAction)
-    actionManager.on("settings", handleSettingsAction)
-    actionManager.on("notifications", handleNotificationAction)
+    actionManager.on('schedule', handleScheduleAction);
+    actionManager.on('profile', handleProfileAction);
+    actionManager.on('settings', handleSettingsAction);
+    actionManager.on('notifications', handleNotificationAction);
 
     return () => {
-      actionManager.off("schedule", handleScheduleAction)
-      actionManager.off("profile", handleProfileAction)
-      actionManager.off("settings", handleSettingsAction)
-      actionManager.off("notifications", handleNotificationAction)
-    }
-  }, [])
+      actionManager.off('schedule', handleScheduleAction);
+      actionManager.off('profile', handleProfileAction);
+      actionManager.off('settings', handleSettingsAction);
+      actionManager.off('notifications', handleNotificationAction);
+    };
+  }, []);
 
   const handleSaveSchedule = () => {
     if (!scheduleForm.title.trim()) {
-      alert("请输入会议标题")
-      return
+      alert('请输入会议标题');
+      return;
     }
 
     if (!scheduleForm.date) {
-      alert("请选择会议日期")
-      return
+      alert('请选择会议日期');
+      return;
     }
 
     const scheduleData = {
       ...scheduleForm,
       id: Date.now(),
       createdAt: new Date().toISOString(),
-    }
+    };
 
     // 保存到本地存储
-    const savedSchedules = localStorage.getItem("userSchedules")
-    const schedules = savedSchedules ? JSON.parse(savedSchedules) : []
-    schedules.push(scheduleData)
-    localStorage.setItem("userSchedules", JSON.stringify(schedules))
+    const savedSchedules = localStorage.getItem('userSchedules');
+    const schedules = savedSchedules ? JSON.parse(savedSchedules) : [];
+    schedules.push(scheduleData);
+    localStorage.setItem('userSchedules', JSON.stringify(schedules));
 
-    actionManager.trigger("schedule", scheduleData)
-    setIsScheduleOpen(false)
+    actionManager.trigger('schedule', scheduleData);
+    setIsScheduleOpen(false);
     setScheduleForm({
-      title: "",
-      date: "",
-      time: "",
-      duration: "60",
-      location: "",
-      description: "",
-      attendees: "",
-      priority: "medium",
-    })
-    onActionComplete?.("schedule", scheduleData)
+      title: '',
+      date: '',
+      time: '',
+      duration: '60',
+      location: '',
+      description: '',
+      attendees: '',
+      priority: 'medium',
+    });
+    onActionComplete?.('schedule', scheduleData);
 
     // 显示成功提示
-    if ("Notification" in window && Notification.permission === "granted") {
-      new Notification("日程创建成功", {
+    if ('Notification' in window && Notification.permission === 'granted') {
+      new Notification('日程创建成功', {
         body: `会议"${scheduleData.title}"已创建`,
-        icon: "/yyc3-pwa-icon.png",
-      })
+        icon: '/yyc3-pwa-icon.png',
+      });
     }
-  }
+  };
 
   const handleSaveProfile = () => {
     if (!profileForm.username.trim()) {
-      alert("请输入用户名")
-      return
+      alert('请输入用户名');
+      return;
     }
 
     if (!profileForm.email.trim()) {
-      alert("请输入邮箱地址")
-      return
+      alert('请输入邮箱地址');
+      return;
     }
 
     const profileData = {
@@ -200,63 +200,63 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
       avatar: userAvatar,
       updatedAt: new Date().toISOString(),
       updated: true,
-    }
+    };
 
     // 保存到本地存储
-    localStorage.setItem("userProfile", JSON.stringify(profileData))
+    localStorage.setItem('userProfile', JSON.stringify(profileData));
 
-    actionManager.trigger("profile", profileData)
-    setIsProfileOpen(false)
-    onActionComplete?.("profile", profileData)
+    actionManager.trigger('profile', profileData);
+    setIsProfileOpen(false);
+    onActionComplete?.('profile', profileData);
 
     // 触发头部用户信息更新
-    window.dispatchEvent(new CustomEvent("profileUpdated", { detail: profileData }))
+    window.dispatchEvent(new CustomEvent('profileUpdated', { detail: profileData }));
 
     // 显示成功提示
-    if ("Notification" in window && Notification.permission === "granted") {
-      new Notification("资料更新成功", {
-        body: "个人资料已成功更新",
-        icon: userAvatar || "/yyc3-pwa-icon.png",
-      })
+    if ('Notification' in window && Notification.permission === 'granted') {
+      new Notification('资料更新成功', {
+        body: '个人资料已成功更新',
+        icon: userAvatar || '/yyc3-pwa-icon.png',
+      });
     }
-  }
+  };
 
   const handleSaveSettings = () => {
     const settingsData = {
       ...settingsForm,
       updatedAt: new Date().toISOString(),
       updated: true,
-    }
+    };
 
     // 保存到本地存储
-    localStorage.setItem("userSettings", JSON.stringify(settingsData))
+    localStorage.setItem('userSettings', JSON.stringify(settingsData));
 
     // 应用主题设置
     if (settingsData.interface.darkMode) {
-      document.documentElement.setAttribute("data-theme", "dark")
+      document.documentElement.setAttribute('data-theme', 'dark');
     } else {
-      document.documentElement.setAttribute("data-theme", "light")
+      document.documentElement.setAttribute('data-theme', 'light');
     }
 
-    actionManager.trigger("settings", settingsData)
-    setIsSettingsOpen(false)
-    onActionComplete?.("settings", settingsData)
+    actionManager.trigger('settings', settingsData);
+    setIsSettingsOpen(false);
+    onActionComplete?.('settings', settingsData);
 
     // 显示成功提示
-    if ("Notification" in window && Notification.permission === "granted") {
-      new Notification("设置保存成功", {
-        body: "系统设置已成功保存",
-        icon: "/yyc3-pwa-icon.png",
-      })
+    if ('Notification' in window && Notification.permission === 'granted') {
+      new Notification('设置保存成功', {
+        body: '系统设置已成功保存',
+        icon: '/yyc3-pwa-icon.png',
+      });
     }
-  }
+  };
 
   const handleAvatarChange = (avatarUrl: string) => {
-    setUserAvatar(avatarUrl)
-    localStorage.setItem("userAvatar", avatarUrl)
+    setUserAvatar(avatarUrl);
+    localStorage.setItem('userAvatar', avatarUrl);
     // 立即触发头部更新
-    window.dispatchEvent(new CustomEvent("avatarUpdated", { detail: { avatar: avatarUrl } }))
-  }
+    window.dispatchEvent(new CustomEvent('avatarUpdated', { detail: { avatar: avatarUrl } }));
+  };
 
   return (
     <>
@@ -768,13 +768,13 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
         </DialogContent>
       </Dialog>
     </>
-  )
+  );
 }
 
 // 导出全局触发函数供其他组件使用
 export const triggerQuickAction = {
-  schedule: () => actionManager.trigger("schedule"),
-  notifications: () => actionManager.trigger("notifications"),
-  profile: () => actionManager.trigger("profile"),
-  settings: () => actionManager.trigger("settings"),
-}
+  schedule: () => actionManager.trigger('schedule'),
+  notifications: () => actionManager.trigger('notifications'),
+  profile: () => actionManager.trigger('profile'),
+  settings: () => actionManager.trigger('settings'),
+};

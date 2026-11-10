@@ -10,13 +10,13 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Dialog,
   DialogContent,
@@ -24,10 +24,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Activity, Clock, Zap, TrendingUp, AlertTriangle, CheckCircle, Wifi, Monitor, Database } from "lucide-react"
-import { performanceMonitor } from "@/lib/performance-monitor"
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Activity, Clock, Zap, TrendingUp, AlertTriangle, CheckCircle, Wifi, Monitor, Database } from 'lucide-react';
+import { performanceMonitor } from '@/lib/performance-monitor';
 
 interface PerformanceMetric {
   id: string
@@ -35,7 +35,7 @@ interface PerformanceMetric {
   category: string
   duration?: number
   timestamp: number
-  status: "measuring" | "completed" | "error"
+  status: 'measuring' | 'completed' | 'error'
   error?: string
 }
 
@@ -51,64 +51,64 @@ interface PerformanceStats {
 }
 
 export function PerformanceDashboard() {
-  const [metrics, setMetrics] = useState<PerformanceMetric[]>([])
-  const [stats, setStats] = useState<PerformanceStats | null>(null)
-  const [systemPerf, setSystemPerf] = useState<any>(null)
-  const [isOpen, setIsOpen] = useState(false)
+  const [metrics, setMetrics] = useState<PerformanceMetric[]>([]);
+  const [stats, setStats] = useState<PerformanceStats | null>(null);
+  const [systemPerf, setSystemPerf] = useState<any>(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     // 订阅性能指标更新
     const unsubscribe = performanceMonitor.subscribe((newMetrics) => {
-      setMetrics(newMetrics)
-    })
+      setMetrics(newMetrics);
+    });
 
     // 定期更新统计信息
     const updateStats = () => {
-      const statistics = performanceMonitor.getStatistics()
-      setStats(statistics)
+      const statistics = performanceMonitor.getStatistics();
+      setStats(statistics);
 
-      const systemPerformance = performanceMonitor.getSystemPerformance()
-      setSystemPerf(systemPerformance)
-    }
+      const systemPerformance = performanceMonitor.getSystemPerformance();
+      setSystemPerf(systemPerformance);
+    };
 
-    updateStats()
-    const interval = setInterval(updateStats, 5000)
+    updateStats();
+    const interval = setInterval(updateStats, 5000);
 
     return () => {
-      unsubscribe()
-      clearInterval(interval)
-    }
-  }, [])
+      unsubscribe();
+      clearInterval(interval);
+    };
+  }, []);
 
   // 获取性能等级
   const getPerformanceGrade = (avgDuration: number): { grade: string; color: string } => {
-    if (avgDuration < 100) return { grade: "优秀", color: "text-green-600" }
-    if (avgDuration < 300) return { grade: "良好", color: "text-blue-600" }
-    if (avgDuration < 1000) return { grade: "一般", color: "text-yellow-600" }
-    return { grade: "需优化", color: "text-red-600" }
-  }
+    if (avgDuration < 100) return { grade: '优秀', color: 'text-green-600' };
+    if (avgDuration < 300) return { grade: '良好', color: 'text-blue-600' };
+    if (avgDuration < 1000) return { grade: '一般', color: 'text-yellow-600' };
+    return { grade: '需优化', color: 'text-red-600' };
+  };
 
   // 格式化内存大小
   const formatMemory = (bytes: number): string => {
-    const mb = bytes / (1024 * 1024)
-    return `${mb.toFixed(1)} MB`
-  }
+    const mb = bytes / (1024 * 1024);
+    return `${mb.toFixed(1)} MB`;
+  };
 
   // 获取网络类型显示
   const getNetworkDisplay = (effectiveType: string): string => {
     const networkTypes: Record<string, string> = {
-      "slow-2g": "2G慢速",
-      "2g": "2G",
-      "3g": "3G",
-      "4g": "4G",
-      unknown: "未知",
-    }
-    return networkTypes[effectiveType] || effectiveType
-  }
+      'slow-2g': '2G慢速',
+      '2g': '2G',
+      '3g': '3G',
+      '4g': '4G',
+      unknown: '未知',
+    };
+    return networkTypes[effectiveType] || effectiveType;
+  };
 
-  if (!stats) return null
+  if (!stats) return null;
 
-  const performanceGrade = getPerformanceGrade(stats.averageDuration)
+  const performanceGrade = getPerformanceGrade(stats.averageDuration);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -230,18 +230,18 @@ export function PerformanceDashboard() {
           <TabsContent value="metrics" className="space-y-4">
             {/* 按类别分组的性能指标 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {["initialization", "sync", "ui", "network"].map((category) => {
-                const categoryStats = performanceMonitor.getStatistics(category)
-                if (categoryStats.totalCount === 0) return null
+              {['initialization', 'sync', 'ui', 'network'].map((category) => {
+                const categoryStats = performanceMonitor.getStatistics(category);
+                if (categoryStats.totalCount === 0) return null;
 
                 return (
                   <Card key={category}>
                     <CardHeader>
                       <CardTitle className="text-lg capitalize">
-                        {category === "initialization" && "初始化"}
-                        {category === "sync" && "数据同步"}
-                        {category === "ui" && "用户界面"}
-                        {category === "network" && "网络请求"}
+                        {category === 'initialization' && '初始化'}
+                        {category === 'sync' && '数据同步'}
+                        {category === 'ui' && '用户界面'}
+                        {category === 'network' && '网络请求'}
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -262,7 +262,7 @@ export function PerformanceDashboard() {
                       </div>
                     </CardContent>
                   </Card>
-                )
+                );
               })}
             </div>
           </TabsContent>
@@ -349,7 +349,7 @@ export function PerformanceDashboard() {
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">省流模式</p>
-                        <p className="text-lg font-semibold">{systemPerf.network.saveData ? "开启" : "关闭"}</p>
+                        <p className="text-lg font-semibold">{systemPerf.network.saveData ? '开启' : '关闭'}</p>
                       </div>
                     </div>
                   </CardContent>
@@ -371,17 +371,17 @@ export function PerformanceDashboard() {
                       <div className="flex-1">
                         <p className="text-sm font-medium">{metric.name}</p>
                         <p className="text-xs text-gray-500">
-                          {new Date(metric.timestamp).toLocaleTimeString("zh-CN")}
+                          {new Date(metric.timestamp).toLocaleTimeString('zh-CN')}
                         </p>
                       </div>
                       <div className="flex items-center space-x-2">
                         <Badge variant="outline" className="text-xs">
                           {metric.category}
                         </Badge>
-                        {metric.status === "completed" && metric.duration && (
+                        {metric.status === 'completed' && metric.duration && (
                           <span className="text-sm font-medium">{metric.duration.toFixed(0)}ms</span>
                         )}
-                        {metric.status === "error" && (
+                        {metric.status === 'error' && (
                           <Badge variant="destructive" className="text-xs">
                             错误
                           </Badge>
@@ -396,5 +396,5 @@ export function PerformanceDashboard() {
         </Tabs>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

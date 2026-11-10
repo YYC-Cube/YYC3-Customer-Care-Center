@@ -114,5 +114,5 @@ export default function NotificationsLoading() {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -10,7 +10,7 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
 export default function OfflinePage() {
   return (
@@ -51,5 +51,5 @@ export default function OfflinePage() {
         </button>
       </div>
     </div>
-  )
+  );
 }

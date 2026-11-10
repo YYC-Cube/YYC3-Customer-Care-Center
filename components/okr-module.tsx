@@ -10,13 +10,13 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Target, TrendingUp, Award, Calendar, Users, CheckCircle } from "lucide-react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Target, TrendingUp, Award, Calendar, Users, CheckCircle } from 'lucide-react';
 
 export function OKRModule() {
   return (
@@ -119,24 +119,24 @@ export function OKRModule() {
               <div className="space-y-4">
                 {[
                   {
-                    objective: "提升客户满意度",
+                    objective: '提升客户满意度',
                     keyResults: [
-                      { description: "客户满意度达到95%", progress: 92, target: 95 },
-                      { description: "客户投诉减少50%", progress: 45, target: 50 },
-                      { description: "客户续约率达到90%", progress: 87, target: 90 },
+                      { description: '客户满意度达到95%', progress: 92, target: 95 },
+                      { description: '客户投诉减少50%', progress: 45, target: 50 },
+                      { description: '客户续约率达到90%', progress: 87, target: 90 },
                     ],
-                    owner: "客户成功团队",
-                    quarter: "2024 Q1",
+                    owner: '客户成功团队',
+                    quarter: '2024 Q1',
                   },
                   {
-                    objective: "提高产品质量",
+                    objective: '提高产品质量',
                     keyResults: [
-                      { description: "Bug数量减少60%", progress: 55, target: 60 },
-                      { description: "代码覆盖率达到85%", progress: 78, target: 85 },
-                      { description: "发布周期缩短至2周", progress: 80, target: 100 },
+                      { description: 'Bug数量减少60%', progress: 55, target: 60 },
+                      { description: '代码覆盖率达到85%', progress: 78, target: 85 },
+                      { description: '发布周期缩短至2周', progress: 80, target: 100 },
                     ],
-                    owner: "技术团队",
-                    quarter: "2024 Q1",
+                    owner: '技术团队',
+                    quarter: '2024 Q1',
                   },
                 ].map((okr, index) => (
                   <Card
@@ -187,10 +187,10 @@ export function OKRModule() {
             <TabsContent value="team" className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
-                  { team: "销售团队", objectives: 3, avgScore: 8.5, members: 8 },
-                  { team: "技术团队", objectives: 4, avgScore: 7.8, members: 12 },
-                  { team: "产品团队", objectives: 2, avgScore: 9.1, members: 6 },
-                  { team: "运营团队", objectives: 3, avgScore: 8.2, members: 10 },
+                  { team: '销售团队', objectives: 3, avgScore: 8.5, members: 8 },
+                  { team: '技术团队', objectives: 4, avgScore: 7.8, members: 12 },
+                  { team: '产品团队', objectives: 2, avgScore: 9.1, members: 6 },
+                  { team: '运营团队', objectives: 3, avgScore: 8.2, members: 10 },
                 ].map((team, index) => (
                   <Card
                     key={index}
@@ -291,9 +291,9 @@ export function OKRModule() {
             <TabsContent value="review" className="space-y-4">
               <div className="space-y-4">
                 {[
-                  { period: "2023 Q4", score: 8.7, status: "已完成", highlights: "超额完成销售目标，客户满意度创新高" },
-                  { period: "2023 Q3", score: 7.9, status: "已完成", highlights: "产品功能迭代顺利，用户增长稳定" },
-                  { period: "2023 Q2", score: 8.2, status: "已完成", highlights: "团队协作效率提升，项目按时交付" },
+                  { period: '2023 Q4', score: 8.7, status: '已完成', highlights: '超额完成销售目标，客户满意度创新高' },
+                  { period: '2023 Q3', score: 7.9, status: '已完成', highlights: '产品功能迭代顺利，用户增长稳定' },
+                  { period: '2023 Q2', score: 8.2, status: '已完成', highlights: '团队协作效率提升，项目按时交付' },
                 ].map((review, index) => (
                   <Card
                     key={index}
@@ -328,8 +328,8 @@ export function OKRModule() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
 
 // 确保正确导出
-export default OKRModule
+export default OKRModule;

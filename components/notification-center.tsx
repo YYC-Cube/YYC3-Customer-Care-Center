@@ -10,13 +10,13 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Bell,
   MessageSquare,
@@ -26,17 +26,17 @@ import {
   Settings,
   Trash2,
   BookMarkedIcon as MarkAsRead,
-} from "lucide-react"
-import { Switch } from "@/components/ui/switch"
+} from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
 
 interface Notification {
   id: string
-  type: "system" | "task" | "approval" | "message" | "alert"
+  type: 'system' | 'task' | 'approval' | 'message' | 'alert'
   title: string
   content: string
   timestamp: string
   isRead: boolean
-  priority: "low" | "medium" | "high" | "urgent"
+  priority: 'low' | 'medium' | 'high' | 'urgent'
   sender?: string
   actionRequired?: boolean
 }
@@ -44,69 +44,69 @@ interface Notification {
 export function NotificationCenter() {
   const [notifications, setNotifications] = useState<Notification[]>([
     {
-      id: "1",
-      type: "urgent" as any,
-      title: "紧急采购申请待审批",
-      content: "办公用品采购申请金额¥15,000，需要您的审批",
-      timestamp: "2025-06-21 14:30",
+      id: '1',
+      type: 'urgent' as any,
+      title: '紧急采购申请待审批',
+      content: '办公用品采购申请金额¥15,000，需要您的审批',
+      timestamp: '2025-06-21 14:30',
       isRead: false,
-      priority: "urgent",
-      sender: "采购部",
+      priority: 'urgent',
+      sender: '采购部',
       actionRequired: true,
     },
     {
-      id: "2",
-      type: "task",
-      title: "任务即将到期",
-      content: "客户满意度调研任务将在2小时后到期",
-      timestamp: "2025-06-21 13:45",
+      id: '2',
+      type: 'task',
+      title: '任务即将到期',
+      content: '客户满意度调研任务将在2小时后到期',
+      timestamp: '2025-06-21 13:45',
       isRead: false,
-      priority: "high",
-      sender: "系统",
+      priority: 'high',
+      sender: '系统',
       actionRequired: true,
     },
     {
-      id: "3",
-      type: "message",
-      title: "新消息提醒",
-      content: "张经理发送了一条消息：关于下周会议安排",
-      timestamp: "2025-06-21 12:20",
+      id: '3',
+      type: 'message',
+      title: '新消息提醒',
+      content: '张经理发送了一条消息：关于下周会议安排',
+      timestamp: '2025-06-21 12:20',
       isRead: false,
-      priority: "medium",
-      sender: "张经理",
+      priority: 'medium',
+      sender: '张经理',
     },
     {
-      id: "4",
-      type: "system",
-      title: "系统维护通知",
-      content: "系统将于今晚22:00-24:00进行维护升级",
-      timestamp: "2025-06-21 10:15",
+      id: '4',
+      type: 'system',
+      title: '系统维护通知',
+      content: '系统将于今晚22:00-24:00进行维护升级',
+      timestamp: '2025-06-21 10:15',
       isRead: true,
-      priority: "medium",
-      sender: "系统管理员",
+      priority: 'medium',
+      sender: '系统管理员',
     },
     {
-      id: "5",
-      type: "approval",
-      title: "请假申请已批准",
-      content: "您的年假申请已通过审批",
-      timestamp: "2025-06-20 16:30",
+      id: '5',
+      type: 'approval',
+      title: '请假申请已批准',
+      content: '您的年假申请已通过审批',
+      timestamp: '2025-06-20 16:30',
       isRead: true,
-      priority: "low",
-      sender: "人事部",
+      priority: 'low',
+      sender: '人事部',
     },
     {
-      id: "6",
-      type: "alert",
-      title: "库存预警",
-      content: "沙发系列库存不足，当前库存仅剩15件",
-      timestamp: "2025-06-20 14:20",
+      id: '6',
+      type: 'alert',
+      title: '库存预警',
+      content: '沙发系列库存不足，当前库存仅剩15件',
+      timestamp: '2025-06-20 14:20',
       isRead: false,
-      priority: "high",
-      sender: "库存系统",
+      priority: 'high',
+      sender: '库存系统',
       actionRequired: true,
     },
-  ])
+  ]);
 
   const [notificationSettings, setNotificationSettings] = useState({
     emailNotifications: true,
@@ -115,76 +115,76 @@ export function NotificationCenter() {
     approvalAlerts: true,
     systemUpdates: false,
     marketingMessages: false,
-  })
+  });
 
   const getTypeIcon = (type: string) => {
     switch (type) {
-      case "system":
-        return <Settings className="w-4 h-4 text-blue-600" />
-      case "task":
-        return <Clock className="w-4 h-4 text-orange-600" />
-      case "approval":
-        return <CheckCircle className="w-4 h-4 text-green-600" />
-      case "message":
-        return <MessageSquare className="w-4 h-4 text-purple-600" />
-      case "alert":
-        return <AlertTriangle className="w-4 h-4 text-red-600" />
-      default:
-        return <Bell className="w-4 h-4 text-gray-600" />
+    case 'system':
+      return <Settings className="w-4 h-4 text-blue-600" />;
+    case 'task':
+      return <Clock className="w-4 h-4 text-orange-600" />;
+    case 'approval':
+      return <CheckCircle className="w-4 h-4 text-green-600" />;
+    case 'message':
+      return <MessageSquare className="w-4 h-4 text-purple-600" />;
+    case 'alert':
+      return <AlertTriangle className="w-4 h-4 text-red-600" />;
+    default:
+      return <Bell className="w-4 h-4 text-gray-600" />;
     }
-  }
+  };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case "urgent":
-        return "bg-red-100 text-red-800 border-red-200"
-      case "high":
-        return "bg-orange-100 text-orange-800 border-orange-200"
-      case "medium":
-        return "bg-blue-100 text-blue-800 border-blue-200"
-      case "low":
-        return "bg-gray-100 text-gray-800 border-gray-200"
-      default:
-        return "bg-gray-100 text-gray-800 border-gray-200"
+    case 'urgent':
+      return 'bg-red-100 text-red-800 border-red-200';
+    case 'high':
+      return 'bg-orange-100 text-orange-800 border-orange-200';
+    case 'medium':
+      return 'bg-blue-100 text-blue-800 border-blue-200';
+    case 'low':
+      return 'bg-gray-100 text-gray-800 border-gray-200';
+    default:
+      return 'bg-gray-100 text-gray-800 border-gray-200';
     }
-  }
+  };
 
   const getPriorityText = (priority: string) => {
     switch (priority) {
-      case "urgent":
-        return "紧急"
-      case "high":
-        return "重要"
-      case "medium":
-        return "普通"
-      case "low":
-        return "一般"
-      default:
-        return "未知"
+    case 'urgent':
+      return '紧急';
+    case 'high':
+      return '重要';
+    case 'medium':
+      return '普通';
+    case 'low':
+      return '一般';
+    default:
+      return '未知';
     }
-  }
+  };
 
   const markAsRead = (id: string) => {
-    setNotifications((prev) => prev.map((notif) => (notif.id === id ? { ...notif, isRead: true } : notif)))
-  }
+    setNotifications((prev) => prev.map((notif) => (notif.id === id ? { ...notif, isRead: true } : notif)));
+  };
 
   const markAllAsRead = () => {
-    setNotifications((prev) => prev.map((notif) => ({ ...notif, isRead: true })))
-  }
+    setNotifications((prev) => prev.map((notif) => ({ ...notif, isRead: true })));
+  };
 
   const deleteNotification = (id: string) => {
-    setNotifications((prev) => prev.filter((notif) => notif.id !== id))
-  }
+    setNotifications((prev) => prev.filter((notif) => notif.id !== id));
+  };
 
-  const unreadCount = notifications.filter((n) => !n.isRead).length
-  const urgentCount = notifications.filter((n) => n.priority === "urgent" && !n.isRead).length
+  const unreadCount = notifications.filter((n) => !n.isRead).length;
+  const urgentCount = notifications.filter((n) => n.priority === 'urgent' && !n.isRead).length;
 
   const handleSettingChange = (setting: keyof typeof notificationSettings) => {
     setNotificationSettings((prev) => ({
       ...prev,
       [setting]: !prev[setting],
-    }))
-  }
+    }));
+  };
 
   return (
     <div className="p-6 space-y-6 bg-gradient-to-br from-blue-50 via-sky-50 to-cyan-50 min-h-screen">
@@ -243,7 +243,7 @@ export function NotificationCenter() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-blue-700">
-              {notifications.filter((n) => n.timestamp.includes("2025-06-21")).length}
+              {notifications.filter((n) => n.timestamp.includes('2025-06-21')).length}
             </div>
             <p className="text-xs text-blue-600">今天收到的消息</p>
           </CardContent>
@@ -287,7 +287,7 @@ export function NotificationCenter() {
                   <div
                     key={notification.id}
                     className={`border-l-4 border-l-blue-500 rounded-xl p-4 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200 ${
-                      !notification.isRead ? "bg-blue-50/80 border-blue-300" : ""
+                      !notification.isRead ? 'bg-blue-50/80 border-blue-300' : ''
                     }`}
                   >
                     <div className="flex justify-between items-start">
@@ -295,7 +295,7 @@ export function NotificationCenter() {
                         {getTypeIcon(notification.type)}
                         <div className="flex-1">
                           <div className="flex items-center space-x-2 mb-1">
-                            <h4 className={`font-medium ${!notification.isRead ? "font-semibold" : ""}`}>
+                            <h4 className={`font-medium ${!notification.isRead ? 'font-semibold' : ''}`}>
                               {notification.title}
                             </h4>
                             <Badge className={getPriorityColor(notification.priority)}>
@@ -395,7 +395,7 @@ export function NotificationCenter() {
             <CardContent>
               <div className="space-y-4">
                 {notifications
-                  .filter((n) => n.priority === "urgent" || n.priority === "high")
+                  .filter((n) => n.priority === 'urgent' || n.priority === 'high')
                   .map((notification) => (
                     <div
                       key={notification.id}
@@ -455,7 +455,7 @@ export function NotificationCenter() {
                       </div>
                       <Switch
                         checked={notificationSettings.emailNotifications}
-                        onChange={() => handleSettingChange("emailNotifications")}
+                        onChange={() => handleSettingChange('emailNotifications')}
                       />
                     </div>
                     
@@ -469,7 +469,7 @@ export function NotificationCenter() {
                       </div>
                       <Switch
                         checked={notificationSettings.pushNotifications}
-                        onChange={() => handleSettingChange("pushNotifications")}
+                        onChange={() => handleSettingChange('pushNotifications')}
                       />
                     </div>
                     
@@ -483,7 +483,7 @@ export function NotificationCenter() {
                       </div>
                       <Switch
                         checked={notificationSettings.taskReminders}
-                        onChange={() => handleSettingChange("taskReminders")}
+                        onChange={() => handleSettingChange('taskReminders')}
                       />
                     </div>
                   </div>
@@ -499,7 +499,7 @@ export function NotificationCenter() {
                       </div>
                       <Switch
                         checked={notificationSettings.approvalAlerts}
-                        onChange={() => handleSettingChange("approvalAlerts")}
+                        onChange={() => handleSettingChange('approvalAlerts')}
                       />
                     </div>
                     
@@ -513,7 +513,7 @@ export function NotificationCenter() {
                       </div>
                       <Switch
                         checked={notificationSettings.systemUpdates}
-                        onChange={() => handleSettingChange("systemUpdates")}
+                        onChange={() => handleSettingChange('systemUpdates')}
                       />
                     </div>
                     
@@ -527,7 +527,7 @@ export function NotificationCenter() {
                       </div>
                       <Switch
                         checked={notificationSettings.marketingMessages}
-                        onChange={() => handleSettingChange("marketingMessages")}
+                        onChange={() => handleSettingChange('marketingMessages')}
                       />
                     </div>
                   </div>
@@ -593,5 +593,5 @@ export function NotificationCenter() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

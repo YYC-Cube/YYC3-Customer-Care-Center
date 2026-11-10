@@ -10,15 +10,15 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic';
 
-import { PageContainer } from "@/components/layout/page-container"
-import { SidebarConfig } from "@/components/sidebar-config"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Monitor, Smartphone, Tablet, Zap, Eye, Clock, Settings } from "lucide-react"
+import { PageContainer } from '@/components/layout/page-container';
+import { SidebarConfig } from '@/components/sidebar-config';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Monitor, Smartphone, Tablet, Zap, Eye, Clock, Settings } from 'lucide-react';
 
 export default function SidebarSettingsPage() {
   return (
@@ -128,7 +128,7 @@ export default function SidebarSettingsPage() {
         {/* 配置组件 */}
         <SidebarConfig
           onConfigChange={(config) => {
-            console.log("Sidebar config changed:", config)
+            console.log('Sidebar config changed:', config);
             // 这里可以将配置发送到后端或更新全局状态
           }}
         />
@@ -166,5 +166,5 @@ export default function SidebarSettingsPage() {
         </Card>
       </div>
     </PageContainer>
-  )
+  );
 }

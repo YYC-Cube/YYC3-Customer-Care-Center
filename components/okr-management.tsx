@@ -10,90 +10,90 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Progress } from "@/components/ui/progress"
-import { Target, TrendingUp, Award, Calendar, Users, CheckCircle, Plus, Settings, BarChart3 } from 'lucide-react'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Progress } from '@/components/ui/progress';
+import { Target, TrendingUp, Award, Calendar, Users, CheckCircle, Plus, Settings, BarChart3 } from 'lucide-react';
 
 export function OKRManagement() {
   const okrs = [
     {
-      id: "OKR-001",
-      objective: "提升客户满意度",
-      owner: "客户成功团队",
-      quarter: "2024 Q2",
+      id: 'OKR-001',
+      objective: '提升客户满意度',
+      owner: '客户成功团队',
+      quarter: '2024 Q2',
       progress: 75,
-      status: "on-track",
+      status: 'on-track',
       keyResults: [
-        { description: "客户满意度达到95%", current: 92, target: 95, progress: 97 },
-        { description: "客户投诉减少50%", current: 45, target: 50, progress: 90 },
-        { description: "客户续约率达到90%", current: 87, target: 90, progress: 97 },
+        { description: '客户满意度达到95%', current: 92, target: 95, progress: 97 },
+        { description: '客户投诉减少50%', current: 45, target: 50, progress: 90 },
+        { description: '客户续约率达到90%', current: 87, target: 90, progress: 97 },
       ],
     },
     {
-      id: "OKR-002",
-      objective: "提高产品质量",
-      owner: "技术团队",
-      quarter: "2024 Q2",
+      id: 'OKR-002',
+      objective: '提高产品质量',
+      owner: '技术团队',
+      quarter: '2024 Q2',
       progress: 68,
-      status: "at-risk",
+      status: 'at-risk',
       keyResults: [
-        { description: "Bug数量减少60%", current: 55, target: 60, progress: 92 },
-        { description: "代码覆盖率达到85%", current: 78, target: 85, progress: 92 },
-        { description: "发布周期缩短至2周", current: 80, target: 100, progress: 80 },
+        { description: 'Bug数量减少60%', current: 55, target: 60, progress: 92 },
+        { description: '代码覆盖率达到85%', current: 78, target: 85, progress: 92 },
+        { description: '发布周期缩短至2周', current: 80, target: 100, progress: 80 },
       ],
     },
     {
-      id: "OKR-003",
-      objective: "扩大市场份额",
-      owner: "销售团队",
-      quarter: "2024 Q2",
+      id: 'OKR-003',
+      objective: '扩大市场份额',
+      owner: '销售团队',
+      quarter: '2024 Q2',
       progress: 82,
-      status: "on-track",
+      status: 'on-track',
       keyResults: [
-        { description: "新客户获取增长30%", current: 28, target: 30, progress: 93 },
-        { description: "市场占有率提升至15%", current: 14, target: 15, progress: 93 },
-        { description: "销售额增长25%", current: 22, target: 25, progress: 88 },
+        { description: '新客户获取增长30%', current: 28, target: 30, progress: 93 },
+        { description: '市场占有率提升至15%', current: 14, target: 15, progress: 93 },
+        { description: '销售额增长25%', current: 22, target: 25, progress: 88 },
       ],
     },
-  ]
+  ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "on-track":
-        return "bg-green-100 text-green-800"
-      case "at-risk":
-        return "bg-orange-100 text-orange-800"
-      case "off-track":
-        return "bg-red-100 text-red-800"
-      default:
-        return "bg-blue-100 text-blue-800"
+    case 'on-track':
+      return 'bg-green-100 text-green-800';
+    case 'at-risk':
+      return 'bg-orange-100 text-orange-800';
+    case 'off-track':
+      return 'bg-red-100 text-red-800';
+    default:
+      return 'bg-blue-100 text-blue-800';
     }
-  }
+  };
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case "on-track":
-        return "正常进行"
-      case "at-risk":
-        return "存在风险"
-      case "off-track":
-        return "偏离目标"
-      default:
-        return "未知状态"
+    case 'on-track':
+      return '正常进行';
+    case 'at-risk':
+      return '存在风险';
+    case 'off-track':
+      return '偏离目标';
+    default:
+      return '未知状态';
     }
-  }
+  };
 
   const getProgressColor = (progress: number) => {
-    if (progress >= 80) return "from-blue-400 to-blue-500"
-    if (progress >= 60) return "from-blue-300 to-blue-400"
-    if (progress >= 40) return "from-orange-400 to-orange-500"
-    return "from-red-400 to-red-500"
-  }
+    if (progress >= 80) return 'from-blue-400 to-blue-500';
+    if (progress >= 60) return 'from-blue-300 to-blue-400';
+    if (progress >= 40) return 'from-orange-400 to-orange-500';
+    return 'from-red-400 to-red-500';
+  };
 
   return (
     <div className="p-6 space-y-6 bg-gradient-to-br from-blue-50 via-sky-50 to-cyan-50 min-h-screen">
@@ -141,7 +141,7 @@ export function OKRManagement() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-700">
-              {okrs.filter((okr) => okr.status === "on-track").length}
+              {okrs.filter((okr) => okr.status === 'on-track').length}
             </div>
             <p className="text-xs text-gray-600">达标目标</p>
           </CardContent>
@@ -255,10 +255,10 @@ export function OKRManagement() {
             <TabsContent value="team" className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
-                  { team: "销售团队", objectives: 3, avgScore: 8.5, members: 8 },
-                  { team: "技术团队", objectives: 4, avgScore: 7.8, members: 12 },
-                  { team: "产品团队", objectives: 2, avgScore: 9.1, members: 6 },
-                  { team: "运营团队", objectives: 3, avgScore: 8.2, members: 10 },
+                  { team: '销售团队', objectives: 3, avgScore: 8.5, members: 8 },
+                  { team: '技术团队', objectives: 4, avgScore: 7.8, members: 12 },
+                  { team: '产品团队', objectives: 2, avgScore: 9.1, members: 6 },
+                  { team: '运营团队', objectives: 3, avgScore: 8.2, members: 10 },
                 ].map((team, index) => (
                   <Card
                     key={index}
@@ -359,9 +359,9 @@ export function OKRManagement() {
             <TabsContent value="review" className="space-y-4">
               <div className="space-y-4">
                 {[
-                  { period: "2024 Q1", score: 8.7, status: "已完成", highlights: "超额完成销售目标，客户满意度创新高" },
-                  { period: "2023 Q4", score: 7.9, status: "已完成", highlights: "产品功能迭代顺利，用户增长稳定" },
-                  { period: "2023 Q3", score: 8.2, status: "已完成", highlights: "团队协作效率提升，项目按时交付" },
+                  { period: '2024 Q1', score: 8.7, status: '已完成', highlights: '超额完成销售目标，客户满意度创新高' },
+                  { period: '2023 Q4', score: 7.9, status: '已完成', highlights: '产品功能迭代顺利，用户增长稳定' },
+                  { period: '2023 Q3', score: 8.2, status: '已完成', highlights: '团队协作效率提升，项目按时交付' },
                 ].map((review, index) => (
                   <Card
                     key={index}
@@ -396,5 +396,5 @@ export function OKRManagement() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

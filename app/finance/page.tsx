@@ -10,13 +10,13 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { ResponsiveLayout } from "@/components/layout/responsive-layout"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
-import { DollarSign, TrendingUp, TrendingDown, CreditCard, Receipt, Banknote, Target, AlertTriangle, ArrowUpRight, ArrowDownRight, PieChart, BarChart3 } from 'lucide-react'
+import { ResponsiveLayout } from '@/components/layout/responsive-layout';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
+import { DollarSign, TrendingUp, TrendingDown, CreditCard, Receipt, Banknote, Target, AlertTriangle, ArrowUpRight, ArrowDownRight, PieChart, BarChart3 } from 'lucide-react';
 
 export default function FinancePage() {
   return (
@@ -124,7 +124,7 @@ export default function FinancePage() {
                 <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                   <div
                     className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full transition-all duration-500"
-                    style={{ width: "85%" }}
+                    style={{ width: '85%' }}
                   ></div>
                 </div>
                 <Button
@@ -234,7 +234,7 @@ export default function FinancePage() {
                     <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                       <div
                         className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full transition-all duration-500"
-                        style={{ width: "45%" }}
+                        style={{ width: '45%' }}
                       ></div>
                     </div>
                   </div>
@@ -246,7 +246,7 @@ export default function FinancePage() {
                     <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                       <div
                         className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full transition-all duration-500"
-                        style={{ width: "30%" }}
+                        style={{ width: '30%' }}
                       ></div>
                     </div>
                   </div>
@@ -258,7 +258,7 @@ export default function FinancePage() {
                     <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                       <div
                         className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full transition-all duration-500"
-                        style={{ width: "15%" }}
+                        style={{ width: '15%' }}
                       ></div>
                     </div>
                   </div>
@@ -270,7 +270,7 @@ export default function FinancePage() {
                     <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                       <div
                         className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full transition-all duration-500"
-                        style={{ width: "10%" }}
+                        style={{ width: '10%' }}
                       ></div>
                     </div>
                   </div>
@@ -323,5 +323,5 @@ export default function FinancePage() {
         </Card>
       </div>
     </ResponsiveLayout>
-  )
+  );
 }
