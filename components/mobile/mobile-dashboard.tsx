@@ -10,13 +10,13 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
 import {
   Users,
   CheckSquare,
@@ -30,7 +30,7 @@ import {
   Plus,
   Bell,
   RefreshCw,
-} from "lucide-react"
+} from 'lucide-react';
 
 interface DashboardStats {
   customers: { total: number; new: number; trend: number }
@@ -41,12 +41,12 @@ interface DashboardStats {
 
 interface RecentActivity {
   id: string
-  type: "task" | "customer" | "approval" | "message"
+  type: 'task' | 'customer' | 'approval' | 'message'
   title: string
   description: string
   time: string
-  priority?: "high" | "medium" | "low"
-  status?: "completed" | "pending" | "overdue"
+  priority?: 'high' | 'medium' | 'low'
+  status?: 'completed' | 'pending' | 'overdue'
 }
 
 export function MobileDashboard() {
@@ -55,63 +55,63 @@ export function MobileDashboard() {
     tasks: { total: 156, completed: 89, pending: 45, overdue: 22 },
     revenue: { total: 2847500, monthly: 485600, trend: 8.3 },
     kpi: { score: 87, target: 90, trend: 5.2 },
-  })
+  });
 
   const [recentActivities, setRecentActivities] = useState<RecentActivity[]>([
     {
-      id: "1",
-      type: "task",
-      title: "完成产品需求分析",
-      description: "张三提交了产品需求分析报告",
-      time: "2分钟前",
-      priority: "high",
-      status: "completed",
+      id: '1',
+      type: 'task',
+      title: '完成产品需求分析',
+      description: '张三提交了产品需求分析报告',
+      time: '2分钟前',
+      priority: 'high',
+      status: 'completed',
     },
     {
-      id: "2",
-      type: "customer",
-      title: "新客户注册",
-      description: "北京科技有限公司完成注册",
-      time: "15分钟前",
-      priority: "medium",
+      id: '2',
+      type: 'customer',
+      title: '新客户注册',
+      description: '北京科技有限公司完成注册',
+      time: '15分钟前',
+      priority: 'medium',
     },
     {
-      id: "3",
-      type: "approval",
-      title: "费用报销审批",
-      description: "李四的差旅费报销等待审批",
-      time: "1小时前",
-      priority: "medium",
-      status: "pending",
+      id: '3',
+      type: 'approval',
+      title: '费用报销审批',
+      description: '李四的差旅费报销等待审批',
+      time: '1小时前',
+      priority: 'medium',
+      status: 'pending',
     },
     {
-      id: "4",
-      type: "message",
-      title: "系统维护通知",
-      description: "系统将于今晚22:00进行维护",
-      time: "2小时前",
-      priority: "low",
+      id: '4',
+      type: 'message',
+      title: '系统维护通知',
+      description: '系统将于今晚22:00进行维护',
+      time: '2小时前',
+      priority: 'low',
     },
-  ])
+  ]);
 
-  const [isRefreshing, setIsRefreshing] = useState(false)
-  const [currentTime, setCurrentTime] = useState(new Date())
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   // 更新时间
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentTime(new Date())
-    }, 1000)
+      setCurrentTime(new Date());
+    }, 1000);
 
-    return () => clearInterval(timer)
-  }, [])
+    return () => clearInterval(timer);
+  }, []);
 
   // 刷新数据
   const handleRefresh = async () => {
-    setIsRefreshing(true)
+    setIsRefreshing(true);
 
     // 模拟数据刷新
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    await new Promise((resolve) => setTimeout(resolve, 1500));
 
     // 更新统计数据
     setStats((prev) => ({
@@ -119,61 +119,61 @@ export function MobileDashboard() {
       tasks: { ...prev.tasks, completed: prev.tasks.completed + Math.floor(Math.random() * 2) },
       revenue: { ...prev.revenue, monthly: prev.revenue.monthly + Math.floor(Math.random() * 10000) },
       kpi: { ...prev.kpi, score: Math.min(100, prev.kpi.score + Math.floor(Math.random() * 3)) },
-    }))
+    }));
 
-    setIsRefreshing(false)
-  }
+    setIsRefreshing(false);
+  };
 
   const getGreeting = () => {
-    const hour = currentTime.getHours()
-    if (hour < 6) return "深夜好"
-    if (hour < 12) return "早上好"
-    if (hour < 18) return "下午好"
-    return "晚上好"
-  }
+    const hour = currentTime.getHours();
+    if (hour < 6) return '深夜好';
+    if (hour < 12) return '早上好';
+    if (hour < 18) return '下午好';
+    return '晚上好';
+  };
 
   const getActivityIcon = (type: string) => {
     switch (type) {
-      case "task":
-        return CheckSquare
-      case "customer":
-        return Users
-      case "approval":
-        return AlertCircle
-      case "message":
-        return Bell
-      default:
-        return Clock
+    case 'task':
+      return CheckSquare;
+    case 'customer':
+      return Users;
+    case 'approval':
+      return AlertCircle;
+    case 'message':
+      return Bell;
+    default:
+      return Clock;
     }
-  }
+  };
 
   const getActivityColor = (type: string) => {
     switch (type) {
-      case "task":
-        return "text-blue-600 bg-blue-100"
-      case "customer":
-        return "text-green-600 bg-green-100"
-      case "approval":
-        return "text-orange-600 bg-orange-100"
-      case "message":
-        return "text-purple-600 bg-purple-100"
-      default:
-        return "text-gray-600 bg-gray-100"
+    case 'task':
+      return 'text-blue-600 bg-blue-100';
+    case 'customer':
+      return 'text-green-600 bg-green-100';
+    case 'approval':
+      return 'text-orange-600 bg-orange-100';
+    case 'message':
+      return 'text-purple-600 bg-purple-100';
+    default:
+      return 'text-gray-600 bg-gray-100';
     }
-  }
+  };
 
   const getPriorityColor = (priority?: string) => {
     switch (priority) {
-      case "high":
-        return "bg-red-500"
-      case "medium":
-        return "bg-yellow-500"
-      case "low":
-        return "bg-green-500"
-      default:
-        return "bg-gray-500"
+    case 'high':
+      return 'bg-red-500';
+    case 'medium':
+      return 'bg-yellow-500';
+    case 'low':
+      return 'bg-green-500';
+    default:
+      return 'bg-gray-500';
     }
-  }
+  };
 
   return (
     <div className="space-y-6 pb-6">
@@ -183,11 +183,11 @@ export function MobileDashboard() {
           <div>
             <h1 className="text-2xl font-bold mb-1">{getGreeting()}，管理员</h1>
             <p className="text-sky-100 text-sm">
-              {currentTime.toLocaleDateString("zh-CN", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                weekday: "long",
+              {currentTime.toLocaleDateString('zh-CN', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'long',
               })}
             </p>
           </div>
@@ -198,7 +198,7 @@ export function MobileDashboard() {
             onClick={handleRefresh}
             disabled={isRefreshing}
           >
-            <RefreshCw className={`w-5 h-5 ${isRefreshing ? "animate-spin" : ""}`} />
+            <RefreshCw className={`w-5 h-5 ${isRefreshing ? 'animate-spin' : ''}`} />
           </Button>
         </div>
 
@@ -226,12 +226,12 @@ export function MobileDashboard() {
       {/* 快速操作 */}
       <div className="grid grid-cols-4 gap-3">
         {[
-          { label: "新建任务", icon: Plus, color: "bg-blue-500" },
-          { label: "添加客户", icon: Users, color: "bg-green-500" },
-          { label: "查看报表", icon: TrendingUp, color: "bg-purple-500" },
-          { label: "更多", icon: MoreHorizontal, color: "bg-gray-500" },
+          { label: '新建任务', icon: Plus, color: 'bg-blue-500' },
+          { label: '添加客户', icon: Users, color: 'bg-green-500' },
+          { label: '查看报表', icon: TrendingUp, color: 'bg-purple-500' },
+          { label: '更多', icon: MoreHorizontal, color: 'bg-gray-500' },
         ].map((action, index) => {
-          const Icon = action.icon
+          const Icon = action.icon;
           return (
             <Button
               key={index}
@@ -243,7 +243,7 @@ export function MobileDashboard() {
               </div>
               <span className="text-xs font-medium text-center">{action.label}</span>
             </Button>
-          )
+          );
         })}
       </div>
 
@@ -321,7 +321,7 @@ export function MobileDashboard() {
         <CardContent className="pt-0">
           <div className="space-y-4">
             {recentActivities.map((activity) => {
-              const Icon = getActivityIcon(activity.type)
+              const Icon = getActivityIcon(activity.type);
               return (
                 <div key={activity.id} className="flex items-start space-x-3">
                   <div
@@ -340,18 +340,18 @@ export function MobileDashboard() {
                     <div className="flex items-center justify-between">
                       <span className="text-xs text-slate-400">{activity.time}</span>
                       {activity.status && (
-                        <Badge variant={activity.status === "completed" ? "default" : "secondary"} className="text-xs">
-                          {activity.status === "completed"
-                            ? "已完成"
-                            : activity.status === "pending"
-                              ? "待处理"
-                              : "已逾期"}
+                        <Badge variant={activity.status === 'completed' ? 'default' : 'secondary'} className="text-xs">
+                          {activity.status === 'completed'
+                            ? '已完成'
+                            : activity.status === 'pending'
+                              ? '待处理'
+                              : '已逾期'}
                         </Badge>
                       )}
                     </div>
                   </div>
                 </div>
-              )
+              );
             })}
           </div>
         </CardContent>
@@ -370,9 +370,9 @@ export function MobileDashboard() {
         <CardContent className="pt-0">
           <div className="space-y-3">
             {[
-              { time: "09:00", title: "团队晨会", type: "会议" },
-              { time: "14:00", title: "客户需求评审", type: "评审" },
-              { time: "16:30", title: "项目进度汇报", type: "汇报" },
+              { time: '09:00', title: '团队晨会', type: '会议' },
+              { time: '14:00', title: '客户需求评审', type: '评审' },
+              { time: '16:30', title: '项目进度汇报', type: '汇报' },
             ].map((schedule, index) => (
               <div key={index} className="flex items-center space-x-3 p-3 bg-slate-50 rounded-lg">
                 <div className="text-sm font-medium text-sky-600 w-12">{schedule.time}</div>
@@ -389,5 +389,5 @@ export function MobileDashboard() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

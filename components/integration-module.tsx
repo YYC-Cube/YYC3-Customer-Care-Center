@@ -10,16 +10,16 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Input } from "@/components/ui/input"
-import { Switch } from "@/components/ui/switch"
-import { Label } from "@/components/ui/label"
+import { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Input } from '@/components/ui/input';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 import {
   Zap,
   Settings,
@@ -35,14 +35,14 @@ import {
   MessageSquare,
   CreditCard,
   BarChart3,
-} from "lucide-react"
+} from 'lucide-react';
 
 interface Integration {
   id: string
   name: string
   description: string
   category: string
-  status: "connected" | "disconnected" | "error" | "pending"
+  status: 'connected' | 'disconnected' | 'error' | 'pending'
   icon: any
   lastSync: string
   dataPoints: number
@@ -50,134 +50,134 @@ interface Integration {
 }
 
 export function IntegrationModule() {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [selectedCategory, setSelectedCategory] = useState("all")
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   const integrations: Integration[] = [
     {
-      id: "1",
-      name: "微信企业版",
-      description: "企业微信集成，支持消息推送和用户同步",
-      category: "通讯",
-      status: "connected",
+      id: '1',
+      name: '微信企业版',
+      description: '企业微信集成，支持消息推送和用户同步',
+      category: '通讯',
+      status: 'connected',
       icon: MessageSquare,
-      lastSync: "2025-06-21 14:30",
+      lastSync: '2025-06-21 14:30',
       dataPoints: 1250,
       isActive: true,
     },
     {
-      id: "2",
-      name: "钉钉",
-      description: "钉钉办公平台集成，支持考勤和审批同步",
-      category: "办公",
-      status: "connected",
+      id: '2',
+      name: '钉钉',
+      description: '钉钉办公平台集成，支持考勤和审批同步',
+      category: '办公',
+      status: 'connected',
       icon: Clock,
-      lastSync: "2025-06-21 13:45",
+      lastSync: '2025-06-21 13:45',
       dataPoints: 890,
       isActive: true,
     },
     {
-      id: "3",
-      name: "支付宝",
-      description: "支付宝支付接口，支持在线支付和账单同步",
-      category: "支付",
-      status: "connected",
+      id: '3',
+      name: '支付宝',
+      description: '支付宝支付接口，支持在线支付和账单同步',
+      category: '支付',
+      status: 'connected',
       icon: CreditCard,
-      lastSync: "2025-06-21 12:20",
+      lastSync: '2025-06-21 12:20',
       dataPoints: 456,
       isActive: true,
     },
     {
-      id: "4",
-      name: "腾讯云",
-      description: "腾讯云服务集成，支持存储和计算资源管理",
-      category: "云服务",
-      status: "error",
+      id: '4',
+      name: '腾讯云',
+      description: '腾讯云服务集成，支持存储和计算资源管理',
+      category: '云服务',
+      status: 'error',
       icon: Cloud,
-      lastSync: "2025-06-20 16:30",
+      lastSync: '2025-06-20 16:30',
       dataPoints: 0,
       isActive: false,
     },
     {
-      id: "5",
-      name: "阿里云邮箱",
-      description: "企业邮箱服务，支持邮件发送和接收",
-      category: "邮件",
-      status: "connected",
+      id: '5',
+      name: '阿里云邮箱',
+      description: '企业邮箱服务，支持邮件发送和接收',
+      category: '邮件',
+      status: 'connected',
       icon: Mail,
-      lastSync: "2025-06-21 10:15",
+      lastSync: '2025-06-21 10:15',
       dataPoints: 234,
       isActive: true,
     },
     {
-      id: "6",
-      name: "百度统计",
-      description: "网站数据分析，支持访问统计和用户行为分析",
-      category: "分析",
-      status: "pending",
+      id: '6',
+      name: '百度统计',
+      description: '网站数据分析，支持访问统计和用户行为分析',
+      category: '分析',
+      status: 'pending',
       icon: BarChart3,
-      lastSync: "从未同步",
+      lastSync: '从未同步',
       dataPoints: 0,
       isActive: false,
     },
-  ]
+  ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "connected":
-        return "bg-green-100 text-green-800"
-      case "disconnected":
-        return "bg-gray-100 text-gray-800"
-      case "error":
-        return "bg-red-100 text-red-800"
-      case "pending":
-        return "bg-yellow-100 text-yellow-800"
-      default:
-        return "bg-gray-100 text-gray-800"
+    case 'connected':
+      return 'bg-green-100 text-green-800';
+    case 'disconnected':
+      return 'bg-gray-100 text-gray-800';
+    case 'error':
+      return 'bg-red-100 text-red-800';
+    case 'pending':
+      return 'bg-yellow-100 text-yellow-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
     }
-  }
+  };
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case "connected":
-        return "已连接"
-      case "disconnected":
-        return "未连接"
-      case "error":
-        return "连接错误"
-      case "pending":
-        return "待配置"
-      default:
-        return "未知状态"
+    case 'connected':
+      return '已连接';
+    case 'disconnected':
+      return '未连接';
+    case 'error':
+      return '连接错误';
+    case 'pending':
+      return '待配置';
+    default:
+      return '未知状态';
     }
-  }
+  };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case "connected":
-        return <CheckCircle className="w-4 h-4 text-green-600" />
-      case "disconnected":
-        return <Clock className="w-4 h-4 text-gray-600" />
-      case "error":
-        return <AlertTriangle className="w-4 h-4 text-red-600" />
-      case "pending":
-        return <Clock className="w-4 h-4 text-yellow-600" />
-      default:
-        return <Clock className="w-4 h-4 text-gray-600" />
+    case 'connected':
+      return <CheckCircle className="w-4 h-4 text-green-600" />;
+    case 'disconnected':
+      return <Clock className="w-4 h-4 text-gray-600" />;
+    case 'error':
+      return <AlertTriangle className="w-4 h-4 text-red-600" />;
+    case 'pending':
+      return <Clock className="w-4 h-4 text-yellow-600" />;
+    default:
+      return <Clock className="w-4 h-4 text-gray-600" />;
     }
-  }
+  };
 
   const filteredIntegrations = integrations.filter((integration) => {
     const matchesSearch =
       integration.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      integration.description.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesCategory = selectedCategory === "all" || integration.category === selectedCategory
-    return matchesSearch && matchesCategory
-  })
+      integration.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || integration.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
-  const connectedCount = integrations.filter((i) => i.status === "connected").length
-  const errorCount = integrations.filter((i) => i.status === "error").length
-  const totalDataPoints = integrations.reduce((sum, i) => sum + i.dataPoints, 0)
+  const connectedCount = integrations.filter((i) => i.status === 'connected').length;
+  const errorCount = integrations.filter((i) => i.status === 'error').length;
+  const totalDataPoints = integrations.reduce((sum, i) => sum + i.dataPoints, 0);
 
   return (
     <div className="p-6 space-y-6 bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50 min-h-screen">
@@ -357,7 +357,7 @@ export function IntegrationModule() {
             <TabsContent value="connected" className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredIntegrations
-                  .filter((i) => i.status === "connected")
+                  .filter((i) => i.status === 'connected')
                   .map((integration) => (
                     <Card
                       key={integration.id}
@@ -401,7 +401,7 @@ export function IntegrationModule() {
             <TabsContent value="error" className="space-y-4">
               <div className="space-y-4">
                 {filteredIntegrations
-                  .filter((i) => i.status === "error")
+                  .filter((i) => i.status === 'error')
                   .map((integration) => (
                     <Card
                       key={integration.id}
@@ -492,5 +492,5 @@ export function IntegrationModule() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

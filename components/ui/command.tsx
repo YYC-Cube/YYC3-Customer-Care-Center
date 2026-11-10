@@ -10,8 +10,8 @@
  * @license MIT
  */
 
-import * as React from "react";
-import { cn } from "@/lib/utils";
+import * as React from 'react';
+import { cn } from '@/lib/utils';
 
 const Command = React.forwardRef<
   HTMLDivElement,
@@ -20,15 +20,15 @@ const Command = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "flex h-full w-full flex-col overflow-hidden rounded-md border bg-popover text-popover-foreground",
+      'flex h-full w-full flex-col overflow-hidden rounded-md border bg-popover text-popover-foreground',
       className
     )}
     {...props}
   />
 ));
-Command.displayName = "Command";
+Command.displayName = 'Command';
 
-interface CommandInputProps extends React.ComponentProps<"input"> {
+interface CommandInputProps extends React.ComponentProps<'input'> {
   onValueChange?: (value: string) => void;
 }
 
@@ -49,7 +49,7 @@ const CommandInput = React.forwardRef<
     <input
       ref={ref}
       className={cn(
-        "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+        'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
         className
       )}
       onChange={handleChange}
@@ -57,7 +57,7 @@ const CommandInput = React.forwardRef<
     />
   );
 });
-CommandInput.displayName = "CommandInput";
+CommandInput.displayName = 'CommandInput';
 
 const CommandList = React.forwardRef<
   HTMLDivElement,
@@ -65,11 +65,11 @@ const CommandList = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("max-h-[300px] overflow-y-auto overflow-x-hidden", className)}
+    className={cn('max-h-[300px] overflow-y-auto overflow-x-hidden', className)}
     {...props}
   />
 ));
-CommandList.displayName = "CommandList";
+CommandList.displayName = 'CommandList';
 
 const CommandEmpty = React.forwardRef<
   HTMLDivElement,
@@ -77,11 +77,11 @@ const CommandEmpty = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("py-6 text-center text-sm", className)}
+    className={cn('py-6 text-center text-sm', className)}
     {...props}
   />
 ));
-CommandEmpty.displayName = "CommandEmpty";
+CommandEmpty.displayName = 'CommandEmpty';
 
 const CommandGroup = React.forwardRef<
   HTMLDivElement,
@@ -95,7 +95,7 @@ const CommandGroup = React.forwardRef<
     )}
   </div>
 ));
-CommandGroup.displayName = "CommandGroup";
+CommandGroup.displayName = 'CommandGroup';
 
 const CommandItem = React.forwardRef<
   HTMLDivElement,
@@ -104,12 +104,12 @@ const CommandItem = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "flex cursor-default select-none items-center rounded-sm px-3 py-2 text-sm outline-none data-[state=selected]:bg-accent data-[state=selected]:text-accent-foreground",
+      'flex cursor-default select-none items-center rounded-sm px-3 py-2 text-sm outline-none data-[state=selected]:bg-accent data-[state=selected]:text-accent-foreground',
       className
     )}
     {...props}
   />
 ));
-CommandItem.displayName = "CommandItem";
+CommandItem.displayName = 'CommandItem';
 
 export { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem };

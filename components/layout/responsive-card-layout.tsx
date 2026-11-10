@@ -10,13 +10,13 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import React from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ResponsiveGrid, ResponsiveGridItem } from "./responsive-grid"
-import { ResponsiveContainer } from "./responsive-container"
-import { useResponsiveLayout } from "@/lib/responsive-layout"
+import React from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ResponsiveGrid, ResponsiveGridItem } from './responsive-grid';
+import { ResponsiveContainer } from './responsive-container';
+import { useResponsiveLayout } from '@/lib/responsive-layout';
 
 interface CardLayoutItem {
   id: string
@@ -28,7 +28,7 @@ interface CardLayoutItem {
     md?: number
     lg?: number
     xl?: number
-    "2xl"?: number
+    '2xl'?: number
   }
   className?: string
   priority?: number
@@ -44,7 +44,7 @@ interface ResponsiveCardLayoutProps {
     md?: number
     lg?: number
     xl?: number
-    "2xl"?: number
+    '2xl'?: number
   }
   gap?: {
     xs?: number
@@ -52,12 +52,12 @@ interface ResponsiveCardLayoutProps {
     md?: number
     lg?: number
     xl?: number
-    "2xl"?: number
+    '2xl'?: number
   }
   autoFit?: boolean
   minItemWidth?: number
   className?: string
-  containerVariant?: "full" | "contained" | "fluid" | "narrow"
+  containerVariant?: 'full' | 'contained' | 'fluid' | 'narrow'
 }
 
 export function ResponsiveCardLayout({
@@ -69,18 +69,18 @@ export function ResponsiveCardLayout({
   autoFit = false,
   minItemWidth = 320,
   className,
-  containerVariant = "contained",
+  containerVariant = 'contained',
 }: ResponsiveCardLayoutProps) {
-  const { isMobile } = useResponsiveLayout()
+  const { isMobile } = useResponsiveLayout();
 
   // 根据优先级和屏幕尺寸排序项目
   const sortedItems = React.useMemo(() => {
     return [...items].sort((a, b) => {
-      const priorityA = a.priority || 0
-      const priorityB = b.priority || 0
-      return priorityB - priorityA
-    })
-  }, [items])
+      const priorityA = a.priority || 0;
+      const priorityB = b.priority || 0;
+      return priorityB - priorityA;
+    });
+  }, [items]);
 
   return (
     <ResponsiveContainer variant={containerVariant} className={className}>
@@ -109,11 +109,11 @@ export function ResponsiveCardLayout({
                   <CardTitle className="text-lg font-semibold">{item.title}</CardTitle>
                 </CardHeader>
               )}
-              <CardContent className={item.title ? "pt-0" : ""}>{item.content}</CardContent>
+              <CardContent className={item.title ? 'pt-0' : ''}>{item.content}</CardContent>
             </Card>
           </ResponsiveGridItem>
         ))}
       </ResponsiveGrid>
     </ResponsiveContainer>
-  )
+  );
 }

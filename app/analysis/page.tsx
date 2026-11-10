@@ -10,10 +10,10 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { SystemAnalysisReport } from "@/docs/system-analysis-report"
+import { SystemAnalysisReport } from '@/docs/system-analysis-report';
 
 export default function AnalysisPage() {
-  return <SystemAnalysisReport />
+  return <SystemAnalysisReport />;
 }

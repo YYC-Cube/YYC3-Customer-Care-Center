@@ -10,13 +10,13 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
   XAxis,
   YAxis,
@@ -28,8 +28,8 @@ import {
   PieChart,
   Pie,
   Cell,
-} from "recharts"
-import { TrendingUp, TrendingDown, Target, AlertTriangle, CheckCircle, Clock } from "lucide-react"
+} from 'recharts';
+import { TrendingUp, TrendingDown, Target, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
 
 interface KPI {
   id: string
@@ -38,8 +38,8 @@ interface KPI {
   currentValue: number
   targetValue: number
   unit: string
-  trend: "up" | "down" | "stable"
-  status: "excellent" | "good" | "warning" | "critical"
+  trend: 'up' | 'down' | 'stable'
+  status: 'excellent' | 'good' | 'warning' | 'critical'
   description: string
   owner: string
   updateFrequency: string
@@ -47,180 +47,180 @@ interface KPI {
 }
 
 export function KPITracking() {
-  const [selectedPeriod, setSelectedPeriod] = useState("month")
-  const [selectedCategory, setSelectedCategory] = useState("all")
+  const [selectedPeriod, setSelectedPeriod] = useState('month');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   // 模拟KPI数据
   const kpis: KPI[] = [
     {
-      id: "1",
-      name: "月度销售额",
-      category: "销售",
+      id: '1',
+      name: '月度销售额',
+      category: '销售',
       currentValue: 2847392,
       targetValue: 3000000,
-      unit: "元",
-      trend: "up",
-      status: "good",
-      description: "当月总销售收入",
-      owner: "王总监",
-      updateFrequency: "每日",
-      lastUpdated: "2025-06-21",
+      unit: '元',
+      trend: 'up',
+      status: 'good',
+      description: '当月总销售收入',
+      owner: '王总监',
+      updateFrequency: '每日',
+      lastUpdated: '2025-06-21',
     },
     {
-      id: "2",
-      name: "客户满意度",
-      category: "服务",
+      id: '2',
+      name: '客户满意度',
+      category: '服务',
       currentValue: 4.2,
       targetValue: 4.5,
-      unit: "分",
-      trend: "up",
-      status: "warning",
-      description: "客户满意度评分",
-      owner: "张经理",
-      updateFrequency: "每周",
-      lastUpdated: "2025-06-20",
+      unit: '分',
+      trend: 'up',
+      status: 'warning',
+      description: '客户满意度评分',
+      owner: '张经理',
+      updateFrequency: '每周',
+      lastUpdated: '2025-06-20',
     },
     {
-      id: "3",
-      name: "员工出勤率",
-      category: "人力资源",
+      id: '3',
+      name: '员工出勤率',
+      category: '人力资源',
       currentValue: 98.5,
       targetValue: 95,
-      unit: "%",
-      trend: "stable",
-      status: "excellent",
-      description: "员工按时出勤比例",
-      owner: "李主管",
-      updateFrequency: "每日",
-      lastUpdated: "2025-06-21",
+      unit: '%',
+      trend: 'stable',
+      status: 'excellent',
+      description: '员工按时出勤比例',
+      owner: '李主管',
+      updateFrequency: '每日',
+      lastUpdated: '2025-06-21',
     },
     {
-      id: "4",
-      name: "库存周转率",
-      category: "运营",
+      id: '4',
+      name: '库存周转率',
+      category: '运营',
       currentValue: 4.2,
       targetValue: 5.0,
-      unit: "次",
-      trend: "down",
-      status: "warning",
-      description: "库存周转效率",
-      owner: "陈经理",
-      updateFrequency: "每月",
-      lastUpdated: "2025-06-15",
+      unit: '次',
+      trend: 'down',
+      status: 'warning',
+      description: '库存周转效率',
+      owner: '陈经理',
+      updateFrequency: '每月',
+      lastUpdated: '2025-06-15',
     },
     {
-      id: "5",
-      name: "新客户获取",
-      category: "销售",
+      id: '5',
+      name: '新客户获取',
+      category: '销售',
       currentValue: 28,
       targetValue: 50,
-      unit: "个",
-      trend: "up",
-      status: "critical",
-      description: "本月新增客户数量",
-      owner: "王总监",
-      updateFrequency: "每日",
-      lastUpdated: "2025-06-21",
+      unit: '个',
+      trend: 'up',
+      status: 'critical',
+      description: '本月新增客户数量',
+      owner: '王总监',
+      updateFrequency: '每日',
+      lastUpdated: '2025-06-21',
     },
     {
-      id: "6",
-      name: "系统可用性",
-      category: "技术",
+      id: '6',
+      name: '系统可用性',
+      category: '技术',
       currentValue: 99.9,
       targetValue: 99.5,
-      unit: "%",
-      trend: "stable",
-      status: "excellent",
-      description: "系统正常运行时间比例",
-      owner: "技术部",
-      updateFrequency: "实时",
-      lastUpdated: "2025-06-21",
+      unit: '%',
+      trend: 'stable',
+      status: 'excellent',
+      description: '系统正常运行时间比例',
+      owner: '技术部',
+      updateFrequency: '实时',
+      lastUpdated: '2025-06-21',
     },
-  ]
+  ];
 
   // 趋势数据
   const trendData = [
-    { month: "1月", sales: 2200000, satisfaction: 4.0, attendance: 97.8 },
-    { month: "2月", sales: 2400000, satisfaction: 4.1, attendance: 98.2 },
-    { month: "3月", sales: 2600000, satisfaction: 4.0, attendance: 98.0 },
-    { month: "4月", sales: 2750000, satisfaction: 4.2, attendance: 98.5 },
-    { month: "5月", sales: 2800000, satisfaction: 4.1, attendance: 98.3 },
-    { month: "6月", sales: 2847392, satisfaction: 4.2, attendance: 98.5 },
-  ]
+    { month: '1月', sales: 2200000, satisfaction: 4.0, attendance: 97.8 },
+    { month: '2月', sales: 2400000, satisfaction: 4.1, attendance: 98.2 },
+    { month: '3月', sales: 2600000, satisfaction: 4.0, attendance: 98.0 },
+    { month: '4月', sales: 2750000, satisfaction: 4.2, attendance: 98.5 },
+    { month: '5月', sales: 2800000, satisfaction: 4.1, attendance: 98.3 },
+    { month: '6月', sales: 2847392, satisfaction: 4.2, attendance: 98.5 },
+  ];
 
   // 分类分布数据
   const categoryData = [
-    { name: "销售", value: 35, color: "#f97316" },
-    { name: "服务", value: 25, color: "#ea580c" },
-    { name: "运营", value: 20, color: "#dc2626" },
-    { name: "人力资源", value: 15, color: "#c2410c" },
-    { name: "技术", value: 5, color: "#9a3412" },
-  ]
+    { name: '销售', value: 35, color: '#f97316' },
+    { name: '服务', value: 25, color: '#ea580c' },
+    { name: '运营', value: 20, color: '#dc2626' },
+    { name: '人力资源', value: 15, color: '#c2410c' },
+    { name: '技术', value: 5, color: '#9a3412' },
+  ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "excellent":
-        return "bg-green-100 text-green-800"
-      case "good":
-        return "bg-blue-100 text-blue-800"
-      case "warning":
-        return "bg-yellow-100 text-yellow-800"
-      case "critical":
-        return "bg-red-100 text-red-800"
-      default:
-        return "bg-gray-100 text-gray-800"
+    case 'excellent':
+      return 'bg-green-100 text-green-800';
+    case 'good':
+      return 'bg-blue-100 text-blue-800';
+    case 'warning':
+      return 'bg-yellow-100 text-yellow-800';
+    case 'critical':
+      return 'bg-red-100 text-red-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
     }
-  }
+  };
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case "excellent":
-        return "优秀"
-      case "good":
-        return "良好"
-      case "warning":
-        return "警告"
-      case "critical":
-        return "紧急"
-      default:
-        return "未知"
+    case 'excellent':
+      return '优秀';
+    case 'good':
+      return '良好';
+    case 'warning':
+      return '警告';
+    case 'critical':
+      return '紧急';
+    default:
+      return '未知';
     }
-  }
+  };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case "excellent":
-        return <CheckCircle className="w-4 h-4 text-green-600" />
-      case "good":
-        return <CheckCircle className="w-4 h-4 text-blue-600" />
-      case "warning":
-        return <AlertTriangle className="w-4 h-4 text-yellow-600" />
-      case "critical":
-        return <AlertTriangle className="w-4 h-4 text-red-600" />
-      default:
-        return <Clock className="w-4 h-4 text-gray-600" />
+    case 'excellent':
+      return <CheckCircle className="w-4 h-4 text-green-600" />;
+    case 'good':
+      return <CheckCircle className="w-4 h-4 text-blue-600" />;
+    case 'warning':
+      return <AlertTriangle className="w-4 h-4 text-yellow-600" />;
+    case 'critical':
+      return <AlertTriangle className="w-4 h-4 text-red-600" />;
+    default:
+      return <Clock className="w-4 h-4 text-gray-600" />;
     }
-  }
+  };
 
   const getTrendIcon = (trend: string) => {
     switch (trend) {
-      case "up":
-        return <TrendingUp className="w-4 h-4 text-green-600" />
-      case "down":
-        return <TrendingDown className="w-4 h-4 text-red-600" />
-      default:
-        return <Target className="w-4 h-4 text-gray-600" />
+    case 'up':
+      return <TrendingUp className="w-4 h-4 text-green-600" />;
+    case 'down':
+      return <TrendingDown className="w-4 h-4 text-red-600" />;
+    default:
+      return <Target className="w-4 h-4 text-gray-600" />;
     }
-  }
+  };
 
   const filteredKPIs = kpis.filter((kpi) => {
-    if (selectedCategory !== "all" && kpi.category !== selectedCategory) return false
-    return true
-  })
+    if (selectedCategory !== 'all' && kpi.category !== selectedCategory) return false;
+    return true;
+  });
 
   const calculateProgress = (current: number, target: number) => {
-    return Math.min((current / target) * 100, 100)
-  }
+    return Math.min((current / target) * 100, 100);
+  };
 
   return (
     <div className="p-6 space-y-6 bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 min-h-screen">
@@ -285,7 +285,7 @@ export function KPITracking() {
           <CardContent>
             <div className="text-2xl font-bold text-orange-700">
               {Math.round(
-                (filteredKPIs.filter((kpi) => kpi.status === "excellent" || kpi.status === "good").length /
+                (filteredKPIs.filter((kpi) => kpi.status === 'excellent' || kpi.status === 'good').length /
                   filteredKPIs.length) *
                   100,
               )}
@@ -302,7 +302,7 @@ export function KPITracking() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-orange-700">
-              {filteredKPIs.filter((kpi) => kpi.status === "warning" || kpi.status === "critical").length}
+              {filteredKPIs.filter((kpi) => kpi.status === 'warning' || kpi.status === 'critical').length}
             </div>
             <p className="text-xs text-orange-600">需要关注的指标</p>
           </CardContent>
@@ -315,7 +315,7 @@ export function KPITracking() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-orange-700">
-              {filteredKPIs.filter((kpi) => kpi.trend === "up").length}
+              {filteredKPIs.filter((kpi) => kpi.trend === 'up').length}
             </div>
             <p className="text-xs text-orange-600">呈上升趋势的指标</p>
           </CardContent>
@@ -463,5 +463,5 @@ export function KPITracking() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

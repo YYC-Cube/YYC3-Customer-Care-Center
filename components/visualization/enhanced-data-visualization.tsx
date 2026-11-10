@@ -10,15 +10,15 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState, useEffect, useCallback } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+import { useState, useEffect, useCallback } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import {
   LineChart,
   Line,
@@ -34,7 +34,7 @@ import {
   CartesianGrid,
   ResponsiveContainer,
   Legend,
-} from "recharts"
+} from 'recharts';
 import {
   BarChart3,
   LineChartIcon,
@@ -50,14 +50,14 @@ import {
   RefreshCw,
   Plus,
   AlertCircle,
-} from "lucide-react"
+} from 'lucide-react';
 
 interface DataSource {
   id: string
   name: string
-  type: "api" | "database" | "realtime"
+  type: 'api' | 'database' | 'realtime'
   url?: string
-  status: "connected" | "disconnected" | "error"
+  status: 'connected' | 'disconnected' | 'error'
   recordCount: number
   lastUpdate: Date
   fields: string[]
@@ -66,7 +66,7 @@ interface DataSource {
 interface ChartConfig {
   id: string
   title: string
-  type: "line" | "bar" | "pie" | "scatter" | "area" | "radar" | "treemap"
+  type: 'line' | 'bar' | 'pie' | 'scatter' | 'area' | 'radar' | 'treemap'
   dataSource: string
   xAxis: string
   yAxis: string[]
@@ -82,269 +82,269 @@ interface VisualizationData {
 export function EnhancedDataVisualization() {
   const [dataSources, setDataSources] = useState<DataSource[]>([
     {
-      id: "sales_db",
-      name: "销售数据库",
-      type: "database",
-      status: "connected",
+      id: 'sales_db',
+      name: '销售数据库',
+      type: 'database',
+      status: 'connected',
       recordCount: 15420,
       lastUpdate: new Date(),
-      fields: ["date", "revenue", "orders", "customers", "region", "product"],
+      fields: ['date', 'revenue', 'orders', 'customers', 'region', 'product'],
     },
     {
-      id: "analytics_api",
-      name: "分析API",
-      type: "api",
-      url: "https://api.analytics.com/v1",
-      status: "connected",
+      id: 'analytics_api',
+      name: '分析API',
+      type: 'api',
+      url: 'https://api.analytics.com/v1',
+      status: 'connected',
       recordCount: 8930,
       lastUpdate: new Date(Date.now() - 5 * 60 * 1000),
-      fields: ["timestamp", "pageviews", "sessions", "bounceRate", "source"],
+      fields: ['timestamp', 'pageviews', 'sessions', 'bounceRate', 'source'],
     },
     {
-      id: "realtime_stream",
-      name: "实时数据流",
-      type: "realtime",
-      status: "connected",
+      id: 'realtime_stream',
+      name: '实时数据流',
+      type: 'realtime',
+      status: 'connected',
       recordCount: 2340,
       lastUpdate: new Date(Date.now() - 30 * 1000),
-      fields: ["time", "value", "category", "status"],
+      fields: ['time', 'value', 'category', 'status'],
     },
-  ])
+  ]);
 
   const [charts, setCharts] = useState<ChartConfig[]>([
     {
-      id: "sales_trend",
-      title: "销售趋势分析",
-      type: "line",
-      dataSource: "sales_db",
-      xAxis: "date",
-      yAxis: ["revenue", "orders"],
+      id: 'sales_trend',
+      title: '销售趋势分析',
+      type: 'line',
+      dataSource: 'sales_db',
+      xAxis: 'date',
+      yAxis: ['revenue', 'orders'],
       filters: {},
-      colors: ["#3b82f6", "#10b981"],
+      colors: ['#3b82f6', '#10b981'],
     },
     {
-      id: "region_distribution",
-      title: "区域销售分布",
-      type: "pie",
-      dataSource: "sales_db",
-      xAxis: "region",
-      yAxis: ["revenue"],
+      id: 'region_distribution',
+      title: '区域销售分布',
+      type: 'pie',
+      dataSource: 'sales_db',
+      xAxis: 'region',
+      yAxis: ['revenue'],
       filters: {},
-      colors: ["#3b82f6", "#10b981", "#f59e0b", "#ef4444"],
+      colors: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444'],
     },
-  ])
+  ]);
 
-  const [selectedChart, setSelectedChart] = useState<string>("")
-  const [isLoading, setIsLoading] = useState(false)
-  const [visualizationData, setVisualizationData] = useState<{ [key: string]: VisualizationData[] }>({})
-  const [activeTab, setActiveTab] = useState("dashboard")
+  const [selectedChart, setSelectedChart] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [visualizationData, setVisualizationData] = useState<{ [key: string]: VisualizationData[] }>({});
+  const [activeTab, setActiveTab] = useState('dashboard');
 
   // 模拟数据生成
   const generateMockData = useCallback((chartConfig: ChartConfig): VisualizationData[] => {
-    const mockData: VisualizationData[] = []
-    const recordCount = 30
+    const mockData: VisualizationData[] = [];
+    const recordCount = 30;
 
     for (let i = 0; i < recordCount; i++) {
-      const record: VisualizationData = {}
+      const record: VisualizationData = {};
 
-      if (chartConfig.xAxis === "date") {
+      if (chartConfig.xAxis === 'date') {
         record[chartConfig.xAxis] = new Date(Date.now() - (recordCount - i) * 24 * 60 * 60 * 1000).toLocaleDateString(
-          "zh-CN",
-        )
-      } else if (chartConfig.xAxis === "region") {
-        const regions = ["华东", "华南", "华北", "西部", "东北"]
-        record[chartConfig.xAxis] = regions[i % regions.length]
+          'zh-CN',
+        );
+      } else if (chartConfig.xAxis === 'region') {
+        const regions = ['华东', '华南', '华北', '西部', '东北'];
+        record[chartConfig.xAxis] = regions[i % regions.length];
       } else {
-        record[chartConfig.xAxis] = `项目${i + 1}`
+        record[chartConfig.xAxis] = `项目${i + 1}`;
       }
 
       chartConfig.yAxis.forEach((field) => {
-        if (field === "revenue") {
-          record[field] = Math.floor(Math.random() * 100000) + 50000
-        } else if (field === "orders") {
-          record[field] = Math.floor(Math.random() * 200) + 50
-        } else if (field === "customers") {
-          record[field] = Math.floor(Math.random() * 100) + 20
+        if (field === 'revenue') {
+          record[field] = Math.floor(Math.random() * 100000) + 50000;
+        } else if (field === 'orders') {
+          record[field] = Math.floor(Math.random() * 200) + 50;
+        } else if (field === 'customers') {
+          record[field] = Math.floor(Math.random() * 100) + 20;
         } else {
-          record[field] = Math.floor(Math.random() * 1000) + 100
+          record[field] = Math.floor(Math.random() * 1000) + 100;
         }
-      })
+      });
 
-      mockData.push(record)
+      mockData.push(record);
     }
 
-    return mockData
-  }, [])
+    return mockData;
+  }, []);
 
   // 加载图表数据
   const loadChartData = useCallback(
     async (chartId: string) => {
-      setIsLoading(true)
+      setIsLoading(true);
       try {
-        const chart = charts.find((c) => c.id === chartId)
-        if (!chart) return
+        const chart = charts.find((c) => c.id === chartId);
+        if (!chart) return;
 
         // 模拟API调用延迟
-        await new Promise((resolve) => setTimeout(resolve, 1000))
+        await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        const data = generateMockData(chart)
+        const data = generateMockData(chart);
         setVisualizationData((prev) => ({
           ...prev,
           [chartId]: data,
-        }))
+        }));
       } catch (error) {
-        console.error("加载图表数据失败:", error)
+        console.error('加载图表数据失败:', error);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     },
     [charts, generateMockData],
-  )
+  );
 
   // 初始化数据
   useEffect(() => {
     charts.forEach((chart) => {
-      loadChartData(chart.id)
-    })
-  }, [charts, loadChartData])
+      loadChartData(chart.id);
+    });
+  }, [charts, loadChartData]);
 
   // 渲染图表
   const renderChart = (chartConfig: ChartConfig) => {
-    const data = visualizationData[chartConfig.id] || []
+    const data = visualizationData[chartConfig.id] || [];
 
     const chartProps = {
       config: chartConfig.yAxis.reduce((acc, field, index) => {
         acc[field] = {
           label: field,
           color: chartConfig.colors[index] || `hsl(var(--chart-${index + 1}))`,
-        }
-        return acc
+        };
+        return acc;
       }, {} as any),
-      className: "h-[300px]",
-    }
+      className: 'h-[300px]',
+    };
 
     switch (chartConfig.type) {
-      case "line":
-        return (
-          <ChartContainer {...chartProps}>
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={data}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey={chartConfig.xAxis} />
-                <YAxis />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Legend />
-                {chartConfig.yAxis.map((field, index) => (
-                  <Line
-                    key={field}
-                    type="monotone"
-                    dataKey={field}
-                    stroke={chartConfig.colors[index]}
-                    strokeWidth={2}
-                    dot={{ r: 4 }}
-                  />
-                ))}
-              </LineChart>
-            </ResponsiveContainer>
-          </ChartContainer>
-        )
-
-      case "bar":
-        return (
-          <ChartContainer {...chartProps}>
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={data}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey={chartConfig.xAxis} />
-                <YAxis />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Legend />
-                {chartConfig.yAxis.map((field, index) => (
-                  <Bar key={field} dataKey={field} fill={chartConfig.colors[index]} radius={[4, 4, 0, 0]} />
-                ))}
-              </BarChart>
-            </ResponsiveContainer>
-          </ChartContainer>
-        )
-
-      case "pie":
-        const pieData = data.reduce(
-          (acc, item) => {
-            const existing = acc.find((a) => a.name === item[chartConfig.xAxis])
-            if (existing) {
-              existing.value += item[chartConfig.yAxis[0]]
-            } else {
-              acc.push({
-                name: item[chartConfig.xAxis],
-                value: item[chartConfig.yAxis[0]],
-              })
-            }
-            return acc
-          },
-          [] as { name: string; value: number }[],
-        )
-
-        return (
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie data={pieData} cx="50%" cy="50%" innerRadius={60} outerRadius={120} paddingAngle={5} dataKey="value">
-                {pieData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={chartConfig.colors[index % chartConfig.colors.length]} />
-                ))}
-              </Pie>
-              <ChartTooltip />
+    case 'line':
+      return (
+        <ChartContainer {...chartProps}>
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={data}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey={chartConfig.xAxis} />
+              <YAxis />
+              <ChartTooltip content={<ChartTooltipContent />} />
               <Legend />
-            </PieChart>
+              {chartConfig.yAxis.map((field, index) => (
+                <Line
+                  key={field}
+                  type="monotone"
+                  dataKey={field}
+                  stroke={chartConfig.colors[index]}
+                  strokeWidth={2}
+                  dot={{ r: 4 }}
+                />
+              ))}
+            </LineChart>
           </ResponsiveContainer>
-        )
+        </ChartContainer>
+      );
 
-      case "area":
-        return (
-          <ChartContainer {...chartProps}>
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={data}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey={chartConfig.xAxis} />
-                <YAxis />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Legend />
-                {chartConfig.yAxis.map((field, index) => (
-                  <Area
-                    key={field}
-                    type="monotone"
-                    dataKey={field}
-                    stackId="1"
-                    stroke={chartConfig.colors[index]}
-                    fill={chartConfig.colors[index]}
-                    fillOpacity={0.6}
-                  />
-                ))}
-              </AreaChart>
-            </ResponsiveContainer>
-          </ChartContainer>
-        )
+    case 'bar':
+      return (
+        <ChartContainer {...chartProps}>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={data}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey={chartConfig.xAxis} />
+              <YAxis />
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <Legend />
+              {chartConfig.yAxis.map((field, index) => (
+                <Bar key={field} dataKey={field} fill={chartConfig.colors[index]} radius={[4, 4, 0, 0]} />
+              ))}
+            </BarChart>
+          </ResponsiveContainer>
+        </ChartContainer>
+      );
 
-      default:
-        return <div className="h-[300px] flex items-center justify-center text-gray-500">暂不支持此图表类型</div>
+    case 'pie':
+      const pieData = data.reduce(
+        (acc, item) => {
+          const existing = acc.find((a) => a.name === item[chartConfig.xAxis]);
+          if (existing) {
+            existing.value += item[chartConfig.yAxis[0]];
+          } else {
+            acc.push({
+              name: item[chartConfig.xAxis],
+              value: item[chartConfig.yAxis[0]],
+            });
+          }
+          return acc;
+        },
+          [] as { name: string; value: number }[],
+      );
+
+      return (
+        <ResponsiveContainer width="100%" height={300}>
+          <PieChart>
+            <Pie data={pieData} cx="50%" cy="50%" innerRadius={60} outerRadius={120} paddingAngle={5} dataKey="value">
+              {pieData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={chartConfig.colors[index % chartConfig.colors.length]} />
+              ))}
+            </Pie>
+            <ChartTooltip />
+            <Legend />
+          </PieChart>
+        </ResponsiveContainer>
+      );
+
+    case 'area':
+      return (
+        <ChartContainer {...chartProps}>
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart data={data}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey={chartConfig.xAxis} />
+              <YAxis />
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <Legend />
+              {chartConfig.yAxis.map((field, index) => (
+                <Area
+                  key={field}
+                  type="monotone"
+                  dataKey={field}
+                  stackId="1"
+                  stroke={chartConfig.colors[index]}
+                  fill={chartConfig.colors[index]}
+                  fillOpacity={0.6}
+                />
+              ))}
+            </AreaChart>
+          </ResponsiveContainer>
+        </ChartContainer>
+      );
+
+    default:
+      return <div className="h-[300px] flex items-center justify-center text-gray-500">暂不支持此图表类型</div>;
     }
-  }
+  };
 
   const getDataSourceStatusColor = (status: string) => {
     switch (status) {
-      case "connected":
-        return "bg-green-100 text-green-800"
-      case "disconnected":
-        return "bg-gray-100 text-gray-800"
-      case "error":
-        return "bg-red-100 text-red-800"
-      default:
-        return "bg-gray-100 text-gray-800"
+    case 'connected':
+      return 'bg-green-100 text-green-800';
+    case 'disconnected':
+      return 'bg-gray-100 text-gray-800';
+    case 'error':
+      return 'bg-red-100 text-red-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
     }
-  }
+  };
 
   const formatDate = (date: Date) => {
-    return date.toLocaleString("zh-CN")
-  }
+    return date.toLocaleString('zh-CN');
+  };
 
   return (
     <div className="p-6 space-y-6">
@@ -384,9 +384,9 @@ export function EnhancedDataVisualization() {
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <CardTitle className="flex items-center">
-                      {chart.type === "line" && <LineChartIcon className="w-5 h-5 mr-2 text-blue-600" />}
-                      {chart.type === "bar" && <BarChart3 className="w-5 h-5 mr-2 text-green-600" />}
-                      {chart.type === "pie" && <PieChartIcon className="w-5 h-5 mr-2 text-purple-600" />}
+                      {chart.type === 'line' && <LineChartIcon className="w-5 h-5 mr-2 text-blue-600" />}
+                      {chart.type === 'bar' && <BarChart3 className="w-5 h-5 mr-2 text-green-600" />}
+                      {chart.type === 'pie' && <PieChartIcon className="w-5 h-5 mr-2 text-purple-600" />}
                       {chart.title}
                     </CardTitle>
                     <div className="flex space-x-2">
@@ -479,16 +479,16 @@ export function EnhancedDataVisualization() {
                     <div className="flex items-center space-x-2">
                       <div
                         className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                          ds.type === "api"
-                            ? "bg-blue-100 text-blue-600"
-                            : ds.type === "database"
-                              ? "bg-green-100 text-green-600"
-                              : "bg-purple-100 text-purple-600"
+                          ds.type === 'api'
+                            ? 'bg-blue-100 text-blue-600'
+                            : ds.type === 'database'
+                              ? 'bg-green-100 text-green-600'
+                              : 'bg-purple-100 text-purple-600'
                         }`}
                       >
-                        {ds.type === "api" ? (
+                        {ds.type === 'api' ? (
                           <Share className="w-4 h-4" />
-                        ) : ds.type === "database" ? (
+                        ) : ds.type === 'database' ? (
                           <Database className="w-4 h-4" />
                         ) : (
                           <Cloud className="w-4 h-4" />
@@ -496,13 +496,13 @@ export function EnhancedDataVisualization() {
                       </div>
                       <div>
                         <CardTitle className="text-lg">{ds.name}</CardTitle>
-                        <p className="text-sm text-gray-500">{ds.url || "内部数据源"}</p>
+                        <p className="text-sm text-gray-500">{ds.url || '内部数据源'}</p>
                       </div>
                     </div>
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-medium ${getDataSourceStatusColor(ds.status)}`}
                     >
-                      {ds.status === "connected" ? "已连接" : ds.status === "disconnected" ? "已断开" : "错误"}
+                      {ds.status === 'connected' ? '已连接' : ds.status === 'disconnected' ? '已断开' : '错误'}
                     </span>
                   </div>
                 </CardHeader>
@@ -518,7 +518,7 @@ export function EnhancedDataVisualization() {
                   <div>
                     <p className="text-sm text-gray-500">数据源类型</p>
                     <p className="font-semibold">
-                      {ds.type === "api" ? "API" : ds.type === "database" ? "数据库" : "实时数据"}
+                      {ds.type === 'api' ? 'API' : ds.type === 'database' ? '数据库' : '实时数据'}
                     </p>
                   </div>
                 </CardContent>
@@ -562,7 +562,7 @@ export function EnhancedDataVisualization() {
                     </div>
                     <div>
                       <label className="text-sm font-medium">Y轴字段</label>
-                      <p className="text-sm text-gray-600">{chart.yAxis.join(", ")}</p>
+                      <p className="text-sm text-gray-600">{chart.yAxis.join(', ')}</p>
                     </div>
                   </div>
                   <div className="flex justify-end space-x-2">
@@ -614,5 +614,5 @@ export function EnhancedDataVisualization() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

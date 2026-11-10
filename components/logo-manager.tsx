@@ -10,15 +10,15 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import type React from "react"
-import { useState, useRef } from "react"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Upload, ImageIcon, Settings, Save, RotateCcw } from "lucide-react"
+import type React from 'react';
+import { useState, useRef } from 'react';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Upload, ImageIcon, Settings, Save, RotateCcw } from 'lucide-react';
 
 interface LogoManagerProps {
   onLogoChange?: (logoData: LogoData) => void
@@ -28,115 +28,115 @@ interface LogoData {
   url: string
   title: string
   subtitle: string
-  type: "upload" | "default"
+  type: 'upload' | 'default'
 }
 
 export function LogoManager({ onLogoChange }: LogoManagerProps) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
   const [logoData, setLogoData] = useState<LogoData>({
-    url: "/yyc3-pwa-icon.png",
-    title: "言语云企业管理系统",
-    subtitle: "YanYu Cloud Enterprise Management",
-    type: "default",
-  })
-  const [previewData, setPreviewData] = useState<LogoData>(logoData)
-  const [isUploading, setIsUploading] = useState(false)
-  const fileInputRef = useRef<HTMLInputElement>(null)
+    url: '/yyc3-pwa-icon.png',
+    title: '言语云企业管理系统',
+    subtitle: 'YanYu Cloud Enterprise Management',
+    type: 'default',
+  });
+  const [previewData, setPreviewData] = useState<LogoData>(logoData);
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
+    const file = event.target.files?.[0];
     if (file) {
       // 验证文件类型
-      if (!file.type.startsWith("image/")) {
-        alert("请选择图片文件")
-        return
+      if (!file.type.startsWith('image/')) {
+        alert('请选择图片文件');
+        return;
       }
 
       // 验证文件大小 (最大 2MB)
       if (file.size > 2 * 1024 * 1024) {
-        alert("图片大小不能超过 2MB")
-        return
+        alert('图片大小不能超过 2MB');
+        return;
       }
 
-      setIsUploading(true)
-      const reader = new FileReader()
+      setIsUploading(true);
+      const reader = new FileReader();
       reader.onload = (e) => {
-        const result = e.target?.result as string
+        const result = e.target?.result as string;
         setPreviewData({
           ...previewData,
           url: result,
-          type: "upload",
-        })
-        setIsUploading(false)
-      }
+          type: 'upload',
+        });
+        setIsUploading(false);
+      };
       reader.onerror = () => {
-        alert("文件读取失败，请重试")
-        setIsUploading(false)
-      }
-      reader.readAsDataURL(file)
+        alert('文件读取失败，请重试');
+        setIsUploading(false);
+      };
+      reader.readAsDataURL(file);
     }
-  }
+  };
 
   const handleSave = () => {
-    setLogoData(previewData)
+    setLogoData(previewData);
 
     // 保存到本地存储
-    localStorage.setItem("companyLogo", JSON.stringify(previewData))
+    localStorage.setItem('companyLogo', JSON.stringify(previewData));
 
     if (onLogoChange) {
-      onLogoChange(previewData)
+      onLogoChange(previewData);
     }
 
-    setIsOpen(false)
+    setIsOpen(false);
 
     // 触发页面刷新以更新头部logo
-    window.dispatchEvent(new CustomEvent("logoUpdated", { detail: previewData }))
+    window.dispatchEvent(new CustomEvent('logoUpdated', { detail: previewData }));
 
     // 显示成功提示
-    if ("Notification" in window && Notification.permission === "granted") {
-      new Notification("标志设置", {
-        body: "企业标志已成功更新！",
+    if ('Notification' in window && Notification.permission === 'granted') {
+      new Notification('标志设置', {
+        body: '企业标志已成功更新！',
         icon: previewData.url,
-      })
+      });
     }
-  }
+  };
 
   const handleReset = () => {
     const defaultData: LogoData = {
-      url: "/yyc3-pwa-icon.png",
-      title: "言语云企业管理系统",
-      subtitle: "YanYu Cloud Enterprise Management",
-      type: "default",
-    }
+      url: '/yyc3-pwa-icon.png',
+      title: '言语云企业管理系统',
+      subtitle: 'YanYu Cloud Enterprise Management',
+      type: 'default',
+    };
 
-    setPreviewData(defaultData)
-    localStorage.removeItem("companyLogo")
-  }
+    setPreviewData(defaultData);
+    localStorage.removeItem('companyLogo');
+  };
 
   const handleTemplateSelect = (template: LogoData) => {
-    setPreviewData(template)
-  }
+    setPreviewData(template);
+  };
 
   const templates: LogoData[] = [
     {
-      url: "/yyc3-pwa-icon.png",
-      title: "言语云企业管理系统",
-      subtitle: "YanYu Cloud Enterprise Management",
-      type: "default",
+      url: '/yyc3-pwa-icon.png',
+      title: '言语云企业管理系统',
+      subtitle: 'YanYu Cloud Enterprise Management',
+      type: 'default',
     },
     {
-      url: "/yyc3-pwa-icon.png",
-      title: "左右科技有限公司",
-      subtitle: "ZuoYou Technology Co., Ltd.",
-      type: "default",
+      url: '/yyc3-pwa-icon.png',
+      title: '左右科技有限公司',
+      subtitle: 'ZuoYou Technology Co., Ltd.',
+      type: 'default',
     },
     {
-      url: "/placeholder.svg?height=60&width=200&text=企业标志",
-      title: "您的企业名称",
-      subtitle: "Your Company Name",
-      type: "default",
+      url: '/placeholder.svg?height=60&width=200&text=企业标志',
+      title: '您的企业名称',
+      subtitle: 'Your Company Name',
+      type: 'default',
     },
-  ]
+  ];
 
   return (
     <>
@@ -160,12 +160,12 @@ export function LogoManager({ onLogoChange }: LogoManagerProps) {
               <Label className="text-sm font-medium mb-3 block">预览效果</Label>
               <div className="flex items-center space-x-4 bg-white p-4 rounded-lg border">
                 <img
-                  src={previewData.url || "/placeholder.svg?height=60&width=200&text=标志"}
+                  src={previewData.url || '/placeholder.svg?height=60&width=200&text=标志'}
                   alt="企业标志"
                   className="h-12 w-auto object-contain"
                   onError={(e) => {
-                    const target = e.target as HTMLImageElement
-                    target.src = "/yyc3-pwa-icon.png"
+                    const target = e.target as HTMLImageElement;
+                    target.src = '/yyc3-pwa-icon.png';
                   }}
                 />
                 <div>
@@ -187,7 +187,7 @@ export function LogoManager({ onLogoChange }: LogoManagerProps) {
                     className="flex-1"
                   >
                     <Upload className="w-4 h-4 mr-2" />
-                    {isUploading ? "上传中..." : "上传标志"}
+                    {isUploading ? '上传中...' : '上传标志'}
                   </Button>
                   <Input
                     ref={fileInputRef}
@@ -252,12 +252,12 @@ export function LogoManager({ onLogoChange }: LogoManagerProps) {
                   >
                     <div className="flex items-center space-x-3 w-full">
                       <img
-                        src={template.url || "/placeholder.svg"}
+                        src={template.url || '/placeholder.svg'}
                         alt={template.title}
                         className="h-8 w-auto object-contain"
                         onError={(e) => {
-                          const target = e.target as HTMLImageElement
-                          target.src = "/placeholder.svg?height=32&width=100&text=Logo"
+                          const target = e.target as HTMLImageElement;
+                          target.src = '/placeholder.svg?height=32&width=100&text=Logo';
                         }}
                       />
                       <div className="text-left flex-1">
@@ -295,5 +295,5 @@ export function LogoManager({ onLogoChange }: LogoManagerProps) {
         </DialogContent>
       </Dialog>
     </>
-  )
+  );
 }

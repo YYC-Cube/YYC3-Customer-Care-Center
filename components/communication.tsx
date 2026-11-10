@@ -10,16 +10,16 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState, useEffect, useRef } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { useState, useEffect, useRef } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   MessageSquare,
   Video,
@@ -38,7 +38,7 @@ import {
   MoreHorizontal,
   Clock,
   CheckCheck,
-} from "lucide-react"
+} from 'lucide-react';
 
 interface Message {
   id: string
@@ -47,7 +47,7 @@ interface Message {
   senderAvatar: string
   content: string
   timestamp: Date
-  type: "text" | "file" | "image" | "voice"
+  type: 'text' | 'file' | 'image' | 'voice'
   isRead: boolean
   reactions?: { emoji: string; users: string[] }[]
 }
@@ -55,7 +55,7 @@ interface Message {
 interface ChatRoom {
   id: string
   name: string
-  type: "direct" | "group" | "channel"
+  type: 'direct' | 'group' | 'channel'
   avatar: string
   lastMessage: string
   lastMessageTime: Date
@@ -69,293 +69,293 @@ interface OnlineUser {
   id: string
   name: string
   avatar: string
-  status: "online" | "away" | "busy" | "offline"
+  status: 'online' | 'away' | 'busy' | 'offline'
   department: string
   role: string
 }
 
 export function Communication() {
-  const [activeChat, setActiveChat] = useState<string | null>(null)
-  const [message, setMessage] = useState("")
-  const [searchQuery, setSearchQuery] = useState("")
-  const [isRecording, setIsRecording] = useState(false)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const [activeChat, setActiveChat] = useState<string | null>(null);
+  const [message, setMessage] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isRecording, setIsRecording] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // 模拟聊天室数据
   const [chatRooms, setChatRooms] = useState<ChatRoom[]>([
     {
-      id: "1",
-      name: "张经理",
-      type: "direct",
-      avatar: "",
-      lastMessage: "明天的会议准备好了吗？",
+      id: '1',
+      name: '张经理',
+      type: 'direct',
+      avatar: '',
+      lastMessage: '明天的会议准备好了吗？',
       lastMessageTime: new Date(Date.now() - 5 * 60 * 1000),
       unreadCount: 2,
       isOnline: true,
-      members: ["user1", "user2"],
+      members: ['user1', 'user2'],
     },
     {
-      id: "2",
-      name: "产品开发团队",
-      type: "group",
-      avatar: "",
-      lastMessage: "新功能的原型设计已完成",
+      id: '2',
+      name: '产品开发团队',
+      type: 'group',
+      avatar: '',
+      lastMessage: '新功能的原型设计已完成',
       lastMessageTime: new Date(Date.now() - 15 * 60 * 1000),
       unreadCount: 5,
       isOnline: true,
-      members: ["user1", "user2", "user3", "user4"],
-      description: "产品开发相关讨论",
+      members: ['user1', 'user2', 'user3', 'user4'],
+      description: '产品开发相关讨论',
     },
     {
-      id: "3",
-      name: "李总监",
-      type: "direct",
-      avatar: "",
-      lastMessage: "项目进度如何？",
+      id: '3',
+      name: '李总监',
+      type: 'direct',
+      avatar: '',
+      lastMessage: '项目进度如何？',
       lastMessageTime: new Date(Date.now() - 30 * 60 * 1000),
       unreadCount: 0,
       isOnline: false,
-      members: ["user1", "user3"],
+      members: ['user1', 'user3'],
     },
     {
-      id: "4",
-      name: "全体员工",
-      type: "channel",
-      avatar: "",
-      lastMessage: "公司年会通知已发布",
+      id: '4',
+      name: '全体员工',
+      type: 'channel',
+      avatar: '',
+      lastMessage: '公司年会通知已发布',
       lastMessageTime: new Date(Date.now() - 2 * 60 * 60 * 1000),
       unreadCount: 1,
       isOnline: true,
-      members: ["user1", "user2", "user3", "user4", "user5"],
-      description: "公司重要通知和公告",
+      members: ['user1', 'user2', 'user3', 'user4', 'user5'],
+      description: '公司重要通知和公告',
     },
-  ])
+  ]);
 
   // 模拟消息数据
   const [messages, setMessages] = useState<Record<string, Message[]>>({
-    "1": [
+    '1': [
       {
-        id: "m1",
-        senderId: "user2",
-        senderName: "张经理",
-        senderAvatar: "",
-        content: "你好，关于明天的项目评审会议，你准备好了吗？",
+        id: 'm1',
+        senderId: 'user2',
+        senderName: '张经理',
+        senderAvatar: '',
+        content: '你好，关于明天的项目评审会议，你准备好了吗？',
         timestamp: new Date(Date.now() - 10 * 60 * 1000),
-        type: "text",
+        type: 'text',
         isRead: true,
       },
       {
-        id: "m2",
-        senderId: "user1",
-        senderName: "我",
-        senderAvatar: "",
-        content: "已经准备好了，PPT和相关文档都整理完毕。",
+        id: 'm2',
+        senderId: 'user1',
+        senderName: '我',
+        senderAvatar: '',
+        content: '已经准备好了，PPT和相关文档都整理完毕。',
         timestamp: new Date(Date.now() - 8 * 60 * 1000),
-        type: "text",
+        type: 'text',
         isRead: true,
       },
       {
-        id: "m3",
-        senderId: "user2",
-        senderName: "张经理",
-        senderAvatar: "",
-        content: "很好，记得提前10分钟到会议室。",
+        id: 'm3',
+        senderId: 'user2',
+        senderName: '张经理',
+        senderAvatar: '',
+        content: '很好，记得提前10分钟到会议室。',
         timestamp: new Date(Date.now() - 5 * 60 * 1000),
-        type: "text",
+        type: 'text',
         isRead: false,
       },
     ],
-    "2": [
+    '2': [
       {
-        id: "m4",
-        senderId: "user3",
-        senderName: "王设计师",
-        senderAvatar: "",
-        content: "新功能的原型设计已经完成，大家可以查看一下。",
+        id: 'm4',
+        senderId: 'user3',
+        senderName: '王设计师',
+        senderAvatar: '',
+        content: '新功能的原型设计已经完成，大家可以查看一下。',
         timestamp: new Date(Date.now() - 20 * 60 * 1000),
-        type: "text",
+        type: 'text',
         isRead: true,
       },
       {
-        id: "m5",
-        senderId: "user4",
-        senderName: "李开发",
-        senderAvatar: "",
-        content: "看起来不错，我们什么时候开始开发？",
+        id: 'm5',
+        senderId: 'user4',
+        senderName: '李开发',
+        senderAvatar: '',
+        content: '看起来不错，我们什么时候开始开发？',
         timestamp: new Date(Date.now() - 15 * 60 * 1000),
-        type: "text",
+        type: 'text',
         isRead: true,
       },
     ],
-  })
+  });
 
   // 在线用户数据
   const [onlineUsers, setOnlineUsers] = useState<OnlineUser[]>([
     {
-      id: "user1",
-      name: "张经理",
-      avatar: "",
-      status: "online",
-      department: "销售部",
-      role: "部门经理",
+      id: 'user1',
+      name: '张经理',
+      avatar: '',
+      status: 'online',
+      department: '销售部',
+      role: '部门经理',
     },
     {
-      id: "user2",
-      name: "李总监",
-      avatar: "",
-      status: "busy",
-      department: "技术部",
-      role: "技术总监",
+      id: 'user2',
+      name: '李总监',
+      avatar: '',
+      status: 'busy',
+      department: '技术部',
+      role: '技术总监',
     },
     {
-      id: "user3",
-      name: "王设计师",
-      avatar: "",
-      status: "online",
-      department: "设计部",
-      role: "UI设计师",
+      id: 'user3',
+      name: '王设计师',
+      avatar: '',
+      status: 'online',
+      department: '设计部',
+      role: 'UI设计师',
     },
     {
-      id: "user4",
-      name: "陈开发",
-      avatar: "",
-      status: "away",
-      department: "技术部",
-      role: "前端开发",
+      id: 'user4',
+      name: '陈开发',
+      avatar: '',
+      status: 'away',
+      department: '技术部',
+      role: '前端开发',
     },
     {
-      id: "user5",
-      name: "赵产品",
-      avatar: "",
-      status: "online",
-      department: "产品部",
-      role: "产品经理",
+      id: 'user5',
+      name: '赵产品',
+      avatar: '',
+      status: 'online',
+      department: '产品部',
+      role: '产品经理',
     },
-  ])
+  ]);
 
   // 公告数据
   const [announcements, setAnnouncements] = useState([
     {
-      id: "1",
-      title: "公司年会通知",
-      content: "公司年会将于下月15日举行，请大家提前安排时间。",
-      author: "人事部",
+      id: '1',
+      title: '公司年会通知',
+      content: '公司年会将于下月15日举行，请大家提前安排时间。',
+      author: '人事部',
       timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
-      priority: "high",
+      priority: 'high',
     },
     {
-      id: "2",
-      title: "系统维护通知",
-      content: "系统将于本周六晚上进行维护升级，预计2小时。",
-      author: "技术部",
+      id: '2',
+      title: '系统维护通知',
+      content: '系统将于本周六晚上进行维护升级，预计2小时。',
+      author: '技术部',
       timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000),
-      priority: "medium",
+      priority: 'medium',
     },
     {
-      id: "3",
-      title: "新员工入职欢迎",
-      content: "欢迎新同事加入我们的团队！",
-      author: "人事部",
+      id: '3',
+      title: '新员工入职欢迎',
+      content: '欢迎新同事加入我们的团队！',
+      author: '人事部',
       timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000),
-      priority: "low",
+      priority: 'low',
     },
-  ])
+  ]);
 
   // 发送消息
   const sendMessage = () => {
-    if (!message.trim() || !activeChat) return
+    if (!message.trim() || !activeChat) return;
 
     const newMessage: Message = {
       id: `m${Date.now()}`,
-      senderId: "user1",
-      senderName: "我",
-      senderAvatar: "",
+      senderId: 'user1',
+      senderName: '我',
+      senderAvatar: '',
       content: message,
       timestamp: new Date(),
-      type: "text",
+      type: 'text',
       isRead: true,
-    }
+    };
 
     setMessages((prev) => ({
       ...prev,
       [activeChat]: [...(prev[activeChat] || []), newMessage],
-    }))
+    }));
 
     // 更新聊天室最后消息
     setChatRooms((prev) =>
       prev.map((room) =>
         room.id === activeChat
           ? {
-              ...room,
-              lastMessage: message,
-              lastMessageTime: new Date(),
-            }
+            ...room,
+            lastMessage: message,
+            lastMessageTime: new Date(),
+          }
           : room,
       ),
-    )
+    );
 
-    setMessage("")
-    scrollToBottom()
-  }
+    setMessage('');
+    scrollToBottom();
+  };
 
   // 滚动到底部
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   // 获取状态颜色
-  const getStatusColor = (status: OnlineUser["status"]) => {
+  const getStatusColor = (status: OnlineUser['status']) => {
     switch (status) {
-      case "online":
-        return "bg-green-500"
-      case "away":
-        return "bg-yellow-500"
-      case "busy":
-        return "bg-red-500"
-      default:
-        return "bg-gray-400"
+    case 'online':
+      return 'bg-green-500';
+    case 'away':
+      return 'bg-yellow-500';
+    case 'busy':
+      return 'bg-red-500';
+    default:
+      return 'bg-gray-400';
     }
-  }
+  };
 
   // 获取状态文本
-  const getStatusText = (status: OnlineUser["status"]) => {
+  const getStatusText = (status: OnlineUser['status']) => {
     switch (status) {
-      case "online":
-        return "在线"
-      case "away":
-        return "离开"
-      case "busy":
-        return "忙碌"
-      default:
-        return "离线"
+    case 'online':
+      return '在线';
+    case 'away':
+      return '离开';
+    case 'busy':
+      return '忙碌';
+    default:
+      return '离线';
     }
-  }
+  };
 
   // 格式化时间
   const formatTime = (date: Date) => {
-    const now = new Date()
-    const diff = now.getTime() - date.getTime()
-    const minutes = Math.floor(diff / (1000 * 60))
-    const hours = Math.floor(diff / (1000 * 60 * 60))
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+    const now = new Date();
+    const diff = now.getTime() - date.getTime();
+    const minutes = Math.floor(diff / (1000 * 60));
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
-    if (minutes < 1) return "刚刚"
-    if (minutes < 60) return `${minutes}分钟前`
-    if (hours < 24) return `${hours}小时前`
-    if (days < 7) return `${days}天前`
-    return date.toLocaleDateString("zh-CN")
-  }
+    if (minutes < 1) return '刚刚';
+    if (minutes < 60) return `${minutes}分钟前`;
+    if (hours < 24) return `${hours}小时前`;
+    if (days < 7) return `${days}天前`;
+    return date.toLocaleDateString('zh-CN');
+  };
 
   // 过滤聊天室
-  const filteredChatRooms = chatRooms.filter((room) => room.name.toLowerCase().includes(searchQuery.toLowerCase()))
+  const filteredChatRooms = chatRooms.filter((room) => room.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   // 当前聊天室
-  const currentChat = chatRooms.find((room) => room.id === activeChat)
-  const currentMessages = activeChat ? messages[activeChat] || [] : []
+  const currentChat = chatRooms.find((room) => room.id === activeChat);
+  const currentMessages = activeChat ? messages[activeChat] || [] : [];
 
   useEffect(() => {
-    scrollToBottom()
-  }, [currentMessages])
+    scrollToBottom();
+  }, [currentMessages]);
 
   return (
     <div className="p-6 space-y-6 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen">
@@ -410,7 +410,7 @@ export function Communication() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
-              {onlineUsers.filter((user) => user.status === "online").length}
+              {onlineUsers.filter((user) => user.status === 'online').length}
             </div>
             <p className="text-sm text-muted-foreground">当前在线人数</p>
           </CardContent>
@@ -425,7 +425,7 @@ export function Communication() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-purple-600">
-              {chatRooms.filter((room) => room.type === "group").length}
+              {chatRooms.filter((room) => room.type === 'group').length}
             </div>
             <p className="text-sm text-muted-foreground">参与的群组数量</p>
           </CardContent>
@@ -468,14 +468,14 @@ export function Communication() {
                   <div
                     key={room.id}
                     className={`p-3 rounded-lg cursor-pointer transition-colors hover:bg-slate-50 ${
-                      activeChat === room.id ? "bg-blue-50 border-l-4 border-blue-500" : ""
+                      activeChat === room.id ? 'bg-blue-50 border-l-4 border-blue-500' : ''
                     }`}
                     onClick={() => setActiveChat(room.id)}
                   >
                     <div className="flex items-center space-x-3">
                       <div className="relative">
                         <Avatar className="w-10 h-10">
-                          <AvatarImage src={room.avatar || "/placeholder.svg"} />
+                          <AvatarImage src={room.avatar || '/placeholder.svg'} />
                           <AvatarFallback className="bg-gradient-to-br from-blue-400 to-purple-500 text-white">
                             {room.name.charAt(0)}
                           </AvatarFallback>
@@ -514,7 +514,7 @@ export function Communication() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <Avatar className="w-10 h-10">
-                      <AvatarImage src={currentChat?.avatar || "/placeholder.svg"} />
+                      <AvatarImage src={currentChat?.avatar || '/placeholder.svg'} />
                       <AvatarFallback className="bg-gradient-to-br from-blue-400 to-purple-500 text-white">
                         {currentChat?.name.charAt(0)}
                       </AvatarFallback>
@@ -522,11 +522,11 @@ export function Communication() {
                     <div>
                       <h3 className="font-medium text-slate-800">{currentChat?.name}</h3>
                       <p className="text-sm text-slate-600">
-                        {currentChat?.type === "group"
+                        {currentChat?.type === 'group'
                           ? `${currentChat.members.length} 名成员`
                           : currentChat?.isOnline
-                            ? "在线"
-                            : "离线"}
+                            ? '在线'
+                            : '离线'}
                       </p>
                     </div>
                   </div>
@@ -549,23 +549,23 @@ export function Communication() {
                     {currentMessages.map((msg) => (
                       <div
                         key={msg.id}
-                        className={`flex ${msg.senderId === "user1" ? "justify-end" : "justify-start"}`}
+                        className={`flex ${msg.senderId === 'user1' ? 'justify-end' : 'justify-start'}`}
                       >
                         <div
                           className={`max-w-[70%] ${
-                            msg.senderId === "user1"
-                              ? "bg-blue-500 text-white rounded-l-lg rounded-tr-lg"
-                              : "bg-slate-100 text-slate-800 rounded-r-lg rounded-tl-lg"
+                            msg.senderId === 'user1'
+                              ? 'bg-blue-500 text-white rounded-l-lg rounded-tr-lg'
+                              : 'bg-slate-100 text-slate-800 rounded-r-lg rounded-tl-lg'
                           } p-3`}
                         >
-                          {msg.senderId !== "user1" && (
+                          {msg.senderId !== 'user1' && (
                             <p className="text-xs font-medium mb-1 opacity-70">{msg.senderName}</p>
                           )}
                           <p className="text-sm">{msg.content}</p>
                           <div className="flex items-center justify-end mt-1 space-x-1">
                             <span className="text-xs opacity-70">{formatTime(msg.timestamp)}</span>
-                            {msg.senderId === "user1" && (
-                              <CheckCheck className={`w-3 h-3 ${msg.isRead ? "text-blue-200" : "text-white"}`} />
+                            {msg.senderId === 'user1' && (
+                              <CheckCheck className={`w-3 h-3 ${msg.isRead ? 'text-blue-200' : 'text-white'}`} />
                             )}
                           </div>
                         </div>
@@ -585,7 +585,7 @@ export function Communication() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className={isRecording ? "text-red-500" : ""}
+                      className={isRecording ? 'text-red-500' : ''}
                       onClick={() => setIsRecording(!isRecording)}
                     >
                       <Mic className="w-4 h-4" />
@@ -594,7 +594,7 @@ export function Communication() {
                       placeholder="输入消息..."
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                      onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
                       className="flex-1"
                     />
                     <Button onClick={sendMessage} disabled={!message.trim()}>
@@ -629,7 +629,7 @@ export function Communication() {
                     <div key={user.id} className="flex items-center space-x-3 p-2 rounded-lg hover:bg-slate-50">
                       <div className="relative">
                         <Avatar className="w-8 h-8">
-                          <AvatarImage src={user.avatar || "/placeholder.svg"} />
+                          <AvatarImage src={user.avatar || '/placeholder.svg'} />
                           <AvatarFallback className="bg-gradient-to-br from-green-400 to-blue-500 text-white text-sm">
                             {user.name.charAt(0)}
                           </AvatarFallback>
@@ -660,19 +660,19 @@ export function Communication() {
                         <h4 className="font-medium text-slate-800 text-sm">{announcement.title}</h4>
                         <Badge
                           variant={
-                            announcement.priority === "high"
-                              ? "destructive"
-                              : announcement.priority === "medium"
-                                ? "default"
-                                : "secondary"
+                            announcement.priority === 'high'
+                              ? 'destructive'
+                              : announcement.priority === 'medium'
+                                ? 'default'
+                                : 'secondary'
                           }
                           className="text-xs"
                         >
-                          {announcement.priority === "high"
-                            ? "重要"
-                            : announcement.priority === "medium"
-                              ? "普通"
-                              : "一般"}
+                          {announcement.priority === 'high'
+                            ? '重要'
+                            : announcement.priority === 'medium'
+                              ? '普通'
+                              : '一般'}
                         </Badge>
                       </div>
                       <p className="text-xs text-slate-600 mb-2">{announcement.content}</p>
@@ -758,5 +758,5 @@ export function Communication() {
         </Card>
       </div>
     </div>
-  )
+  );
 }

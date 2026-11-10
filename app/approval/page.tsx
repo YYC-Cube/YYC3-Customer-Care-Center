@@ -10,138 +10,138 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { ResponsiveLayout } from "@/components/layout/responsive-layout"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { FileCheck, Plus, Search, Filter, Clock, CheckCircle, XCircle, AlertTriangle, User, Calendar, Eye, ThumbsUp, ThumbsDown } from 'lucide-react'
+import { ResponsiveLayout } from '@/components/layout/responsive-layout';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { FileCheck, Plus, Search, Filter, Clock, CheckCircle, XCircle, AlertTriangle, User, Calendar, Eye, ThumbsUp, ThumbsDown } from 'lucide-react';
 
 export default function ApprovalPage() {
   const approvals = [
     {
-      id: "APP-001",
-      title: "员工请假申请",
-      applicant: "张三",
-      department: "技术部",
-      type: "请假",
-      status: "pending",
-      priority: "normal",
-      submitDate: "2025-06-28",
-      description: "因个人事务需要请假3天",
+      id: 'APP-001',
+      title: '员工请假申请',
+      applicant: '张三',
+      department: '技术部',
+      type: '请假',
+      status: 'pending',
+      priority: 'normal',
+      submitDate: '2025-06-28',
+      description: '因个人事务需要请假3天',
       amount: null,
     },
     {
-      id: "APP-002",
-      title: "设备采购申请",
-      applicant: "李四",
-      department: "行政部",
-      type: "采购",
-      status: "approved",
-      priority: "high",
-      submitDate: "2025-06-27",
-      description: "购买办公电脑10台",
+      id: 'APP-002',
+      title: '设备采购申请',
+      applicant: '李四',
+      department: '行政部',
+      type: '采购',
+      status: 'approved',
+      priority: 'high',
+      submitDate: '2025-06-27',
+      description: '购买办公电脑10台',
       amount: 50000,
     },
     {
-      id: "APP-003",
-      title: "差旅费用报销",
-      applicant: "王五",
-      department: "销售部",
-      type: "报销",
-      status: "rejected",
-      priority: "normal",
-      submitDate: "2025-06-26",
-      description: "北京出差费用报销",
+      id: 'APP-003',
+      title: '差旅费用报销',
+      applicant: '王五',
+      department: '销售部',
+      type: '报销',
+      status: 'rejected',
+      priority: 'normal',
+      submitDate: '2025-06-26',
+      description: '北京出差费用报销',
       amount: 3500,
     },
     {
-      id: "APP-004",
-      title: "项目预算申请",
-      applicant: "赵六",
-      department: "项目部",
-      type: "预算",
-      status: "pending",
-      priority: "urgent",
-      submitDate: "2025-06-28",
-      description: "新项目启动资金申请",
+      id: 'APP-004',
+      title: '项目预算申请',
+      applicant: '赵六',
+      department: '项目部',
+      type: '预算',
+      status: 'pending',
+      priority: 'urgent',
+      submitDate: '2025-06-28',
+      description: '新项目启动资金申请',
       amount: 100000,
     },
-  ]
+  ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "pending":
-        return "bg-blue-100 text-blue-800"
-      case "approved":
-        return "bg-green-100 text-green-800"
-      case "rejected":
-        return "bg-red-100 text-red-800"
-      default:
-        return "bg-gray-100 text-gray-800"
+    case 'pending':
+      return 'bg-blue-100 text-blue-800';
+    case 'approved':
+      return 'bg-green-100 text-green-800';
+    case 'rejected':
+      return 'bg-red-100 text-red-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
     }
-  }
+  };
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case "pending":
-        return "待审批"
-      case "approved":
-        return "已通过"
-      case "rejected":
-        return "已拒绝"
-      default:
-        return "未知"
+    case 'pending':
+      return '待审批';
+    case 'approved':
+      return '已通过';
+    case 'rejected':
+      return '已拒绝';
+    default:
+      return '未知';
     }
-  }
+  };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case "pending":
-        return <Clock className="w-4 h-4 text-blue-600" />
-      case "approved":
-        return <CheckCircle className="w-4 h-4 text-green-600" />
-      case "rejected":
-        return <XCircle className="w-4 h-4 text-red-600" />
-      default:
-        return <AlertTriangle className="w-4 h-4 text-gray-600" />
+    case 'pending':
+      return <Clock className="w-4 h-4 text-blue-600" />;
+    case 'approved':
+      return <CheckCircle className="w-4 h-4 text-green-600" />;
+    case 'rejected':
+      return <XCircle className="w-4 h-4 text-red-600" />;
+    default:
+      return <AlertTriangle className="w-4 h-4 text-gray-600" />;
     }
-  }
+  };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case "urgent":
-        return "bg-red-100 text-red-800"
-      case "high":
-        return "bg-orange-100 text-orange-800"
-      case "normal":
-        return "bg-blue-100 text-blue-800"
-      default:
-        return "bg-gray-100 text-gray-800"
+    case 'urgent':
+      return 'bg-red-100 text-red-800';
+    case 'high':
+      return 'bg-orange-100 text-orange-800';
+    case 'normal':
+      return 'bg-blue-100 text-blue-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
     }
-  }
+  };
 
   const getPriorityText = (priority: string) => {
     switch (priority) {
-      case "urgent":
-        return "紧急"
-      case "high":
-        return "高"
-      case "normal":
-        return "普通"
-      default:
-        return "未知"
+    case 'urgent':
+      return '紧急';
+    case 'high':
+      return '高';
+    case 'normal':
+      return '普通';
+    default:
+      return '未知';
     }
-  }
+  };
 
-  const totalApprovals = approvals.length
-  const pendingApprovals = approvals.filter((a) => a.status === "pending").length
-  const approvedApprovals = approvals.filter((a) => a.status === "approved").length
-  const rejectedApprovals = approvals.filter((a) => a.status === "rejected").length
+  const totalApprovals = approvals.length;
+  const pendingApprovals = approvals.filter((a) => a.status === 'pending').length;
+  const approvedApprovals = approvals.filter((a) => a.status === 'approved').length;
+  const rejectedApprovals = approvals.filter((a) => a.status === 'rejected').length;
 
   return (
     <ResponsiveLayout showSidebar={true} showHeader={true}>
@@ -318,7 +318,7 @@ export default function ApprovalPage() {
                       <Eye className="w-4 h-4 mr-1 group-hover:translate-x-1 transition-all duration-300" />
                       查看详情
                     </Button>
-                    {approval.status === "pending" && (
+                    {approval.status === 'pending' && (
                       <>
                         <Button
                           variant="outline"
@@ -346,5 +346,5 @@ export default function ApprovalPage() {
         </Card>
       </div>
     </ResponsiveLayout>
-  )
+  );
 }

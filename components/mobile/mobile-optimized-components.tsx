@@ -10,23 +10,23 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import type React from "react"
+import type React from 'react';
 
-import { useState, useRef } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { ChevronDown, ChevronUp, Search, Filter, Check, X, Plus, Minus } from "lucide-react"
+import { useState, useRef } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { ChevronDown, ChevronUp, Search, Filter, Check, X, Plus, Minus } from 'lucide-react';
 
 // 移动端优化的按钮组件
 interface MobileButtonProps {
   children: React.ReactNode
-  variant?: "default" | "outline" | "ghost" | "destructive"
-  size?: "sm" | "md" | "lg"
+  variant?: 'default' | 'outline' | 'ghost' | 'destructive'
+  size?: 'sm' | 'md' | 'lg'
   fullWidth?: boolean
   loading?: boolean
   disabled?: boolean
@@ -36,36 +36,36 @@ interface MobileButtonProps {
 
 export function MobileButton({
   children,
-  variant = "default",
-  size = "md",
+  variant = 'default',
+  size = 'md',
   fullWidth = false,
   loading = false,
   disabled = false,
   onClick,
-  className = "",
+  className = '',
 }: MobileButtonProps) {
-  const [isPressed, setIsPressed] = useState(false)
+  const [isPressed, setIsPressed] = useState(false);
 
   const sizeClasses = {
-    sm: "px-4 py-2 text-sm min-h-[40px]",
-    md: "px-6 py-3 text-base min-h-[48px]",
-    lg: "px-8 py-4 text-lg min-h-[56px]",
-  }
+    sm: 'px-4 py-2 text-sm min-h-[40px]',
+    md: 'px-6 py-3 text-base min-h-[48px]',
+    lg: 'px-8 py-4 text-lg min-h-[56px]',
+  };
 
   const variantClasses = {
-    default: "bg-sky-600 text-white hover:bg-sky-700 active:bg-sky-800",
-    outline: "border-2 border-sky-600 text-sky-600 hover:bg-sky-50 active:bg-sky-100",
-    ghost: "text-sky-600 hover:bg-sky-50 active:bg-sky-100",
-    destructive: "bg-red-600 text-white hover:bg-red-700 active:bg-red-800",
-  }
+    default: 'bg-sky-600 text-white hover:bg-sky-700 active:bg-sky-800',
+    outline: 'border-2 border-sky-600 text-sky-600 hover:bg-sky-50 active:bg-sky-100',
+    ghost: 'text-sky-600 hover:bg-sky-50 active:bg-sky-100',
+    destructive: 'bg-red-600 text-white hover:bg-red-700 active:bg-red-800',
+  };
 
   return (
     <Button
       className={`
         ${sizeClasses[size]}
         ${variantClasses[variant]}
-        ${fullWidth ? "w-full" : ""}
-        ${isPressed ? "scale-95" : ""}
+        ${fullWidth ? 'w-full' : ''}
+        ${isPressed ? 'scale-95' : ''}
         transition-all duration-150 ease-out
         touch-manipulation
         select-none
@@ -86,7 +86,7 @@ export function MobileButton({
         children
       )}
     </Button>
-  )
+  );
 }
 
 // 移动端优化的输入框组件
@@ -94,7 +94,7 @@ interface MobileInputProps {
   label?: string
   placeholder?: string
   value?: string
-  type?: "text" | "email" | "tel" | "number" | "password"
+  type?: 'text' | 'email' | 'tel' | 'number' | 'password'
   error?: string
   required?: boolean
   disabled?: boolean
@@ -107,18 +107,18 @@ interface MobileInputProps {
 export function MobileInput({
   label,
   placeholder,
-  value = "",
-  type = "text",
+  value = '',
+  type = 'text',
   error,
   required = false,
   disabled = false,
   onChange,
   onFocus,
   onBlur,
-  className = "",
+  className = '',
 }: MobileInputProps) {
-  const [isFocused, setIsFocused] = useState(false)
-  const inputRef = useRef<HTMLInputElement>(null)
+  const [isFocused, setIsFocused] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <div className={`space-y-2 ${className}`}>
@@ -137,17 +137,17 @@ export function MobileInput({
           disabled={disabled}
           onChange={(e) => onChange?.(e.target.value)}
           onFocus={() => {
-            setIsFocused(true)
-            onFocus?.()
+            setIsFocused(true);
+            onFocus?.();
           }}
           onBlur={() => {
-            setIsFocused(false)
-            onBlur?.()
+            setIsFocused(false);
+            onBlur?.();
           }}
           className={`
             min-h-[48px] text-base px-4 py-3
-            ${isFocused ? "ring-2 ring-sky-500 border-sky-500" : ""}
-            ${error ? "border-red-500 ring-red-500" : ""}
+            ${isFocused ? 'ring-2 ring-sky-500 border-sky-500' : ''}
+            ${error ? 'border-red-500 ring-red-500' : ''}
             transition-all duration-200
           `}
         />
@@ -164,7 +164,7 @@ export function MobileInput({
         </p>
       )}
     </div>
-  )
+  );
 }
 
 // 移动端优化的选择器组件
@@ -182,23 +182,23 @@ interface MobileSelectProps {
 
 export function MobileSelect({
   label,
-  placeholder = "请选择",
-  value = "",
+  placeholder = '请选择',
+  value = '',
   options,
   error,
   required = false,
   disabled = false,
   onChange,
-  className = "",
+  className = '',
 }: MobileSelectProps) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [selectedOption, setSelectedOption] = useState(options.find((opt) => opt.value === value))
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(options.find((opt) => opt.value === value));
 
   const handleSelect = (option: { value: string; label: string }) => {
-    setSelectedOption(option)
-    onChange?.(option.value)
-    setIsOpen(false)
-  }
+    setSelectedOption(option);
+    onChange?.(option.value);
+    setIsOpen(false);
+  };
 
   return (
     <div className={`space-y-2 ${className}`}>
@@ -217,13 +217,13 @@ export function MobileSelect({
           className={`
             w-full min-h-[48px] px-4 py-3 text-left bg-white border rounded-md
             flex items-center justify-between
-            ${isOpen ? "ring-2 ring-sky-500 border-sky-500" : "border-gray-300"}
-            ${error ? "border-red-500 ring-red-500" : ""}
-            ${disabled ? "bg-gray-100 cursor-not-allowed" : "cursor-pointer"}
+            ${isOpen ? 'ring-2 ring-sky-500 border-sky-500' : 'border-gray-300'}
+            ${error ? 'border-red-500 ring-red-500' : ''}
+            ${disabled ? 'bg-gray-100 cursor-not-allowed' : 'cursor-pointer'}
             transition-all duration-200
           `}
         >
-          <span className={selectedOption ? "text-gray-900" : "text-gray-500"}>
+          <span className={selectedOption ? 'text-gray-900' : 'text-gray-500'}>
             {selectedOption?.label || placeholder}
           </span>
           {isOpen ? <ChevronUp className="w-5 h-5 text-gray-400" /> : <ChevronDown className="w-5 h-5 text-gray-400" />}
@@ -239,7 +239,7 @@ export function MobileSelect({
                 className={`
                   w-full px-4 py-3 text-left hover:bg-gray-50 active:bg-gray-100
                   flex items-center justify-between
-                  ${selectedOption?.value === option.value ? "bg-sky-50 text-sky-700" : "text-gray-900"}
+                  ${selectedOption?.value === option.value ? 'bg-sky-50 text-sky-700' : 'text-gray-900'}
                   transition-colors duration-150
                 `}
               >
@@ -258,7 +258,7 @@ export function MobileSelect({
         </p>
       )}
     </div>
-  )
+  );
 }
 
 // 移动端优化的卡片组件
@@ -281,16 +281,16 @@ export function MobileCard({
   clickable = false,
   selected = false,
   onClick,
-  className = "",
+  className = '',
 }: MobileCardProps) {
-  const [isPressed, setIsPressed] = useState(false)
+  const [isPressed, setIsPressed] = useState(false);
 
   return (
     <Card
       className={`
-        ${clickable ? "cursor-pointer" : ""}
-        ${selected ? "ring-2 ring-sky-500 border-sky-500" : ""}
-        ${isPressed ? "scale-98" : ""}
+        ${clickable ? 'cursor-pointer' : ''}
+        ${selected ? 'ring-2 ring-sky-500 border-sky-500' : ''}
+        ${isPressed ? 'scale-98' : ''}
         transition-all duration-150 ease-out
         ${className}
       `}
@@ -310,9 +310,9 @@ export function MobileCard({
           </div>
         </CardHeader>
       )}
-      <CardContent className={title || subtitle || actions ? "pt-0" : ""}>{children}</CardContent>
+      <CardContent className={title || subtitle || actions ? 'pt-0' : ''}>{children}</CardContent>
     </Card>
-  )
+  );
 }
 
 // 移动端优化的搜索框组件
@@ -328,28 +328,28 @@ interface MobileSearchProps {
 }
 
 export function MobileSearch({
-  placeholder = "搜索...",
-  value = "",
+  placeholder = '搜索...',
+  value = '',
   showFilter = false,
   filterCount = 0,
   onSearch,
   onFilter,
   onClear,
-  className = "",
+  className = '',
 }: MobileSearchProps) {
-  const [query, setQuery] = useState(value)
-  const [isFocused, setIsFocused] = useState(false)
+  const [query, setQuery] = useState(value);
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleSearch = (searchQuery: string) => {
-    setQuery(searchQuery)
-    onSearch?.(searchQuery)
-  }
+    setQuery(searchQuery);
+    onSearch?.(searchQuery);
+  };
 
   const handleClear = () => {
-    setQuery("")
-    onSearch?.("")
-    onClear?.()
-  }
+    setQuery('');
+    onSearch?.('');
+    onClear?.();
+  };
 
   return (
     <div className={`flex items-center space-x-2 ${className}`}>
@@ -366,7 +366,7 @@ export function MobileSearch({
           onBlur={() => setIsFocused(false)}
           className={`
             pl-10 pr-10 min-h-[48px] text-base
-            ${isFocused ? "ring-2 ring-sky-500 border-sky-500" : ""}
+            ${isFocused ? 'ring-2 ring-sky-500 border-sky-500' : ''}
             transition-all duration-200
           `}
         />
@@ -392,7 +392,7 @@ export function MobileSearch({
         </Button>
       )}
     </div>
-  )
+  );
 }
 
 // 移动端优化的数字输入组件
@@ -415,23 +415,23 @@ export function MobileNumberInput({
   step = 1,
   disabled = false,
   onChange,
-  className = "",
+  className = '',
 }: MobileNumberInputProps) {
   const handleIncrement = () => {
-    const newValue = Math.min(max, value + step)
-    onChange?.(newValue)
-  }
+    const newValue = Math.min(max, value + step);
+    onChange?.(newValue);
+  };
 
   const handleDecrement = () => {
-    const newValue = Math.max(min, value - step)
-    onChange?.(newValue)
-  }
+    const newValue = Math.max(min, value - step);
+    onChange?.(newValue);
+  };
 
   const handleInputChange = (inputValue: string) => {
-    const numValue = Number.parseFloat(inputValue) || 0
-    const clampedValue = Math.max(min, Math.min(max, numValue))
-    onChange?.(clampedValue)
-  }
+    const numValue = Number.parseFloat(inputValue) || 0;
+    const clampedValue = Math.max(min, Math.min(max, numValue));
+    onChange?.(clampedValue);
+  };
 
   return (
     <div className={`space-y-2 ${className}`}>
@@ -468,5 +468,5 @@ export function MobileNumberInput({
         </button>
       </div>
     </div>
-  )
+  );
 }

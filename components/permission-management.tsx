@@ -10,13 +10,13 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Dialog,
   DialogContent,
@@ -24,13 +24,13 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Switch } from "@/components/ui/switch"
-import { Users, Shield, Key, UserPlus, Edit, Trash2, Eye, Lock } from "lucide-react"
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
+import { Users, Shield, Key, UserPlus, Edit, Trash2, Eye, Lock } from 'lucide-react';
 
 interface User {
   id: string
@@ -38,7 +38,7 @@ interface User {
   email: string
   role: string
   department: string
-  status: "active" | "inactive" | "pending"
+  status: 'active' | 'inactive' | 'pending'
   lastLogin: string
   permissions: string[]
 }
@@ -61,136 +61,136 @@ interface Permission {
 }
 
 export function PermissionManagement() {
-  const [selectedTab, setSelectedTab] = useState("users")
-  const [isCreateUserDialogOpen, setIsCreateUserDialogOpen] = useState(false)
-  const [isCreateRoleDialogOpen, setIsCreateRoleDialogOpen] = useState(false)
+  const [selectedTab, setSelectedTab] = useState('users');
+  const [isCreateUserDialogOpen, setIsCreateUserDialogOpen] = useState(false);
+  const [isCreateRoleDialogOpen, setIsCreateRoleDialogOpen] = useState(false);
 
   // 模拟用户数据
   const users: User[] = [
     {
-      id: "1",
-      name: "张经理",
-      email: "zhang@company.com",
-      role: "部门经理",
-      department: "客服部",
-      status: "active",
-      lastLogin: "2025-06-21 14:30",
-      permissions: ["customer_view", "customer_edit", "task_view", "task_create"],
+      id: '1',
+      name: '张经理',
+      email: 'zhang@company.com',
+      role: '部门经理',
+      department: '客服部',
+      status: 'active',
+      lastLogin: '2025-06-21 14:30',
+      permissions: ['customer_view', 'customer_edit', 'task_view', 'task_create'],
     },
     {
-      id: "2",
-      name: "李总监",
-      email: "li@company.com",
-      role: "技术总监",
-      department: "技术部",
-      status: "active",
-      lastLogin: "2025-06-21 13:45",
-      permissions: ["system_admin", "user_manage", "data_export", "system_config"],
+      id: '2',
+      name: '李总监',
+      email: 'li@company.com',
+      role: '技术总监',
+      department: '技术部',
+      status: 'active',
+      lastLogin: '2025-06-21 13:45',
+      permissions: ['system_admin', 'user_manage', 'data_export', 'system_config'],
     },
     {
-      id: "3",
-      name: "王总监",
-      email: "wang@company.com",
-      role: "销售总监",
-      department: "销售部",
-      status: "active",
-      lastLogin: "2025-06-21 12:20",
-      permissions: ["sales_view", "sales_edit", "customer_view", "report_view"],
+      id: '3',
+      name: '王总监',
+      email: 'wang@company.com',
+      role: '销售总监',
+      department: '销售部',
+      status: 'active',
+      lastLogin: '2025-06-21 12:20',
+      permissions: ['sales_view', 'sales_edit', 'customer_view', 'report_view'],
     },
     {
-      id: "4",
-      name: "陈专员",
-      email: "chen@company.com",
-      role: "普通员工",
-      department: "财务部",
-      status: "inactive",
-      lastLogin: "2025-06-19 16:30",
-      permissions: ["finance_view", "report_view"],
+      id: '4',
+      name: '陈专员',
+      email: 'chen@company.com',
+      role: '普通员工',
+      department: '财务部',
+      status: 'inactive',
+      lastLogin: '2025-06-19 16:30',
+      permissions: ['finance_view', 'report_view'],
     },
-  ]
+  ];
 
   // 模拟角色数据
   const roles: Role[] = [
     {
-      id: "1",
-      name: "系统管理员",
-      description: "拥有系统所有权限的超级管理员",
-      permissions: ["system_admin", "user_manage", "role_manage", "data_export", "system_config"],
+      id: '1',
+      name: '系统管理员',
+      description: '拥有系统所有权限的超级管理员',
+      permissions: ['system_admin', 'user_manage', 'role_manage', 'data_export', 'system_config'],
       userCount: 1,
       isSystem: true,
     },
     {
-      id: "2",
-      name: "部门经理",
-      description: "部门管理权限，可管理本部门员工和业务",
-      permissions: ["customer_view", "customer_edit", "task_view", "task_create", "team_manage"],
+      id: '2',
+      name: '部门经理',
+      description: '部门管理权限，可管理本部门员工和业务',
+      permissions: ['customer_view', 'customer_edit', 'task_view', 'task_create', 'team_manage'],
       userCount: 3,
       isSystem: false,
     },
     {
-      id: "3",
-      name: "销售总监",
-      description: "销售业务管理权限",
-      permissions: ["sales_view", "sales_edit", "customer_view", "customer_edit", "report_view"],
+      id: '3',
+      name: '销售总监',
+      description: '销售业务管理权限',
+      permissions: ['sales_view', 'sales_edit', 'customer_view', 'customer_edit', 'report_view'],
       userCount: 2,
       isSystem: false,
     },
     {
-      id: "4",
-      name: "普通员工",
-      description: "基础业务操作权限",
-      permissions: ["task_view", "customer_view", "report_view"],
+      id: '4',
+      name: '普通员工',
+      description: '基础业务操作权限',
+      permissions: ['task_view', 'customer_view', 'report_view'],
       userCount: 8,
       isSystem: false,
     },
-  ]
+  ];
 
   // 模拟权限数据
   const permissions: Permission[] = [
-    { id: "system_admin", name: "系统管理", description: "系统管理员权限", category: "系统", isSystem: true },
-    { id: "user_manage", name: "用户管理", description: "管理用户账户", category: "系统", isSystem: true },
-    { id: "role_manage", name: "角色管理", description: "管理用户角色", category: "系统", isSystem: true },
-    { id: "customer_view", name: "客户查看", description: "查看客户信息", category: "业务", isSystem: false },
-    { id: "customer_edit", name: "客户编辑", description: "编辑客户信息", category: "业务", isSystem: false },
-    { id: "task_view", name: "任务查看", description: "查看任务信息", category: "业务", isSystem: false },
-    { id: "task_create", name: "任务创建", description: "创建新任务", category: "业务", isSystem: false },
-    { id: "sales_view", name: "销售查看", description: "查看销售数据", category: "业务", isSystem: false },
-    { id: "sales_edit", name: "销售编辑", description: "编辑销售数据", category: "业务", isSystem: false },
-    { id: "finance_view", name: "财务查看", description: "查看财务数据", category: "业务", isSystem: false },
-    { id: "report_view", name: "报表查看", description: "查看各类报表", category: "报表", isSystem: false },
-    { id: "data_export", name: "数据导出", description: "导出系统数据", category: "数据", isSystem: false },
-    { id: "system_config", name: "系统配置", description: "修改系统配置", category: "系统", isSystem: true },
-  ]
+    { id: 'system_admin', name: '系统管理', description: '系统管理员权限', category: '系统', isSystem: true },
+    { id: 'user_manage', name: '用户管理', description: '管理用户账户', category: '系统', isSystem: true },
+    { id: 'role_manage', name: '角色管理', description: '管理用户角色', category: '系统', isSystem: true },
+    { id: 'customer_view', name: '客户查看', description: '查看客户信息', category: '业务', isSystem: false },
+    { id: 'customer_edit', name: '客户编辑', description: '编辑客户信息', category: '业务', isSystem: false },
+    { id: 'task_view', name: '任务查看', description: '查看任务信息', category: '业务', isSystem: false },
+    { id: 'task_create', name: '任务创建', description: '创建新任务', category: '业务', isSystem: false },
+    { id: 'sales_view', name: '销售查看', description: '查看销售数据', category: '业务', isSystem: false },
+    { id: 'sales_edit', name: '销售编辑', description: '编辑销售数据', category: '业务', isSystem: false },
+    { id: 'finance_view', name: '财务查看', description: '查看财务数据', category: '业务', isSystem: false },
+    { id: 'report_view', name: '报表查看', description: '查看各类报表', category: '报表', isSystem: false },
+    { id: 'data_export', name: '数据导出', description: '导出系统数据', category: '数据', isSystem: false },
+    { id: 'system_config', name: '系统配置', description: '修改系统配置', category: '系统', isSystem: true },
+  ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "active":
-        return "bg-green-100 text-green-800"
-      case "inactive":
-        return "bg-red-100 text-red-800"
-      case "pending":
-        return "bg-yellow-100 text-yellow-800"
-      default:
-        return "bg-gray-100 text-gray-800"
+    case 'active':
+      return 'bg-green-100 text-green-800';
+    case 'inactive':
+      return 'bg-red-100 text-red-800';
+    case 'pending':
+      return 'bg-yellow-100 text-yellow-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
     }
-  }
+  };
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case "active":
-        return "活跃"
-      case "inactive":
-        return "停用"
-      case "pending":
-        return "待激活"
-      default:
-        return "未知"
+    case 'active':
+      return '活跃';
+    case 'inactive':
+      return '停用';
+    case 'pending':
+      return '待激活';
+    default:
+      return '未知';
     }
-  }
+  };
 
   const getPermissionsByCategory = (category: string) => {
-    return permissions.filter((p) => p.category === category)
-  }
+    return permissions.filter((p) => p.category === category);
+  };
 
   return (
     <div className="p-6 space-y-6">
@@ -291,7 +291,7 @@ export function PermissionManagement() {
                 <div>
                   <Label>权限设置</Label>
                   <div className="space-y-4 mt-2">
-                    {["系统", "业务", "报表", "数据"].map((category) => (
+                    {['系统', '业务', '报表', '数据'].map((category) => (
                       <div
                         key={category}
                         className="border border-sky-200 rounded-xl p-4 bg-white/80 backdrop-blur-sm shadow-sm"
@@ -337,7 +337,7 @@ export function PermissionManagement() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{users.length}</div>
-            <p className="text-xs text-muted-foreground">活跃: {users.filter((u) => u.status === "active").length}</p>
+            <p className="text-xs text-muted-foreground">活跃: {users.filter((u) => u.status === 'active').length}</p>
           </CardContent>
         </Card>
 
@@ -369,7 +369,7 @@ export function PermissionManagement() {
             <Lock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{users.filter((u) => u.status === "pending").length}</div>
+            <div className="text-2xl font-bold">{users.filter((u) => u.status === 'pending').length}</div>
             <p className="text-xs text-muted-foreground">待激活用户</p>
           </CardContent>
         </Card>
@@ -514,7 +514,7 @@ export function PermissionManagement() {
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
-                {["系统", "业务", "报表", "数据"].map((category) => (
+                {['系统', '业务', '报表', '数据'].map((category) => (
                   <div key={category}>
                     <h3 className="font-medium mb-3">{category}权限</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -547,5 +547,5 @@ export function PermissionManagement() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

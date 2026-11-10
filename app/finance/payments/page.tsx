@@ -10,81 +10,81 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { ResponsiveLayout } from "@/components/layout/responsive-layout"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { CreditCard, Search, Filter, Plus, CheckCircle, Clock, XCircle, DollarSign } from "lucide-react"
+import { ResponsiveLayout } from '@/components/layout/responsive-layout';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { CreditCard, Search, Filter, Plus, CheckCircle, Clock, XCircle, DollarSign } from 'lucide-react';
 
 export default function PaymentsPage() {
   const payments = [
     {
-      id: "PAY-001",
+      id: 'PAY-001',
       amount: 15000,
-      recipient: "北京科技有限公司",
-      method: "银行转账",
-      status: "已完成",
-      date: "2025-06-28",
-      description: "软件开发服务费",
+      recipient: '北京科技有限公司',
+      method: '银行转账',
+      status: '已完成',
+      date: '2025-06-28',
+      description: '软件开发服务费',
     },
     {
-      id: "PAY-002",
+      id: 'PAY-002',
       amount: 8500,
-      recipient: "上海设计工作室",
-      method: "支付宝",
-      status: "处理中",
-      date: "2025-06-28",
-      description: "UI设计费用",
+      recipient: '上海设计工作室',
+      method: '支付宝',
+      status: '处理中',
+      date: '2025-06-28',
+      description: 'UI设计费用',
     },
     {
-      id: "PAY-003",
+      id: 'PAY-003',
       amount: 25000,
-      recipient: "广州营销公司",
-      method: "微信支付",
-      status: "已完成",
-      date: "2025-06-27",
-      description: "广告投放费用",
+      recipient: '广州营销公司',
+      method: '微信支付',
+      status: '已完成',
+      date: '2025-06-27',
+      description: '广告投放费用',
     },
     {
-      id: "PAY-004",
+      id: 'PAY-004',
       amount: 3200,
-      recipient: "深圳物流公司",
-      method: "银行转账",
-      status: "失败",
-      date: "2025-06-27",
-      description: "物流配送费",
+      recipient: '深圳物流公司',
+      method: '银行转账',
+      status: '失败',
+      date: '2025-06-27',
+      description: '物流配送费',
     },
-  ]
+  ];
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case "已完成":
-        return <CheckCircle className="w-4 h-4 text-emerald-500" />
-      case "处理中":
-        return <Clock className="w-4 h-4 text-orange-500" />
-      case "失败":
-        return <XCircle className="w-4 h-4 text-red-500" />
-      default:
-        return <Clock className="w-4 h-4 text-gray-500" />
+    case '已完成':
+      return <CheckCircle className="w-4 h-4 text-emerald-500" />;
+    case '处理中':
+      return <Clock className="w-4 h-4 text-orange-500" />;
+    case '失败':
+      return <XCircle className="w-4 h-4 text-red-500" />;
+    default:
+      return <Clock className="w-4 h-4 text-gray-500" />;
     }
-  }
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "已完成":
-        return "bg-emerald-100 text-emerald-700"
-      case "处理中":
-        return "bg-orange-100 text-orange-700"
-      case "失败":
-        return "bg-red-100 text-red-700"
-      default:
-        return "bg-gray-100 text-gray-700"
+    case '已完成':
+      return 'bg-emerald-100 text-emerald-700';
+    case '处理中':
+      return 'bg-orange-100 text-orange-700';
+    case '失败':
+      return 'bg-red-100 text-red-700';
+    default:
+      return 'bg-gray-100 text-gray-700';
     }
-  }
+  };
 
   return (
     <ResponsiveLayout showSidebar={true} showHeader={true}>
@@ -220,5 +220,5 @@ export default function PaymentsPage() {
         </Card>
       </div>
     </ResponsiveLayout>
-  )
+  );
 }

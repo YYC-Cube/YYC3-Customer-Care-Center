@@ -71,5 +71,5 @@ export default function DocumentsLoading() {
         </div>
       </div>
     </div>
-  )
+  );
 }

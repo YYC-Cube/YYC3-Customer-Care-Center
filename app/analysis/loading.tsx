@@ -10,11 +10,11 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
-import { BarChart3, TrendingUp, Users, DollarSign, Target, Activity } from "lucide-react"
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { BarChart3, TrendingUp, Users, DollarSign, Target, Activity } from 'lucide-react';
 
 export default function AnalysisLoading() {
   return (
@@ -28,10 +28,10 @@ export default function AnalysisLoading() {
       {/* 统计卡片加载状态 */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { icon: BarChart3, color: "bg-blue-100" },
-          { icon: TrendingUp, color: "bg-green-100" },
-          { icon: Users, color: "bg-purple-100" },
-          { icon: DollarSign, color: "bg-orange-100" },
+          { icon: BarChart3, color: 'bg-blue-100' },
+          { icon: TrendingUp, color: 'bg-green-100' },
+          { icon: Users, color: 'bg-purple-100' },
+          { icon: DollarSign, color: 'bg-orange-100' },
         ].map((item, index) => (
           <Card key={index} className="border-l-4 border-l-gray-200">
             <CardHeader className="pb-3">
@@ -178,5 +178,5 @@ export default function AnalysisLoading() {
         </Card>
       </div>
     </div>
-  )
+  );
 }

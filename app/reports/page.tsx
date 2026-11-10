@@ -10,116 +10,116 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { ResponsiveLayout } from "@/components/layout/responsive-layout"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { FileText, Download, Calendar, Filter, BarChart3, PieChart, TrendingUp, Users, DollarSign, Target, Clock, CheckCircle, Plus, Eye } from 'lucide-react'
+import { ResponsiveLayout } from '@/components/layout/responsive-layout';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { FileText, Download, Calendar, Filter, BarChart3, PieChart, TrendingUp, Users, DollarSign, Target, Clock, CheckCircle, Plus, Eye } from 'lucide-react';
 
 export default function ReportsPage() {
   const reports = [
     {
-      id: "RPT-001",
-      title: "月度销售报告",
-      type: "销售",
-      status: "completed",
-      generatedDate: "2025-06-28",
-      period: "2025年6月",
-      description: "包含销售数据、趋势分析和客户统计",
-      size: "2.3 MB",
+      id: 'RPT-001',
+      title: '月度销售报告',
+      type: '销售',
+      status: 'completed',
+      generatedDate: '2025-06-28',
+      period: '2025年6月',
+      description: '包含销售数据、趋势分析和客户统计',
+      size: '2.3 MB',
     },
     {
-      id: "RPT-002",
-      title: "财务分析报告",
-      type: "财务",
-      status: "generating",
-      generatedDate: "2025-06-28",
-      period: "2025年Q2",
-      description: "财务状况、预算执行和成本分析",
-      size: "1.8 MB",
+      id: 'RPT-002',
+      title: '财务分析报告',
+      type: '财务',
+      status: 'generating',
+      generatedDate: '2025-06-28',
+      period: '2025年Q2',
+      description: '财务状况、预算执行和成本分析',
+      size: '1.8 MB',
     },
     {
-      id: "RPT-003",
-      title: "客户满意度报告",
-      type: "客户",
-      status: "completed",
-      generatedDate: "2025-06-27",
-      period: "2025年6月",
-      description: "客户反馈、满意度调查和改进建议",
-      size: "1.2 MB",
+      id: 'RPT-003',
+      title: '客户满意度报告',
+      type: '客户',
+      status: 'completed',
+      generatedDate: '2025-06-27',
+      period: '2025年6月',
+      description: '客户反馈、满意度调查和改进建议',
+      size: '1.2 MB',
     },
     {
-      id: "RPT-004",
-      title: "运营效率报告",
-      type: "运营",
-      status: "scheduled",
-      generatedDate: "2025-06-30",
-      period: "2025年6月",
-      description: "业务流程效率和优化建议",
-      size: "待生成",
+      id: 'RPT-004',
+      title: '运营效率报告',
+      type: '运营',
+      status: 'scheduled',
+      generatedDate: '2025-06-30',
+      period: '2025年6月',
+      description: '业务流程效率和优化建议',
+      size: '待生成',
     },
-  ]
+  ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "completed":
-        return "bg-green-100 text-green-800"
-      case "generating":
-        return "bg-blue-100 text-blue-800"
-      case "scheduled":
-        return "bg-orange-100 text-orange-800"
-      case "failed":
-        return "bg-red-100 text-red-800"
-      default:
-        return "bg-gray-100 text-gray-800"
+    case 'completed':
+      return 'bg-green-100 text-green-800';
+    case 'generating':
+      return 'bg-blue-100 text-blue-800';
+    case 'scheduled':
+      return 'bg-orange-100 text-orange-800';
+    case 'failed':
+      return 'bg-red-100 text-red-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
     }
-  }
+  };
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case "completed":
-        return "已完成"
-      case "generating":
-        return "生成中"
-      case "scheduled":
-        return "已计划"
-      case "failed":
-        return "失败"
-      default:
-        return "未知"
+    case 'completed':
+      return '已完成';
+    case 'generating':
+      return '生成中';
+    case 'scheduled':
+      return '已计划';
+    case 'failed':
+      return '失败';
+    default:
+      return '未知';
     }
-  }
+  };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case "completed":
-        return <CheckCircle className="w-4 h-4 text-green-600" />
-      case "generating":
-        return <Clock className="w-4 h-4 text-blue-600" />
-      case "scheduled":
-        return <Calendar className="w-4 h-4 text-orange-600" />
-      default:
-        return <FileText className="w-4 h-4 text-gray-600" />
+    case 'completed':
+      return <CheckCircle className="w-4 h-4 text-green-600" />;
+    case 'generating':
+      return <Clock className="w-4 h-4 text-blue-600" />;
+    case 'scheduled':
+      return <Calendar className="w-4 h-4 text-orange-600" />;
+    default:
+      return <FileText className="w-4 h-4 text-gray-600" />;
     }
-  }
+  };
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case "销售":
-        return "bg-emerald-100 text-emerald-800"
-      case "财务":
-        return "bg-emerald-100 text-emerald-800"
-      case "客户":
-        return "bg-emerald-100 text-emerald-800"
-      case "运营":
-        return "bg-emerald-100 text-emerald-800"
-      default:
-        return "bg-gray-100 text-gray-800"
+    case '销售':
+      return 'bg-emerald-100 text-emerald-800';
+    case '财务':
+      return 'bg-emerald-100 text-emerald-800';
+    case '客户':
+      return 'bg-emerald-100 text-emerald-800';
+    case '运营':
+      return 'bg-emerald-100 text-emerald-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
     }
-  }
+  };
 
   return (
     <ResponsiveLayout showSidebar={true} showHeader={true}>
@@ -181,7 +181,7 @@ export default function ReportsPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-green-700">
-                {reports.filter((r) => r.status === "completed").length}
+                {reports.filter((r) => r.status === 'completed').length}
               </div>
               <p className="text-xs text-gray-600">可下载查看</p>
             </CardContent>
@@ -194,7 +194,7 @@ export default function ReportsPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-blue-700">
-                {reports.filter((r) => r.status === "generating").length}
+                {reports.filter((r) => r.status === 'generating').length}
               </div>
               <p className="text-xs text-gray-600">正在处理</p>
             </CardContent>
@@ -207,7 +207,7 @@ export default function ReportsPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-orange-700">
-                {reports.filter((r) => r.status === "scheduled").length}
+                {reports.filter((r) => r.status === 'scheduled').length}
               </div>
               <p className="text-xs text-gray-600">定时生成</p>
             </CardContent>
@@ -311,7 +311,7 @@ export default function ReportsPage() {
                       <Eye className="w-4 h-4 mr-1 group-hover:translate-x-1 transition-all duration-300" />
                       预览
                     </Button>
-                    {report.status === "completed" && (
+                    {report.status === 'completed' && (
                       <Button
                         size="sm"
                         className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white transition-all duration-300 hover:scale-105 group"
@@ -328,5 +328,5 @@ export default function ReportsPage() {
         </Card>
       </div>
     </ResponsiveLayout>
-  )
+  );
 }

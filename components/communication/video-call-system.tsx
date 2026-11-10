@@ -10,15 +10,15 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState, useRef } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useState, useRef } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Dialog,
   DialogContent,
@@ -26,7 +26,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from '@/components/ui/dialog';
 import {
   Video,
   VideoOff,
@@ -42,9 +42,9 @@ import {
   Clock,
   UserPlus,
   RepeatIcon as Record,
-} from "lucide-react"
-import { Plus } from "lucide-react" // Import Plus icon
-import { Switch } from "@/components/ui/switch" // Import Switch component
+} from 'lucide-react';
+import { Plus } from 'lucide-react'; // Import Plus icon
+import { Switch } from '@/components/ui/switch'; // Import Switch component
 
 interface Participant {
   id: string
@@ -54,7 +54,7 @@ interface Participant {
   isMuted: boolean
   isVideoOn: boolean
   isScreenSharing: boolean
-  connectionQuality: "excellent" | "good" | "poor"
+  connectionQuality: 'excellent' | 'good' | 'poor'
 }
 
 interface Meeting {
@@ -64,7 +64,7 @@ interface Meeting {
   participants: Participant[]
   startTime: Date
   duration: number
-  status: "scheduled" | "ongoing" | "ended"
+  status: 'scheduled' | 'ongoing' | 'ended'
   isRecording: boolean
   roomId: string
 }
@@ -80,8 +80,8 @@ interface CallSettings {
 }
 
 export function VideoCallSystem() {
-  const [currentMeeting, setCurrentMeeting] = useState<Meeting | null>(null)
-  const [isInCall, setIsInCall] = useState(false)
+  const [currentMeeting, setCurrentMeeting] = useState<Meeting | null>(null);
+  const [isInCall, setIsInCall] = useState(false);
   const [callSettings, setCallSettings] = useState<CallSettings>({
     camera: true,
     microphone: true,
@@ -90,151 +90,151 @@ export function VideoCallSystem() {
     autoJoinVideo: false,
     backgroundBlur: false,
     noiseCancellation: true,
-  })
+  });
 
   const [meetings, setMeetings] = useState<Meeting[]>([
     {
-      id: "1",
-      title: "产品评审会议",
-      host: "张经理",
+      id: '1',
+      title: '产品评审会议',
+      host: '张经理',
       participants: [
         {
-          id: "1",
-          name: "张经理",
-          avatar: "",
+          id: '1',
+          name: '张经理',
+          avatar: '',
           isHost: true,
           isMuted: false,
           isVideoOn: true,
           isScreenSharing: false,
-          connectionQuality: "excellent",
+          connectionQuality: 'excellent',
         },
         {
-          id: "2",
-          name: "李开发",
-          avatar: "",
+          id: '2',
+          name: '李开发',
+          avatar: '',
           isHost: false,
           isMuted: true,
           isVideoOn: true,
           isScreenSharing: false,
-          connectionQuality: "good",
+          connectionQuality: 'good',
         },
         {
-          id: "3",
-          name: "王设计师",
-          avatar: "",
+          id: '3',
+          name: '王设计师',
+          avatar: '',
           isHost: false,
           isMuted: false,
           isVideoOn: false,
           isScreenSharing: false,
-          connectionQuality: "excellent",
+          connectionQuality: 'excellent',
         },
       ],
       startTime: new Date(),
       duration: 45,
-      status: "ongoing",
+      status: 'ongoing',
       isRecording: false,
-      roomId: "room_123",
+      roomId: 'room_123',
     },
     {
-      id: "2",
-      title: "周例会",
-      host: "陈总监",
+      id: '2',
+      title: '周例会',
+      host: '陈总监',
       participants: [],
       startTime: new Date(Date.now() + 60 * 60 * 1000),
       duration: 60,
-      status: "scheduled",
+      status: 'scheduled',
       isRecording: false,
-      roomId: "room_456",
+      roomId: 'room_456',
     },
-  ])
+  ]);
 
-  const [isCreateMeetingOpen, setIsCreateMeetingOpen] = useState(false)
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
+  const [isCreateMeetingOpen, setIsCreateMeetingOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState<
     Array<{ id: string; sender: string; message: string; timestamp: Date }>
-  >([])
-  const [newMessage, setNewMessage] = useState("")
+  >([]);
+  const [newMessage, setNewMessage] = useState('');
 
-  const localVideoRef = useRef<HTMLVideoElement>(null)
-  const remoteVideoRef = useRef<HTMLVideoElement>(null)
+  const localVideoRef = useRef<HTMLVideoElement>(null);
+  const remoteVideoRef = useRef<HTMLVideoElement>(null);
 
   // 模拟视频通话功能
   const startCall = async (meetingId: string) => {
-    const meeting = meetings.find((m) => m.id === meetingId)
-    if (!meeting) return
+    const meeting = meetings.find((m) => m.id === meetingId);
+    if (!meeting) return;
 
-    setCurrentMeeting(meeting)
-    setIsInCall(true)
+    setCurrentMeeting(meeting);
+    setIsInCall(true);
 
     // 模拟获取用户媒体
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: callSettings.camera,
         audio: callSettings.microphone,
-      })
+      });
 
       if (localVideoRef.current) {
-        localVideoRef.current.srcObject = stream
+        localVideoRef.current.srcObject = stream;
       }
     } catch (error) {
-      console.error("获取媒体设备失败:", error)
+      console.error('获取媒体设备失败:', error);
     }
-  }
+  };
 
   const endCall = () => {
-    setIsInCall(false)
-    setCurrentMeeting(null)
+    setIsInCall(false);
+    setCurrentMeeting(null);
 
     // 停止所有媒体流
     if (localVideoRef.current?.srcObject) {
-      const stream = localVideoRef.current.srcObject as MediaStream
-      stream.getTracks().forEach((track) => track.stop())
+      const stream = localVideoRef.current.srcObject as MediaStream;
+      stream.getTracks().forEach((track) => track.stop());
     }
-  }
+  };
 
   const toggleMute = () => {
-    setCallSettings((prev) => ({ ...prev, microphone: !prev.microphone }))
-  }
+    setCallSettings((prev) => ({ ...prev, microphone: !prev.microphone }));
+  };
 
   const toggleVideo = () => {
-    setCallSettings((prev) => ({ ...prev, camera: !prev.camera }))
-  }
+    setCallSettings((prev) => ({ ...prev, camera: !prev.camera }));
+  };
 
   const toggleScreenShare = () => {
     // 实现屏幕共享逻辑
-    console.log("切换屏幕共享")
-  }
+    console.log('切换屏幕共享');
+  };
 
   const sendChatMessage = () => {
-    if (!newMessage.trim() || !currentMeeting) return
+    if (!newMessage.trim() || !currentMeeting) return;
 
     const message = {
       id: Date.now().toString(),
-      sender: "当前用户",
+      sender: '当前用户',
       message: newMessage,
       timestamp: new Date(),
-    }
+    };
 
-    setChatMessages((prev) => [...prev, message])
-    setNewMessage("")
-  }
+    setChatMessages((prev) => [...prev, message]);
+    setNewMessage('');
+  };
 
-  const getConnectionQualityColor = (quality: Participant["connectionQuality"]) => {
+  const getConnectionQualityColor = (quality: Participant['connectionQuality']) => {
     switch (quality) {
-      case "excellent":
-        return "text-green-600"
-      case "good":
-        return "text-yellow-600"
-      case "poor":
-        return "text-red-600"
+    case 'excellent':
+      return 'text-green-600';
+    case 'good':
+      return 'text-yellow-600';
+    case 'poor':
+      return 'text-red-600';
     }
-  }
+  };
 
   const formatDuration = (minutes: number) => {
-    const hours = Math.floor(minutes / 60)
-    const mins = minutes % 60
-    return hours > 0 ? `${hours}小时${mins}分钟` : `${mins}分钟`
-  }
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    return hours > 0 ? `${hours}小时${mins}分钟` : `${mins}分钟`;
+  };
 
   return (
     <div className="p-6 space-y-6">
@@ -275,7 +275,7 @@ export function VideoCallSystem() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
-              {meetings.filter((m) => m.status === "ongoing").length}
+              {meetings.filter((m) => m.status === 'ongoing').length}
             </div>
             <p className="text-xs text-muted-foreground">当前活跃会议</p>
           </CardContent>
@@ -351,11 +351,11 @@ export function VideoCallSystem() {
                       {!participant.isVideoOn && <VideoOff className="w-3 h-3 text-red-400" />}
                       <div
                         className={`w-2 h-2 rounded-full ${
-                          participant.connectionQuality === "excellent"
-                            ? "bg-green-400"
-                            : participant.connectionQuality === "good"
-                              ? "bg-yellow-400"
-                              : "bg-red-400"
+                          participant.connectionQuality === 'excellent'
+                            ? 'bg-green-400'
+                            : participant.connectionQuality === 'good'
+                              ? 'bg-yellow-400'
+                              : 'bg-red-400'
                         }`}
                       />
                     </div>
@@ -383,7 +383,7 @@ export function VideoCallSystem() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className={`rounded-full w-12 h-12 ${callSettings.microphone ? "bg-gray-700 hover:bg-gray-600" : "bg-red-600 hover:bg-red-700"}`}
+                    className={`rounded-full w-12 h-12 ${callSettings.microphone ? 'bg-gray-700 hover:bg-gray-600' : 'bg-red-600 hover:bg-red-700'}`}
                     onClick={toggleMute}
                   >
                     {callSettings.microphone ? (
@@ -396,7 +396,7 @@ export function VideoCallSystem() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className={`rounded-full w-12 h-12 ${callSettings.camera ? "bg-gray-700 hover:bg-gray-600" : "bg-red-600 hover:bg-red-700"}`}
+                    className={`rounded-full w-12 h-12 ${callSettings.camera ? 'bg-gray-700 hover:bg-gray-600' : 'bg-red-600 hover:bg-red-700'}`}
                     onClick={toggleVideo}
                   >
                     {callSettings.camera ? (
@@ -463,14 +463,14 @@ export function VideoCallSystem() {
                       </div>
                       <Badge
                         className={
-                          meeting.status === "ongoing"
-                            ? "bg-green-100 text-green-800"
-                            : meeting.status === "scheduled"
-                              ? "bg-blue-100 text-blue-800"
-                              : "bg-gray-100 text-gray-800"
+                          meeting.status === 'ongoing'
+                            ? 'bg-green-100 text-green-800'
+                            : meeting.status === 'scheduled'
+                              ? 'bg-blue-100 text-blue-800'
+                              : 'bg-gray-100 text-gray-800'
                         }
                       >
-                        {meeting.status === "ongoing" ? "进行中" : meeting.status === "scheduled" ? "已安排" : "已结束"}
+                        {meeting.status === 'ongoing' ? '进行中' : meeting.status === 'scheduled' ? '已安排' : '已结束'}
                       </Badge>
                     </div>
                   </CardHeader>
@@ -479,7 +479,7 @@ export function VideoCallSystem() {
                       <div className="flex items-center space-x-4 text-sm text-muted-foreground">
                         <div className="flex items-center space-x-1">
                           <Clock className="w-4 h-4" />
-                          <span>{meeting.startTime.toLocaleString("zh-CN")}</span>
+                          <span>{meeting.startTime.toLocaleString('zh-CN')}</span>
                         </div>
                         <div className="flex items-center space-x-1">
                           <Users className="w-4 h-4" />
@@ -512,7 +512,7 @@ export function VideoCallSystem() {
                       )}
 
                       <div className="flex space-x-2">
-                        {meeting.status === "ongoing" ? (
+                        {meeting.status === 'ongoing' ? (
                           <Button
                             className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700"
                             onClick={() => startCall(meeting.id)}
@@ -520,7 +520,7 @@ export function VideoCallSystem() {
                             <Video className="w-4 h-4 mr-2" />
                             加入会议
                           </Button>
-                        ) : meeting.status === "scheduled" ? (
+                        ) : meeting.status === 'scheduled' ? (
                           <Button
                             className="flex-1 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700"
                             onClick={() => startCall(meeting.id)}
@@ -596,17 +596,17 @@ export function VideoCallSystem() {
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }
 
 function CreateMeetingForm({ onClose }: { onClose: () => void }) {
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    startTime: "",
-    duration: "60",
-    participants: "",
-  })
+    title: '',
+    description: '',
+    startTime: '',
+    duration: '60',
+    participants: '',
+  });
 
   return (
     <div className="space-y-4">
@@ -664,7 +664,7 @@ function CreateMeetingForm({ onClose }: { onClose: () => void }) {
         <Button onClick={onClose}>创建会议</Button>
       </div>
     </div>
-  )
+  );
 }
 
 function CallSettingsForm({
@@ -675,8 +675,8 @@ function CallSettingsForm({
   onSettingsChange: (settings: CallSettings) => void
 }) {
   const updateSetting = (key: keyof CallSettings, value: boolean) => {
-    onSettingsChange({ ...settings, [key]: value })
-  }
+    onSettingsChange({ ...settings, [key]: value });
+  };
 
   return (
     <div className="space-y-6">
@@ -690,7 +690,7 @@ function CallSettingsForm({
             </div>
             <Switch
               checked={settings.autoJoinVideo}
-              onCheckedChange={(checked) => updateSetting("autoJoinVideo", checked)}
+              onCheckedChange={(checked) => updateSetting('autoJoinVideo', checked)}
             />
           </div>
 
@@ -701,7 +701,7 @@ function CallSettingsForm({
             </div>
             <Switch
               checked={settings.autoJoinAudio}
-              onCheckedChange={(checked) => updateSetting("autoJoinAudio", checked)}
+              onCheckedChange={(checked) => updateSetting('autoJoinAudio', checked)}
             />
           </div>
 
@@ -712,7 +712,7 @@ function CallSettingsForm({
             </div>
             <Switch
               checked={settings.backgroundBlur}
-              onCheckedChange={(checked) => updateSetting("backgroundBlur", checked)}
+              onCheckedChange={(checked) => updateSetting('backgroundBlur', checked)}
             />
           </div>
 
@@ -723,11 +723,11 @@ function CallSettingsForm({
             </div>
             <Switch
               checked={settings.noiseCancellation}
-              onCheckedChange={(checked) => updateSetting("noiseCancellation", checked)}
+              onCheckedChange={(checked) => updateSetting('noiseCancellation', checked)}
             />
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

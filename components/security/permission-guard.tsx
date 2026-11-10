@@ -10,12 +10,12 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState, useEffect, createContext, useContext, type ReactNode } from "react"
-import { permissionSystem, type User } from "@/lib/security/permission-system"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Shield, AlertTriangle, Lock } from "lucide-react"
+import { useState, useEffect, createContext, useContext, type ReactNode } from 'react';
+import { permissionSystem, type User } from '@/lib/security/permission-system';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Shield, AlertTriangle, Lock } from 'lucide-react';
 
 // 权限上下文
 interface PermissionContextType {
@@ -26,7 +26,7 @@ interface PermissionContextType {
   loading: boolean
 }
 
-const PermissionContext = createContext<PermissionContextType | null>(null)
+const PermissionContext = createContext<PermissionContextType | null>(null);
 
 // 权限提供者组件
 interface PermissionProviderProps {
@@ -36,36 +36,36 @@ interface PermissionProviderProps {
 }
 
 export function PermissionProvider({ children, user, sessionContext }: PermissionProviderProps) {
-  const [permissions, setPermissions] = useState<string[]>([])
-  const [loading, setLoading] = useState(true)
-  const [permissionCache, setPermissionCache] = useState<Map<string, boolean>>(new Map())
+  const [permissions, setPermissions] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [permissionCache, setPermissionCache] = useState<Map<string, boolean>>(new Map());
 
   useEffect(() => {
     if (user) {
       // 添加用户到权限系统
-      permissionSystem.addUser(user)
-      loadUserPermissions()
+      permissionSystem.addUser(user);
+      loadUserPermissions();
     } else {
-      setPermissions([])
-      setPermissionCache(new Map())
-      setLoading(false)
+      setPermissions([]);
+      setPermissionCache(new Map());
+      setLoading(false);
     }
-  }, [user])
+  }, [user]);
 
   const loadUserPermissions = async () => {
-    if (!user) return
+    if (!user) return;
 
-    setLoading(true)
+    setLoading(true);
     try {
       // 获取用户所有权限
-      const userPermissions = await getUserPermissions(user)
-      setPermissions(userPermissions)
+      const userPermissions = await getUserPermissions(user);
+      setPermissions(userPermissions);
     } catch (error) {
-      console.error("加载用户权限失败:", error)
+      console.error('加载用户权限失败:', error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const getUserPermissions = async (user: User): Promise<string[]> => {
     // 这里应该从后端API获取用户权限
@@ -73,58 +73,58 @@ export function PermissionProvider({ children, user, sessionContext }: Permissio
     const allPermissions = [
       ...user.permissions,
       // 根据角色获取权限
-      ...(user.roles.includes("department_manager")
+      ...(user.roles.includes('department_manager')
         ? [
-            "customer.create",
-            "customer.read",
-            "customer.update",
-            "task.create",
-            "task.read",
-            "task.update",
-            "task.assign",
-          ]
+          'customer.create',
+          'customer.read',
+          'customer.update',
+          'task.create',
+          'task.read',
+          'task.update',
+          'task.assign',
+        ]
         : []),
-      ...(user.roles.includes("employee") ? ["customer.read", "task.read", "task.update"] : []),
-    ]
+      ...(user.roles.includes('employee') ? ['customer.read', 'task.read', 'task.update'] : []),
+    ];
 
-    return [...new Set(allPermissions)]
-  }
+    return [...new Set(allPermissions)];
+  };
 
   const hasPermission = async (resource: string, action: string): Promise<boolean> => {
-    if (!user) return false
+    if (!user) return false;
 
-    const cacheKey = `${resource}:${action}`
+    const cacheKey = `${resource}:${action}`;
     if (permissionCache.has(cacheKey)) {
-      return permissionCache.get(cacheKey)!
+      return permissionCache.get(cacheKey)!;
     }
 
     try {
-      const result = await permissionSystem.hasPermission(user.id, resource, action, sessionContext)
+      const result = await permissionSystem.hasPermission(user.id, resource, action, sessionContext);
 
       // 缓存结果（5分钟）
-      setPermissionCache((prev) => new Map(prev.set(cacheKey, result)))
+      setPermissionCache((prev) => new Map(prev.set(cacheKey, result)));
       setTimeout(
         () => {
           setPermissionCache((prev) => {
-            const newCache = new Map(prev)
-            newCache.delete(cacheKey)
-            return newCache
-          })
+            const newCache = new Map(prev);
+            newCache.delete(cacheKey);
+            return newCache;
+          });
         },
         5 * 60 * 1000,
-      )
+      );
 
-      return result
+      return result;
     } catch (error) {
-      console.error("权限检查失败:", error)
-      return false
+      console.error('权限检查失败:', error);
+      return false;
     }
-  }
+  };
 
   const checkPermission = (resource: string, action: string): boolean => {
-    const permissionId = `${resource}.${action}`
-    return permissions.includes(permissionId) || permissions.includes(`${resource}.*`)
-  }
+    const permissionId = `${resource}.${action}`;
+    return permissions.includes(permissionId) || permissions.includes(`${resource}.*`);
+  };
 
   const contextValue: PermissionContextType = {
     user,
@@ -132,18 +132,18 @@ export function PermissionProvider({ children, user, sessionContext }: Permissio
     checkPermission,
     permissions,
     loading,
-  }
+  };
 
-  return <PermissionContext.Provider value={contextValue}>{children}</PermissionContext.Provider>
+  return <PermissionContext.Provider value={contextValue}>{children}</PermissionContext.Provider>;
 }
 
 // 权限Hook
 export function usePermissions() {
-  const context = useContext(PermissionContext)
+  const context = useContext(PermissionContext);
   if (!context) {
-    throw new Error("usePermissions must be used within a PermissionProvider")
+    throw new Error('usePermissions must be used within a PermissionProvider');
   }
-  return context
+  return context;
 }
 
 // 权限守卫组件
@@ -156,7 +156,7 @@ interface PermissionGuardProps {
 }
 
 export function PermissionGuard({ resource, action, children, fallback, showError = true }: PermissionGuardProps) {
-  const { checkPermission, loading } = usePermissions()
+  const { checkPermission, loading } = usePermissions();
 
   if (loading) {
     return (
@@ -164,14 +164,14 @@ export function PermissionGuard({ resource, action, children, fallback, showErro
         <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
         <span className="ml-2 text-sm text-gray-500">检查权限中...</span>
       </div>
-    )
+    );
   }
 
-  const hasAccess = checkPermission(resource, action)
+  const hasAccess = checkPermission(resource, action);
 
   if (!hasAccess) {
     if (fallback) {
-      return <>{fallback}</>
+      return <>{fallback}</>;
     }
 
     if (showError) {
@@ -182,13 +182,13 @@ export function PermissionGuard({ resource, action, children, fallback, showErro
             您没有权限执行此操作。需要权限: {resource}.{action}
           </AlertDescription>
         </Alert>
-      )
+      );
     }
 
-    return null
+    return null;
   }
 
-  return <>{children}</>
+  return <>{children}</>;
 }
 
 // 权限按钮组件
@@ -206,13 +206,13 @@ export function PermissionButton({
   action,
   children,
   onClick,
-  className = "",
+  className = '',
   disabled = false,
 }: PermissionButtonProps) {
-  const { checkPermission } = usePermissions()
+  const { checkPermission } = usePermissions();
 
-  const hasAccess = checkPermission(resource, action)
-  const isDisabled = disabled || !hasAccess
+  const hasAccess = checkPermission(resource, action);
+  const isDisabled = disabled || !hasAccess;
 
   return (
     <button
@@ -220,20 +220,20 @@ export function PermissionButton({
       disabled={isDisabled}
       className={`
         ${className}
-        ${isDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-        ${!hasAccess ? "bg-gray-300 text-gray-500" : ""}
+        ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
+        ${!hasAccess ? 'bg-gray-300 text-gray-500' : ''}
       `}
       title={!hasAccess ? `需要权限: ${resource}.${action}` : undefined}
     >
       {!hasAccess && <Lock className="w-4 h-4 mr-2" />}
       {children}
     </button>
-  )
+  );
 }
 
 // 权限状态显示组件
 export function PermissionStatus() {
-  const { user, permissions, loading } = usePermissions()
+  const { user, permissions, loading } = usePermissions();
 
   if (loading) {
     return (
@@ -241,7 +241,7 @@ export function PermissionStatus() {
         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500 mr-2"></div>
         加载权限中...
       </div>
-    )
+    );
   }
 
   if (!user) {
@@ -250,7 +250,7 @@ export function PermissionStatus() {
         <AlertTriangle className="w-4 h-4 mr-2" />
         未登录
       </div>
-    )
+    );
   }
 
   return (
@@ -258,14 +258,14 @@ export function PermissionStatus() {
       <Shield className="w-4 h-4 mr-2" />
       {user.name} ({permissions.length} 项权限)
     </div>
-  )
+  );
 }
 
 // 权限详情组件
 export function PermissionDetails() {
-  const { user, permissions } = usePermissions()
+  const { user, permissions } = usePermissions();
 
-  if (!user) return null
+  if (!user) return null;
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
@@ -307,5 +307,5 @@ export function PermissionDetails() {
         </div>
       </div>
     </div>
-  )
+  );
 }

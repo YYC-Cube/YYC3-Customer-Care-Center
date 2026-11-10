@@ -10,16 +10,16 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import type React from "react"
+import type React from 'react';
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,8 +27,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+} from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Search,
   Bell,
@@ -47,7 +47,7 @@ import {
   Maximize,
   Minimize,
   RefreshCw,
-} from "lucide-react"
+} from 'lucide-react';
 
 interface HeaderProps {
   activeModule?: string
@@ -57,125 +57,125 @@ interface HeaderProps {
   showOnMobile?: boolean
 }
 
-export function Header({ activeModule = "dashboard", className, height = 64, sticky = true, showOnMobile = true }: HeaderProps) {
-  const router = useRouter()
-  const [searchQuery, setSearchQuery] = useState("")
-  const [isDarkMode, setIsDarkMode] = useState(false)
-  const [isMuted, setIsMuted] = useState(false)
-  const [isFullscreen, setIsFullscreen] = useState(false)
+export function Header({ activeModule = 'dashboard', className, height = 64, sticky = true, showOnMobile = true }: HeaderProps) {
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const [notifications] = useState([
-    { id: 1, title: "新客户注册", message: "张三刚刚注册了账户", time: "2分钟前", unread: true },
-    { id: 2, title: "任务提醒", message: "项目A的截止日期临近", time: "1小时前", unread: true },
-    { id: 3, title: "系统更新", message: "系统将在今晚进行维护", time: "3小时前", unread: false },
-  ])
+    { id: 1, title: '新客户注册', message: '张三刚刚注册了账户', time: '2分钟前', unread: true },
+    { id: 2, title: '任务提醒', message: '项目A的截止日期临近', time: '1小时前', unread: true },
+    { id: 3, title: '系统更新', message: '系统将在今晚进行维护', time: '3小时前', unread: false },
+  ]);
 
-  const unreadCount = notifications.filter((n) => n.unread).length
+  const unreadCount = notifications.filter((n) => n.unread).length;
 
   const getModuleTitle = (module: string) => {
     const moduleMap: Record<string, string> = {
-      dashboard: "服务中心",
-      analytics: "数据分析",
-      reports: "报表中心",
-      kpi: "指标监控",
-      customers: "客户管理",
-      tasks: "任务管理",
-      approval: "审批管理",
-      okr: "目标管理",
-      finance: "财务管理",
-      budget: "预算管理",
-      invoices: "发票管理",
-      payments: "支付管理",
-      chat: "即时聊天",
-      meetings: "视频会议",
-      documents: "文档协作",
-      notifications: "通知中心",
-      "ai-analysis": "智能分析",
-      "ai-prediction": "客户数据",
-      "ai-automation": "智能表单",
-      permissions: "权限管理",
-      audit: "安全审计",
-      mfa: "多因子认证",
-      settings: "基础设置",
-      database: "数据库管理",
-      integrations: "集成管理",
-      backup: "备份恢复",
-      overview: "应用总览",
-      mobile: "移动应用",
-      performance: "性能优化",
-      training: "用户培训",
-      feedback: "用户反馈",
-    }
-    return moduleMap[module] || "服务中心"
-  }
+      dashboard: '服务中心',
+      analytics: '数据分析',
+      reports: '报表中心',
+      kpi: '指标监控',
+      customers: '客户管理',
+      tasks: '任务管理',
+      approval: '审批管理',
+      okr: '目标管理',
+      finance: '财务管理',
+      budget: '预算管理',
+      invoices: '发票管理',
+      payments: '支付管理',
+      chat: '即时聊天',
+      meetings: '视频会议',
+      documents: '文档协作',
+      notifications: '通知中心',
+      'ai-analysis': '智能分析',
+      'ai-prediction': '客户数据',
+      'ai-automation': '智能表单',
+      permissions: '权限管理',
+      audit: '安全审计',
+      mfa: '多因子认证',
+      settings: '基础设置',
+      database: '数据库管理',
+      integrations: '集成管理',
+      backup: '备份恢复',
+      overview: '应用总览',
+      mobile: '移动应用',
+      performance: '性能优化',
+      training: '用户培训',
+      feedback: '用户反馈',
+    };
+    return moduleMap[module] || '服务中心';
+  };
 
   const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (searchQuery.trim()) {
-      console.log("搜索:", searchQuery)
+      console.log('搜索:', searchQuery);
       // 这里可以实现搜索功能
     }
-  }
+  };
 
   const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode)
-    document.documentElement.classList.toggle("dark")
-  }
+    setIsDarkMode(!isDarkMode);
+    document.documentElement.classList.toggle('dark');
+  };
 
   const toggleMute = () => {
-    setIsMuted(!isMuted)
-  }
+    setIsMuted(!isMuted);
+  };
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen()
-      setIsFullscreen(true)
+      document.documentElement.requestFullscreen();
+      setIsFullscreen(true);
     } else {
-      document.exitFullscreen()
-      setIsFullscreen(false)
+      document.exitFullscreen();
+      setIsFullscreen(false);
     }
-  }
+  };
 
   const refreshPage = () => {
-    window.location.reload()
-  }
+    window.location.reload();
+  };
 
   const openCustomerService = () => {
     // 打开客服对话框或跳转到客服页面
-    console.log("打开客服")
-  }
+    console.log('打开客服');
+  };
 
   const changeLanguage = () => {
     // 切换语言
-    console.log("切换语言")
-  }
+    console.log('切换语言');
+  };
 
   const openSettings = () => {
-    router.push("/system/settings")
-  }
+    router.push('/system/settings');
+  };
 
   const openProfile = () => {
-    console.log("打开个人资料")
-  }
+    console.log('打开个人资料');
+  };
 
   const openSecurityCenter = () => {
-    router.push("/security")
-  }
+    router.push('/security');
+  };
 
   const openHelp = () => {
-    console.log("打开帮助")
-  }
+    console.log('打开帮助');
+  };
 
   const logout = () => {
-    console.log("退出登录")
+    console.log('退出登录');
     // 这里可以实现退出登录逻辑
-  }
+  };
 
   return (
     <header
       className={cn(
-        "bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-6 flex items-center justify-between shadow-sm",
-        sticky ? "fixed top-0 left-0 right-0 z-40" : "relative",
-        !showOnMobile && "hidden lg:flex",
+        'bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-6 flex items-center justify-between shadow-sm',
+        sticky ? 'fixed top-0 left-0 right-0 z-40' : 'relative',
+        !showOnMobile && 'hidden lg:flex',
         className,
       )}
       style={{ height: `${height}px` }}
@@ -184,11 +184,11 @@ export function Header({ activeModule = "dashboard", className, height = 64, sti
       <div className="flex items-center space-x-4">
         <div>
           <p className="text-lg font-medium text-gray-900 dark:text-white">
-            {new Date().toLocaleDateString("zh-CN", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-              weekday: "long",
+            {new Date().toLocaleDateString('zh-CN', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+              weekday: 'long',
             })}
           </p>
         </div>
@@ -206,7 +206,7 @@ export function Header({ activeModule = "dashboard", className, height = 64, sti
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10 pr-4 py-2 w-full bg-gray-50 dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 focus:bg-white dark:focus:bg-gray-900 transition-all duration-300 shadow-inner hover:shadow-md focus:shadow-lg focus:border-blue-400 dark:focus:border-blue-500 rounded-lg"
               style={{
-                boxShadow: "inset 0 2px 4px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.05)",
+                boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.05)',
               }}
             />
           </div>
@@ -380,5 +380,5 @@ export function Header({ activeModule = "dashboard", className, height = 64, sti
         </DropdownMenu>
       </div>
     </header>
-  )
+  );
 }

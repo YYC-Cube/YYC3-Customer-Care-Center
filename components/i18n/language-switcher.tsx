@@ -10,59 +10,59 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import type React from "react"
+import type React from 'react';
 
-import { useContext } from "react"
-import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Badge } from "@/components/ui/badge"
-import { I18nContext, SUPPORTED_LANGUAGES, type SupportedLanguage } from "@/lib/i18n"
-import { Languages, Globe, Check } from "lucide-react"
+import { useContext } from 'react';
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Badge } from '@/components/ui/badge';
+import { I18nContext, SUPPORTED_LANGUAGES, type SupportedLanguage } from '@/lib/i18n';
+import { Languages, Globe, Check } from 'lucide-react';
 
 interface LanguageSwitcherProps {
-  variant?: "button" | "compact" | "icon"
+  variant?: 'button' | 'compact' | 'icon'
   showLabel?: boolean
   className?: string
 }
 
-export function LanguageSwitcher({ variant = "button", showLabel = true, className = "" }: LanguageSwitcherProps) {
-  const context = useContext(I18nContext)
+export function LanguageSwitcher({ variant = 'button', showLabel = true, className = '' }: LanguageSwitcherProps) {
+  const context = useContext(I18nContext);
 
   if (!context) {
-    throw new Error("LanguageSwitcher must be used within a LanguageProvider")
+    throw new Error('LanguageSwitcher must be used within a LanguageProvider');
   }
 
-  const { language, setLanguage, t } = context
+  const { language, setLanguage, t } = context;
 
   const handleLanguageChange = (newLanguage: SupportedLanguage) => {
-    setLanguage(newLanguage)
+    setLanguage(newLanguage);
 
     // 触发页面重新渲染的事件
     window.dispatchEvent(
-      new CustomEvent("languageChanged", {
+      new CustomEvent('languageChanged', {
         detail: { language: newLanguage },
       }),
-    )
-  }
+    );
+  };
 
   const getLanguageFlag = (lang: SupportedLanguage): string => {
     const flags: Record<SupportedLanguage, string> = {
-      "zh-CN": "🇨🇳",
-      "zh-TW": "🇹🇼",
-      "en-US": "🇺🇸",
-      "ja-JP": "🇯🇵",
-      "ko-KR": "🇰🇷",
-    }
-    return flags[lang] || "🌐"
-  }
+      'zh-CN': '🇨🇳',
+      'zh-TW': '🇹🇼',
+      'en-US': '🇺🇸',
+      'ja-JP': '🇯🇵',
+      'ko-KR': '🇰🇷',
+    };
+    return flags[lang] || '🌐';
+  };
 
   const getCurrentLanguageDisplay = () => {
-    return SUPPORTED_LANGUAGES[language]
-  }
+    return SUPPORTED_LANGUAGES[language];
+  };
 
-  if (variant === "icon") {
+  if (variant === 'icon') {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -86,16 +86,16 @@ export function LanguageSwitcher({ variant = "button", showLabel = true, classNa
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-    )
+    );
   }
 
-  if (variant === "compact") {
+  if (variant === 'compact') {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="sm" className={`px-3 ${className}`}>
             <span className="text-lg mr-1">{getLanguageFlag(language)}</span>
-            <span className="text-sm">{language.split("-")[0].toUpperCase()}</span>
+            <span className="text-sm">{language.split('-')[0].toUpperCase()}</span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-48">
@@ -114,7 +114,7 @@ export function LanguageSwitcher({ variant = "button", showLabel = true, classNa
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-    )
+    );
   }
 
   return (
@@ -131,7 +131,7 @@ export function LanguageSwitcher({ variant = "button", showLabel = true, classNa
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
-        <div className="px-3 py-2 text-sm font-medium text-gray-700 border-b">{t("settings.language")}</div>
+        <div className="px-3 py-2 text-sm font-medium text-gray-700 border-b">{t('settings.language')}</div>
         {Object.entries(SUPPORTED_LANGUAGES).map(([lang, name]) => (
           <DropdownMenuItem
             key={lang}
@@ -148,25 +148,25 @@ export function LanguageSwitcher({ variant = "button", showLabel = true, classNa
             {language === lang && (
               <Badge variant="secondary" className="bg-blue-100 text-blue-800">
                 <Check className="h-3 w-3 mr-1" />
-                {t("common.select")}
+                {t('common.select')}
               </Badge>
             )}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }
 
 // Hook for using translation
 export function useTranslation() {
-  const context = useContext(I18nContext)
+  const context = useContext(I18nContext);
 
   if (!context) {
-    throw new Error("useTranslation must be used within a LanguageProvider")
+    throw new Error('useTranslation must be used within a LanguageProvider');
   }
 
-  return context
+  return context;
 }
 
 // Translation component for inline usage
@@ -177,13 +177,13 @@ interface TranslationProps {
 }
 
 export function Translation({ k, params, fallback }: TranslationProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   try {
-    return <>{t(k, params)}</>
+    return <>{t(k, params)}</>;
   } catch (error) {
-    console.warn(`Translation missing for key: ${k}`)
-    return <>{fallback || k}</>
+    console.warn(`Translation missing for key: ${k}`);
+    return <>{fallback || k}</>;
   }
 }
 
@@ -192,7 +192,7 @@ export function withTranslation<P extends object>(
   Component: React.ComponentType<P & { t: (key: string, params?: Record<string, string | number>) => string }>,
 ) {
   return function TranslatedComponent(props: P) {
-    const { t } = useTranslation()
-    return <Component {...props} t={t} />
-  }
+    const { t } = useTranslation();
+    return <Component {...props} t={t} />;
+  };
 }

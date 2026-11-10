@@ -10,17 +10,17 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import type React from "react"
+import type React from 'react';
 
-import { useState, useRef, useCallback } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Progress } from "@/components/ui/progress"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useState, useRef, useCallback } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Progress } from '@/components/ui/progress';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Dialog,
   DialogContent,
@@ -28,7 +28,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from '@/components/ui/dialog';
 import {
   Upload,
   Download,
@@ -48,7 +48,7 @@ import {
   RotateCcw,
   Search,
   MoreHorizontal,
-} from "lucide-react"
+} from 'lucide-react';
 
 interface FileTransfer {
   id: string
@@ -57,7 +57,7 @@ interface FileTransfer {
   fileType: string
   sender: string
   receiver: string
-  status: "uploading" | "downloading" | "completed" | "failed" | "paused"
+  status: 'uploading' | 'downloading' | 'completed' | 'failed' | 'paused'
   progress: number
   speed: number
   timeRemaining: number
@@ -84,26 +84,26 @@ interface SharedFile {
 export function FileTransferSystem() {
   const [transfers, setTransfers] = useState<FileTransfer[]>([
     {
-      id: "1",
-      fileName: "产品设计文档.pdf",
+      id: '1',
+      fileName: '产品设计文档.pdf',
       fileSize: 15728640, // 15MB
-      fileType: "application/pdf",
-      sender: "张设计师",
-      receiver: "李经理",
-      status: "uploading",
+      fileType: 'application/pdf',
+      sender: '张设计师',
+      receiver: '李经理',
+      status: 'uploading',
       progress: 65,
       speed: 1024000, // 1MB/s
       timeRemaining: 5,
       startTime: new Date(Date.now() - 30000),
     },
     {
-      id: "2",
-      fileName: "演示视频.mp4",
+      id: '2',
+      fileName: '演示视频.mp4',
       fileSize: 104857600, // 100MB
-      fileType: "video/mp4",
-      sender: "王开发",
-      receiver: "团队群组",
-      status: "completed",
+      fileType: 'video/mp4',
+      sender: '王开发',
+      receiver: '团队群组',
+      status: 'completed',
       progress: 100,
       speed: 0,
       timeRemaining: 0,
@@ -111,54 +111,54 @@ export function FileTransferSystem() {
       endTime: new Date(Date.now() - 60000),
     },
     {
-      id: "3",
-      fileName: "项目截图.zip",
+      id: '3',
+      fileName: '项目截图.zip',
       fileSize: 52428800, // 50MB
-      fileType: "application/zip",
-      sender: "陈测试",
-      receiver: "我",
-      status: "downloading",
+      fileType: 'application/zip',
+      sender: '陈测试',
+      receiver: '我',
+      status: 'downloading',
       progress: 30,
       speed: 512000, // 512KB/s
       timeRemaining: 70,
       startTime: new Date(Date.now() - 15000),
     },
-  ])
+  ]);
 
   const [sharedFiles, setSharedFiles] = useState<SharedFile[]>([
     {
-      id: "1",
-      fileName: "公司手册.pdf",
+      id: '1',
+      fileName: '公司手册.pdf',
       fileSize: 5242880, // 5MB
-      fileType: "application/pdf",
-      owner: "人事部",
-      sharedWith: ["全体员工"],
+      fileType: 'application/pdf',
+      owner: '人事部',
+      sharedWith: ['全体员工'],
       uploadTime: new Date(Date.now() - 86400000),
       downloadCount: 156,
       isPublic: true,
-      description: "员工入职必读手册",
-      tags: ["手册", "入职", "规章制度"],
+      description: '员工入职必读手册',
+      tags: ['手册', '入职', '规章制度'],
     },
     {
-      id: "2",
-      fileName: "Q1财务报告.xlsx",
+      id: '2',
+      fileName: 'Q1财务报告.xlsx',
       fileSize: 2097152, // 2MB
-      fileType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      owner: "财务部",
-      sharedWith: ["管理层"],
+      fileType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      owner: '财务部',
+      sharedWith: ['管理层'],
       uploadTime: new Date(Date.now() - 172800000),
       downloadCount: 23,
       expiryTime: new Date(Date.now() + 604800000), // 7天后过期
       isPublic: false,
-      description: "第一季度财务数据分析",
-      tags: ["财务", "报告", "Q1"],
+      description: '第一季度财务数据分析',
+      tags: ['财务', '报告', 'Q1'],
     },
-  ])
+  ]);
 
-  const [searchQuery, setSearchQuery] = useState("")
-  const [filterType, setFilterType] = useState("all")
-  const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false)
-  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterType, setFilterType] = useState('all');
+  const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // 文件上传处理
   const handleFileUpload = useCallback((files: FileList) => {
@@ -168,43 +168,43 @@ export function FileTransferSystem() {
         fileName: file.name,
         fileSize: file.size,
         fileType: file.type,
-        sender: "我",
-        receiver: "选择接收者",
-        status: "uploading",
+        sender: '我',
+        receiver: '选择接收者',
+        status: 'uploading',
         progress: 0,
         speed: 0,
         timeRemaining: 0,
         startTime: new Date(),
-      }
+      };
 
-      setTransfers((prev) => [...prev, newTransfer])
+      setTransfers((prev) => [...prev, newTransfer]);
 
       // 模拟文件上传进度
-      simulateFileTransfer(newTransfer.id)
-    })
-  }, [])
+      simulateFileTransfer(newTransfer.id);
+    });
+  }, []);
 
   // 模拟文件传输进度
   const simulateFileTransfer = (transferId: string) => {
     const interval = setInterval(() => {
       setTransfers((prev) =>
         prev.map((transfer) => {
-          if (transfer.id === transferId && transfer.status === "uploading") {
-            const newProgress = Math.min(transfer.progress + Math.random() * 10, 100)
-            const speed = 500000 + Math.random() * 1000000 // 0.5-1.5MB/s
+          if (transfer.id === transferId && transfer.status === 'uploading') {
+            const newProgress = Math.min(transfer.progress + Math.random() * 10, 100);
+            const speed = 500000 + Math.random() * 1000000; // 0.5-1.5MB/s
             const timeRemaining =
-              newProgress < 100 ? Math.ceil((transfer.fileSize * (100 - newProgress)) / 100 / speed) : 0
+              newProgress < 100 ? Math.ceil((transfer.fileSize * (100 - newProgress)) / 100 / speed) : 0;
 
             if (newProgress >= 100) {
-              clearInterval(interval)
+              clearInterval(interval);
               return {
                 ...transfer,
                 progress: 100,
-                status: "completed" as const,
+                status: 'completed' as const,
                 speed: 0,
                 timeRemaining: 0,
                 endTime: new Date(),
-              }
+              };
             }
 
             return {
@@ -212,99 +212,99 @@ export function FileTransferSystem() {
               progress: newProgress,
               speed,
               timeRemaining,
-            }
+            };
           }
-          return transfer
+          return transfer;
         }),
-      )
-    }, 1000)
-  }
+      );
+    }, 1000);
+  };
 
   // 拖拽上传
   const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault()
-  }
+    e.preventDefault();
+  };
 
   const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault()
-    const files = e.dataTransfer.files
+    e.preventDefault();
+    const files = e.dataTransfer.files;
     if (files.length > 0) {
-      handleFileUpload(files)
+      handleFileUpload(files);
     }
-  }
+  };
 
   // 格式化文件大小
   const formatFileSize = (bytes: number) => {
-    if (bytes === 0) return "0 Bytes"
-    const k = 1024
-    const sizes = ["Bytes", "KB", "MB", "GB"]
-    const i = Math.floor(Math.log(bytes) / Math.log(k))
-    return Number.parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i]
-  }
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return Number.parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
 
   // 格式化传输速度
   const formatSpeed = (bytesPerSecond: number) => {
-    return formatFileSize(bytesPerSecond) + "/s"
-  }
+    return formatFileSize(bytesPerSecond) + '/s';
+  };
 
   // 格式化剩余时间
   const formatTimeRemaining = (seconds: number) => {
-    if (seconds < 60) return `${seconds}秒`
-    if (seconds < 3600) return `${Math.floor(seconds / 60)}分钟`
-    return `${Math.floor(seconds / 3600)}小时${Math.floor((seconds % 3600) / 60)}分钟`
-  }
+    if (seconds < 60) return `${seconds}秒`;
+    if (seconds < 3600) return `${Math.floor(seconds / 60)}分钟`;
+    return `${Math.floor(seconds / 3600)}小时${Math.floor((seconds % 3600) / 60)}分钟`;
+  };
 
   // 获取文件图标
   const getFileIcon = (fileType: string) => {
-    if (fileType.startsWith("image/")) return <ImageIcon className="w-5 h-5" />
-    if (fileType.startsWith("video/")) return <Video className="w-5 h-5" />
-    if (fileType.startsWith("audio/")) return <Music className="w-5 h-5" />
-    if (fileType.includes("pdf")) return <FileText className="w-5 h-5" />
-    if (fileType.includes("zip") || fileType.includes("rar")) return <Archive className="w-5 h-5" />
-    return <File className="w-5 h-5" />
-  }
+    if (fileType.startsWith('image/')) return <ImageIcon className="w-5 h-5" />;
+    if (fileType.startsWith('video/')) return <Video className="w-5 h-5" />;
+    if (fileType.startsWith('audio/')) return <Music className="w-5 h-5" />;
+    if (fileType.includes('pdf')) return <FileText className="w-5 h-5" />;
+    if (fileType.includes('zip') || fileType.includes('rar')) return <Archive className="w-5 h-5" />;
+    return <File className="w-5 h-5" />;
+  };
 
   // 获取状态图标
-  const getStatusIcon = (status: FileTransfer["status"]) => {
+  const getStatusIcon = (status: FileTransfer['status']) => {
     switch (status) {
-      case "completed":
-        return <CheckCircle className="w-4 h-4 text-green-600" />
-      case "failed":
-        return <XCircle className="w-4 h-4 text-red-600" />
-      case "paused":
-        return <Pause className="w-4 h-4 text-yellow-600" />
-      default:
-        return <Clock className="w-4 h-4 text-blue-600" />
+    case 'completed':
+      return <CheckCircle className="w-4 h-4 text-green-600" />;
+    case 'failed':
+      return <XCircle className="w-4 h-4 text-red-600" />;
+    case 'paused':
+      return <Pause className="w-4 h-4 text-yellow-600" />;
+    default:
+      return <Clock className="w-4 h-4 text-blue-600" />;
     }
-  }
+  };
 
   // 获取状态颜色
-  const getStatusColor = (status: FileTransfer["status"]) => {
+  const getStatusColor = (status: FileTransfer['status']) => {
     switch (status) {
-      case "completed":
-        return "text-green-600"
-      case "failed":
-        return "text-red-600"
-      case "paused":
-        return "text-yellow-600"
-      default:
-        return "text-blue-600"
+    case 'completed':
+      return 'text-green-600';
+    case 'failed':
+      return 'text-red-600';
+    case 'paused':
+      return 'text-yellow-600';
+    default:
+      return 'text-blue-600';
     }
-  }
+  };
 
   // 过滤文件
   const filteredTransfers = transfers.filter((transfer) => {
-    const matchesSearch = transfer.fileName.toLowerCase().includes(searchQuery.toLowerCase())
-    const matchesFilter = filterType === "all" || transfer.status === filterType
-    return matchesSearch && matchesFilter
-  })
+    const matchesSearch = transfer.fileName.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesFilter = filterType === 'all' || transfer.status === filterType;
+    return matchesSearch && matchesFilter;
+  });
 
   const filteredSharedFiles = sharedFiles.filter((file) => {
     const matchesSearch =
       file.fileName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      file.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()))
-    return matchesSearch
-  })
+      file.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+    return matchesSearch;
+  });
 
   return (
     <div className="p-6 space-y-6">
@@ -345,7 +345,7 @@ export function FileTransferSystem() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-blue-600">
-              {transfers.filter((t) => t.status === "uploading" || t.status === "downloading").length}
+              {transfers.filter((t) => t.status === 'uploading' || t.status === 'downloading').length}
             </div>
             <p className="text-xs text-muted-foreground">正在进行的传输</p>
           </CardContent>
@@ -358,7 +358,7 @@ export function FileTransferSystem() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
-              {transfers.filter((t) => t.status === "completed").length}
+              {transfers.filter((t) => t.status === 'completed').length}
             </div>
             <p className="text-xs text-muted-foreground">成功传输的文件</p>
           </CardContent>
@@ -384,7 +384,7 @@ export function FileTransferSystem() {
             <div className="text-2xl font-bold text-orange-600">
               {formatSpeed(
                 transfers.reduce(
-                  (sum, t) => sum + (t.status === "uploading" || t.status === "downloading" ? t.speed : 0),
+                  (sum, t) => sum + (t.status === 'uploading' || t.status === 'downloading' ? t.speed : 0),
                   0,
                 ),
               )}
@@ -477,15 +477,15 @@ export function FileTransferSystem() {
                         <div className="flex items-center space-x-2">
                           {getStatusIcon(transfer.status)}
                           <Badge className={`${getStatusColor(transfer.status)} bg-transparent`}>
-                            {transfer.status === "uploading"
-                              ? "上传中"
-                              : transfer.status === "downloading"
-                                ? "下载中"
-                                : transfer.status === "completed"
-                                  ? "已完成"
-                                  : transfer.status === "failed"
-                                    ? "失败"
-                                    : "已暂停"}
+                            {transfer.status === 'uploading'
+                              ? '上传中'
+                              : transfer.status === 'downloading'
+                                ? '下载中'
+                                : transfer.status === 'completed'
+                                  ? '已完成'
+                                  : transfer.status === 'failed'
+                                    ? '失败'
+                                    : '已暂停'}
                           </Badge>
                         </div>
                       </div>
@@ -497,7 +497,7 @@ export function FileTransferSystem() {
                         <span>{formatFileSize(transfer.fileSize)}</span>
                       </div>
 
-                      {(transfer.status === "uploading" || transfer.status === "downloading") && (
+                      {(transfer.status === 'uploading' || transfer.status === 'downloading') && (
                         <div className="space-y-2">
                           <Progress value={transfer.progress} className="h-2" />
                           <div className="flex items-center justify-between text-xs text-muted-foreground">
@@ -509,15 +509,15 @@ export function FileTransferSystem() {
                         </div>
                       )}
 
-                      {transfer.status === "completed" && transfer.endTime && (
+                      {transfer.status === 'completed' && transfer.endTime && (
                         <div className="text-xs text-muted-foreground">
-                          完成时间: {transfer.endTime.toLocaleString("zh-CN")}
+                          完成时间: {transfer.endTime.toLocaleString('zh-CN')}
                         </div>
                       )}
                     </div>
 
                     <div className="flex items-center space-x-2">
-                      {transfer.status === "uploading" || transfer.status === "downloading" ? (
+                      {transfer.status === 'uploading' || transfer.status === 'downloading' ? (
                         <>
                           <Button variant="ghost" size="sm">
                             <Pause className="w-4 h-4" />
@@ -526,7 +526,7 @@ export function FileTransferSystem() {
                             <XCircle className="w-4 h-4" />
                           </Button>
                         </>
-                      ) : transfer.status === "paused" ? (
+                      ) : transfer.status === 'paused' ? (
                         <>
                           <Button variant="ghost" size="sm">
                             <Play className="w-4 h-4" />
@@ -535,7 +535,7 @@ export function FileTransferSystem() {
                             <RotateCcw className="w-4 h-4" />
                           </Button>
                         </>
-                      ) : transfer.status === "completed" ? (
+                      ) : transfer.status === 'completed' ? (
                         <>
                           <Button variant="ghost" size="sm">
                             <Eye className="w-4 h-4" />
@@ -592,8 +592,8 @@ export function FileTransferSystem() {
                         <CardDescription>{formatFileSize(file.fileSize)}</CardDescription>
                       </div>
                     </div>
-                    <Badge className={file.isPublic ? "bg-green-100 text-green-800" : "bg-blue-100 text-blue-800"}>
-                      {file.isPublic ? "公开" : "私有"}
+                    <Badge className={file.isPublic ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}>
+                      {file.isPublic ? '公开' : '私有'}
                     </Badge>
                   </div>
                 </CardHeader>
@@ -601,7 +601,7 @@ export function FileTransferSystem() {
                   <div className="space-y-3">
                     <div className="text-sm text-muted-foreground">
                       <p>分享者: {file.owner}</p>
-                      <p>上传时间: {file.uploadTime.toLocaleDateString("zh-CN")}</p>
+                      <p>上传时间: {file.uploadTime.toLocaleDateString('zh-CN')}</p>
                       <p>下载次数: {file.downloadCount}</p>
                     </div>
 
@@ -618,7 +618,7 @@ export function FileTransferSystem() {
                     )}
 
                     {file.expiryTime && (
-                      <div className="text-xs text-orange-600">过期时间: {file.expiryTime.toLocaleString("zh-CN")}</div>
+                      <div className="text-xs text-orange-600">过期时间: {file.expiryTime.toLocaleString('zh-CN')}</div>
                     )}
 
                     <div className="flex space-x-2">
@@ -713,17 +713,17 @@ export function FileTransferSystem() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }
 
 function FileUploadForm({ onClose }: { onClose: () => void }) {
   const [formData, setFormData] = useState({
-    description: "",
+    description: '',
     isPublic: false,
-    expiryDays: "30",
-    tags: "",
-    recipients: "",
-  })
+    expiryDays: '30',
+    tags: '',
+    recipients: '',
+  });
 
   return (
     <div className="space-y-4">
@@ -764,8 +764,8 @@ function FileUploadForm({ onClose }: { onClose: () => void }) {
           <label className="text-sm font-medium">访问权限</label>
           <select
             className="w-full p-2 border rounded-md"
-            value={formData.isPublic ? "public" : "private"}
-            onChange={(e) => setFormData((prev) => ({ ...prev, isPublic: e.target.value === "public" }))}
+            value={formData.isPublic ? 'public' : 'private'}
+            onChange={(e) => setFormData((prev) => ({ ...prev, isPublic: e.target.value === 'public' }))}
           >
             <option value="private">私有</option>
             <option value="public">公开</option>
@@ -789,5 +789,5 @@ function FileUploadForm({ onClose }: { onClose: () => void }) {
         <Button onClick={onClose}>开始上传</Button>
       </div>
     </div>
-  )
+  );
 }

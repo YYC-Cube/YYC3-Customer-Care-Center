@@ -10,105 +10,105 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Code, Database, FileText, Settings, Info, Copy } from "lucide-react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Code, Database, FileText, Settings, Info, Copy } from 'lucide-react';
 
 export default function APIDocumentationPage() {
   const apiEndpoints = [
     {
-      method: "GET",
-      path: "/api/customers",
-      description: "获取客户列表",
-      category: "customers",
-      params: ["page", "limit", "search"],
-      response: "Customer[]",
+      method: 'GET',
+      path: '/api/customers',
+      description: '获取客户列表',
+      category: 'customers',
+      params: ['page', 'limit', 'search'],
+      response: 'Customer[]',
     },
     {
-      method: "POST",
-      path: "/api/customers",
-      description: "创建新客户",
-      category: "customers",
-      body: "CreateCustomerRequest",
-      response: "Customer",
+      method: 'POST',
+      path: '/api/customers',
+      description: '创建新客户',
+      category: 'customers',
+      body: 'CreateCustomerRequest',
+      response: 'Customer',
     },
     {
-      method: "GET",
-      path: "/api/tasks",
-      description: "获取任务列表",
-      category: "tasks",
-      params: ["status", "assignee", "project"],
-      response: "Task[]",
+      method: 'GET',
+      path: '/api/tasks',
+      description: '获取任务列表',
+      category: 'tasks',
+      params: ['status', 'assignee', 'project'],
+      response: 'Task[]',
     },
     {
-      method: "PUT",
-      path: "/api/tasks/:id",
-      description: "更新任务状态",
-      category: "tasks",
-      body: "UpdateTaskRequest",
-      response: "Task",
+      method: 'PUT',
+      path: '/api/tasks/:id',
+      description: '更新任务状态',
+      category: 'tasks',
+      body: 'UpdateTaskRequest',
+      response: 'Task',
     },
     {
-      method: "GET",
-      path: "/api/okrs",
-      description: "获取OKR列表",
-      category: "okrs",
-      params: ["quarter", "owner", "department"],
-      response: "OKR[]",
+      method: 'GET',
+      path: '/api/okrs',
+      description: '获取OKR列表',
+      category: 'okrs',
+      params: ['quarter', 'owner', 'department'],
+      response: 'OKR[]',
     },
     {
-      method: "POST",
-      path: "/api/notifications",
-      description: "发送通知",
-      category: "notifications",
-      body: "CreateNotificationRequest",
-      response: "Notification",
+      method: 'POST',
+      path: '/api/notifications',
+      description: '发送通知',
+      category: 'notifications',
+      body: 'CreateNotificationRequest',
+      response: 'Notification',
     },
-  ]
+  ];
 
   const dataModels = {
     Customer: {
-      id: "string",
-      name: "string",
-      company: "string",
-      email: "string",
-      phone: "string",
-      status: "'active' | 'inactive' | 'potential'",
-      value: "number",
-      createdAt: "string",
-      updatedAt: "string",
+      id: 'string',
+      name: 'string',
+      company: 'string',
+      email: 'string',
+      phone: 'string',
+      status: '\'active\' | \'inactive\' | \'potential\'',
+      value: 'number',
+      createdAt: 'string',
+      updatedAt: 'string',
     },
     Task: {
-      id: "string",
-      title: "string",
-      description: "string",
-      status: "'todo' | 'in-progress' | 'review' | 'completed'",
-      priority: "'low' | 'medium' | 'high' | 'urgent'",
-      assignee: "string",
-      dueDate: "string",
-      progress: "number",
-      createdAt: "string",
+      id: 'string',
+      title: 'string',
+      description: 'string',
+      status: '\'todo\' | \'in-progress\' | \'review\' | \'completed\'',
+      priority: '\'low\' | \'medium\' | \'high\' | \'urgent\'',
+      assignee: 'string',
+      dueDate: 'string',
+      progress: 'number',
+      createdAt: 'string',
     },
     OKR: {
-      id: "string",
-      title: "string",
-      description: "string",
-      owner: "string",
-      quarter: "string",
-      progress: "number",
-      keyResults: "KeyResult[]",
-      status: "'draft' | 'active' | 'completed'",
+      id: 'string',
+      title: 'string',
+      description: 'string',
+      owner: 'string',
+      quarter: 'string',
+      progress: 'number',
+      keyResults: 'KeyResult[]',
+      status: '\'draft\' | \'active\' | \'completed\'',
     },
-  }
+  };
 
   const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text)
-  }
+    navigator.clipboard.writeText(text);
+  };
 
   return (
     <div className="p-6 space-y-6 max-w-7xl mx-auto">
@@ -149,13 +149,13 @@ export default function APIDocumentationPage() {
                       <div className="flex items-center space-x-3">
                         <Badge
                           className={
-                            endpoint.method === "GET"
-                              ? "bg-green-100 text-green-800"
-                              : endpoint.method === "POST"
-                                ? "bg-blue-100 text-blue-800"
-                                : endpoint.method === "PUT"
-                                  ? "bg-yellow-100 text-yellow-800"
-                                  : "bg-red-100 text-red-800"
+                            endpoint.method === 'GET'
+                              ? 'bg-green-100 text-green-800'
+                              : endpoint.method === 'POST'
+                                ? 'bg-blue-100 text-blue-800'
+                                : endpoint.method === 'PUT'
+                                  ? 'bg-yellow-100 text-yellow-800'
+                                  : 'bg-red-100 text-red-800'
                           }
                         >
                           {endpoint.method}
@@ -171,7 +171,7 @@ export default function APIDocumentationPage() {
                       {endpoint.params && (
                         <div>
                           <span className="text-gray-500">参数: </span>
-                          <span className="font-mono">{endpoint.params.join(", ")}</span>
+                          <span className="font-mono">{endpoint.params.join(', ')}</span>
                         </div>
                       )}
                       {endpoint.body && (
@@ -212,7 +212,7 @@ export default function APIDocumentationPage() {
                         <code>
                           {`interface ${modelName} {\n${Object.entries(fields)
                             .map(([key, type]) => `  ${key}: ${type}`)
-                            .join("\n")}\n}`}
+                            .join('\n')}\n}`}
                         </code>
                       </pre>
                     </div>
@@ -358,5 +358,5 @@ const updatedTask = await response.json()`}</code>
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

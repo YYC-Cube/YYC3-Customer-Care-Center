@@ -10,15 +10,15 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import type * as React from "react"
-import { createContext, useContext, useState, useCallback, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { cn } from "@/lib/utils"
-import { useMediaQuery } from "@/hooks/use-mobile"
-import { Button } from "@/components/ui/button"
-import { PanelLeftClose, PanelLeft, X } from "lucide-react"
+import type * as React from 'react';
+import { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { cn } from '@/lib/utils';
+import { useMediaQuery } from '@/hooks/use-mobile';
+import { Button } from '@/components/ui/button';
+import { PanelLeftClose, PanelLeft, X } from 'lucide-react';
 
 // 侧边栏上下文类型定义
 interface SidebarContextType {
@@ -32,15 +32,15 @@ interface SidebarContextType {
 }
 
 // 创建侧边栏上下文
-const SidebarContext = createContext<SidebarContextType | undefined>(undefined)
+const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
 
 // 自定义 Hook：使用侧边栏上下文
 export function useSidebarContext() {
-  const context = useContext(SidebarContext)
+  const context = useContext(SidebarContext);
   if (!context) {
-    throw new Error("useSidebarContext must be used within SidebarProvider")
+    throw new Error('useSidebarContext must be used within SidebarProvider');
   }
-  return context
+  return context;
 }
 
 // 侧边栏提供者组件属性
@@ -52,28 +52,28 @@ interface SidebarProviderProps {
 
 // 侧边栏提供者组件
 export function SidebarProvider({ children, defaultOpen = true, defaultCollapsed = false }: SidebarProviderProps) {
-  const isMobile = useMediaQuery("(max-width: 768px)")
-  const [isOpen, setIsOpen] = useState(defaultOpen)
-  const [isCollapsed, setIsCollapsed] = useState(defaultCollapsed)
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+  const [isCollapsed, setIsCollapsed] = useState(defaultCollapsed);
 
   // 移动端默认关闭侧边栏
   useEffect(() => {
     if (isMobile) {
-      setIsOpen(false)
+      setIsOpen(false);
     }
-  }, [isMobile])
+  }, [isMobile]);
 
   const toggle = useCallback(() => {
-    setIsOpen((prev) => !prev)
-  }, [])
+    setIsOpen((prev) => !prev);
+  }, []);
 
   const open = useCallback(() => {
-    setIsOpen(true)
-  }, [])
+    setIsOpen(true);
+  }, []);
 
   const close = useCallback(() => {
-    setIsOpen(false)
-  }, [])
+    setIsOpen(false);
+  }, []);
 
   const contextValue: SidebarContextType = {
     isOpen,
@@ -83,9 +83,9 @@ export function SidebarProvider({ children, defaultOpen = true, defaultCollapsed
     close,
     isCollapsed,
     setIsCollapsed,
-  }
+  };
 
-  return <SidebarContext.Provider value={contextValue}>{children}</SidebarContext.Provider>
+  return <SidebarContext.Provider value={contextValue}>{children}</SidebarContext.Provider>;
 }
 
 // 自适应侧边栏组件属性
@@ -100,10 +100,10 @@ interface AdaptiveSidebarProps {
 function AdaptiveSidebarInner({
   children,
   className,
-  width = "280px",
-  collapsedWidth = "80px",
+  width = '280px',
+  collapsedWidth = '80px',
 }: AdaptiveSidebarProps) {
-  const { isOpen, isMobile, close, isCollapsed } = useSidebarContext()
+  const { isOpen, isMobile, close, isCollapsed } = useSidebarContext();
 
   // 移动端渲染
   if (isMobile) {
@@ -127,11 +127,11 @@ function AdaptiveSidebarInner({
         <AnimatePresence>
           {isOpen && (
             <motion.aside
-              initial={{ x: "-100%" }}
+              initial={{ x: '-100%' }}
               animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className={cn("fixed left-0 top-0 z-50 h-full bg-white shadow-2xl", className)}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              className={cn('fixed left-0 top-0 z-50 h-full bg-white shadow-2xl', className)}
               style={{ width }}
             >
               {/* 关闭按钮 */}
@@ -147,7 +147,7 @@ function AdaptiveSidebarInner({
           )}
         </AnimatePresence>
       </>
-    )
+    );
   }
 
   // 桌面端渲染
@@ -156,23 +156,23 @@ function AdaptiveSidebarInner({
       animate={{
         width: isCollapsed ? collapsedWidth : width,
       }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
-      className={cn("relative h-full bg-white border-r border-gray-200 overflow-hidden", className)}
+      transition={{ duration: 0.3, ease: 'easeInOut' }}
+      className={cn('relative h-full bg-white border-r border-gray-200 overflow-hidden', className)}
     >
       {/* 侧边栏内容 */}
       <div className="h-full overflow-y-auto">{children}</div>
     </motion.aside>
-  )
+  );
 }
 
 // 自适应侧边栏主组件 (带自动Provider包装)
 export function AdaptiveSidebar(props: AdaptiveSidebarProps) {
   // 检查是否已经在SidebarProvider中，如果不是则自动包装
-  const context = useContext(SidebarContext)
+  const context = useContext(SidebarContext);
   
   if (context) {
     // 已经在Provider中，直接使用内部组件
-    return <AdaptiveSidebarInner {...props} />
+    return <AdaptiveSidebarInner {...props} />;
   }
   
   // 没有Provider，自动包装一个
@@ -180,12 +180,12 @@ export function AdaptiveSidebar(props: AdaptiveSidebarProps) {
     <SidebarProvider>
       <AdaptiveSidebarInner {...props} />
     </SidebarProvider>
-  )
+  );
 }
 
 // 侧边栏切换按钮组件
 export function SidebarToggle() {
-  const { toggle, isMobile, isCollapsed, setIsCollapsed } = useSidebarContext()
+  const { toggle, isMobile, isCollapsed, setIsCollapsed } = useSidebarContext();
 
   if (isMobile) {
     return (
@@ -193,15 +193,15 @@ export function SidebarToggle() {
         <PanelLeft className="h-5 w-5" />
         <span className="sr-only">切换侧边栏</span>
       </Button>
-    )
+    );
   }
 
   return (
     <Button variant="ghost" size="icon" onClick={() => setIsCollapsed(!isCollapsed)} className="rounded-lg">
       {isCollapsed ? <PanelLeft className="h-5 w-5" /> : <PanelLeftClose className="h-5 w-5" />}
-      <span className="sr-only">{isCollapsed ? "展开侧边栏" : "收起侧边栏"}</span>
+      <span className="sr-only">{isCollapsed ? '展开侧边栏' : '收起侧边栏'}</span>
     </Button>
-  )
+  );
 }
 
 // 侧边栏内容区域组件
@@ -211,7 +211,7 @@ interface SidebarContentProps {
 }
 
 export function SidebarContent({ children, className }: SidebarContentProps) {
-  return <div className={cn("flex flex-col gap-2 p-4", className)}>{children}</div>
+  return <div className={cn('flex flex-col gap-2 p-4', className)}>{children}</div>;
 }
 
 // 侧边栏头部组件
@@ -221,7 +221,7 @@ interface SidebarHeaderProps {
 }
 
 export function SidebarHeader({ children, className }: SidebarHeaderProps) {
-  return <div className={cn("px-4 py-6 border-b border-gray-200", className)}>{children}</div>
+  return <div className={cn('px-4 py-6 border-b border-gray-200', className)}>{children}</div>;
 }
 
 // 侧边栏底部组件
@@ -231,5 +231,5 @@ interface SidebarFooterProps {
 }
 
 export function SidebarFooter({ children, className }: SidebarFooterProps) {
-  return <div className={cn("px-4 py-4 mt-auto border-t border-gray-200", className)}>{children}</div>
+  return <div className={cn('px-4 py-4 mt-auto border-t border-gray-200', className)}>{children}</div>;
 }

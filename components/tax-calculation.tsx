@@ -10,17 +10,17 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import {
   Calculator,
   FileText,
@@ -32,7 +32,7 @@ import {
   Percent,
   PieChart,
   BarChart3,
-} from "lucide-react"
+} from 'lucide-react';
 
 interface TaxRate {
   id: string
@@ -54,30 +54,30 @@ interface TaxCalculation {
 }
 
 export function TaxCalculation() {
-  const [selectedPeriod, setSelectedPeriod] = useState("2024-01")
+  const [selectedPeriod, setSelectedPeriod] = useState('2024-01');
   const [calculationData, setCalculationData] = useState({
     revenue: 1000000,
     expenses: 600000,
     vatRate: 0.13,
     incomeTaxRate: 0.25,
     businessTaxRate: 0.05,
-  })
+  });
 
   const taxRates: TaxRate[] = [
-    { id: "1", name: "增值税", rate: 0.13, category: "流转税", description: "一般纳税人标准税率" },
-    { id: "2", name: "增值税(小规模)", rate: 0.03, category: "流转税", description: "小规模纳税人征收率" },
-    { id: "3", name: "企业所得税", rate: 0.25, category: "所得税", description: "企业所得税标准税率" },
-    { id: "4", name: "小微企业所得税", rate: 0.2, category: "所得税", description: "小微企业优惠税率" },
-    { id: "5", name: "个人所得税", rate: 0.45, category: "所得税", description: "个人所得税最高税率" },
-    { id: "6", name: "城建税", rate: 0.07, category: "附加税", description: "城市维护建设税" },
-    { id: "7", name: "教育费附加", rate: 0.03, category: "附加税", description: "教育费附加" },
-    { id: "8", name: "地方教育附加", rate: 0.02, category: "附加税", description: "地方教育费附加" },
-  ]
+    { id: '1', name: '增值税', rate: 0.13, category: '流转税', description: '一般纳税人标准税率' },
+    { id: '2', name: '增值税(小规模)', rate: 0.03, category: '流转税', description: '小规模纳税人征收率' },
+    { id: '3', name: '企业所得税', rate: 0.25, category: '所得税', description: '企业所得税标准税率' },
+    { id: '4', name: '小微企业所得税', rate: 0.2, category: '所得税', description: '小微企业优惠税率' },
+    { id: '5', name: '个人所得税', rate: 0.45, category: '所得税', description: '个人所得税最高税率' },
+    { id: '6', name: '城建税', rate: 0.07, category: '附加税', description: '城市维护建设税' },
+    { id: '7', name: '教育费附加', rate: 0.03, category: '附加税', description: '教育费附加' },
+    { id: '8', name: '地方教育附加', rate: 0.02, category: '附加税', description: '地方教育费附加' },
+  ];
 
   const monthlyTaxData: TaxCalculation[] = [
     {
-      id: "1",
-      period: "2024-01",
+      id: '1',
+      period: '2024-01',
       revenue: 1200000,
       vatTax: 156000,
       incomeTax: 150000,
@@ -86,8 +86,8 @@ export function TaxCalculation() {
       effectiveRate: 0.305,
     },
     {
-      id: "2",
-      period: "2024-02",
+      id: '2',
+      period: '2024-02',
       revenue: 980000,
       vatTax: 127400,
       incomeTax: 122500,
@@ -96,8 +96,8 @@ export function TaxCalculation() {
       effectiveRate: 0.305,
     },
     {
-      id: "3",
-      period: "2024-03",
+      id: '3',
+      period: '2024-03',
       revenue: 1100000,
       vatTax: 143000,
       incomeTax: 137500,
@@ -105,18 +105,18 @@ export function TaxCalculation() {
       totalTax: 335500,
       effectiveRate: 0.305,
     },
-  ]
+  ];
 
   const calculateTax = () => {
-    const { revenue, expenses, vatRate, incomeTaxRate, businessTaxRate } = calculationData
-    const profit = revenue - expenses
+    const { revenue, expenses, vatRate, incomeTaxRate, businessTaxRate } = calculationData;
+    const profit = revenue - expenses;
 
-    const vatTax = revenue * vatRate
-    const incomeTax = profit * incomeTaxRate
-    const businessTax = revenue * businessTaxRate
-    const totalTax = vatTax + incomeTax + businessTax
-    const effectiveRate = totalTax / revenue
-    const netProfit = profit - totalTax
+    const vatTax = revenue * vatRate;
+    const incomeTax = profit * incomeTaxRate;
+    const businessTax = revenue * businessTaxRate;
+    const totalTax = vatTax + incomeTax + businessTax;
+    const effectiveRate = totalTax / revenue;
+    const netProfit = profit - totalTax;
 
     return {
       revenue,
@@ -128,10 +128,10 @@ export function TaxCalculation() {
       totalTax,
       effectiveRate,
       netProfit,
-    }
-  }
+    };
+  };
 
-  const taxResult = calculateTax()
+  const taxResult = calculateTax();
 
   return (
     <div className="p-6 space-y-6">
@@ -630,5 +630,5 @@ export function TaxCalculation() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

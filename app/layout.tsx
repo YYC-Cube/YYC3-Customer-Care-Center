@@ -10,35 +10,35 @@
  * @license MIT
  */
 
-import type React from "react"
-import type { Metadata, Viewport } from "next"
-import { ResponsiveLayoutProvider } from "@/components/layout/responsive-layout"
-import "./globals.css"
+import type React from 'react';
+import type { Metadata, Viewport } from 'next';
+import { ResponsiveLayoutProvider } from '@/components/layout/responsive-layout';
+import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('http://localhost:3201'),
-  title: "言语云企业管理系统",
-  description: "Created with 言语云",
-  generator: "v0.dev",
+  title: '言语云企业管理系统',
+  description: 'Created with 言语云',
+  generator: 'v0.dev',
   openGraph: {
-    images: ["/yyc3-pwa-icon.png"],
+    images: ['/yyc3-pwa-icon.png'],
   },
   twitter: {
-    card: "summary_large_image",
-    images: ["/yyc3-pwa-icon.png"],
-    creator: "言语云",
+    card: 'summary_large_image',
+    images: ['/yyc3-pwa-icon.png'],
+    creator: '言语云',
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: '/favicon.ico',
   },
-}
+};
 
 export const viewport: Viewport = {
-  width: "device-width",
+  width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-}
+};
 
 export default function RootLayout({
   children,
@@ -51,5 +51,5 @@ export default function RootLayout({
         <ResponsiveLayoutProvider>{children}</ResponsiveLayoutProvider>
       </body>
     </html>
-  )
+  );
 }

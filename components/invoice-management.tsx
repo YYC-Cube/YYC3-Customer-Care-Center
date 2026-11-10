@@ -10,16 +10,16 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
   Dialog,
   DialogContent,
@@ -27,8 +27,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+} from '@/components/ui/dialog';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import {
   FileText,
   Plus,
@@ -44,7 +44,7 @@ import {
   Clock,
   AlertCircle,
   Printer,
-} from "lucide-react"
+} from 'lucide-react';
 
 interface Invoice {
   id: string
@@ -56,7 +56,7 @@ interface Invoice {
   amount: number
   taxAmount: number
   totalAmount: number
-  status: "draft" | "sent" | "paid" | "overdue" | "cancelled"
+  status: 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled'
   items: InvoiceItem[]
 }
 
@@ -72,20 +72,20 @@ interface InvoiceItem {
 export function InvoiceManagement() {
   const [invoices, setInvoices] = useState<Invoice[]>([
     {
-      id: "INV-001",
-      number: "INV-2024-001",
-      customerName: "北京科技有限公司",
-      customerEmail: "finance@bjtech.com",
-      issueDate: "2024-01-15",
-      dueDate: "2024-02-15",
+      id: 'INV-001',
+      number: 'INV-2024-001',
+      customerName: '北京科技有限公司',
+      customerEmail: 'finance@bjtech.com',
+      issueDate: '2024-01-15',
+      dueDate: '2024-02-15',
       amount: 10000,
       taxAmount: 1300,
       totalAmount: 11300,
-      status: "paid",
+      status: 'paid',
       items: [
         {
-          id: "1",
-          description: "软件开发服务",
+          id: '1',
+          description: '软件开发服务',
           quantity: 1,
           unitPrice: 10000,
           taxRate: 0.13,
@@ -94,20 +94,20 @@ export function InvoiceManagement() {
       ],
     },
     {
-      id: "INV-002",
-      number: "INV-2024-002",
-      customerName: "上海贸易公司",
-      customerEmail: "accounting@shtrade.com",
-      issueDate: "2024-01-20",
-      dueDate: "2024-02-20",
+      id: 'INV-002',
+      number: 'INV-2024-002',
+      customerName: '上海贸易公司',
+      customerEmail: 'accounting@shtrade.com',
+      issueDate: '2024-01-20',
+      dueDate: '2024-02-20',
       amount: 25000,
       taxAmount: 3250,
       totalAmount: 28250,
-      status: "sent",
+      status: 'sent',
       items: [
         {
-          id: "1",
-          description: "系统集成服务",
+          id: '1',
+          description: '系统集成服务',
           quantity: 1,
           unitPrice: 25000,
           taxRate: 0.13,
@@ -116,20 +116,20 @@ export function InvoiceManagement() {
       ],
     },
     {
-      id: "INV-003",
-      number: "INV-2024-003",
-      customerName: "深圳制造企业",
-      customerEmail: "finance@szmfg.com",
-      issueDate: "2024-01-25",
-      dueDate: "2024-01-25",
+      id: 'INV-003',
+      number: 'INV-2024-003',
+      customerName: '深圳制造企业',
+      customerEmail: 'finance@szmfg.com',
+      issueDate: '2024-01-25',
+      dueDate: '2024-01-25',
       amount: 15000,
       taxAmount: 1950,
       totalAmount: 16950,
-      status: "overdue",
+      status: 'overdue',
       items: [
         {
-          id: "1",
-          description: "技术咨询服务",
+          id: '1',
+          description: '技术咨询服务',
           quantity: 1,
           unitPrice: 15000,
           taxRate: 0.13,
@@ -137,55 +137,55 @@ export function InvoiceManagement() {
         },
       ],
     },
-  ])
+  ]);
 
-  const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null)
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
-  const [searchTerm, setSearchTerm] = useState("")
-  const [statusFilter, setStatusFilter] = useState<string>("all")
+  const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState<string>('all');
 
-  const getStatusBadge = (status: Invoice["status"]) => {
+  const getStatusBadge = (status: Invoice['status']) => {
     const statusConfig = {
-      draft: { label: "草稿", className: "bg-gray-100 text-gray-800" },
-      sent: { label: "已发送", className: "bg-emerald-100 text-emerald-800" },
-      paid: { label: "已付款", className: "bg-green-100 text-green-800" },
-      overdue: { label: "逾期", className: "bg-red-100 text-red-800" },
-      cancelled: { label: "已取消", className: "bg-gray-100 text-gray-800" },
-    }
+      draft: { label: '草稿', className: 'bg-gray-100 text-gray-800' },
+      sent: { label: '已发送', className: 'bg-emerald-100 text-emerald-800' },
+      paid: { label: '已付款', className: 'bg-green-100 text-green-800' },
+      overdue: { label: '逾期', className: 'bg-red-100 text-red-800' },
+      cancelled: { label: '已取消', className: 'bg-gray-100 text-gray-800' },
+    };
 
-    const config = statusConfig[status]
-    return <Badge className={config.className}>{config.label}</Badge>
-  }
+    const config = statusConfig[status];
+    return <Badge className={config.className}>{config.label}</Badge>;
+  };
 
-  const getStatusIcon = (status: Invoice["status"]) => {
+  const getStatusIcon = (status: Invoice['status']) => {
     switch (status) {
-      case "paid":
-        return <CheckCircle className="w-4 h-4 text-green-600" />
-      case "sent":
-        return <Clock className="w-4 h-4 text-emerald-600" />
-      case "overdue":
-        return <AlertCircle className="w-4 h-4 text-red-600" />
-      default:
-        return <FileText className="w-4 h-4 text-gray-600" />
+    case 'paid':
+      return <CheckCircle className="w-4 h-4 text-green-600" />;
+    case 'sent':
+      return <Clock className="w-4 h-4 text-emerald-600" />;
+    case 'overdue':
+      return <AlertCircle className="w-4 h-4 text-red-600" />;
+    default:
+      return <FileText className="w-4 h-4 text-gray-600" />;
     }
-  }
+  };
 
   const filteredInvoices = invoices.filter((invoice) => {
     const matchesSearch =
       invoice.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      invoice.number.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesStatus = statusFilter === "all" || invoice.status === statusFilter
-    return matchesSearch && matchesStatus
-  })
+      invoice.number.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = statusFilter === 'all' || invoice.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
 
   const totalStats = {
     total: invoices.length,
-    paid: invoices.filter((inv) => inv.status === "paid").length,
-    pending: invoices.filter((inv) => inv.status === "sent").length,
-    overdue: invoices.filter((inv) => inv.status === "overdue").length,
+    paid: invoices.filter((inv) => inv.status === 'paid').length,
+    pending: invoices.filter((inv) => inv.status === 'sent').length,
+    overdue: invoices.filter((inv) => inv.status === 'overdue').length,
     totalAmount: invoices.reduce((sum, inv) => sum + inv.totalAmount, 0),
-    paidAmount: invoices.filter((inv) => inv.status === "paid").reduce((sum, inv) => sum + inv.totalAmount, 0),
-  }
+    paidAmount: invoices.filter((inv) => inv.status === 'paid').reduce((sum, inv) => sum + inv.totalAmount, 0),
+  };
 
   return (
     <div className="p-6 space-y-6 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 min-h-screen">
@@ -389,46 +389,46 @@ export function InvoiceManagement() {
         </Dialog>
       )}
     </div>
-  )
+  );
 }
 
 function CreateInvoiceForm({ onClose }: { onClose: () => void }) {
   const [formData, setFormData] = useState({
-    customerName: "",
-    customerEmail: "",
-    issueDate: "",
-    dueDate: "",
-    items: [{ description: "", quantity: 1, unitPrice: 0, taxRate: 0.13 }],
-  })
+    customerName: '',
+    customerEmail: '',
+    issueDate: '',
+    dueDate: '',
+    items: [{ description: '', quantity: 1, unitPrice: 0, taxRate: 0.13 }],
+  });
 
   const addItem = () => {
     setFormData((prev) => ({
       ...prev,
-      items: [...prev.items, { description: "", quantity: 1, unitPrice: 0, taxRate: 0.13 }],
-    }))
-  }
+      items: [...prev.items, { description: '', quantity: 1, unitPrice: 0, taxRate: 0.13 }],
+    }));
+  };
 
   const removeItem = (index: number) => {
     setFormData((prev) => ({
       ...prev,
       items: prev.items.filter((_, i) => i !== index),
-    }))
-  }
+    }));
+  };
 
   const updateItem = (index: number, field: string, value: any) => {
     setFormData((prev) => ({
       ...prev,
       items: prev.items.map((item, i) => (i === index ? { ...item, [field]: value } : item)),
-    }))
-  }
+    }));
+  };
 
   const calculateTotals = () => {
-    const subtotal = formData.items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0)
-    const taxTotal = formData.items.reduce((sum, item) => sum + item.quantity * item.unitPrice * item.taxRate, 0)
-    return { subtotal, taxTotal, total: subtotal + taxTotal }
-  }
+    const subtotal = formData.items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0);
+    const taxTotal = formData.items.reduce((sum, item) => sum + item.quantity * item.unitPrice * item.taxRate, 0);
+    return { subtotal, taxTotal, total: subtotal + taxTotal };
+  };
 
-  const { subtotal, taxTotal, total } = calculateTotals()
+  const { subtotal, taxTotal, total } = calculateTotals();
 
   return (
     <div className="space-y-6">
@@ -497,7 +497,7 @@ function CreateInvoiceForm({ onClose }: { onClose: () => void }) {
                 <Label>项目描述</Label>
                 <Textarea
                   value={item.description}
-                  onChange={(e) => updateItem(index, "description", e.target.value)}
+                  onChange={(e) => updateItem(index, 'description', e.target.value)}
                   placeholder="输入项目描述"
                   rows={2}
                   className="border-l-4 border-l-emerald-500"
@@ -508,7 +508,7 @@ function CreateInvoiceForm({ onClose }: { onClose: () => void }) {
                 <Input
                   type="number"
                   value={item.quantity}
-                  onChange={(e) => updateItem(index, "quantity", Number.parseInt(e.target.value) || 0)}
+                  onChange={(e) => updateItem(index, 'quantity', Number.parseInt(e.target.value) || 0)}
                   min="1"
                   className="border-l-4 border-l-emerald-500"
                 />
@@ -518,7 +518,7 @@ function CreateInvoiceForm({ onClose }: { onClose: () => void }) {
                 <Input
                   type="number"
                   value={item.unitPrice}
-                  onChange={(e) => updateItem(index, "unitPrice", Number.parseFloat(e.target.value) || 0)}
+                  onChange={(e) => updateItem(index, 'unitPrice', Number.parseFloat(e.target.value) || 0)}
                   min="0"
                   step="0.01"
                   className="border-l-4 border-l-emerald-500"
@@ -575,7 +575,7 @@ function CreateInvoiceForm({ onClose }: { onClose: () => void }) {
         </Button>
       </div>
     </div>
-  )
+  );
 }
 
 function InvoiceDetail({ invoice }: { invoice: Invoice }) {
@@ -601,22 +601,22 @@ function InvoiceDetail({ invoice }: { invoice: Invoice }) {
               <span className="text-muted-foreground">状态:</span>
               <Badge
                 className={
-                  invoice.status === "paid"
-                    ? "bg-green-100 text-green-800"
-                    : invoice.status === "sent"
-                      ? "bg-emerald-100 text-emerald-800"
-                      : invoice.status === "overdue"
-                        ? "bg-red-100 text-red-800"
-                        : "bg-gray-100 text-gray-800"
+                  invoice.status === 'paid'
+                    ? 'bg-green-100 text-green-800'
+                    : invoice.status === 'sent'
+                      ? 'bg-emerald-100 text-emerald-800'
+                      : invoice.status === 'overdue'
+                        ? 'bg-red-100 text-red-800'
+                        : 'bg-gray-100 text-gray-800'
                 }
               >
-                {invoice.status === "paid"
-                  ? "已付款"
-                  : invoice.status === "sent"
-                    ? "已发送"
-                    : invoice.status === "overdue"
-                      ? "逾期"
-                      : "草稿"}
+                {invoice.status === 'paid'
+                  ? '已付款'
+                  : invoice.status === 'sent'
+                    ? '已发送'
+                    : invoice.status === 'overdue'
+                      ? '逾期'
+                      : '草稿'}
               </Badge>
             </div>
           </div>
@@ -701,5 +701,5 @@ function InvoiceDetail({ invoice }: { invoice: Invoice }) {
         </Button>
       </div>
     </div>
-  )
+  );
 }

@@ -10,14 +10,14 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
-import { Star, ThumbsUp, ThumbsDown, MessageSquare, TrendingUp, Award, AlertCircle } from "lucide-react"
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { Star, ThumbsUp, ThumbsDown, MessageSquare, TrendingUp, Award, AlertCircle } from 'lucide-react';
 
 interface SatisfactionSurvey {
   id: string
@@ -25,9 +25,9 @@ interface SatisfactionSurvey {
   customerName: string
   rating: number
   feedback: string
-  category: "product" | "service" | "support" | "overall"
+  category: 'product' | 'service' | 'support' | 'overall'
   date: string
-  status: "pending" | "responded" | "resolved"
+  status: 'pending' | 'responded' | 'resolved'
 }
 
 interface SatisfactionMetrics {
@@ -40,82 +40,82 @@ interface SatisfactionMetrics {
 export function CustomerSatisfaction() {
   const [surveys] = useState<SatisfactionSurvey[]>([
     {
-      id: "1",
-      customerId: "1",
-      customerName: "华润集团",
+      id: '1',
+      customerId: '1',
+      customerName: '华润集团',
       rating: 5,
-      feedback: "产品质量很好，服务也很到位，会继续合作",
-      category: "overall",
-      date: "2025-06-19",
-      status: "responded",
+      feedback: '产品质量很好，服务也很到位，会继续合作',
+      category: 'overall',
+      date: '2025-06-19',
+      status: 'responded',
     },
     {
-      id: "2",
-      customerId: "2",
-      customerName: "万科地产",
+      id: '2',
+      customerId: '2',
+      customerName: '万科地产',
       rating: 4,
-      feedback: "产品不错，但交期可以再快一些",
-      category: "service",
-      date: "2025-06-18",
-      status: "pending",
+      feedback: '产品不错，但交期可以再快一些',
+      category: 'service',
+      date: '2025-06-18',
+      status: 'pending',
     },
     {
-      id: "3",
-      customerId: "3",
-      customerName: "碧桂园",
+      id: '3',
+      customerId: '3',
+      customerName: '碧桂园',
       rating: 5,
-      feedback: "非常满意，质量和服务都很棒",
-      category: "product",
-      date: "2025-06-17",
-      status: "resolved",
+      feedback: '非常满意，质量和服务都很棒',
+      category: 'product',
+      date: '2025-06-17',
+      status: 'resolved',
     },
-  ])
+  ]);
 
   const [metrics] = useState<SatisfactionMetrics>({
     averageRating: 4.7,
     totalResponses: 156,
     npsScore: 72,
     satisfactionTrend: 8.5,
-  })
+  });
 
   const getRatingStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
-      <Star key={i} className={`w-4 h-4 ${i < rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`} />
-    ))
-  }
+      <Star key={i} className={`w-4 h-4 ${i < rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} />
+    ));
+  };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case "pending":
-        return <Badge className="bg-yellow-100 text-yellow-800">待处理</Badge>
-      case "responded":
-        return <Badge className="bg-blue-100 text-blue-800">已回复</Badge>
-      case "resolved":
-        return <Badge className="bg-green-100 text-green-800">已解决</Badge>
-      default:
-        return <Badge variant="secondary">未知</Badge>
+    case 'pending':
+      return <Badge className="bg-yellow-100 text-yellow-800">待处理</Badge>;
+    case 'responded':
+      return <Badge className="bg-blue-100 text-blue-800">已回复</Badge>;
+    case 'resolved':
+      return <Badge className="bg-green-100 text-green-800">已解决</Badge>;
+    default:
+      return <Badge variant="secondary">未知</Badge>;
     }
-  }
+  };
 
   const getCategoryBadge = (category: string) => {
     const categories = {
-      product: { label: "产品", color: "bg-blue-100 text-blue-800" },
-      service: { label: "服务", color: "bg-green-100 text-green-800" },
-      support: { label: "支持", color: "bg-purple-100 text-purple-800" },
-      overall: { label: "整体", color: "bg-orange-100 text-orange-800" },
-    }
-    const cat = categories[category as keyof typeof categories] || categories.overall
-    return <Badge className={cat.color}>{cat.label}</Badge>
-  }
+      product: { label: '产品', color: 'bg-blue-100 text-blue-800' },
+      service: { label: '服务', color: 'bg-green-100 text-green-800' },
+      support: { label: '支持', color: 'bg-purple-100 text-purple-800' },
+      overall: { label: '整体', color: 'bg-orange-100 text-orange-800' },
+    };
+    const cat = categories[category as keyof typeof categories] || categories.overall;
+    return <Badge className={cat.color}>{cat.label}</Badge>;
+  };
 
   const getSatisfactionLevel = (rating: number) => {
-    if (rating >= 4.5) return { label: "非常满意", color: "text-green-600", icon: <Award className="w-4 h-4" /> }
-    if (rating >= 3.5) return { label: "满意", color: "text-blue-600", icon: <ThumbsUp className="w-4 h-4" /> }
-    if (rating >= 2.5) return { label: "一般", color: "text-yellow-600", icon: <MessageSquare className="w-4 h-4" /> }
-    return { label: "不满意", color: "text-red-600", icon: <ThumbsDown className="w-4 h-4" /> }
-  }
+    if (rating >= 4.5) return { label: '非常满意', color: 'text-green-600', icon: <Award className="w-4 h-4" /> };
+    if (rating >= 3.5) return { label: '满意', color: 'text-blue-600', icon: <ThumbsUp className="w-4 h-4" /> };
+    if (rating >= 2.5) return { label: '一般', color: 'text-yellow-600', icon: <MessageSquare className="w-4 h-4" /> };
+    return { label: '不满意', color: 'text-red-600', icon: <ThumbsDown className="w-4 h-4" /> };
+  };
 
-  const satisfactionLevel = getSatisfactionLevel(metrics.averageRating)
+  const satisfactionLevel = getSatisfactionLevel(metrics.averageRating);
 
   return (
     <div className="space-y-6">
@@ -166,7 +166,7 @@ export function CustomerSatisfaction() {
             <AlertCircle className="h-4 w-4 text-orange-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{surveys.filter((s) => s.status === "pending").length}</div>
+            <div className="text-2xl font-bold">{surveys.filter((s) => s.status === 'pending').length}</div>
             <p className="text-xs text-muted-foreground">需要跟进的反馈</p>
           </CardContent>
         </Card>
@@ -180,8 +180,8 @@ export function CustomerSatisfaction() {
         <CardContent>
           <div className="space-y-4">
             {[5, 4, 3, 2, 1].map((rating) => {
-              const count = surveys.filter((s) => s.rating === rating).length
-              const percentage = surveys.length > 0 ? (count / surveys.length) * 100 : 0
+              const count = surveys.filter((s) => s.rating === rating).length;
+              const percentage = surveys.length > 0 ? (count / surveys.length) * 100 : 0;
 
               return (
                 <div key={rating} className="flex items-center space-x-4">
@@ -196,7 +196,7 @@ export function CustomerSatisfaction() {
                     {count} ({percentage.toFixed(0)}%)
                   </div>
                 </div>
-              )
+              );
             })}
           </div>
         </CardContent>
@@ -230,7 +230,7 @@ export function CustomerSatisfaction() {
                 <div className="flex justify-between items-center">
                   <span className="text-xs text-muted-foreground">{survey.date}</span>
                   <div className="flex space-x-2">
-                    {survey.status === "pending" && (
+                    {survey.status === 'pending' && (
                       <>
                         <Button size="sm" variant="outline">
                           回复
@@ -269,5 +269,5 @@ export function CustomerSatisfaction() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

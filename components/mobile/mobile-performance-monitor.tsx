@@ -10,15 +10,15 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
-import { Alert } from "@/components/ui/alert"
-import { Smartphone, Battery, Wifi, HardDrive, AlertTriangle, CheckCircle, Activity } from "lucide-react"
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
+import { Alert } from '@/components/ui/alert';
+import { Smartphone, Battery, Wifi, HardDrive, AlertTriangle, CheckCircle, Activity } from 'lucide-react';
 
 interface MobilePerformanceMetrics {
   // 设备信息
@@ -73,7 +73,7 @@ interface MobilePerformanceMetrics {
 
 interface PerformanceAlert {
   id: string
-  type: "warning" | "error" | "info"
+  type: 'warning' | 'error' | 'info'
   title: string
   description: string
   timestamp: Date
@@ -83,35 +83,35 @@ interface PerformanceAlert {
 }
 
 export function MobilePerformanceMonitor() {
-  const [metrics, setMetrics] = useState<MobilePerformanceMetrics | null>(null)
-  const [alerts, setAlerts] = useState<PerformanceAlert[]>([])
-  const [isMonitoring, setIsMonitoring] = useState(false)
-  const [history, setHistory] = useState<MobilePerformanceMetrics[]>([])
+  const [metrics, setMetrics] = useState<MobilePerformanceMetrics | null>(null);
+  const [alerts, setAlerts] = useState<PerformanceAlert[]>([]);
+  const [isMonitoring, setIsMonitoring] = useState(false);
+  const [history, setHistory] = useState<MobilePerformanceMetrics[]>([]);
 
   useEffect(() => {
     if (isMonitoring) {
-      const interval = setInterval(collectMetrics, 5000) // 每5秒收集一次
-      collectMetrics() // 立即收集一次
+      const interval = setInterval(collectMetrics, 5000); // 每5秒收集一次
+      collectMetrics(); // 立即收集一次
 
-      return () => clearInterval(interval)
+      return () => clearInterval(interval);
     }
-  }, [isMonitoring])
+  }, [isMonitoring]);
 
   const collectMetrics = async () => {
     try {
-      const newMetrics = await gatherPerformanceMetrics()
-      setMetrics(newMetrics)
+      const newMetrics = await gatherPerformanceMetrics();
+      setMetrics(newMetrics);
 
       // 保存历史记录
-      setHistory((prev) => [...prev.slice(-19), newMetrics]) // 保留最近20条记录
+      setHistory((prev) => [...prev.slice(-19), newMetrics]); // 保留最近20条记录
 
       // 检查性能警报
-      const newAlerts = checkPerformanceAlerts(newMetrics)
-      setAlerts((prev) => [...prev, ...newAlerts].slice(-10)) // 保留最近10个警报
+      const newAlerts = checkPerformanceAlerts(newMetrics);
+      setAlerts((prev) => [...prev, ...newAlerts].slice(-10)); // 保留最近10个警报
     } catch (error) {
-      console.error("收集性能指标失败:", error)
+      console.error('收集性能指标失败:', error);
     }
-  }
+  };
 
   const gatherPerformanceMetrics = async (): Promise<MobilePerformanceMetrics> => {
     // 设备信息
@@ -120,22 +120,22 @@ export function MobilePerformanceMonitor() {
       os: getOperatingSystem(),
       version: getOSVersion(),
       userAgent: navigator.userAgent,
-    }
+    };
 
     // 内存信息
-    const memory = (performance as any).memory || {}
-    const memoryUsage = memory.usedJSHeapSize || 0
-    const memoryLimit = memory.jsHeapSizeLimit || 0
+    const memory = (performance as any).memory || {};
+    const memoryUsage = memory.usedJSHeapSize || 0;
+    const memoryLimit = memory.jsHeapSizeLimit || 0;
 
     // 电池信息
-    const battery = await getBatteryInfo()
+    const battery = await getBatteryInfo();
 
     // 网络信息
-    const connection = getNetworkInfo()
+    const connection = getNetworkInfo();
 
     // 性能时间
-    const navigation = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming
-    const paint = performance.getEntriesByType("paint")
+    const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+    const paint = performance.getEntriesByType('paint');
 
     return {
       device,
@@ -172,213 +172,213 @@ export function MobilePerformanceMonitor() {
         firstInputDelay: getFirstInputDelay(),
         timeToInteractive: getTimeToInteractive(),
       },
-    }
-  }
+    };
+  };
 
   // 辅助函数
   const getDeviceModel = (): string => {
-    const ua = navigator.userAgent
-    if (ua.includes("iPhone")) return "iPhone"
-    if (ua.includes("iPad")) return "iPad"
-    if (ua.includes("Android")) return "Android"
-    return "Unknown"
-  }
+    const ua = navigator.userAgent;
+    if (ua.includes('iPhone')) return 'iPhone';
+    if (ua.includes('iPad')) return 'iPad';
+    if (ua.includes('Android')) return 'Android';
+    return 'Unknown';
+  };
 
   const getOperatingSystem = (): string => {
-    const ua = navigator.userAgent
-    if (ua.includes("iOS")) return "iOS"
-    if (ua.includes("Android")) return "Android"
-    if (ua.includes("Windows")) return "Windows"
-    if (ua.includes("Mac")) return "macOS"
-    return "Unknown"
-  }
+    const ua = navigator.userAgent;
+    if (ua.includes('iOS')) return 'iOS';
+    if (ua.includes('Android')) return 'Android';
+    if (ua.includes('Windows')) return 'Windows';
+    if (ua.includes('Mac')) return 'macOS';
+    return 'Unknown';
+  };
 
   const getOSVersion = (): string => {
-    const ua = navigator.userAgent
-    const match = ua.match(/(?:Android|iOS|iPhone OS|Mac OS X)\s([\d_.]+)/)
-    return match ? match[1].replace(/_/g, ".") : "Unknown"
-  }
+    const ua = navigator.userAgent;
+    const match = ua.match(/(?:Android|iOS|iPhone OS|Mac OS X)\s([\d_.]+)/);
+    return match ? match[1].replace(/_/g, '.') : 'Unknown';
+  };
 
   const getBatteryInfo = async () => {
     try {
-      const battery = await (navigator as any).getBattery?.()
+      const battery = await (navigator as any).getBattery?.();
       return {
         level: battery?.level || 1,
         charging: battery?.charging || false,
-      }
+      };
     } catch {
-      return { level: 1, charging: false }
+      return { level: 1, charging: false };
     }
-  }
+  };
 
   const getNetworkInfo = () => {
     const connection =
-      (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection
+      (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
     return {
-      effectiveType: connection?.effectiveType || "4g",
+      effectiveType: connection?.effectiveType || '4g',
       downlink: connection?.downlink || 10,
       rtt: connection?.rtt || 100,
-    }
-  }
+    };
+  };
 
   const getCPUUsage = (): number => {
     // 简化的CPU使用率估算
-    const start = performance.now()
-    let iterations = 0
-    const maxTime = 10 // 10ms测试窗口
+    const start = performance.now();
+    let iterations = 0;
+    const maxTime = 10; // 10ms测试窗口
 
     while (performance.now() - start < maxTime) {
-      iterations++
+      iterations++;
     }
 
     // 基于迭代次数估算CPU性能（数值越高性能越好）
-    const baselineIterations = 100000 // 基准迭代次数
-    const cpuScore = Math.min(100, (iterations / baselineIterations) * 100)
-    return 100 - cpuScore // 转换为使用率（数值越高使用率越高）
-  }
+    const baselineIterations = 100000; // 基准迭代次数
+    const cpuScore = Math.min(100, (iterations / baselineIterations) * 100);
+    return 100 - cpuScore; // 转换为使用率（数值越高使用率越高）
+  };
 
   const getDeviceTemperature = (): number => {
     // 模拟设备温度（实际需要原生API支持）
-    return 35 + Math.random() * 10
-  }
+    return 35 + Math.random() * 10;
+  };
 
   const getInteractionDelay = (): number => {
     // 获取交互延迟
-    const entries = performance.getEntriesByType("event")
+    const entries = performance.getEntriesByType('event');
     if (entries.length > 0) {
-      const lastEntry = entries[entries.length - 1] as any
-      return lastEntry.processingStart - lastEntry.startTime
+      const lastEntry = entries[entries.length - 1] as any;
+      return lastEntry.processingStart - lastEntry.startTime;
     }
-    return 0
-  }
+    return 0;
+  };
 
   const getFrameRate = (): number => {
     // 简化的帧率计算
-    return 60 - Math.random() * 10
-  }
+    return 60 - Math.random() * 10;
+  };
 
   const getBundleSize = (): number => {
     // 估算应用包大小
-    const resources = performance.getEntriesByType("resource")
-    return resources.reduce((total, resource) => total + (resource.transferSize || 0), 0)
-  }
+    const resources = performance.getEntriesByType('resource');
+    return resources.reduce((total, resource) => total + (resource.transferSize || 0), 0);
+  };
 
   const getCacheHitRate = (): number => {
     // 计算缓存命中率
-    const resources = performance.getEntriesByType("resource")
-    const cachedResources = resources.filter((resource) => resource.transferSize === 0)
-    return resources.length > 0 ? (cachedResources.length / resources.length) * 100 : 0
-  }
+    const resources = performance.getEntriesByType('resource');
+    const cachedResources = resources.filter((resource) => resource.transferSize === 0);
+    return resources.length > 0 ? (cachedResources.length / resources.length) * 100 : 0;
+  };
 
   const getUploadSpeed = (): number => {
     // 模拟上传速度
-    return Math.random() * 5 + 1
-  }
+    return Math.random() * 5 + 1;
+  };
 
   const getDataUsage = (): number => {
     // 估算数据使用量
-    const resources = performance.getEntriesByType("resource")
-    return resources.reduce((total, resource) => total + (resource.transferSize || 0), 0) / 1024 / 1024 // MB
-  }
+    const resources = performance.getEntriesByType('resource');
+    return resources.reduce((total, resource) => total + (resource.transferSize || 0), 0) / 1024 / 1024; // MB
+  };
 
   const getRequestCount = (): number => {
-    return performance.getEntriesByType("resource").length
-  }
+    return performance.getEntriesByType('resource').length;
+  };
 
   const getNetworkErrorRate = (): number => {
     // 简化的网络错误率计算
-    return Math.random() * 5 // 0-5%
-  }
+    return Math.random() * 5; // 0-5%
+  };
 
   const getFirstContentfulPaint = (): number => {
-    const fcp = performance.getEntriesByName("first-contentful-paint")[0]
-    return fcp?.startTime || 0
-  }
+    const fcp = performance.getEntriesByName('first-contentful-paint')[0];
+    return fcp?.startTime || 0;
+  };
 
   const getLargestContentfulPaint = (): number => {
-    const lcp = performance.getEntriesByType("largest-contentful-paint")[0] as any
-    return lcp?.startTime || 0
-  }
+    const lcp = performance.getEntriesByType('largest-contentful-paint')[0] as any;
+    return lcp?.startTime || 0;
+  };
 
   const getCumulativeLayoutShift = (): number => {
-    const cls = performance.getEntriesByType("layout-shift") as any[]
-    return cls.reduce((total, entry) => total + entry.value, 0)
-  }
+    const cls = performance.getEntriesByType('layout-shift') as any[];
+    return cls.reduce((total, entry) => total + entry.value, 0);
+  };
 
   const getFirstInputDelay = (): number => {
-    const fid = performance.getEntriesByType("first-input")[0] as any
-    return fid ? fid.processingStart - fid.startTime : 0
-  }
+    const fid = performance.getEntriesByType('first-input')[0] as any;
+    return fid ? fid.processingStart - fid.startTime : 0;
+  };
 
   const getTimeToInteractive = (): number => {
     // 简化的TTI计算
-    const navigation = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming
-    return navigation?.domInteractive - navigation?.navigationStart || 0
-  }
+    const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+    return navigation?.domInteractive - navigation?.navigationStart || 0;
+  };
 
   const checkPerformanceAlerts = (metrics: MobilePerformanceMetrics): PerformanceAlert[] => {
-    const alerts: PerformanceAlert[] = []
-    const now = new Date()
+    const alerts: PerformanceAlert[] = [];
+    const now = new Date();
 
     // 内存使用率警报
-    const memoryUsageRate = (metrics.performance.memoryUsage / metrics.performance.memoryLimit) * 100
+    const memoryUsageRate = (metrics.performance.memoryUsage / metrics.performance.memoryLimit) * 100;
     if (memoryUsageRate > 80) {
       alerts.push({
         id: `memory_${now.getTime()}`,
-        type: memoryUsageRate > 90 ? "error" : "warning",
-        title: "内存使用率过高",
+        type: memoryUsageRate > 90 ? 'error' : 'warning',
+        title: '内存使用率过高',
         description: `当前内存使用率 ${memoryUsageRate.toFixed(1)}%`,
         timestamp: now,
-        metric: "memory",
+        metric: 'memory',
         value: memoryUsageRate,
         threshold: 80,
-      })
+      });
     }
 
     // 电池电量警报
     if (metrics.performance.batteryLevel < 20) {
       alerts.push({
         id: `battery_${now.getTime()}`,
-        type: metrics.performance.batteryLevel < 10 ? "error" : "warning",
-        title: "电池电量不足",
+        type: metrics.performance.batteryLevel < 10 ? 'error' : 'warning',
+        title: '电池电量不足',
         description: `当前电量 ${metrics.performance.batteryLevel.toFixed(0)}%`,
         timestamp: now,
-        metric: "battery",
+        metric: 'battery',
         value: metrics.performance.batteryLevel,
         threshold: 20,
-      })
+      });
     }
 
     // 网络延迟警报
     if (metrics.network.latency > 500) {
       alerts.push({
         id: `latency_${now.getTime()}`,
-        type: metrics.network.latency > 1000 ? "error" : "warning",
-        title: "网络延迟过高",
+        type: metrics.network.latency > 1000 ? 'error' : 'warning',
+        title: '网络延迟过高',
         description: `当前延迟 ${metrics.network.latency}ms`,
         timestamp: now,
-        metric: "latency",
+        metric: 'latency',
         value: metrics.network.latency,
         threshold: 500,
-      })
+      });
     }
 
     // 帧率警报
     if (metrics.app.frameRate < 30) {
       alerts.push({
         id: `framerate_${now.getTime()}`,
-        type: metrics.app.frameRate < 20 ? "error" : "warning",
-        title: "帧率过低",
+        type: metrics.app.frameRate < 20 ? 'error' : 'warning',
+        title: '帧率过低',
         description: `当前帧率 ${metrics.app.frameRate.toFixed(1)} FPS`,
         timestamp: now,
-        metric: "frameRate",
+        metric: 'frameRate',
         value: metrics.app.frameRate,
         threshold: 30,
-      })
+      });
     }
 
-    return alerts
-  }
+    return alerts;
+  };
 
   const getPerformanceScore = (metrics: MobilePerformanceMetrics): number => {
     const scores = [
@@ -387,36 +387,36 @@ export function MobilePerformanceMonitor() {
       Math.min(100, (1000 - metrics.network.latency) / 10),
       Math.min(100, metrics.app.frameRate * 1.67),
       Math.min(100, (5000 - metrics.ux.firstContentfulPaint) / 50),
-    ]
+    ];
 
-    return scores.reduce((sum, score) => sum + score, 0) / scores.length
-  }
+    return scores.reduce((sum, score) => sum + score, 0) / scores.length;
+  };
 
   const formatBytes = (bytes: number): string => {
-    if (bytes === 0) return "0 B"
-    const k = 1024
-    const sizes = ["B", "KB", "MB", "GB"]
-    const i = Math.floor(Math.log(bytes) / Math.log(k))
-    return Number.parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i]
-  }
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return Number.parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
 
   const getScoreColor = (score: number): string => {
-    if (score >= 80) return "text-green-600"
-    if (score >= 60) return "text-yellow-600"
-    if (score >= 40) return "text-orange-600"
-    return "text-red-600"
-  }
+    if (score >= 80) return 'text-green-600';
+    if (score >= 60) return 'text-yellow-600';
+    if (score >= 40) return 'text-orange-600';
+    return 'text-red-600';
+  };
 
   const getAlertIcon = (type: string) => {
     switch (type) {
-      case "error":
-        return <AlertTriangle className="h-4 w-4 text-red-500" />
-      case "warning":
-        return <AlertTriangle className="h-4 w-4 text-yellow-500" />
-      default:
-        return <CheckCircle className="h-4 w-4 text-blue-500" />
+    case 'error':
+      return <AlertTriangle className="h-4 w-4 text-red-500" />;
+    case 'warning':
+      return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
+    default:
+      return <CheckCircle className="h-4 w-4 text-blue-500" />;
     }
-  }
+  };
 
   return (
     <div className="p-4 space-y-6 max-w-md mx-auto">
@@ -432,11 +432,11 @@ export function MobilePerformanceMonitor() {
           <div className="flex items-center justify-between">
             <span>实时监控</span>
             <Button
-              variant={isMonitoring ? "destructive" : "default"}
+              variant={isMonitoring ? 'destructive' : 'default'}
               size="sm"
               onClick={() => setIsMonitoring(!isMonitoring)}
             >
-              {isMonitoring ? "停止监控" : "开始监控"}
+              {isMonitoring ? '停止监控' : '开始监控'}
             </Button>
           </div>
 
@@ -507,17 +507,17 @@ export function MobilePerformanceMonitor() {
                 <Battery
                   className={`h-5 w-5 ${
                     metrics.performance.batteryLevel > 50
-                      ? "text-green-500"
+                      ? 'text-green-500'
                       : metrics.performance.batteryLevel > 20
-                        ? "text-yellow-500"
-                        : "text-red-500"
+                        ? 'text-yellow-500'
+                        : 'text-red-500'
                   }`}
                 />
                 <span className="text-sm font-medium">{metrics.performance.batteryLevel.toFixed(0)}%</span>
               </div>
               <p className="text-xs text-gray-600 mb-2">电池电量</p>
               <Progress value={metrics.performance.batteryLevel} className="h-1" />
-              <p className="text-xs text-gray-500 mt-1">{metrics.performance.batteryCharging ? "充电中" : "未充电"}</p>
+              <p className="text-xs text-gray-500 mt-1">{metrics.performance.batteryCharging ? '充电中' : '未充电'}</p>
             </CardContent>
           </Card>
 
@@ -597,7 +597,7 @@ export function MobilePerformanceMonitor() {
                     <div className="flex-1 min-w-0">
                       <h4 className="text-sm font-medium">{alert.title}</h4>
                       <p className="text-xs text-gray-600 mt-1">{alert.description}</p>
-                      <p className="text-xs text-gray-500 mt-1">{alert.timestamp.toLocaleTimeString("zh-CN")}</p>
+                      <p className="text-xs text-gray-500 mt-1">{alert.timestamp.toLocaleTimeString('zh-CN')}</p>
                     </div>
                   </div>
                 </Alert>
@@ -636,5 +636,5 @@ export function MobilePerformanceMonitor() {
         </Card>
       )}
     </div>
-  )
+  );
 }

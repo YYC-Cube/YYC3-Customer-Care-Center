@@ -10,11 +10,11 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import type React from "react"
-import { ResponsiveLayoutProvider } from "@/components/layout/responsive-layout"
-import "./globals.css"
+import type React from 'react';
+import { ResponsiveLayoutProvider } from '@/components/layout/responsive-layout';
+import './globals.css';
 
 interface ClientLayoutProps {
   children: React.ReactNode
@@ -33,5 +33,5 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
         <ResponsiveLayoutProvider>{children}</ResponsiveLayoutProvider>
       </body>
     </html>
-  )
+  );
 }

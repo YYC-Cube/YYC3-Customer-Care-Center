@@ -10,58 +10,58 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState } from "react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { APIManagementCenter } from "@/components/api/api-management-center"
-import { EnhancedPredictionEngine } from "@/components/ai/enhanced-prediction-engine"
-import { AutoOptimizationEngine } from "@/components/performance/auto-optimization-engine"
-import { UserTrainingCenter } from "@/components/training/user-training-center"
-import { Code, Brain, Zap, BookOpen, TrendingUp, Shield, Users, Settings } from "lucide-react"
+import { useState } from 'react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { APIManagementCenter } from '@/components/api/api-management-center';
+import { EnhancedPredictionEngine } from '@/components/ai/enhanced-prediction-engine';
+import { AutoOptimizationEngine } from '@/components/performance/auto-optimization-engine';
+import { UserTrainingCenter } from '@/components/training/user-training-center';
+import { Code, Brain, Zap, BookOpen, TrendingUp, Shield, Users, Settings } from 'lucide-react';
 
 export default function EnterpriseFeaturesPage() {
-  const [activeTab, setActiveTab] = useState("overview")
+  const [activeTab, setActiveTab] = useState('overview');
 
   const features = [
     {
-      id: "api",
-      title: "API管理中心",
-      description: "完善的API密钥管理、使用监控和文档系统",
+      id: 'api',
+      title: 'API管理中心',
+      description: '完善的API密钥管理、使用监控和文档系统',
       icon: Code,
-      color: "text-blue-600",
-      bgColor: "bg-blue-50",
-      stats: { keys: 8, requests: "24.5K", uptime: "99.9%" },
+      color: 'text-blue-600',
+      bgColor: 'bg-blue-50',
+      stats: { keys: 8, requests: '24.5K', uptime: '99.9%' },
     },
     {
-      id: "ai",
-      title: "AI智能预测",
-      description: "基于机器学习的业务预测和智能推荐",
+      id: 'ai',
+      title: 'AI智能预测',
+      description: '基于机器学习的业务预测和智能推荐',
       icon: Brain,
-      color: "text-purple-600",
-      bgColor: "bg-purple-50",
-      stats: { models: 4, accuracy: "92.3%", predictions: 156 },
+      color: 'text-purple-600',
+      bgColor: 'bg-purple-50',
+      stats: { models: 4, accuracy: '92.3%', predictions: 156 },
     },
     {
-      id: "optimization",
-      title: "自动优化引擎",
-      description: "智能监控系统性能，自动执行优化策略",
+      id: 'optimization',
+      title: '自动优化引擎',
+      description: '智能监控系统性能，自动执行优化策略',
       icon: Zap,
-      color: "text-green-600",
-      bgColor: "bg-green-50",
-      stats: { rules: 6, tasks: 23, improvement: "35%" },
+      color: 'text-green-600',
+      bgColor: 'bg-green-50',
+      stats: { rules: 6, tasks: 23, improvement: '35%' },
     },
     {
-      id: "training",
-      title: "用户培训中心",
-      description: "完整的培训体系和最佳实践指南",
+      id: 'training',
+      title: '用户培训中心',
+      description: '完整的培训体系和最佳实践指南',
       icon: BookOpen,
-      color: "text-orange-600",
-      bgColor: "bg-orange-50",
-      stats: { courses: 12, users: 156, completion: "78%" },
+      color: 'text-orange-600',
+      bgColor: 'bg-orange-50',
+      stats: { courses: 12, users: 156, completion: '78%' },
     },
-  ]
+  ];
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -100,7 +100,7 @@ export default function EnterpriseFeaturesPage() {
             {/* 功能概览卡片 */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {features.map((feature) => {
-                const IconComponent = feature.icon
+                const IconComponent = feature.icon;
                 return (
                   <Card
                     key={feature.id}
@@ -125,7 +125,7 @@ export default function EnterpriseFeaturesPage() {
                       </div>
                     </CardContent>
                   </Card>
-                )
+                );
               })}
             </div>
 
@@ -200,25 +200,25 @@ export default function EnterpriseFeaturesPage() {
                   <div className="space-y-2">
                     <button
                       className="w-full text-left p-2 rounded hover:bg-gray-50 text-sm"
-                      onClick={() => setActiveTab("api")}
+                      onClick={() => setActiveTab('api')}
                     >
                       创建新API密钥
                     </button>
                     <button
                       className="w-full text-left p-2 rounded hover:bg-gray-50 text-sm"
-                      onClick={() => setActiveTab("ai")}
+                      onClick={() => setActiveTab('ai')}
                     >
                       生成AI预测
                     </button>
                     <button
                       className="w-full text-left p-2 rounded hover:bg-gray-50 text-sm"
-                      onClick={() => setActiveTab("optimization")}
+                      onClick={() => setActiveTab('optimization')}
                     >
                       执行系统优化
                     </button>
                     <button
                       className="w-full text-left p-2 rounded hover:bg-gray-50 text-sm"
-                      onClick={() => setActiveTab("training")}
+                      onClick={() => setActiveTab('training')}
                     >
                       开始学习课程
                     </button>
@@ -237,35 +237,35 @@ export default function EnterpriseFeaturesPage() {
                 <div className="space-y-4">
                   {[
                     {
-                      time: "2分钟前",
-                      action: "API密钥 'mobile-app-key' 被创建",
-                      type: "api",
+                      time: '2分钟前',
+                      action: 'API密钥 \'mobile-app-key\' 被创建',
+                      type: 'api',
                       icon: Code,
-                      color: "text-blue-600",
+                      color: 'text-blue-600',
                     },
                     {
-                      time: "5分钟前",
-                      action: "AI模型完成销售预测分析",
-                      type: "ai",
+                      time: '5分钟前',
+                      action: 'AI模型完成销售预测分析',
+                      type: 'ai',
                       icon: Brain,
-                      color: "text-purple-600",
+                      color: 'text-purple-600',
                     },
                     {
-                      time: "10分钟前",
-                      action: "自动优化任务提升响应时间35%",
-                      type: "optimization",
+                      time: '10分钟前',
+                      action: '自动优化任务提升响应时间35%',
+                      type: 'optimization',
                       icon: Zap,
-                      color: "text-green-600",
+                      color: 'text-green-600',
                     },
                     {
-                      time: "15分钟前",
-                      action: "用户完成'客户管理'培训课程",
-                      type: "training",
+                      time: '15分钟前',
+                      action: '用户完成\'客户管理\'培训课程',
+                      type: 'training',
                       icon: BookOpen,
-                      color: "text-orange-600",
+                      color: 'text-orange-600',
                     },
                   ].map((activity, index) => {
-                    const IconComponent = activity.icon
+                    const IconComponent = activity.icon;
                     return (
                       <div key={index} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50">
                         <div className="flex-shrink-0">
@@ -276,7 +276,7 @@ export default function EnterpriseFeaturesPage() {
                           <p className="text-xs text-gray-500">{activity.time}</p>
                         </div>
                       </div>
-                    )
+                    );
                   })}
                 </div>
               </CardContent>
@@ -301,5 +301,5 @@ export default function EnterpriseFeaturesPage() {
         </Tabs>
       </div>
     </div>
-  )
+  );
 }

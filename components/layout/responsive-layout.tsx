@@ -10,14 +10,14 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import type React from "react"
-import { createContext, useContext, useState, useEffect } from "react"
-import { useResponsiveLayout, type LayoutConfig } from "@/lib/responsive-layout"
-import { Sidebar } from "@/components/sidebar"
-import { Header } from "@/components/header"
-import { cn } from "@/lib/utils"
+import type React from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
+import { useResponsiveLayout, type LayoutConfig } from '@/lib/responsive-layout';
+import { Sidebar } from '@/components/sidebar';
+import { Header } from '@/components/header';
+import { cn } from '@/lib/utils';
 
 // 布局上下文
 interface LayoutContextType {
@@ -29,14 +29,14 @@ interface LayoutContextType {
   updateLayoutConfig: (config: Partial<LayoutConfig>) => void
 }
 
-const LayoutContext = createContext<LayoutContextType | undefined>(undefined)
+const LayoutContext = createContext<LayoutContextType | undefined>(undefined);
 
 export function useLayoutContext() {
-  const context = useContext(LayoutContext)
+  const context = useContext(LayoutContext);
   if (!context) {
-    throw new Error("useLayoutContext must be used within a LayoutProvider")
+    throw new Error('useLayoutContext must be used within a LayoutProvider');
   }
-  return context
+  return context;
 }
 
 // 响应式布局提供者
@@ -46,21 +46,21 @@ interface ResponsiveLayoutProviderProps {
 }
 
 export function ResponsiveLayoutProvider({ children, initialConfig }: ResponsiveLayoutProviderProps) {
-  const { layoutConfig: defaultConfig, isMobile } = useResponsiveLayout(initialConfig)
-  const [layoutConfig, setLayoutConfig] = useState(defaultConfig)
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const { layoutConfig: defaultConfig, isMobile } = useResponsiveLayout(initialConfig);
+  const [layoutConfig, setLayoutConfig] = useState(defaultConfig);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // 移动端自动关闭侧边栏
   useEffect(() => {
     if (isMobile) {
-      setSidebarOpen(false)
+      setSidebarOpen(false);
     }
-  }, [isMobile])
+  }, [isMobile]);
 
   const updateLayoutConfig = (config: Partial<LayoutConfig>) => {
-    setLayoutConfig((prev) => ({ ...prev, ...config }))
-  }
+    setLayoutConfig((prev) => ({ ...prev, ...config }));
+  };
 
   const value: LayoutContextType = {
     sidebarCollapsed,
@@ -69,9 +69,9 @@ export function ResponsiveLayoutProvider({ children, initialConfig }: Responsive
     setSidebarOpen,
     layoutConfig,
     updateLayoutConfig,
-  }
+  };
 
-  return <LayoutContext.Provider value={value}>{children}</LayoutContext.Provider>
+  return <LayoutContext.Provider value={value}>{children}</LayoutContext.Provider>;
 }
 
 // 主布局组件
@@ -88,19 +88,19 @@ export function ResponsiveLayout({
   showHeader = true,
   className,
 }: ResponsiveLayoutProps) {
-  const { sidebarCollapsed, sidebarOpen, setSidebarOpen, layoutConfig } = useLayoutContext()
-  const { isMobile, isTablet, getContentStyles } = useResponsiveLayout()
+  const { sidebarCollapsed, sidebarOpen, setSidebarOpen, layoutConfig } = useLayoutContext();
+  const { isMobile, isTablet, getContentStyles } = useResponsiveLayout();
 
   // 计算主内容区域的边距
   const getMainContentMargin = () => {
-    if (!showSidebar) return "0"
-    if (isMobile) return "0"
+    if (!showSidebar) return '0';
+    if (isMobile) return '0';
 
-    return sidebarCollapsed ? `${layoutConfig.sidebar.width.collapsed}px` : `${layoutConfig.sidebar.width.expanded}px`
-  }
+    return sidebarCollapsed ? `${layoutConfig.sidebar.width.collapsed}px` : `${layoutConfig.sidebar.width.expanded}px`;
+  };
 
   return (
-    <div className={cn("min-h-screen bg-gray-50", className)}>
+    <div className={cn('min-h-screen bg-gray-50', className)}>
       {/* 侧边栏 */}
       {showSidebar && (
         <>
@@ -118,7 +118,7 @@ export function ResponsiveLayout({
         className="transition-all duration-300 ease-in-out min-h-screen w-full"
         style={{
           marginLeft: getMainContentMargin(),
-          width: "100%",
+          width: '100%',
         }}
       >
         {/* 头部 */}
@@ -134,14 +134,14 @@ export function ResponsiveLayout({
         <main
           className="min-h-screen w-full"
           style={{
-            width: "100%",
+            width: '100%',
             ...getContentStyles(),
-            marginTop: showHeader && layoutConfig.header.sticky ? `${layoutConfig.header.height}px` : "0",
+            marginTop: showHeader && layoutConfig.header.sticky ? `${layoutConfig.header.height}px` : '0',
           }}
         >
           {children}
         </main>
       </div>
     </div>
-  )
+  );
 }

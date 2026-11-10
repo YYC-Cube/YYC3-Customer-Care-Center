@@ -10,17 +10,17 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Switch } from "@/components/ui/switch"
+import { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
 import {
   FormInput,
   Brain,
@@ -37,7 +37,7 @@ import {
   Mic,
   Camera,
   MapPin,
-} from "lucide-react"
+} from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -45,161 +45,161 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from '@/components/ui/dialog';
 
 export default function AISmartFormsPage() {
-  const [selectedForm, setSelectedForm] = useState<string | null>(null)
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
+  const [selectedForm, setSelectedForm] = useState<string | null>(null);
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
   // 智能表单模板
   const formTemplates = [
     {
-      id: "1",
-      name: "销售日报表（NFC版）",
-      description: "NFC触发的智能销售日报，自动填充业绩数据",
-      category: "销售管理",
+      id: '1',
+      name: '销售日报表（NFC版）',
+      description: 'NFC触发的智能销售日报，自动填充业绩数据',
+      category: '销售管理',
       fields: 12,
-      aiFeatures: ["语音输入", "数据自动填充", "智能分析"],
+      aiFeatures: ['语音输入', '数据自动填充', '智能分析'],
       usage: 156,
       completion: 94,
-      status: "active",
-      color: "emerald",
+      status: 'active',
+      color: 'emerald',
     },
     {
-      id: "2",
-      name: "客户孵化追踪表",
-      description: "动态推进引擎驱动的客户跟进表单",
-      category: "客户管理",
+      id: '2',
+      name: '客户孵化追踪表',
+      description: '动态推进引擎驱动的客户跟进表单',
+      category: '客户管理',
       fields: 18,
-      aiFeatures: ["阶段智能判定", "自动推送", "预测分析"],
+      aiFeatures: ['阶段智能判定', '自动推送', '预测分析'],
       usage: 89,
       completion: 87,
-      status: "active",
-      color: "blue",
+      status: 'active',
+      color: 'blue',
     },
     {
-      id: "3",
-      name: "智能问卷调研",
-      description: "AI驱动的动态问卷，根据回答智能调整问题",
-      category: "市场调研",
+      id: '3',
+      name: '智能问卷调研',
+      description: 'AI驱动的动态问卷，根据回答智能调整问题',
+      category: '市场调研',
       fields: 25,
-      aiFeatures: ["动态问题", "情感分析", "智能总结"],
+      aiFeatures: ['动态问题', '情感分析', '智能总结'],
       usage: 234,
       completion: 76,
-      status: "active",
-      color: "purple",
+      status: 'active',
+      color: 'purple',
     },
     {
-      id: "4",
-      name: "员工绩效评估",
-      description: "多维度智能评估表单，自动生成改进建议",
-      category: "人力资源",
+      id: '4',
+      name: '员工绩效评估',
+      description: '多维度智能评估表单，自动生成改进建议',
+      category: '人力资源',
       fields: 32,
-      aiFeatures: ["360度评估", "能力画像", "发展建议"],
+      aiFeatures: ['360度评估', '能力画像', '发展建议'],
       usage: 67,
       completion: 91,
-      status: "draft",
-      color: "orange",
+      status: 'draft',
+      color: 'orange',
     },
-  ]
+  ];
 
   // 表单字段类型
   const fieldTypes = [
-    { type: "text", label: "文本输入", icon: FormInput },
-    { type: "textarea", label: "多行文本", icon: FormInput },
-    { type: "select", label: "下拉选择", icon: FormInput },
-    { type: "radio", label: "单选按钮", icon: FormInput },
-    { type: "checkbox", label: "多选框", icon: FormInput },
-    { type: "date", label: "日期选择", icon: FormInput },
-    { type: "number", label: "数字输入", icon: FormInput },
-    { type: "voice", label: "语音输入", icon: Mic },
-    { type: "image", label: "图片上传", icon: Camera },
-    { type: "location", label: "位置定位", icon: MapPin },
-  ]
+    { type: 'text', label: '文本输入', icon: FormInput },
+    { type: 'textarea', label: '多行文本', icon: FormInput },
+    { type: 'select', label: '下拉选择', icon: FormInput },
+    { type: 'radio', label: '单选按钮', icon: FormInput },
+    { type: 'checkbox', label: '多选框', icon: FormInput },
+    { type: 'date', label: '日期选择', icon: FormInput },
+    { type: 'number', label: '数字输入', icon: FormInput },
+    { type: 'voice', label: '语音输入', icon: Mic },
+    { type: 'image', label: '图片上传', icon: Camera },
+    { type: 'location', label: '位置定位', icon: MapPin },
+  ];
 
   // AI功能配置
   const aiFeatures = [
     {
-      id: "auto-fill",
-      name: "智能自动填充",
-      description: "基于历史数据和上下文自动填充表单字段",
+      id: 'auto-fill',
+      name: '智能自动填充',
+      description: '基于历史数据和上下文自动填充表单字段',
       enabled: true,
-      color: "emerald",
+      color: 'emerald',
     },
     {
-      id: "voice-input",
-      name: "语音转文字",
-      description: "支持语音输入，AI自动转换为文字并分类",
+      id: 'voice-input',
+      name: '语音转文字',
+      description: '支持语音输入，AI自动转换为文字并分类',
       enabled: true,
-      color: "blue",
+      color: 'blue',
     },
     {
-      id: "smart-validation",
-      name: "智能验证",
-      description: "AI驱动的数据验证，提供智能纠错建议",
+      id: 'smart-validation',
+      name: '智能验证',
+      description: 'AI驱动的数据验证，提供智能纠错建议',
       enabled: true,
-      color: "purple",
+      color: 'purple',
     },
     {
-      id: "predictive-text",
-      name: "预测输入",
-      description: "基于用户行为预测下一步输入内容",
+      id: 'predictive-text',
+      name: '预测输入',
+      description: '基于用户行为预测下一步输入内容',
       enabled: false,
-      color: "orange",
+      color: 'orange',
     },
     {
-      id: "sentiment-analysis",
-      name: "情感分析",
-      description: "分析文本情感倾向，提供情感洞察",
+      id: 'sentiment-analysis',
+      name: '情感分析',
+      description: '分析文本情感倾向，提供情感洞察',
       enabled: true,
-      color: "rose",
+      color: 'rose',
     },
     {
-      id: "auto-summary",
-      name: "智能总结",
-      description: "自动生成表单内容摘要和关键信息提取",
+      id: 'auto-summary',
+      name: '智能总结',
+      description: '自动生成表单内容摘要和关键信息提取',
       enabled: true,
-      color: "indigo",
+      color: 'indigo',
     },
-  ]
+  ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "active":
-        return "bg-emerald-100 text-emerald-700"
-      case "draft":
-        return "bg-orange-100 text-orange-700"
-      case "archived":
-        return "bg-gray-100 text-gray-700"
-      default:
-        return "bg-blue-100 text-blue-700"
+    case 'active':
+      return 'bg-emerald-100 text-emerald-700';
+    case 'draft':
+      return 'bg-orange-100 text-orange-700';
+    case 'archived':
+      return 'bg-gray-100 text-gray-700';
+    default:
+      return 'bg-blue-100 text-blue-700';
     }
-  }
+  };
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case "active":
-        return "使用中"
-      case "draft":
-        return "草稿"
-      case "archived":
-        return "已归档"
-      default:
-        return "未知"
+    case 'active':
+      return '使用中';
+    case 'draft':
+      return '草稿';
+    case 'archived':
+      return '已归档';
+    default:
+      return '未知';
     }
-  }
+  };
 
   const getColorClasses = (color: string) => {
     const colors = {
-      emerald: "border-l-emerald-500 bg-emerald-50",
-      blue: "border-l-blue-500 bg-blue-50",
-      purple: "border-l-purple-500 bg-purple-50",
-      orange: "border-l-orange-500 bg-orange-50",
-      rose: "border-l-rose-500 bg-rose-50",
-      indigo: "border-l-indigo-500 bg-indigo-50",
-    }
-    return colors[color as keyof typeof colors] || colors.blue
-  }
+      emerald: 'border-l-emerald-500 bg-emerald-50',
+      blue: 'border-l-blue-500 bg-blue-50',
+      purple: 'border-l-purple-500 bg-purple-50',
+      orange: 'border-l-orange-500 bg-orange-50',
+      rose: 'border-l-rose-500 bg-rose-50',
+      indigo: 'border-l-indigo-500 bg-indigo-50',
+    };
+    return colors[color as keyof typeof colors] || colors.blue;
+  };
 
   return (
     <div className="p-6 space-y-6 bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 min-h-screen">
@@ -344,7 +344,7 @@ export default function AISmartFormsPage() {
                 </div>
                 <div className="flex justify-between items-center">
                   <Badge className={`${getColorClasses(feature.color)} border-0`}>
-                    {feature.enabled ? "已启用" : "已禁用"}
+                    {feature.enabled ? '已启用' : '已禁用'}
                   </Badge>
                   <Button variant="ghost" size="sm" className="transition-all duration-300 hover:scale-105">
                     <Settings className="w-4 h-4" />
@@ -476,5 +476,5 @@ export default function AISmartFormsPage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

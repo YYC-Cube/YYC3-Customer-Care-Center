@@ -125,5 +125,5 @@ export default function MeetingsLoading() {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -10,13 +10,13 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { EnhancedCard } from "@/components/ui/enhanced-card"
-import { EnhancedButton } from "@/components/ui/enhanced-button"
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { EnhancedButton } from '@/components/ui/enhanced-button';
 import {
   Dialog,
   DialogContent,
@@ -24,10 +24,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Play, Pause, Square, Clock, Timer, Plus, Trash2 } from "lucide-react"
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Play, Pause, Square, Clock, Timer, Plus, Trash2 } from 'lucide-react';
 
 interface TimeEntry {
   id: string
@@ -47,106 +47,106 @@ interface TimeTrackerProps {
 }
 
 export function TimeTracker({ taskId, taskName, onTimeUpdate }: TimeTrackerProps) {
-  const [isRunning, setIsRunning] = useState(false)
-  const [currentTime, setCurrentTime] = useState(0)
-  const [startTime, setStartTime] = useState<Date | null>(null)
-  const [timeEntries, setTimeEntries] = useState<TimeEntry[]>([])
-  const [showAddEntry, setShowAddEntry] = useState(false)
-  const [newEntryDescription, setNewEntryDescription] = useState("")
+  const [isRunning, setIsRunning] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [startTime, setStartTime] = useState<Date | null>(null);
+  const [timeEntries, setTimeEntries] = useState<TimeEntry[]>([]);
+  const [showAddEntry, setShowAddEntry] = useState(false);
+  const [newEntryDescription, setNewEntryDescription] = useState('');
 
   // 计时器效果
   useEffect(() => {
-    let interval: NodeJS.Timeout | null = null
+    let interval: NodeJS.Timeout | null = null;
 
     if (isRunning && startTime) {
       interval = setInterval(() => {
-        const now = new Date()
-        const elapsed = Math.floor((now.getTime() - startTime.getTime()) / 1000)
-        setCurrentTime(elapsed)
-      }, 1000)
+        const now = new Date();
+        const elapsed = Math.floor((now.getTime() - startTime.getTime()) / 1000);
+        setCurrentTime(elapsed);
+      }, 1000);
     }
 
     return () => {
-      if (interval) clearInterval(interval)
-    }
-  }, [isRunning, startTime])
+      if (interval) clearInterval(interval);
+    };
+  }, [isRunning, startTime]);
 
   // 格式化时间显示
   const formatTime = (seconds: number): string => {
-    const hours = Math.floor(seconds / 3600)
-    const minutes = Math.floor((seconds % 3600) / 60)
-    const secs = seconds % 60
-    return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
-  }
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
 
   // 开始计时
   const startTimer = () => {
-    setIsRunning(true)
-    setStartTime(new Date())
-    setCurrentTime(0)
-  }
+    setIsRunning(true);
+    setStartTime(new Date());
+    setCurrentTime(0);
+  };
 
   // 暂停计时
   const pauseTimer = () => {
-    setIsRunning(false)
+    setIsRunning(false);
     if (startTime && currentTime > 0) {
       // 保存时间记录
       const entry: TimeEntry = {
         id: Date.now().toString(),
-        taskId: taskId || "unknown",
-        taskName: taskName || "未指定任务",
+        taskId: taskId || 'unknown',
+        taskName: taskName || '未指定任务',
         startTime: startTime,
         endTime: new Date(),
         duration: currentTime,
-        description: "",
-        category: "工作时间",
-      }
-      setTimeEntries((prev) => [entry, ...prev])
+        description: '',
+        category: '工作时间',
+      };
+      setTimeEntries((prev) => [entry, ...prev]);
 
       // 通知父组件时间更新
-      const totalTime = timeEntries.reduce((sum, entry) => sum + entry.duration, 0) + currentTime
-      onTimeUpdate?.(totalTime)
+      const totalTime = timeEntries.reduce((sum, entry) => sum + entry.duration, 0) + currentTime;
+      onTimeUpdate?.(totalTime);
     }
-  }
+  };
 
   // 停止计时
   const stopTimer = () => {
     if (isRunning) {
-      pauseTimer()
+      pauseTimer();
     }
-    setIsRunning(false)
-    setCurrentTime(0)
-    setStartTime(null)
-  }
+    setIsRunning(false);
+    setCurrentTime(0);
+    setStartTime(null);
+  };
 
   // 手动添加时间记录
   const addManualEntry = (duration: number, description: string) => {
     const entry: TimeEntry = {
       id: Date.now().toString(),
-      taskId: taskId || "manual",
-      taskName: taskName || "手动记录",
+      taskId: taskId || 'manual',
+      taskName: taskName || '手动记录',
       startTime: new Date(Date.now() - duration * 1000),
       endTime: new Date(),
       duration: duration,
       description: description,
-      category: "手动记录",
-    }
-    setTimeEntries((prev) => [entry, ...prev])
-    setShowAddEntry(false)
-    setNewEntryDescription("")
+      category: '手动记录',
+    };
+    setTimeEntries((prev) => [entry, ...prev]);
+    setShowAddEntry(false);
+    setNewEntryDescription('');
 
     // 通知父组件时间更新
-    const totalTime = timeEntries.reduce((sum, entry) => sum + entry.duration, 0) + duration
-    onTimeUpdate?.(totalTime)
-  }
+    const totalTime = timeEntries.reduce((sum, entry) => sum + entry.duration, 0) + duration;
+    onTimeUpdate?.(totalTime);
+  };
 
   // 删除时间记录
   const deleteEntry = (entryId: string) => {
-    setTimeEntries((prev) => prev.filter((entry) => entry.id !== entryId))
-  }
+    setTimeEntries((prev) => prev.filter((entry) => entry.id !== entryId));
+  };
 
   // 计算总时间
-  const totalTime = timeEntries.reduce((sum, entry) => sum + entry.duration, 0) + currentTime
+  const totalTime = timeEntries.reduce((sum, entry) => sum + entry.duration, 0) + currentTime;
 
   return (
     <div className="space-y-4">
@@ -204,7 +204,7 @@ export function TimeTracker({ taskId, taskName, onTimeUpdate }: TimeTrackerProps
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-slate-800">
-                {timeEntries.length > 0 ? formatTime(Math.floor(totalTime / timeEntries.length)) : "00:00:00"}
+                {timeEntries.length > 0 ? formatTime(Math.floor(totalTime / timeEntries.length)) : '00:00:00'}
               </div>
               <div className="text-sm text-slate-600">平均时长</div>
             </div>
@@ -267,10 +267,10 @@ export function TimeTracker({ taskId, taskName, onTimeUpdate }: TimeTrackerProps
                       type="number"
                       placeholder="输入分钟数"
                       onKeyPress={(e) => {
-                        if (e.key === "Enter") {
-                          const minutes = Number.parseInt((e.target as HTMLInputElement).value)
+                        if (e.key === 'Enter') {
+                          const minutes = Number.parseInt((e.target as HTMLInputElement).value);
                           if (minutes > 0) {
-                            addManualEntry(minutes * 60, newEntryDescription)
+                            addManualEntry(minutes * 60, newEntryDescription);
                           }
                         }
                       }}
@@ -336,5 +336,5 @@ export function TimeTracker({ taskId, taskName, onTimeUpdate }: TimeTrackerProps
         </div>
       </EnhancedCard>
     </div>
-  )
+  );
 }

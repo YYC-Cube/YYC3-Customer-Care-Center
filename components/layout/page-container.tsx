@@ -10,9 +10,9 @@
  * @license MIT
  */
 
-import { cn } from "@/lib/utils"
-import { commonStyles } from "@/lib/design-system"
-import type { ReactNode } from "react"
+import { cn } from '@/lib/utils';
+import { commonStyles } from '@/lib/design-system';
+import type { ReactNode } from 'react';
 
 interface PageContainerProps {
   children: ReactNode
@@ -32,5 +32,5 @@ export function PageContainer({ children, className, title, description }: PageC
       )}
       {children}
     </div>
-  )
+  );
 }

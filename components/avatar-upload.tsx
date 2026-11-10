@@ -10,133 +10,133 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import type React from "react"
+import type React from 'react';
 
-import { useState, useRef } from "react"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Upload, Camera, User, X, Save, RotateCcw } from "lucide-react"
+import { useState, useRef } from 'react';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Upload, Camera, User, X, Save, RotateCcw } from 'lucide-react';
 
 interface AvatarUploadProps {
   currentAvatar?: string
   userName: string
   onAvatarChange: (avatarUrl: string) => void
-  size?: "sm" | "md" | "lg" | "xl"
+  size?: 'sm' | 'md' | 'lg' | 'xl'
 }
 
-export function AvatarUpload({ currentAvatar, userName, onAvatarChange, size = "lg" }: AvatarUploadProps) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [previewAvatar, setPreviewAvatar] = useState<string | null>(currentAvatar || null)
-  const [isUploading, setIsUploading] = useState(false)
-  const fileInputRef = useRef<HTMLInputElement>(null)
+export function AvatarUpload({ currentAvatar, userName, onAvatarChange, size = 'lg' }: AvatarUploadProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [previewAvatar, setPreviewAvatar] = useState<string | null>(currentAvatar || null);
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const sizeClasses = {
-    sm: "w-8 h-8",
-    md: "w-12 h-12",
-    lg: "w-16 h-16",
-    xl: "w-24 h-24",
-  }
+    sm: 'w-8 h-8',
+    md: 'w-12 h-12',
+    lg: 'w-16 h-16',
+    xl: 'w-24 h-24',
+  };
 
   const iconSizes = {
-    sm: "w-3 h-3",
-    md: "w-4 h-4",
-    lg: "w-6 h-6",
-    xl: "w-8 h-8",
-  }
+    sm: 'w-3 h-3',
+    md: 'w-4 h-4',
+    lg: 'w-6 h-6',
+    xl: 'w-8 h-8',
+  };
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
+    const file = event.target.files?.[0];
     if (file) {
       // 验证文件类型
-      if (!file.type.startsWith("image/")) {
-        alert("请选择图片文件")
-        return
+      if (!file.type.startsWith('image/')) {
+        alert('请选择图片文件');
+        return;
       }
 
       // 验证文件大小 (最大 5MB)
       if (file.size > 5 * 1024 * 1024) {
-        alert("图片大小不能超过 5MB")
-        return
+        alert('图片大小不能超过 5MB');
+        return;
       }
 
-      setIsUploading(true)
-      const reader = new FileReader()
+      setIsUploading(true);
+      const reader = new FileReader();
       reader.onload = (e) => {
-        const result = e.target?.result as string
-        setPreviewAvatar(result)
-        setIsUploading(false)
-      }
+        const result = e.target?.result as string;
+        setPreviewAvatar(result);
+        setIsUploading(false);
+      };
       reader.onerror = () => {
-        alert("文件读取失败，请重试")
-        setIsUploading(false)
-      }
-      reader.readAsDataURL(file)
+        alert('文件读取失败，请重试');
+        setIsUploading(false);
+      };
+      reader.readAsDataURL(file);
     }
-  }
+  };
 
   const handleSave = () => {
     if (previewAvatar) {
-      onAvatarChange(previewAvatar)
-      setIsOpen(false)
+      onAvatarChange(previewAvatar);
+      setIsOpen(false);
 
       // 显示成功提示
-      if ("Notification" in window && Notification.permission === "granted") {
-        new Notification("头像更新成功", {
-          body: "您的头像已成功更新",
+      if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification('头像更新成功', {
+          body: '您的头像已成功更新',
           icon: previewAvatar,
-        })
+        });
       }
     }
-  }
+  };
 
   const handleReset = () => {
-    setPreviewAvatar(null)
-    onAvatarChange("")
-  }
+    setPreviewAvatar(null);
+    onAvatarChange('');
+  };
 
   const generateDefaultAvatar = () => {
     // 生成默认头像（基于用户名首字母）
-    const canvas = document.createElement("canvas")
-    canvas.width = 200
-    canvas.height = 200
-    const ctx = canvas.getContext("2d")
+    const canvas = document.createElement('canvas');
+    canvas.width = 200;
+    canvas.height = 200;
+    const ctx = canvas.getContext('2d');
 
     if (ctx) {
       // 背景渐变
-      const gradient = ctx.createLinearGradient(0, 0, 200, 200)
-      gradient.addColorStop(0, "#667eea")
-      gradient.addColorStop(1, "#764ba2")
-      ctx.fillStyle = gradient
-      ctx.fillRect(0, 0, 200, 200)
+      const gradient = ctx.createLinearGradient(0, 0, 200, 200);
+      gradient.addColorStop(0, '#667eea');
+      gradient.addColorStop(1, '#764ba2');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, 200, 200);
 
       // 文字
-      ctx.fillStyle = "white"
-      ctx.font = "bold 80px Arial"
-      ctx.textAlign = "center"
-      ctx.textBaseline = "middle"
-      ctx.fillText(userName.charAt(0).toUpperCase(), 100, 100)
+      ctx.fillStyle = 'white';
+      ctx.font = 'bold 80px Arial';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(userName.charAt(0).toUpperCase(), 100, 100);
 
-      const defaultAvatar = canvas.toDataURL()
-      setPreviewAvatar(defaultAvatar)
+      const defaultAvatar = canvas.toDataURL();
+      setPreviewAvatar(defaultAvatar);
     }
-  }
+  };
 
   const renderAvatar = () => {
     if (currentAvatar) {
       return (
         <img
-          src={currentAvatar || "/placeholder.svg"}
+          src={currentAvatar || '/placeholder.svg'}
           alt={userName}
           className={`${sizeClasses[size]} rounded-full object-cover`}
           onError={(e) => {
-            const target = e.target as HTMLImageElement
-            target.style.display = "none"
-            target.nextElementSibling?.classList.remove("hidden")
+            const target = e.target as HTMLImageElement;
+            target.style.display = 'none';
+            target.nextElementSibling?.classList.remove('hidden');
           }}
         />
-      )
+      );
     }
 
     return (
@@ -145,8 +145,8 @@ export function AvatarUpload({ currentAvatar, userName, onAvatarChange, size = "
       >
         <span className="text-white font-semibold text-sm">{userName.charAt(0).toUpperCase()}</span>
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <>
@@ -172,7 +172,7 @@ export function AvatarUpload({ currentAvatar, userName, onAvatarChange, size = "
               <div className="relative">
                 {previewAvatar ? (
                   <img
-                    src={previewAvatar || "/placeholder.svg"}
+                    src={previewAvatar || '/placeholder.svg'}
                     alt="头像预览"
                     className="w-24 h-24 rounded-full object-cover border-4 border-gray-200"
                   />
@@ -194,7 +194,7 @@ export function AvatarUpload({ currentAvatar, userName, onAvatarChange, size = "
                 disabled={isUploading}
               >
                 <Upload className="w-4 h-4 mr-2" />
-                {isUploading ? "上传中..." : "上传图片"}
+                {isUploading ? '上传中...' : '上传图片'}
               </Button>
 
               <Button variant="outline" className="w-full bg-transparent" onClick={generateDefaultAvatar}>
@@ -233,5 +233,5 @@ export function AvatarUpload({ currentAvatar, userName, onAvatarChange, size = "
         </DialogContent>
       </Dialog>
     </>
-  )
+  );
 }

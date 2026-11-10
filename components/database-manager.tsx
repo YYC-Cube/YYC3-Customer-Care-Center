@@ -10,15 +10,15 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { Textarea } from "@/components/ui/textarea"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Textarea } from '@/components/ui/textarea';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Database,
   Table,
@@ -38,15 +38,15 @@ import {
   Users,
   FileText,
   Zap,
-} from "lucide-react"
+} from 'lucide-react';
 
 interface DatabaseTable {
   name: string
   rows: number
   size: string
   lastUpdated: Date
-  status: "healthy" | "warning" | "error"
-  type: "data" | "log" | "cache" | "config"
+  status: 'healthy' | 'warning' | 'error'
+  type: 'data' | 'log' | 'cache' | 'config'
 }
 
 interface QueryResult {
@@ -54,7 +54,7 @@ interface QueryResult {
   query: string
   duration: number
   rows: number
-  status: "success" | "error"
+  status: 'success' | 'error'
   timestamp: Date
   error?: string
 }
@@ -74,155 +74,155 @@ interface DatabaseStats {
 }
 
 export function DatabaseManager() {
-  const [activeTab, setActiveTab] = useState("overview")
-  const [sqlQuery, setSqlQuery] = useState("")
-  const [queryResults, setQueryResults] = useState<QueryResult[]>([])
-  const [isExecuting, setIsExecuting] = useState(false)
-  const [searchTerm, setSearchTerm] = useState("")
+  const [activeTab, setActiveTab] = useState('overview');
+  const [sqlQuery, setSqlQuery] = useState('');
+  const [queryResults, setQueryResults] = useState<QueryResult[]>([]);
+  const [isExecuting, setIsExecuting] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const [dbStats, setDbStats] = useState<DatabaseStats>({
-    totalSize: "2.4 GB",
+    totalSize: '2.4 GB',
     totalTables: 28,
     totalRows: 156789,
     connections: 12,
-    uptime: "15天 8小时",
+    uptime: '15天 8小时',
     performance: {
       cpu: 35,
       memory: 68,
       disk: 45,
       queries: 1247,
     },
-  })
+  });
 
   const [tables, setTables] = useState<DatabaseTable[]>([
     {
-      name: "users",
+      name: 'users',
       rows: 15678,
-      size: "45.2 MB",
+      size: '45.2 MB',
       lastUpdated: new Date(Date.now() - 2 * 60 * 60 * 1000),
-      status: "healthy",
-      type: "data",
+      status: 'healthy',
+      type: 'data',
     },
     {
-      name: "tasks",
+      name: 'tasks',
       rows: 23456,
-      size: "78.9 MB",
+      size: '78.9 MB',
       lastUpdated: new Date(Date.now() - 30 * 60 * 1000),
-      status: "healthy",
-      type: "data",
+      status: 'healthy',
+      type: 'data',
     },
     {
-      name: "customers",
+      name: 'customers',
       rows: 8934,
-      size: "34.1 MB",
+      size: '34.1 MB',
       lastUpdated: new Date(Date.now() - 1 * 60 * 60 * 1000),
-      status: "warning",
-      type: "data",
+      status: 'warning',
+      type: 'data',
     },
     {
-      name: "audit_logs",
+      name: 'audit_logs',
       rows: 89234,
-      size: "156.7 MB",
+      size: '156.7 MB',
       lastUpdated: new Date(Date.now() - 15 * 60 * 1000),
-      status: "healthy",
-      type: "log",
+      status: 'healthy',
+      type: 'log',
     },
     {
-      name: "cache_sessions",
+      name: 'cache_sessions',
       rows: 1234,
-      size: "5.6 MB",
+      size: '5.6 MB',
       lastUpdated: new Date(Date.now() - 5 * 60 * 1000),
-      status: "healthy",
-      type: "cache",
+      status: 'healthy',
+      type: 'cache',
     },
     {
-      name: "system_config",
+      name: 'system_config',
       rows: 156,
-      size: "0.8 MB",
+      size: '0.8 MB',
       lastUpdated: new Date(Date.now() - 6 * 60 * 60 * 1000),
-      status: "error",
-      type: "config",
+      status: 'error',
+      type: 'config',
     },
-  ])
+  ]);
 
-  const getTableIcon = (type: DatabaseTable["type"]) => {
+  const getTableIcon = (type: DatabaseTable['type']) => {
     switch (type) {
-      case "data":
-        return <Table className="w-4 h-4 text-blue-600" />
-      case "log":
-        return <FileText className="w-4 h-4 text-green-600" />
-      case "cache":
-        return <Zap className="w-4 h-4 text-yellow-600" />
-      case "config":
-        return <Settings className="w-4 h-4 text-purple-600" />
-      default:
-        return <Table className="w-4 h-4 text-gray-600" />
+    case 'data':
+      return <Table className="w-4 h-4 text-blue-600" />;
+    case 'log':
+      return <FileText className="w-4 h-4 text-green-600" />;
+    case 'cache':
+      return <Zap className="w-4 h-4 text-yellow-600" />;
+    case 'config':
+      return <Settings className="w-4 h-4 text-purple-600" />;
+    default:
+      return <Table className="w-4 h-4 text-gray-600" />;
     }
-  }
+  };
 
-  const getStatusIcon = (status: DatabaseTable["status"]) => {
+  const getStatusIcon = (status: DatabaseTable['status']) => {
     switch (status) {
-      case "healthy":
-        return <CheckCircle className="w-4 h-4 text-green-600" />
-      case "warning":
-        return <AlertTriangle className="w-4 h-4 text-yellow-600" />
-      case "error":
-        return <AlertTriangle className="w-4 h-4 text-red-600" />
-      default:
-        return <Clock className="w-4 h-4 text-gray-600" />
+    case 'healthy':
+      return <CheckCircle className="w-4 h-4 text-green-600" />;
+    case 'warning':
+      return <AlertTriangle className="w-4 h-4 text-yellow-600" />;
+    case 'error':
+      return <AlertTriangle className="w-4 h-4 text-red-600" />;
+    default:
+      return <Clock className="w-4 h-4 text-gray-600" />;
     }
-  }
+  };
 
-  const getStatusColor = (status: DatabaseTable["status"]) => {
+  const getStatusColor = (status: DatabaseTable['status']) => {
     switch (status) {
-      case "healthy":
-        return "bg-green-100 text-green-800"
-      case "warning":
-        return "bg-yellow-100 text-yellow-800"
-      case "error":
-        return "bg-red-100 text-red-800"
-      default:
-        return "bg-gray-100 text-gray-800"
+    case 'healthy':
+      return 'bg-green-100 text-green-800';
+    case 'warning':
+      return 'bg-yellow-100 text-yellow-800';
+    case 'error':
+      return 'bg-red-100 text-red-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
     }
-  }
+  };
 
   const formatTime = (date: Date) => {
-    const now = new Date()
-    const diff = now.getTime() - date.getTime()
-    const minutes = Math.floor(diff / (1000 * 60))
-    const hours = Math.floor(diff / (1000 * 60 * 60))
+    const now = new Date();
+    const diff = now.getTime() - date.getTime();
+    const minutes = Math.floor(diff / (1000 * 60));
+    const hours = Math.floor(diff / (1000 * 60 * 60));
 
-    if (minutes < 1) return "刚刚"
-    if (minutes < 60) return `${minutes}分钟前`
-    if (hours < 24) return `${hours}小时前`
-    return date.toLocaleDateString("zh-CN")
-  }
+    if (minutes < 1) return '刚刚';
+    if (minutes < 60) return `${minutes}分钟前`;
+    if (hours < 24) return `${hours}小时前`;
+    return date.toLocaleDateString('zh-CN');
+  };
 
   const executeQuery = async () => {
-    if (!sqlQuery.trim()) return
+    if (!sqlQuery.trim()) return;
 
-    setIsExecuting(true)
-    const startTime = Date.now()
+    setIsExecuting(true);
+    const startTime = Date.now();
 
     // 模拟查询执行
-    await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000 + 500))
+    await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000 + 500));
 
-    const duration = Date.now() - startTime
-    const isError = Math.random() < 0.1 // 10% 错误率
+    const duration = Date.now() - startTime;
+    const isError = Math.random() < 0.1; // 10% 错误率
 
     const result: QueryResult = {
       id: Date.now().toString(),
       query: sqlQuery,
       duration,
       rows: isError ? 0 : Math.floor(Math.random() * 1000),
-      status: isError ? "error" : "success",
+      status: isError ? 'error' : 'success',
       timestamp: new Date(),
-      error: isError ? "语法错误: 表名不存在" : undefined,
-    }
+      error: isError ? '语法错误: 表名不存在' : undefined,
+    };
 
-    setQueryResults((prev) => [result, ...prev.slice(0, 9)]) // 保留最近10条
-    setIsExecuting(false)
-  }
+    setQueryResults((prev) => [result, ...prev.slice(0, 9)]); // 保留最近10条
+    setIsExecuting(false);
+  };
 
   const refreshTables = () => {
     // 模拟刷新表数据
@@ -232,8 +232,8 @@ export function DatabaseManager() {
         lastUpdated: new Date(),
         rows: table.rows + Math.floor(Math.random() * 100) - 50,
       })),
-    )
-  }
+    );
+  };
 
   const optimizeTable = (tableName: string) => {
     // 模拟表优化
@@ -241,16 +241,16 @@ export function DatabaseManager() {
       prev.map((table) =>
         table.name === tableName
           ? {
-              ...table,
-              status: "healthy" as const,
-              lastUpdated: new Date(),
-            }
+            ...table,
+            status: 'healthy' as const,
+            lastUpdated: new Date(),
+          }
           : table,
       ),
-    )
-  }
+    );
+  };
 
-  const filteredTables = tables.filter((table) => table.name.toLowerCase().includes(searchTerm.toLowerCase()))
+  const filteredTables = tables.filter((table) => table.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
   // 模拟性能数据更新
   useEffect(() => {
@@ -264,11 +264,11 @@ export function DatabaseManager() {
           disk: Math.max(10, Math.min(80, prev.performance.disk + Math.floor(Math.random() * 8) - 4)),
           queries: prev.performance.queries + Math.floor(Math.random() * 10),
         },
-      }))
-    }, 3000)
+      }));
+    }, 3000);
 
-    return () => clearInterval(interval)
-  }, [])
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="space-y-6">
@@ -386,7 +386,7 @@ export function DatabaseManager() {
                   {queryResults.slice(0, 5).map((result) => (
                     <div key={result.id} className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50">
                       <div
-                        className={`w-2 h-2 rounded-full ${result.status === "success" ? "bg-green-500" : "bg-red-500"}`}
+                        className={`w-2 h-2 rounded-full ${result.status === 'success' ? 'bg-green-500' : 'bg-red-500'}`}
                       ></div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium truncate">{result.query}</p>
@@ -452,9 +452,9 @@ export function DatabaseManager() {
                     <div className="flex items-center space-x-2">
                       {getStatusIcon(table.status)}
                       <Badge className={getStatusColor(table.status)}>
-                        {table.status === "healthy" ? "正常" : table.status === "warning" ? "警告" : "错误"}
+                        {table.status === 'healthy' ? '正常' : table.status === 'warning' ? '警告' : '错误'}
                       </Badge>
-                      {table.status !== "healthy" && (
+                      {table.status !== 'healthy' && (
                         <Button variant="outline" size="sm" onClick={() => optimizeTable(table.name)}>
                           优化
                         </Button>
@@ -493,9 +493,9 @@ export function DatabaseManager() {
                   ) : (
                     <Play className="w-4 h-4 mr-2" />
                   )}
-                  {isExecuting ? "执行中..." : "执行查询"}
+                  {isExecuting ? '执行中...' : '执行查询'}
                 </Button>
-                <Button variant="outline" onClick={() => setSqlQuery("")}>
+                <Button variant="outline" onClick={() => setSqlQuery('')}>
                   清空
                 </Button>
               </div>
@@ -517,24 +517,24 @@ export function DatabaseManager() {
                   <div
                     key={result.id}
                     className={`p-4 rounded-lg border ${
-                      result.status === "success" ? "border-green-200 bg-green-50" : "border-red-200 bg-red-50"
+                      result.status === 'success' ? 'border-green-200 bg-green-50' : 'border-red-200 bg-red-50'
                     }`}
                   >
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex items-center space-x-2">
-                        {result.status === "success" ? (
+                        {result.status === 'success' ? (
                           <CheckCircle className="w-4 h-4 text-green-600" />
                         ) : (
                           <AlertTriangle className="w-4 h-4 text-red-600" />
                         )}
                         <span className="text-sm font-medium">
-                          {result.status === "success" ? "查询成功" : "查询失败"}
+                          {result.status === 'success' ? '查询成功' : '查询失败'}
                         </span>
                       </div>
                       <span className="text-xs text-gray-500">{formatTime(result.timestamp)}</span>
                     </div>
                     <div className="bg-gray-900 text-gray-100 p-3 rounded font-mono text-sm mb-2">{result.query}</div>
-                    {result.status === "success" ? (
+                    {result.status === 'success' ? (
                       <div className="text-sm text-gray-600">
                         返回 {result.rows} 行，耗时 {result.duration}ms
                       </div>
@@ -700,22 +700,22 @@ export function DatabaseManager() {
               <div className="space-y-3">
                 {[
                   {
-                    name: "backup_2024_01_15_daily.sql",
-                    size: "2.4 GB",
+                    name: 'backup_2024_01_15_daily.sql',
+                    size: '2.4 GB',
                     date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
-                    type: "自动备��",
+                    type: '自动备��',
                   },
                   {
-                    name: "backup_2024_01_14_daily.sql",
-                    size: "2.3 GB",
+                    name: 'backup_2024_01_14_daily.sql',
+                    size: '2.3 GB',
                     date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
-                    type: "自动备份",
+                    type: '自动备份',
                   },
                   {
-                    name: "backup_2024_01_13_manual.sql",
-                    size: "2.3 GB",
+                    name: 'backup_2024_01_13_manual.sql',
+                    size: '2.3 GB',
                     date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
-                    type: "手动备份",
+                    type: '手动备份',
                   },
                 ].map((backup, index) => (
                   <div key={index} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
@@ -748,5 +748,5 @@ export function DatabaseManager() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

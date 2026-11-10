@@ -10,16 +10,16 @@
  * @license MIT
  */
 
-"use client"
+'use client';
 
-import type React from "react"
+import type React from 'react';
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Phone, Mail, Calendar, FileText, Users, CheckSquare, Zap } from "lucide-react"
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Phone, Mail, Calendar, FileText, Users, CheckSquare, Zap } from 'lucide-react';
 
 interface QuickAction {
   id: string
@@ -27,88 +27,88 @@ interface QuickAction {
   description: string
   icon: React.ReactNode
   shortcut: string
-  category: "customer" | "task" | "communication" | "general"
+  category: 'customer' | 'task' | 'communication' | 'general'
 }
 
 export function QuickActions() {
-  const [open, setOpen] = useState(false)
-  const [searchTerm, setSearchTerm] = useState("")
+  const [open, setOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const quickActions: QuickAction[] = [
     {
-      id: "add-customer",
-      title: "添加客户",
-      description: "快速添加新客户信息",
+      id: 'add-customer',
+      title: '添加客户',
+      description: '快速添加新客户信息',
       icon: <Users className="w-4 h-4" />,
-      shortcut: "Ctrl+Shift+C",
-      category: "customer",
+      shortcut: 'Ctrl+Shift+C',
+      category: 'customer',
     },
     {
-      id: "create-task",
-      title: "创建任务",
-      description: "新建任务并分配给团队成员",
+      id: 'create-task',
+      title: '创建任务',
+      description: '新建任务并分配给团队成员',
       icon: <CheckSquare className="w-4 h-4" />,
-      shortcut: "Ctrl+Shift+T",
-      category: "task",
+      shortcut: 'Ctrl+Shift+T',
+      category: 'task',
     },
     {
-      id: "schedule-meeting",
-      title: "安排会议",
-      description: "快速安排客户或团队会议",
+      id: 'schedule-meeting',
+      title: '安排会议',
+      description: '快速安排客户或团队会议',
       icon: <Calendar className="w-4 h-4" />,
-      shortcut: "Ctrl+Shift+M",
-      category: "communication",
+      shortcut: 'Ctrl+Shift+M',
+      category: 'communication',
     },
     {
-      id: "send-email",
-      title: "发送邮件",
-      description: "给客户或团队成员发送邮件",
+      id: 'send-email',
+      title: '发送邮件',
+      description: '给客户或团队成员发送邮件',
       icon: <Mail className="w-4 h-4" />,
-      shortcut: "Ctrl+Shift+E",
-      category: "communication",
+      shortcut: 'Ctrl+Shift+E',
+      category: 'communication',
     },
     {
-      id: "make-call",
-      title: "拨打电话",
-      description: "快速拨打客户电话",
+      id: 'make-call',
+      title: '拨打电话',
+      description: '快速拨打客户电话',
       icon: <Phone className="w-4 h-4" />,
-      shortcut: "Ctrl+Shift+P",
-      category: "communication",
+      shortcut: 'Ctrl+Shift+P',
+      category: 'communication',
     },
     {
-      id: "create-report",
-      title: "生成报表",
-      description: "创建销售或任务报表",
+      id: 'create-report',
+      title: '生成报表',
+      description: '创建销售或任务报表',
       icon: <FileText className="w-4 h-4" />,
-      shortcut: "Ctrl+Shift+R",
-      category: "general",
+      shortcut: 'Ctrl+Shift+R',
+      category: 'general',
     },
-  ]
+  ];
 
   const filteredActions = quickActions.filter(
     (action) =>
       action.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       action.description.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+  );
 
   const groupedActions = filteredActions.reduce(
     (groups, action) => {
-      const category = action.category
+      const category = action.category;
       if (!groups[category]) {
-        groups[category] = []
+        groups[category] = [];
       }
-      groups[category].push(action)
-      return groups
+      groups[category].push(action);
+      return groups;
     },
     {} as Record<string, QuickAction[]>,
-  )
+  );
 
   const categoryLabels = {
-    customer: "客户管理",
-    task: "任务管理",
-    communication: "沟通协作",
-    general: "通用功能",
-  }
+    customer: '客户管理',
+    task: '任务管理',
+    communication: '沟通协作',
+    general: '通用功能',
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -133,8 +133,8 @@ export function QuickActions() {
                     key={action.id}
                     onSelect={() => {
                       // 执行对应的操作
-                      console.log(`执行操作: ${action.title}`)
-                      setOpen(false)
+                      console.log(`执行操作: ${action.title}`);
+                      setOpen(false);
                     }}
                     className="flex items-center justify-between p-3"
                   >
@@ -156,5 +156,5 @@ export function QuickActions() {
         </Command>
       </PopoverContent>
     </Popover>
-  )
+  );
 }
