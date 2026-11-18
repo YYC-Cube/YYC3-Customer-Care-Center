@@ -51,22 +51,22 @@ export function OfflineIndicator() {
 
   return (
     <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
-      <Card className={`${isOnline ? 'bg-emerald-50 border-emerald-200' : 'bg-orange-50 border-orange-200'} shadow-lg`}>
+      <Card className={`${isOnline ? 'bg-success-50 border-success-200' : 'bg-warning-50 border-warning-200'} shadow-lg`}>
         <CardContent className="px-4 py-2">
           <div className="flex items-center space-x-2">
             {isOnline ? (
               <>
-                <Wifi className="w-4 h-4 text-emerald-600" />
-                <span className="text-sm font-medium text-emerald-800">网络连接已恢复</span>
-                <Badge variant="outline" className="bg-emerald-100 text-emerald-700 border-emerald-300">
+                <Wifi className="w-4 h-4 text-success-600" />
+                <span className="text-sm font-medium text-success-800">网络连接已恢复</span>
+                <Badge variant="outline" className="bg-success-100 text-success-700 border-success-300">
                   在线
                 </Badge>
               </>
             ) : (
               <>
-                <WifiOff className="w-4 h-4 text-orange-600" />
-                <span className="text-sm font-medium text-orange-800">网络连接断开</span>
-                <Badge variant="outline" className="bg-orange-100 text-orange-700 border-orange-300">
+                <WifiOff className="w-4 h-4 text-warning-600" />
+                <span className="text-sm font-medium text-warning-800">网络连接断开</span>
+                <Badge variant="outline" className="bg-warning-100 text-warning-700 border-warning-300">
                   离线
                 </Badge>
               </>
@@ -74,8 +74,8 @@ export function OfflineIndicator() {
           </div>
           {!isOnline && (
             <div className="flex items-center space-x-1 mt-1">
-              <AlertCircle className="w-3 h-3 text-orange-500" />
-              <span className="text-xs text-orange-600">正在使用缓存数据</span>
+              <AlertCircle className="w-3 h-3 text-warning-500" />
+              <span className="text-xs text-warning-600">正在使用缓存数据</span>
             </div>
           )}
         </CardContent>

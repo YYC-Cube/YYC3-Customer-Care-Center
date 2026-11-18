@@ -82,10 +82,10 @@ export function PerformanceDashboard() {
 
   // 获取性能等级
   const getPerformanceGrade = (avgDuration: number): { grade: string; color: string } => {
-    if (avgDuration < 100) return { grade: '优秀', color: 'text-green-600' };
-    if (avgDuration < 300) return { grade: '良好', color: 'text-blue-600' };
-    if (avgDuration < 1000) return { grade: '一般', color: 'text-yellow-600' };
-    return { grade: '需优化', color: 'text-red-600' };
+    if (avgDuration < 100) return { grade: '优秀', color: 'text-success-600' };
+    if (avgDuration < 300) return { grade: '良好', color: 'text-primary-600' };
+    if (avgDuration < 1000) return { grade: '一般', color: 'text-warning-600' };
+    return { grade: '需优化', color: 'text-danger-600' };
   };
 
   // 格式化内存大小
@@ -145,10 +145,10 @@ export function PerformanceDashboard() {
               <Card>
                 <CardContent className="p-4">
                   <div className="flex items-center space-x-2">
-                    <Clock className="w-5 h-5 text-blue-500" />
+                    <Clock className="w-5 h-5 text-primary-500" />
                     <div>
                       <p className="text-2xl font-bold">{stats.averageDuration.toFixed(0)}ms</p>
-                      <p className="text-sm text-gray-600">平均响应时间</p>
+                      <p className="text-sm text-neutral-600">平均响应时间</p>
                     </div>
                   </div>
                 </CardContent>
@@ -157,10 +157,10 @@ export function PerformanceDashboard() {
               <Card>
                 <CardContent className="p-4">
                   <div className="flex items-center space-x-2">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <CheckCircle className="w-5 h-5 text-success-500" />
                     <div>
                       <p className="text-2xl font-bold">{(stats.successRate * 100).toFixed(1)}%</p>
-                      <p className="text-sm text-gray-600">成功率</p>
+                      <p className="text-sm text-neutral-600">成功率</p>
                     </div>
                   </div>
                 </CardContent>
@@ -169,10 +169,10 @@ export function PerformanceDashboard() {
               <Card>
                 <CardContent className="p-4">
                   <div className="flex items-center space-x-2">
-                    <TrendingUp className="w-5 h-5 text-purple-500" />
+                    <TrendingUp className="w-5 h-5 text-accent-500" />
                     <div>
                       <p className="text-2xl font-bold">{stats.p95Duration.toFixed(0)}ms</p>
-                      <p className="text-sm text-gray-600">P95响应时间</p>
+                      <p className="text-sm text-neutral-600">P95响应时间</p>
                     </div>
                   </div>
                 </CardContent>
@@ -181,10 +181,10 @@ export function PerformanceDashboard() {
               <Card>
                 <CardContent className="p-4">
                   <div className="flex items-center space-x-2">
-                    <AlertTriangle className="w-5 h-5 text-red-500" />
+                    <AlertTriangle className="w-5 h-5 text-danger-500" />
                     <div>
                       <p className="text-2xl font-bold">{stats.errorCount}</p>
-                      <p className="text-sm text-gray-600">错误次数</p>
+                      <p className="text-sm text-neutral-600">错误次数</p>
                     </div>
                   </div>
                 </CardContent>
@@ -203,10 +203,10 @@ export function PerformanceDashboard() {
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h3 className={`text-2xl font-bold ${performanceGrade.color}`}>{performanceGrade.grade}</h3>
-                    <p className="text-sm text-gray-600">基于平均响应时间 {stats.averageDuration.toFixed(0)}ms</p>
+                    <p className="text-sm text-neutral-600">基于平均响应时间 {stats.averageDuration.toFixed(0)}ms</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm text-gray-600">总请求数</p>
+                    <p className="text-sm text-neutral-600">总请求数</p>
                     <p className="text-xl font-semibold">{stats.totalCount}</p>
                   </div>
                 </div>
@@ -281,19 +281,19 @@ export function PerformanceDashboard() {
                   <CardContent>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <p className="text-sm text-gray-600">DOM内容加载</p>
+                        <p className="text-sm text-neutral-600">DOM内容加载</p>
                         <p className="text-lg font-semibold">{systemPerf.pageLoad.domContentLoaded.toFixed(0)}ms</p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-600">页面完全加载</p>
+                        <p className="text-sm text-neutral-600">页面完全加载</p>
                         <p className="text-lg font-semibold">{systemPerf.pageLoad.loadComplete.toFixed(0)}ms</p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-600">首次绘制</p>
+                        <p className="text-sm text-neutral-600">首次绘制</p>
                         <p className="text-lg font-semibold">{systemPerf.pageLoad.firstPaint.toFixed(0)}ms</p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-600">首次内容绘制</p>
+                        <p className="text-sm text-neutral-600">首次内容绘制</p>
                         <p className="text-lg font-semibold">{systemPerf.pageLoad.firstContentfulPaint.toFixed(0)}ms</p>
                       </div>
                     </div>
@@ -316,7 +316,7 @@ export function PerformanceDashboard() {
                           <span className="font-semibold">{formatMemory(systemPerf.memory.used)}</span>
                         </div>
                         <Progress value={(systemPerf.memory.used / systemPerf.memory.total) * 100} className="h-3" />
-                        <div className="flex justify-between text-sm text-gray-600">
+                        <div className="flex justify-between text-sm text-neutral-600">
                           <span>总内存: {formatMemory(systemPerf.memory.total)}</span>
                           <span>限制: {formatMemory(systemPerf.memory.limit)}</span>
                         </div>
@@ -336,19 +336,19 @@ export function PerformanceDashboard() {
                   <CardContent>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <p className="text-sm text-gray-600">网络类型</p>
+                        <p className="text-sm text-neutral-600">网络类型</p>
                         <p className="text-lg font-semibold">{getNetworkDisplay(systemPerf.network.effectiveType)}</p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-600">下行速度</p>
+                        <p className="text-sm text-neutral-600">下行速度</p>
                         <p className="text-lg font-semibold">{systemPerf.network.downlink} Mbps</p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-600">往返时间</p>
+                        <p className="text-sm text-neutral-600">往返时间</p>
                         <p className="text-lg font-semibold">{systemPerf.network.rtt}ms</p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-600">省流模式</p>
+                        <p className="text-sm text-neutral-600">省流模式</p>
                         <p className="text-lg font-semibold">{systemPerf.network.saveData ? '开启' : '关闭'}</p>
                       </div>
                     </div>
@@ -367,10 +367,10 @@ export function PerformanceDashboard() {
               <CardContent>
                 <div className="space-y-2 max-h-96 overflow-y-auto">
                   {metrics.slice(0, 20).map((metric) => (
-                    <div key={metric.id} className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                    <div key={metric.id} className="flex items-center justify-between p-2 bg-neutral-50 rounded">
                       <div className="flex-1">
                         <p className="text-sm font-medium">{metric.name}</p>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-neutral-500">
                           {new Date(metric.timestamp).toLocaleTimeString('zh-CN')}
                         </p>
                       </div>

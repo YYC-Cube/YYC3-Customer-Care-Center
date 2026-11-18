@@ -127,28 +127,28 @@ export default function DocumentsPage() {
   const getDocumentIcon = (type: Document['type']) => {
     switch (type) {
     case 'document':
-      return <FileText className="w-5 h-5 text-blue-600" />;
+      return <FileText className="w-5 h-5 text-primary-600" />;
     case 'spreadsheet':
-      return <FileText className="w-5 h-5 text-blue-600" />;
+      return <FileText className="w-5 h-5 text-primary-600" />;
     case 'presentation':
-      return <FileText className="w-5 h-5 text-blue-600" />;
+      return <FileText className="w-5 h-5 text-primary-600" />;
     case 'pdf':
-      return <FileText className="w-5 h-5 text-blue-600" />;
+      return <FileText className="w-5 h-5 text-primary-600" />;
     default:
-      return <FileText className="w-5 h-5 text-blue-600" />;
+      return <FileText className="w-5 h-5 text-primary-600" />;
     }
   };
 
   const getStatusColor = (status: Document['status']) => {
     switch (status) {
     case 'draft':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-warning-100 text-warning-800';
     case 'review':
-      return 'bg-blue-100 text-blue-800';
+      return 'bg-primary-100 text-primary-800';
     case 'published':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -189,26 +189,26 @@ export default function DocumentsPage() {
   });
 
   return (
-    <div className="p-6 space-y-6 bg-gradient-to-br from-blue-50 via-sky-50 to-indigo-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gradient-to-br from-primary-50 via-primary-50 to-primary-50 min-h-screen">
       {/* 页面标题 */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-slate-800 flex items-center">
-            <FileText className="w-8 h-8 mr-3 text-blue-600" />
+          <h1 className="text-3xl font-bold text-neutral-800 flex items-center">
+            <FileText className="w-8 h-8 mr-3 text-primary-600" />
             文档协作
           </h1>
-          <p className="text-slate-600 mt-1">团队文档管理与协作编辑</p>
+          <p className="text-neutral-600 mt-1">团队文档管理与协作编辑</p>
         </div>
         <div className="flex items-center space-x-3">
           <Button
             variant="outline"
             size="sm"
-            className="border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+            className="border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
           >
             <Upload className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             上传文档
           </Button>
-          <Button className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+          <Button className="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
             <Plus className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             新建文档
           </Button>
@@ -217,56 +217,56 @@ export default function DocumentsPage() {
 
       {/* 统计卡片 */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <FileText className="w-5 h-5 mr-2 text-blue-600" />
+              <FileText className="w-5 h-5 mr-2 text-primary-600" />
               总文档数
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">{documents.length}</div>
+            <div className="text-2xl font-bold text-primary-600">{documents.length}</div>
             <p className="text-sm text-muted-foreground">本月新增 +12</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Users className="w-5 h-5 mr-2 text-blue-600" />
+              <Users className="w-5 h-5 mr-2 text-primary-600" />
               协作文档
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-2xl font-bold text-primary-600">
               {documents.filter((doc) => doc.collaborators.length > 0).length}
             </div>
             <p className="text-sm text-muted-foreground">多人协作中</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Star className="w-5 h-5 mr-2 text-blue-600" />
+              <Star className="w-5 h-5 mr-2 text-primary-600" />
               收藏文档
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">{starredDocuments.length}</div>
+            <div className="text-2xl font-bold text-primary-600">{starredDocuments.length}</div>
             <p className="text-sm text-muted-foreground">重要文档</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Clock className="w-5 h-5 mr-2 text-blue-600" />
+              <Clock className="w-5 h-5 mr-2 text-primary-600" />
               最近更新
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">{recentDocuments.length}</div>
+            <div className="text-2xl font-bold text-primary-600">{recentDocuments.length}</div>
             <p className="text-sm text-muted-foreground">今日更新</p>
           </CardContent>
         </Card>
@@ -275,9 +275,9 @@ export default function DocumentsPage() {
       {/* 主要内容区域 */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* 侧边栏 */}
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader className="pb-3">
-            <CardTitle className="text-base text-blue-700">文档分类</CardTitle>
+            <CardTitle className="text-base text-primary-700">文档分类</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             <Button
@@ -334,22 +334,22 @@ export default function DocumentsPage() {
         {/* 文档列表 */}
         <div className="lg:col-span-3 space-y-6">
           {/* 搜索和过滤 */}
-          <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+          <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
             <CardContent className="p-4">
               <div className="flex items-center space-x-4">
                 <div className="relative flex-1">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-4 h-4" />
                   <Input
                     placeholder="搜索文档..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 border-l-4 border-l-blue-500"
+                    className="pl-10 border-l-4 border-l-primary-500"
                   />
                 </div>
                 <Button
                   variant="outline"
                   size="sm"
-                  className="border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+                  className="border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
                 >
                   <Filter className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
                   筛选
@@ -363,19 +363,19 @@ export default function DocumentsPage() {
             {filteredDocuments.map((document) => (
               <Card
                 key={document.id}
-                className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
               >
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center space-x-3">
                       {getDocumentIcon(document.type)}
                       <div className="flex-1">
-                        <CardTitle className="text-base line-clamp-1 text-blue-700">{document.title}</CardTitle>
+                        <CardTitle className="text-base line-clamp-1 text-primary-700">{document.title}</CardTitle>
                         <CardDescription className="text-sm">{document.size}</CardDescription>
                       </div>
                     </div>
                     <div className="flex items-center space-x-1">
-                      {document.isStarred && <Star className="w-4 h-4 text-yellow-500 fill-current" />}
+                      {document.isStarred && <Star className="w-4 h-4 text-warning-500 fill-current" />}
                       <Button variant="ghost" size="sm" className="transition-all duration-300 hover:scale-105 group">
                         <MoreHorizontal className="w-4 h-4 group-hover:translate-x-1 transition-all duration-300" />
                       </Button>
@@ -402,19 +402,19 @@ export default function DocumentsPage() {
                         <AvatarImage src={document.authorAvatar || '/placeholder.svg'} />
                         <AvatarFallback className="text-xs">{document.author.charAt(0)}</AvatarFallback>
                       </Avatar>
-                      <span className="text-sm text-slate-600">{document.author}</span>
+                      <span className="text-sm text-neutral-600">{document.author}</span>
                     </div>
                     {document.collaborators.length > 0 && (
                       <div className="flex items-center space-x-2">
-                        <Users className="w-4 h-4 text-slate-400" />
-                        <span className="text-xs text-slate-500">{document.collaborators.length} 位协作者</span>
+                        <Users className="w-4 h-4 text-neutral-400" />
+                        <span className="text-xs text-neutral-500">{document.collaborators.length} 位协作者</span>
                       </div>
                     )}
                   </div>
 
                   {/* 时间和操作 */}
                   <div className="flex items-center justify-between pt-2 border-t">
-                    <span className="text-xs text-slate-500">{formatTime(document.lastModified)}</span>
+                    <span className="text-xs text-neutral-500">{formatTime(document.lastModified)}</span>
                     <div className="flex items-center space-x-1">
                       <Button variant="ghost" size="sm" className="transition-all duration-300 hover:scale-105 group">
                         <Eye className="w-4 h-4 group-hover:translate-x-1 transition-all duration-300" />
@@ -437,14 +437,14 @@ export default function DocumentsPage() {
 
           {/* 空状态 */}
           {filteredDocuments.length === 0 && (
-            <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+            <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
               <CardContent className="flex flex-col items-center justify-center py-12">
-                <FileText className="w-16 h-16 text-slate-300 mb-4" />
-                <h3 className="text-lg font-medium text-slate-600 mb-2">没有找到文档</h3>
-                <p className="text-slate-500 text-center mb-4">
+                <FileText className="w-16 h-16 text-neutral-300 mb-4" />
+                <h3 className="text-lg font-medium text-neutral-600 mb-2">没有找到文档</h3>
+                <p className="text-neutral-500 text-center mb-4">
                   {searchQuery ? '尝试调整搜索条件' : '开始创建您的第一个文档'}
                 </p>
-                <Button className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+                <Button className="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
                   <Plus className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
                   新建文档
                 </Button>
@@ -455,36 +455,36 @@ export default function DocumentsPage() {
       </div>
 
       {/* 快速操作面板 */}
-      <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
-          <CardTitle className="text-base text-blue-700">快速操作</CardTitle>
+          <CardTitle className="text-base text-primary-700">快速操作</CardTitle>
           <CardDescription>常用文档操作</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <Button className="h-auto p-4 flex flex-col items-center space-y-2 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+            <Button className="h-auto p-4 flex flex-col items-center space-y-2 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
               <FileText className="w-6 h-6 group-hover:translate-x-1 transition-all duration-300" />
               <span className="text-sm">新建文档</span>
             </Button>
             <Button
               variant="outline"
-              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-blue-50 bg-transparent border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 group"
+              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-primary-50 bg-transparent border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 group"
             >
-              <Upload className="w-6 h-6 text-blue-600 group-hover:translate-x-1 transition-all duration-300" />
+              <Upload className="w-6 h-6 text-primary-600 group-hover:translate-x-1 transition-all duration-300" />
               <span className="text-sm">上传文件</span>
             </Button>
             <Button
               variant="outline"
-              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-blue-50 bg-transparent border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 group"
+              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-primary-50 bg-transparent border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 group"
             >
-              <Share2 className="w-6 h-6 text-blue-600 group-hover:translate-x-1 transition-all duration-300" />
+              <Share2 className="w-6 h-6 text-primary-600 group-hover:translate-x-1 transition-all duration-300" />
               <span className="text-sm">共享文档</span>
             </Button>
             <Button
               variant="outline"
-              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-blue-50 bg-transparent border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 group"
+              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-primary-50 bg-transparent border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 group"
             >
-              <Users className="w-6 h-6 text-blue-600 group-hover:translate-x-1 transition-all duration-300" />
+              <Users className="w-6 h-6 text-primary-600 group-hover:translate-x-1 transition-all duration-300" />
               <span className="text-sm">团队协作</span>
             </Button>
           </div>

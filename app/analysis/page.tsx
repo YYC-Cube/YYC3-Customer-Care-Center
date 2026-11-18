@@ -12,7 +12,7 @@
 
 'use client';
 
-import { SystemAnalysisReport } from '@/docs/system-analysis-report';
+import { SystemAnalysisReport } from '@/docs/YYC3-CCC-审核报告/system-analysis-report';
 
 export default function AnalysisPage() {
   return <SystemAnalysisReport />;

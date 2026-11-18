@@ -245,15 +245,15 @@ export function PredictiveAnalysisModule() {
   const getStatusColor = (status: string) => {
     switch (status) {
     case 'ready':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'training':
-      return 'bg-blue-100 text-blue-800';
+      return 'bg-primary-100 text-primary-800';
     case 'predicting':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-warning-100 text-warning-800';
     case 'error':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -270,26 +270,26 @@ export function PredictiveAnalysisModule() {
   const getTrendIcon = (trend: string) => {
     switch (trend) {
     case 'up':
-      return <TrendingUp className="w-4 h-4 text-green-600" />;
+      return <TrendingUp className="w-4 h-4 text-success-600" />;
     case 'down':
-      return <TrendingUp className="w-4 h-4 text-red-600 rotate-180" />;
+      return <TrendingUp className="w-4 h-4 text-danger-600 rotate-180" />;
     default:
-      return <div className="w-4 h-4 bg-gray-400 rounded-full" />;
+      return <div className="w-4 h-4 bg-neutral-400 rounded-full" />;
     }
   };
 
   const getInsightIcon = (type: string) => {
     switch (type) {
     case 'opportunity':
-      return <Lightbulb className="w-4 h-4 text-yellow-600" />;
+      return <Lightbulb className="w-4 h-4 text-warning-600" />;
     case 'risk':
-      return <AlertTriangle className="w-4 h-4 text-red-600" />;
+      return <AlertTriangle className="w-4 h-4 text-danger-600" />;
     case 'trend':
-      return <TrendingUp className="w-4 h-4 text-blue-600" />;
+      return <TrendingUp className="w-4 h-4 text-primary-600" />;
     case 'anomaly':
-      return <Activity className="w-4 h-4 text-purple-600" />;
+      return <Activity className="w-4 h-4 text-accent-600" />;
     default:
-      return <Brain className="w-4 h-4 text-gray-600" />;
+      return <Brain className="w-4 h-4 text-neutral-600" />;
     }
   };
 
@@ -308,7 +308,7 @@ export function PredictiveAnalysisModule() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold flex items-center">
-            <Brain className="w-8 h-8 mr-3 text-purple-600" />
+            <Brain className="w-8 h-8 mr-3 text-accent-600" />
             预测分析模块
           </h1>
           <p className="text-muted-foreground">基于AI的智能预测和洞察分析</p>
@@ -334,75 +334,75 @@ export function PredictiveAnalysisModule() {
 
       {/* 关键指标卡片 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm p-6 border border-slate-100 hover:shadow-md transition-shadow">
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm p-6 border border-neutral-100 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-medium text-slate-500">预测准确率</h3>
-            <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
-              <BarChart3 className="w-5 h-5 text-blue-600" />
+            <h3 className="text-sm font-medium text-neutral-500">预测准确率</h3>
+            <div className="w-10 h-10 rounded-full bg-primary-50 flex items-center justify-center">
+              <BarChart3 className="w-5 h-5 text-primary-600" />
             </div>
           </div>
           <div className="flex items-end">
-            <span className="text-3xl font-bold text-slate-800">88.2%</span>
-            <span className="ml-2 text-green-600 text-sm flex items-center">
+            <span className="text-3xl font-bold text-neutral-800">88.2%</span>
+            <span className="ml-2 text-success-600 text-sm flex items-center">
               <ArrowUp className="w-3 h-3 mr-1" /> 2.4%
             </span>
           </div>
-          <p className="text-xs text-slate-500 mt-1">较上月提升</p>
+          <p className="text-xs text-neutral-500 mt-1">较上月提升</p>
         </div>
 
-        <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm p-6 border border-slate-100 hover:shadow-md transition-shadow">
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm p-6 border border-neutral-100 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-medium text-slate-500">已完成预测</h3>
-            <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center">
-              <CheckCircle className="w-5 h-5 text-green-600" />
+            <h3 className="text-sm font-medium text-neutral-500">已完成预测</h3>
+            <div className="w-10 h-10 rounded-full bg-success-50 flex items-center justify-center">
+              <CheckCircle className="w-5 h-5 text-success-600" />
             </div>
           </div>
           <div className="flex items-end">
-            <span className="text-3xl font-bold text-slate-800">489</span>
-            <span className="ml-2 text-green-600 text-sm flex items-center">
+            <span className="text-3xl font-bold text-neutral-800">489</span>
+            <span className="ml-2 text-success-600 text-sm flex items-center">
               <ArrowUp className="w-3 h-3 mr-1" /> 12.3%
             </span>
           </div>
-          <p className="text-xs text-slate-500 mt-1">较上月提升</p>
+          <p className="text-xs text-neutral-500 mt-1">较上月提升</p>
         </div>
 
-        <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm p-6 border border-slate-100 hover:shadow-md transition-shadow">
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm p-6 border border-neutral-100 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-medium text-slate-500">模型数量</h3>
-            <div className="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center">
-              <Brain className="w-5 h-5 text-purple-600" />
+            <h3 className="text-sm font-medium text-neutral-500">模型数量</h3>
+            <div className="w-10 h-10 rounded-full bg-accent-50 flex items-center justify-center">
+              <Brain className="w-5 h-5 text-accent-600" />
             </div>
           </div>
           <div className="flex items-end">
-            <span className="text-3xl font-bold text-slate-800">12</span>
-            <span className="ml-2 text-green-600 text-sm flex items-center">
+            <span className="text-3xl font-bold text-neutral-800">12</span>
+            <span className="ml-2 text-success-600 text-sm flex items-center">
               <ArrowUp className="w-3 h-3 mr-1" /> 2 个
             </span>
           </div>
-          <p className="text-xs text-slate-500 mt-1">较上月新增</p>
+          <p className="text-xs text-neutral-500 mt-1">较上月新增</p>
         </div>
 
-        <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm p-6 border border-slate-100 hover:shadow-md transition-shadow">
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm p-6 border border-neutral-100 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-medium text-slate-500">数据点</h3>
-            <div className="w-10 h-10 rounded-full bg-yellow-50 flex items-center justify-center">
-              <Activity className="w-5 h-5 text-yellow-600" />
+            <h3 className="text-sm font-medium text-neutral-500">数据点</h3>
+            <div className="w-10 h-10 rounded-full bg-warning-50 flex items-center justify-center">
+              <Activity className="w-5 h-5 text-warning-600" />
             </div>
           </div>
           <div className="flex items-end">
-            <span className="text-3xl font-bold text-slate-800">54.8K</span>
-            <span className="ml-2 text-green-600 text-sm flex items-center">
+            <span className="text-3xl font-bold text-neutral-800">54.8K</span>
+            <span className="ml-2 text-success-600 text-sm flex items-center">
               <ArrowUp className="w-3 h-3 mr-1" /> 8.7K
             </span>
           </div>
-          <p className="text-xs text-slate-500 mt-1">较上月新增</p>
+          <p className="text-xs text-neutral-500 mt-1">较上月新增</p>
         </div>
       </div>
 
       {/* 预测趋势图表 */}
-      <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm p-6 border border-slate-100 hover:shadow-md transition-shadow">
+      <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm p-6 border border-neutral-100 hover:shadow-md transition-shadow">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold text-slate-800">销售预测趋势</h2>
+          <h2 className="text-xl font-bold text-neutral-800">销售预测趋势</h2>
           <div className="flex space-x-2">
             <Button variant="outline" size="sm">
               <ChartLine className="w-3 h-3 mr-1" />
@@ -416,7 +416,7 @@ export function PredictiveAnalysisModule() {
         </div>
         <div className="h-[300px]">
           {/* 这里应该是一个图表组件，例如使用Chart.js或D3.js */}
-          <div className="w-full h-full flex items-center justify-center text-slate-400">
+          <div className="w-full h-full flex items-center justify-center text-neutral-400">
             <ChartLine className="w-16 h-16" />
             <p className="mt-2">销售预测趋势图表</p>
           </div>
@@ -424,9 +424,9 @@ export function PredictiveAnalysisModule() {
       </div>
 
       {/* 模型列表 */}
-      <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm p-6 border border-slate-100 hover:shadow-md transition-shadow">
+      <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm p-6 border border-neutral-100 hover:shadow-md transition-shadow">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold text-slate-800">预测模型</h2>
+          <h2 className="text-xl font-bold text-neutral-800">预测模型</h2>
           <Button variant="outline">
             <RefreshCcw className="w-4 h-4 mr-2" />
             刷新模型
@@ -434,40 +434,40 @@ export function PredictiveAnalysisModule() {
         </div>
         
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-slate-200">
+          <table className="min-w-full divide-y divide-neutral-200">
             <thead>
               <tr>
-                <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">模型名称</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">类型</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">准确度</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">状态</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">最后训练</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">操作</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">模型名称</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">类型</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">准确度</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">状态</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">最后训练</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">操作</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            <tbody className="divide-y divide-neutral-200">
               {models.map((model) => (
-                <tr key={model.id} className="hover:bg-slate-50 transition-colors">
+                <tr key={model.id} className="hover:bg-neutral-50 transition-colors">
                   <td className="px-4 py-4 whitespace-nowrap">
                     <div className="flex items-center">
-                      <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center mr-3">
+                      <div className="w-8 h-8 rounded-full bg-primary-50 flex items-center justify-center mr-3">
                         {getModelTypeIcon(model.type)}
                       </div>
                       <div>
-                        <div className="font-medium text-slate-800">{model.name}</div>
-                        <div className="text-sm text-slate-500">{model.dataPoints.toLocaleString()} 数据点</div>
+                        <div className="font-medium text-neutral-800">{model.name}</div>
+                        <div className="text-sm text-neutral-500">{model.dataPoints.toLocaleString()} 数据点</div>
                       </div>
                     </div>
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap">
-                    <div className="text-sm text-slate-800">{getModelTypeLabel(model.type)}</div>
+                    <div className="text-sm text-neutral-800">{getModelTypeLabel(model.type)}</div>
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap">
                     <div className="flex items-center">
-                      <div className="w-24 bg-slate-200 rounded-full h-2.5 mr-2">
-                        <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${model.accuracy}%` }} />
+                      <div className="w-24 bg-neutral-200 rounded-full h-2.5 mr-2">
+                        <div className="bg-primary-600 h-2.5 rounded-full" style={{ width: `${model.accuracy}%` }} />
                       </div>
-                      <span className="text-sm font-medium text-slate-800">{model.accuracy}%</span>
+                      <span className="text-sm font-medium text-neutral-800">{model.accuracy}%</span>
                     </div>
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap">
@@ -475,11 +475,11 @@ export function PredictiveAnalysisModule() {
                       {getStatusLabel(model.status)}
                     </span>
                   </td>
-                  <td className="px-4 py-4 whitespace-nowrap text-sm text-slate-500">
+                  <td className="px-4 py-4 whitespace-nowrap text-sm text-neutral-500">
                     <Clock className="w-3 h-3 mr-1" />
                     {model.lastTrained.toLocaleDateString()}
                   </td>
-                  <td className="px-4 py-4 whitespace-nowrap text-sm text-slate-500">
+                  <td className="px-4 py-4 whitespace-nowrap text-sm text-neutral-500">
                     <div className="flex space-x-2">
                       <Button variant="ghost" size="sm" onClick={() => runPrediction(model.id)}>
                         <PlayCircle className="w-4 h-4" />
@@ -497,9 +497,9 @@ export function PredictiveAnalysisModule() {
       </div>
 
       {/* 最近预测 */}
-      <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm p-6 border border-slate-100 hover:shadow-md transition-shadow">
+      <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm p-6 border border-neutral-100 hover:shadow-md transition-shadow">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold text-slate-800">最近预测</h2>
+          <h2 className="text-xl font-bold text-neutral-800">最近预测</h2>
           <Select value={selectedModel} onValueChange={setSelectedModel}>
             <SelectTrigger className="w-32">
               <SelectValue placeholder="所有模型" />
@@ -515,21 +515,21 @@ export function PredictiveAnalysisModule() {
         
         <div className="space-y-4">
           {predictions.map((prediction) => (
-            <div key={prediction.id} className="p-4 bg-white/90 rounded-lg border border-slate-100 hover:shadow-sm transition-shadow">
+            <div key={prediction.id} className="p-4 bg-white/90 rounded-lg border border-neutral-100 hover:shadow-sm transition-shadow">
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-medium text-slate-800">{prediction.title}</h3>
-                  <p className="text-sm text-slate-500 mt-1">{prediction.description}</p>
+                  <h3 className="font-medium text-neutral-800">{prediction.title}</h3>
+                  <p className="text-sm text-neutral-500 mt-1">{prediction.description}</p>
                 </div>
                 <div className="flex space-x-2">
                   <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                    prediction.impact === 'high' ? 'bg-red-100 text-red-800' :
-                      prediction.impact === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-                        'bg-green-100 text-green-800'
+                    prediction.impact === 'high' ? 'bg-danger-100 text-danger-800' :
+                      prediction.impact === 'medium' ? 'bg-warning-100 text-warning-800' :
+                        'bg-success-100 text-success-800'
                   }`}>
                     {prediction.impact.charAt(0).toUpperCase() + prediction.impact.slice(1)}
                   </span>
-                  <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
+                  <span className="px-2 py-1 text-xs font-medium rounded-full bg-primary-100 text-primary-800">
                     {prediction.timeframe}
                   </span>
                 </div>
@@ -538,22 +538,22 @@ export function PredictiveAnalysisModule() {
               <div className="mt-4 flex items-center justify-between">
                 <div className="flex items-center">
                   <div className="flex items-center mr-4">
-                    <Star className="w-3 h-3 text-yellow-500 mr-1" />
-                    <span className="text-sm text-slate-600">{prediction.confidence}% 置信度</span>
+                    <Star className="w-3 h-3 text-warning-500 mr-1" />
+                    <span className="text-sm text-neutral-600">{prediction.confidence}% 置信度</span>
                   </div>
                   <div className="flex items-center">
                     {getTrendIcon(prediction.trend)}
-                    <span className="text-sm text-slate-600 ml-1">
+                    <span className="text-sm text-neutral-600 ml-1">
                       {prediction.trend === 'up' ? '上升' : prediction.trend === 'down' ? '下降' : '稳定'}
                     </span>
                   </div>
                 </div>
                 
                 <div className="text-right">
-                  <div className="text-sm font-medium text-slate-800">
+                  <div className="text-sm font-medium text-neutral-800">
                     {prediction.category}
                   </div>
-                  <div className="text-xs text-slate-500">
+                  <div className="text-xs text-neutral-500">
                     {new Date(prediction.createdAt).toLocaleDateString()}
                   </div>
                 </div>
@@ -564,9 +564,9 @@ export function PredictiveAnalysisModule() {
       </div>
 
       {/* 智能洞察 */}
-      <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm p-6 border border-slate-100 hover:shadow-md transition-shadow">
+      <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm p-6 border border-neutral-100 hover:shadow-md transition-shadow">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold text-slate-800">智能洞察</h2>
+          <h2 className="text-xl font-bold text-neutral-800">智能洞察</h2>
           <Button variant="outline">
             <Lightbulb className="w-4 h-4 mr-2" />
             查看全部
@@ -575,33 +575,33 @@ export function PredictiveAnalysisModule() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {insights.map((insight) => (
-            <div key={insight.id} className="p-4 bg-white/90 rounded-lg border border-slate-100 hover:shadow-sm transition-shadow">
+            <div key={insight.id} className="p-4 bg-white/90 rounded-lg border border-neutral-100 hover:shadow-sm transition-shadow">
               <div className="flex items-start">
-                <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center mr-3">
+                <div className="w-8 h-8 rounded-full bg-primary-50 flex items-center justify-center mr-3">
                   {getInsightIcon(insight.type)}
                 </div>
                 <div>
                   <div className="flex items-center mb-1">
-                    <h3 className="font-medium text-slate-800">{insight.title}</h3>
+                    <h3 className="font-medium text-neutral-800">{insight.title}</h3>
                     <span className={`ml-2 px-2 py-0.5 text-xs font-medium rounded-full ${
-                      insight.priority === 'high' ? 'bg-red-100 text-red-800' :
-                        insight.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-green-100 text-green-800'
+                      insight.priority === 'high' ? 'bg-danger-100 text-danger-800' :
+                        insight.priority === 'medium' ? 'bg-warning-100 text-warning-800' :
+                          'bg-success-100 text-success-800'
                     }`}>
                       {insight.priority}
                     </span>
                   </div>
-                  <p className="text-sm text-slate-500">{insight.description}</p>
+                  <p className="text-sm text-neutral-500">{insight.description}</p>
                 </div>
               </div>
               
               <div className="mt-3 flex items-center justify-between">
                 <div className="flex items-center">
-                  <Star className="w-3 h-3 text-yellow-500 mr-1" />
-                  <span className="text-sm text-slate-600">{insight.confidence}% 置信度</span>
+                  <Star className="w-3 h-3 text-warning-500 mr-1" />
+                  <span className="text-sm text-neutral-600">{insight.confidence}% 置信度</span>
                 </div>
                 {insight.actionable && (
-                  <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-green-100 text-green-800">
+                  <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-success-100 text-success-800">
                     可执行
                   </span>
                 )}
@@ -609,7 +609,7 @@ export function PredictiveAnalysisModule() {
               
               <div className="mt-3 flex flex-wrap gap-1">
                 {insight.relatedData.map((data, index) => (
-                  <span key={index} className="px-2 py-0.5 text-xs bg-slate-100 text-slate-600 rounded-full">
+                  <span key={index} className="px-2 py-0.5 text-xs bg-neutral-100 text-neutral-600 rounded-full">
                     {data}
                   </span>
                 ))}

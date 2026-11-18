@@ -15,7 +15,11 @@ class BackgroundSyncManager {
     if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
       try {
         const registration = await navigator.serviceWorker.ready;
-        await registration.sync.register('background-sync');
+        // Background Sync 尚未进入 TS 标准库，此处补类型断言
+        const sync = (registration as ServiceWorkerRegistration & {
+          sync?: { register: (tag: string) => Promise<void> };
+        }).sync;
+        await sync?.register('background-sync');
         console.log('后台同步已注册');
       } catch (error) {
         console.error('后台同步注册失败:', error);

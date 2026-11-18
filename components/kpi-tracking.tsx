@@ -11,6 +11,7 @@
  */
 
 'use client';
+import { colorRamp } from '@/lib/design-tokens';
 
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -150,25 +151,25 @@ export function KPITracking() {
 
   // 分类分布数据
   const categoryData = [
-    { name: '销售', value: 35, color: '#f97316' },
-    { name: '服务', value: 25, color: '#ea580c' },
-    { name: '运营', value: 20, color: '#dc2626' },
-    { name: '人力资源', value: 15, color: '#c2410c' },
-    { name: '技术', value: 5, color: '#9a3412' },
+    { name: '销售', value: 35, color: colorRamp.warning[500] },
+    { name: '服务', value: 25, color: colorRamp.warning[600] },
+    { name: '运营', value: 20, color: colorRamp.danger[600] },
+    { name: '人力资源', value: 15, color: colorRamp.warning[700] },
+    { name: '技术', value: 5, color: colorRamp.warning[800] },
   ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
     case 'excellent':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'good':
-      return 'bg-blue-100 text-blue-800';
+      return 'bg-primary-100 text-primary-800';
     case 'warning':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-warning-100 text-warning-800';
     case 'critical':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -190,26 +191,26 @@ export function KPITracking() {
   const getStatusIcon = (status: string) => {
     switch (status) {
     case 'excellent':
-      return <CheckCircle className="w-4 h-4 text-green-600" />;
+      return <CheckCircle className="w-4 h-4 text-success-600" />;
     case 'good':
-      return <CheckCircle className="w-4 h-4 text-blue-600" />;
+      return <CheckCircle className="w-4 h-4 text-primary-600" />;
     case 'warning':
-      return <AlertTriangle className="w-4 h-4 text-yellow-600" />;
+      return <AlertTriangle className="w-4 h-4 text-warning-600" />;
     case 'critical':
-      return <AlertTriangle className="w-4 h-4 text-red-600" />;
+      return <AlertTriangle className="w-4 h-4 text-danger-600" />;
     default:
-      return <Clock className="w-4 h-4 text-gray-600" />;
+      return <Clock className="w-4 h-4 text-neutral-600" />;
     }
   };
 
   const getTrendIcon = (trend: string) => {
     switch (trend) {
     case 'up':
-      return <TrendingUp className="w-4 h-4 text-green-600" />;
+      return <TrendingUp className="w-4 h-4 text-success-600" />;
     case 'down':
-      return <TrendingDown className="w-4 h-4 text-red-600" />;
+      return <TrendingDown className="w-4 h-4 text-danger-600" />;
     default:
-      return <Target className="w-4 h-4 text-gray-600" />;
+      return <Target className="w-4 h-4 text-neutral-600" />;
     }
   };
 
@@ -223,18 +224,18 @@ export function KPITracking() {
   };
 
   return (
-    <div className="p-6 space-y-6 bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gradient-to-br from-warning-50 via-warning-50 to-warning-50 min-h-screen">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-            <Target className="w-8 h-8 mr-3 text-orange-600" />
+          <h1 className="text-3xl font-bold text-neutral-900 flex items-center">
+            <Target className="w-8 h-8 mr-3 text-warning-600" />
             KPI绩效跟踪
           </h1>
-          <p className="text-gray-600 mt-2">关键绩效指标监控与分析</p>
+          <p className="text-neutral-600 mt-2">关键绩效指标监控与分析</p>
         </div>
         <div className="flex space-x-2">
           <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
-            <SelectTrigger className="w-32 border-l-4 border-l-orange-500">
+            <SelectTrigger className="w-32 border-l-4 border-l-warning-500">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -245,7 +246,7 @@ export function KPITracking() {
             </SelectContent>
           </Select>
           <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-            <SelectTrigger className="w-32 border-l-4 border-l-orange-500">
+            <SelectTrigger className="w-32 border-l-4 border-l-warning-500">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -257,7 +258,7 @@ export function KPITracking() {
               <SelectItem value="技术">技术</SelectItem>
             </SelectContent>
           </Select>
-          <Button className="bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+          <Button className="bg-gradient-to-r from-warning-500 to-warning-600 hover:from-warning-600 hover:to-warning-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
             <Target className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             导出报告
           </Button>
@@ -266,24 +267,24 @@ export function KPITracking() {
 
       {/* KPI概览统计 */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">总KPI数量</CardTitle>
-            <Target className="h-4 w-4 text-orange-600" />
+            <Target className="h-4 w-4 text-warning-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-700">{filteredKPIs.length}</div>
-            <p className="text-xs text-orange-600">正在跟踪的指标</p>
+            <div className="text-2xl font-bold text-warning-700">{filteredKPIs.length}</div>
+            <p className="text-xs text-warning-600">正在跟踪的指标</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">达标率</CardTitle>
-            <CheckCircle className="h-4 w-4 text-orange-600" />
+            <CheckCircle className="h-4 w-4 text-warning-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-700">
+            <div className="text-2xl font-bold text-warning-700">
               {Math.round(
                 (filteredKPIs.filter((kpi) => kpi.status === 'excellent' || kpi.status === 'good').length /
                   filteredKPIs.length) *
@@ -291,42 +292,42 @@ export function KPITracking() {
               )}
               %
             </div>
-            <p className="text-xs text-orange-600">指标达标比例</p>
+            <p className="text-xs text-warning-600">指标达标比例</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">预警指标</CardTitle>
-            <AlertTriangle className="h-4 w-4 text-orange-600" />
+            <AlertTriangle className="h-4 w-4 text-warning-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-700">
+            <div className="text-2xl font-bold text-warning-700">
               {filteredKPIs.filter((kpi) => kpi.status === 'warning' || kpi.status === 'critical').length}
             </div>
-            <p className="text-xs text-orange-600">需要关注的指标</p>
+            <p className="text-xs text-warning-600">需要关注的指标</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">上升趋势</CardTitle>
-            <TrendingUp className="h-4 w-4 text-orange-600" />
+            <TrendingUp className="h-4 w-4 text-warning-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-700">
+            <div className="text-2xl font-bold text-warning-700">
               {filteredKPIs.filter((kpi) => kpi.trend === 'up').length}
             </div>
-            <p className="text-xs text-orange-600">呈上升趋势的指标</p>
+            <p className="text-xs text-warning-600">呈上升趋势的指标</p>
           </CardContent>
         </Card>
       </div>
 
       {/* 数据可视化 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader>
-            <CardTitle className="flex items-center text-orange-700">
+            <CardTitle className="flex items-center text-warning-700">
               <TrendingUp className="w-5 h-5 mr-2" />
               关键指标趋势
             </CardTitle>
@@ -339,16 +340,16 @@ export function KPITracking() {
                 <XAxis dataKey="month" />
                 <YAxis />
                 <Tooltip />
-                <Line type="monotone" dataKey="satisfaction" stroke="#f97316" name="客户满意度" />
-                <Line type="monotone" dataKey="attendance" stroke="#ea580c" name="出勤率" />
+                <Line type="monotone" dataKey="satisfaction" stroke={colorRamp.warning[500]} name="客户满意度" />
+                <Line type="monotone" dataKey="attendance" stroke={colorRamp.warning[600]} name="出勤率" />
               </LineChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader>
-            <CardTitle className="flex items-center text-orange-700">
+            <CardTitle className="flex items-center text-warning-700">
               <Target className="w-5 h-5 mr-2" />
               KPI分类分布
             </CardTitle>
@@ -362,7 +363,7 @@ export function KPITracking() {
                   cx="50%"
                   cy="50%"
                   outerRadius={100}
-                  fill="#8884d8"
+                  fill={colorRamp.accent[500]}
                   dataKey="value"
                   label={({ name, value }) => `${name}: ${value}%`}
                 >
@@ -378,9 +379,9 @@ export function KPITracking() {
       </div>
 
       {/* KPI详细列表 */}
-      <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center text-orange-700">
+          <CardTitle className="flex items-center text-warning-700">
             <Target className="w-5 h-5 mr-2" />
             KPI详细监控
           </CardTitle>
@@ -391,7 +392,7 @@ export function KPITracking() {
             {filteredKPIs.map((kpi) => (
               <div
                 key={kpi.id}
-                className="border-l-4 border-l-orange-500 rounded-xl p-4 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200"
+                className="border-l-4 border-l-warning-500 rounded-xl p-4 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200"
               >
                 <div className="flex justify-between items-start mb-3">
                   <div className="flex-1">
@@ -436,21 +437,21 @@ export function KPITracking() {
                         {Math.round(calculateProgress(kpi.currentValue, kpi.targetValue))}%
                       </span>
                     </div>
-                    <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-gradient-to-r from-orange-400 to-orange-500 rounded-full transition-all duration-500"
+                        className="h-full bg-gradient-to-r from-warning-400 to-warning-500 rounded-full transition-all duration-500"
                         style={{ width: `${calculateProgress(kpi.currentValue, kpi.targetValue)}%` }}
                       ></div>
                     </div>
                   </div>
 
                   <div className="flex justify-end space-x-2">
-                    <Button variant="outline" size="sm" className="border-l-4 border-l-orange-500 bg-transparent">
+                    <Button variant="outline" size="sm" className="border-l-4 border-l-warning-500 bg-transparent">
                       查看详情
                     </Button>
                     <Button
                       size="sm"
-                      className="bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white transition-all duration-300 hover:scale-105 group"
+                      className="bg-gradient-to-r from-warning-500 to-warning-600 hover:from-warning-600 hover:to-warning-700 text-white transition-all duration-300 hover:scale-105 group"
                     >
                       <Target className="w-4 h-4 mr-1 group-hover:translate-x-1 transition-all duration-300" />
                       更新数据

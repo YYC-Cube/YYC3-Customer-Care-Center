@@ -30,12 +30,12 @@ export function TaskModule() {
         <div className="flex space-x-2">
           <Button
             variant="outline"
-            className="bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white border-0"
+            className="bg-gradient-to-r from-primary-400 to-primary-500 hover:from-primary-500 hover:to-primary-600 text-white border-0"
           >
             <Plus className="w-4 h-4 mr-2" />
             新建任务
           </Button>
-          <Button className="bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white">
+          <Button className="bg-gradient-to-r from-primary-400 to-primary-500 hover:from-primary-500 hover:to-primary-600 text-white">
             <Calendar className="w-4 h-4 mr-2" />
             项目看板
           </Button>
@@ -44,56 +44,56 @@ export function TaskModule() {
 
       {/* 任务概览卡片 */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">总任务数</CardTitle>
             <CheckSquare className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">156</div>
-            <div className="flex items-center text-xs text-blue-600">
+            <div className="flex items-center text-xs text-primary-600">
               <Calendar className="w-3 h-3 mr-1" />
               <span>本月任务</span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">已完成</CardTitle>
             <CheckSquare className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">89</div>
-            <div className="flex items-center text-xs text-green-600">
+            <div className="flex items-center text-xs text-success-600">
               <CheckSquare className="w-3 h-3 mr-1" />
               <span>完成率 57.1%</span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">进行中</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">45</div>
-            <div className="flex items-center text-xs text-orange-600">
+            <div className="flex items-center text-xs text-warning-600">
               <Clock className="w-3 h-3 mr-1" />
               <span>活跃任务</span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">逾期任务</CardTitle>
             <Flag className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">8</div>
-            <div className="flex items-center text-xs text-red-600">
+            <div className="flex items-center text-xs text-danger-600">
               <Flag className="w-3 h-3 mr-1" />
               <span>需要关注</span>
             </div>
@@ -102,7 +102,7 @@ export function TaskModule() {
       </div>
 
       {/* 任务管理详情 */}
-      <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+      <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
         <CardHeader>
           <CardTitle>任务管理详情</CardTitle>
           <CardDescription>全面的任务跟踪和项目协作</CardDescription>
@@ -166,7 +166,7 @@ export function TaskModule() {
                 ].map((task, index) => (
                   <Card
                     key={index}
-                    className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
+                    className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
                   >
                     <CardContent className="p-4">
                       <div className="flex justify-between items-start mb-3">
@@ -202,9 +202,9 @@ export function TaskModule() {
                           <span>进度</span>
                           <span>{task.progress}%</span>
                         </div>
-                        <div className="w-full h-2 bg-sky-100 rounded-full overflow-hidden">
+                        <div className="w-full h-2 bg-primary-100 rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full transition-all duration-300"
+                            className="h-full bg-gradient-to-r from-primary-400 to-primary-500 rounded-full transition-all duration-300"
                             style={{ width: `${task.progress}%` }}
                           ></div>
                         </div>
@@ -242,12 +242,12 @@ export function TaskModule() {
                 ].map((task, index) => (
                   <Card
                     key={index}
-                    className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
+                    className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
                   >
                     <CardContent className="p-4">
                       <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-3">
-                          <CheckSquare className="w-5 h-5 text-green-600" />
+                          <CheckSquare className="w-5 h-5 text-success-600" />
                           <div>
                             <h3 className="font-medium">{task.title}</h3>
                             <div className="flex items-center space-x-4 text-sm text-muted-foreground">
@@ -260,7 +260,7 @@ export function TaskModule() {
                           </div>
                         </div>
                         <div className="text-right">
-                          <div className="text-sm font-medium text-green-600">已完成</div>
+                          <div className="text-sm font-medium text-success-600">已完成</div>
                           <div className="text-xs text-muted-foreground">{task.completedDate}</div>
                           <div className="text-xs text-muted-foreground">耗时: {task.duration}</div>
                         </div>
@@ -298,12 +298,12 @@ export function TaskModule() {
                 ].map((task, index) => (
                   <Card
                     key={index}
-                    className="bg-white/80 backdrop-blur-sm border border-red-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
+                    className="bg-white/80 backdrop-blur-sm border border-danger-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
                   >
                     <CardContent className="p-4">
                       <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-3">
-                          <Flag className="w-5 h-5 text-red-600" />
+                          <Flag className="w-5 h-5 text-danger-600" />
                           <div>
                             <h3 className="font-medium">{task.title}</h3>
                             <div className="flex items-center space-x-4 text-sm text-muted-foreground">
@@ -341,11 +341,11 @@ export function TaskModule() {
                 ].map((member, index) => (
                   <Card
                     key={index}
-                    className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
+                    className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
                   >
                     <CardContent className="p-4">
                       <div className="flex items-center space-x-3 mb-3">
-                        <div className="w-10 h-10 bg-gradient-to-r from-sky-400 to-blue-500 rounded-full flex items-center justify-center text-white font-medium">
+                        <div className="w-10 h-10 bg-gradient-to-r from-primary-400 to-primary-500 rounded-full flex items-center justify-center text-white font-medium">
                           {member.avatar}
                         </div>
                         <div>
@@ -360,9 +360,9 @@ export function TaskModule() {
                             {member.completed}/{member.tasks}
                           </span>
                         </div>
-                        <div className="w-full h-2 bg-sky-100 rounded-full overflow-hidden">
+                        <div className="w-full h-2 bg-primary-100 rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full"
+                            className="h-full bg-gradient-to-r from-success-400 to-success-500 rounded-full"
                             style={{ width: `${(member.completed / member.tasks) * 100}%` }}
                           ></div>
                         </div>

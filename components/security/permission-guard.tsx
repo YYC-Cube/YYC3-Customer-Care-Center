@@ -161,8 +161,8 @@ export function PermissionGuard({ resource, action, children, fallback, showErro
   if (loading) {
     return (
       <div className="flex items-center justify-center p-4">
-        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
-        <span className="ml-2 text-sm text-gray-500">检查权限中...</span>
+        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary-500"></div>
+        <span className="ml-2 text-sm text-neutral-500">检查权限中...</span>
       </div>
     );
   }
@@ -176,9 +176,9 @@ export function PermissionGuard({ resource, action, children, fallback, showErro
 
     if (showError) {
       return (
-        <Alert className="border-red-200 bg-red-50">
-          <AlertTriangle className="h-4 w-4 text-red-500" />
-          <AlertDescription className="text-red-700">
+        <Alert className="border-danger-200 bg-danger-50">
+          <AlertTriangle className="h-4 w-4 text-danger-500" />
+          <AlertDescription className="text-danger-700">
             您没有权限执行此操作。需要权限: {resource}.{action}
           </AlertDescription>
         </Alert>
@@ -221,7 +221,7 @@ export function PermissionButton({
       className={`
         ${className}
         ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
-        ${!hasAccess ? 'bg-gray-300 text-gray-500' : ''}
+        ${!hasAccess ? 'bg-neutral-300 text-neutral-500' : ''}
       `}
       title={!hasAccess ? `需要权限: ${resource}.${action}` : undefined}
     >
@@ -237,8 +237,8 @@ export function PermissionStatus() {
 
   if (loading) {
     return (
-      <div className="flex items-center text-sm text-gray-500">
-        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500 mr-2"></div>
+      <div className="flex items-center text-sm text-neutral-500">
+        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-500 mr-2"></div>
         加载权限中...
       </div>
     );
@@ -246,7 +246,7 @@ export function PermissionStatus() {
 
   if (!user) {
     return (
-      <div className="flex items-center text-sm text-red-500">
+      <div className="flex items-center text-sm text-danger-500">
         <AlertTriangle className="w-4 h-4 mr-2" />
         未登录
       </div>
@@ -254,7 +254,7 @@ export function PermissionStatus() {
   }
 
   return (
-    <div className="flex items-center text-sm text-green-600">
+    <div className="flex items-center text-sm text-success-600">
       <Shield className="w-4 h-4 mr-2" />
       {user.name} ({permissions.length} 项权限)
     </div>
@@ -269,12 +269,12 @@ export function PermissionDetails() {
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
-      <h3 className="text-lg font-medium text-gray-900 mb-4">权限详情</h3>
+      <h3 className="text-lg font-medium text-neutral-900 mb-4">权限详情</h3>
 
       <div className="space-y-4">
         <div>
-          <h4 className="font-medium text-gray-700">用户信息</h4>
-          <div className="mt-2 text-sm text-gray-600">
+          <h4 className="font-medium text-neutral-700">用户信息</h4>
+          <div className="mt-2 text-sm text-neutral-600">
             <p>姓名: {user.name}</p>
             <p>邮箱: {user.email}</p>
             <p>部门: {user.department}</p>
@@ -283,10 +283,10 @@ export function PermissionDetails() {
         </div>
 
         <div>
-          <h4 className="font-medium text-gray-700">角色</h4>
+          <h4 className="font-medium text-neutral-700">角色</h4>
           <div className="mt-2 flex flex-wrap gap-2">
             {user.roles.map((role) => (
-              <span key={role} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
+              <span key={role} className="px-2 py-1 bg-primary-100 text-primary-800 text-xs rounded-full">
                 {role}
               </span>
             ))}
@@ -294,11 +294,11 @@ export function PermissionDetails() {
         </div>
 
         <div>
-          <h4 className="font-medium text-gray-700">权限列表 ({permissions.length})</h4>
+          <h4 className="font-medium text-neutral-700">权限列表 ({permissions.length})</h4>
           <div className="mt-2 max-h-40 overflow-y-auto">
             <div className="grid grid-cols-1 gap-1">
               {permissions.map((permission) => (
-                <span key={permission} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+                <span key={permission} className="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">
                   {permission}
                 </span>
               ))}

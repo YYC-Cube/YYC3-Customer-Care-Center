@@ -28,7 +28,11 @@ class EnhancedBackgroundSyncManager {
       if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
         try {
           const registration = await navigator.serviceWorker.ready;
-          await registration.sync.register('enhanced-background-sync');
+          // Background Sync 尚未进入 TS 标准库，此处补类型断言
+          const sync = (registration as ServiceWorkerRegistration & {
+            sync?: { register: (tag: string) => Promise<void> };
+          }).sync;
+          await sync?.register('enhanced-background-sync');
           console.log('增强后台同步已注册');
         } catch (error) {
           console.error('增强后台同步注册失败:', error);
@@ -394,7 +398,7 @@ interface OfflineActionWithId {
   type: 'create' | 'update' | 'delete'
   module: string
   endpoint: string
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE'
+  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
   data?: any
   headers?: Record<string, string>
   timestamp: number

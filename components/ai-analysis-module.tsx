@@ -11,6 +11,7 @@
  */
 
 'use client';
+import { colorRamp } from '@/lib/design-tokens';
 
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -171,39 +172,39 @@ export function AIAnalysisModule() {
   const getImpactColor = (impact: string) => {
     switch (impact) {
     case 'high':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     case 'medium':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-warning-100 text-warning-800';
     case 'low':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
     case 'high':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     case 'medium':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-warning-100 text-warning-800';
     case 'low':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
     case 'active':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'training':
-      return 'bg-blue-100 text-blue-800';
+      return 'bg-primary-100 text-primary-800';
     case 'inactive':
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -229,19 +230,19 @@ export function AIAnalysisModule() {
   };
 
   return (
-    <div className="p-6 space-y-6 bg-gradient-to-br from-purple-50 via-violet-50 to-indigo-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gradient-to-br from-accent-50 via-accent-50 to-primary-50 min-h-screen">
       {/* 页面头部 */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-            <Brain className="w-8 h-8 mr-3 text-purple-600" />
+          <h1 className="text-3xl font-bold text-neutral-900 flex items-center">
+            <Brain className="w-8 h-8 mr-3 text-accent-600" />
             AI智能助手
           </h1>
-          <p className="text-gray-600 mt-2">人工智能驱动的业务分析和决策支持系统</p>
+          <p className="text-neutral-600 mt-2">人工智能驱动的业务分析和决策支持系统</p>
         </div>
         <div className="flex space-x-3">
           <LucideSelect value={selectedModel} onValueChange={setSelectedModel}>
-            <SelectTrigger className="w-40 border-l-4 border-l-purple-500">
+            <SelectTrigger className="w-40 border-l-4 border-l-accent-500">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -253,12 +254,12 @@ export function AIAnalysisModule() {
           </LucideSelect>
           <Button
             variant="outline"
-            className="border-l-4 border-l-purple-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+            className="border-l-4 border-l-accent-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
           >
             <Settings className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             设置
           </Button>
-          <Button className="bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+          <Button className="bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
             <Zap className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             开始分析
           </Button>
@@ -270,7 +271,7 @@ export function AIAnalysisModule() {
         {aiInsights.map((insight, index) => (
           <Card
             key={index}
-            className="border-l-4 border-l-purple-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            className="border-l-4 border-l-accent-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
           >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">{insight.title}</CardTitle>
@@ -278,16 +279,16 @@ export function AIAnalysisModule() {
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
-                <p className="text-sm text-gray-700">{insight.prediction}</p>
+                <p className="text-sm text-neutral-700">{insight.prediction}</p>
                 <div className="flex items-center justify-between">
                   <Badge className={getImpactColor(insight.impact)}>
                     {insight.impact === 'high' ? '高影响' : insight.impact === 'medium' ? '中影响' : '低影响'}
                   </Badge>
-                  <span className="text-xs text-purple-600 font-medium">{insight.confidence}% 置信度</span>
+                  <span className="text-xs text-accent-600 font-medium">{insight.confidence}% 置信度</span>
                 </div>
-                <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-gradient-to-r from-purple-400 to-purple-500 rounded-full transition-all duration-500"
+                    className="h-full bg-gradient-to-r from-accent-400 to-accent-500 rounded-full transition-all duration-500"
                     style={{ width: `${insight.confidence}%` }}
                   ></div>
                 </div>
@@ -300,9 +301,9 @@ export function AIAnalysisModule() {
       {/* 主要分析区域 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* 预测分析 */}
-        <Card className="border-l-4 border-l-purple-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-accent-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader>
-            <CardTitle className="flex items-center text-purple-700">
+            <CardTitle className="flex items-center text-accent-700">
               <TrendingUp className="w-5 h-5 mr-2" />
               销售预测分析
             </CardTitle>
@@ -323,7 +324,7 @@ export function AIAnalysisModule() {
                 <Area
                   type="monotone"
                   dataKey="actual"
-                  stroke="#8b5cf6"
+                  stroke={colorRamp.accent[500]}
                   fill="url(#purpleGradient)"
                   strokeWidth={2}
                   name="actual"
@@ -331,7 +332,7 @@ export function AIAnalysisModule() {
                 <Area
                   type="monotone"
                   dataKey="predicted"
-                  stroke="#a855f7"
+                  stroke={colorRamp.accent[500]}
                   fill="url(#purpleLightGradient)"
                   strokeWidth={2}
                   strokeDasharray="5 5"
@@ -339,12 +340,12 @@ export function AIAnalysisModule() {
                 />
                 <defs>
                   <linearGradient id="purpleGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0.1} />
+                    <stop offset="5%" stopColor={colorRamp.accent[500]} stopOpacity={0.8} />
+                    <stop offset="95%" stopColor={colorRamp.accent[500]} stopOpacity={0.1} />
                   </linearGradient>
                   <linearGradient id="purpleLightGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#a855f7" stopOpacity={0.6} />
-                    <stop offset="95%" stopColor="#a855f7" stopOpacity={0.1} />
+                    <stop offset="5%" stopColor={colorRamp.accent[500]} stopOpacity={0.6} />
+                    <stop offset="95%" stopColor={colorRamp.accent[500]} stopOpacity={0.1} />
                   </linearGradient>
                 </defs>
               </AreaChart>
@@ -353,9 +354,9 @@ export function AIAnalysisModule() {
         </Card>
 
         {/* AI对话助手 */}
-        <Card className="border-l-4 border-l-purple-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-accent-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader>
-            <CardTitle className="flex items-center text-purple-700">
+            <CardTitle className="flex items-center text-accent-700">
               <MessageSquare className="w-5 h-5 mr-2" />
               AI对话助手
             </CardTitle>
@@ -363,10 +364,10 @@ export function AIAnalysisModule() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="h-48 bg-purple-50 rounded-lg p-4 overflow-y-auto border-l-4 border-l-purple-500">
+              <div className="h-48 bg-accent-50 rounded-lg p-4 overflow-y-auto border-l-4 border-l-accent-500">
                 <div className="space-y-3">
                   <div className="flex items-start space-x-2">
-                    <Brain className="w-6 h-6 text-purple-600 mt-1" />
+                    <Brain className="w-6 h-6 text-accent-600 mt-1" />
                     <div className="bg-white rounded-lg p-3 shadow-sm">
                       <p className="text-sm">
                         您好！我是您的AI业务助手。我可以帮您分析数据、预测趋势、提供决策建议。请问有什么可以帮助您的吗？
@@ -374,13 +375,13 @@ export function AIAnalysisModule() {
                     </div>
                   </div>
                   <div className="flex items-start space-x-2 justify-end">
-                    <div className="bg-purple-100 rounded-lg p-3">
+                    <div className="bg-accent-100 rounded-lg p-3">
                       <p className="text-sm">分析一下我们的客户流失情况</p>
                     </div>
-                    <Users className="w-6 h-6 text-gray-600 mt-1" />
+                    <Users className="w-6 h-6 text-neutral-600 mt-1" />
                   </div>
                   <div className="flex items-start space-x-2">
-                    <Brain className="w-6 h-6 text-purple-600 mt-1" />
+                    <Brain className="w-6 h-6 text-accent-600 mt-1" />
                     <div className="bg-white rounded-lg p-3 shadow-sm">
                       <p className="text-sm">
                         根据分析，您的客户流失率为8.5%，主要集中在新客户群体。建议加强新客户的跟进服务，预计可降低流失率至6%以下。
@@ -390,10 +391,10 @@ export function AIAnalysisModule() {
                 </div>
               </div>
               <div className="flex space-x-2">
-                <Input placeholder="输入您的问题..." className="flex-1 border-l-4 border-l-purple-500" />
+                <Input placeholder="输入您的问题..." className="flex-1 border-l-4 border-l-accent-500" />
                 <Button
                   size="sm"
-                  className="bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white transition-all duration-300 hover:scale-105 group"
+                  className="bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white transition-all duration-300 hover:scale-105 group"
                 >
                   <Send className="w-4 h-4 group-hover:translate-x-1 transition-all duration-300" />
                 </Button>
@@ -406,9 +407,9 @@ export function AIAnalysisModule() {
       {/* 智能推荐和模型状态 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* 智能推荐 */}
-        <Card className="border-l-4 border-l-purple-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-accent-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader>
-            <CardTitle className="flex items-center text-purple-700">
+            <CardTitle className="flex items-center text-accent-700">
               <Lightbulb className="w-5 h-5 mr-2" />
               智能推荐
             </CardTitle>
@@ -419,25 +420,25 @@ export function AIAnalysisModule() {
               {recommendations.map((rec) => (
                 <div
                   key={rec.id}
-                  className="border-l-4 border-l-purple-500 bg-purple-50 rounded-lg p-4 transition-all duration-300 hover:shadow-md"
+                  className="border-l-4 border-l-accent-500 bg-accent-50 rounded-lg p-4 transition-all duration-300 hover:shadow-md"
                 >
                   <div className="flex justify-between items-start mb-2">
                     <div className="flex items-center space-x-2">
                       {getCategoryIcon(rec.category)}
-                      <h4 className="font-medium text-gray-900">{rec.title}</h4>
+                      <h4 className="font-medium text-neutral-900">{rec.title}</h4>
                     </div>
                     <Badge className={getPriorityColor(rec.priority)}>
                       {rec.priority === 'high' ? '高优先级' : rec.priority === 'medium' ? '中优先级' : '低优先级'}
                     </Badge>
                   </div>
-                  <p className="text-sm text-gray-600 mb-3">{rec.description}</p>
+                  <p className="text-sm text-neutral-600 mb-3">{rec.description}</p>
                   <div className="grid grid-cols-2 gap-4 text-xs">
                     <div>
-                      <span className="text-gray-500">预期影响: </span>
-                      <span className="font-medium text-green-600">{rec.impact}</span>
+                      <span className="text-neutral-500">预期影响: </span>
+                      <span className="font-medium text-success-600">{rec.impact}</span>
                     </div>
                     <div>
-                      <span className="text-gray-500">实施难度: </span>
+                      <span className="text-neutral-500">实施难度: </span>
                       <span className="font-medium">{rec.effort}</span>
                     </div>
                   </div>
@@ -452,7 +453,7 @@ export function AIAnalysisModule() {
                     </Button>
                     <Button
                       size="sm"
-                      className="h-6 px-2 text-xs bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white transition-all duration-300 hover:scale-105 group"
+                      className="h-6 px-2 text-xs bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white transition-all duration-300 hover:scale-105 group"
                     >
                       <CheckCircle className="w-3 h-3 mr-1 group-hover:translate-x-1 transition-all duration-300" />
                       采纳
@@ -465,9 +466,9 @@ export function AIAnalysisModule() {
         </Card>
 
         {/* AI模型状态 */}
-        <Card className="border-l-4 border-l-purple-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-accent-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader>
-            <CardTitle className="flex items-center text-purple-700">
+            <CardTitle className="flex items-center text-accent-700">
               <Cpu className="w-5 h-5 mr-2" />
               AI模型状态
             </CardTitle>
@@ -478,26 +479,26 @@ export function AIAnalysisModule() {
               {modelStatus.map((model, index) => (
                 <div
                   key={index}
-                  className="border-l-4 border-l-purple-500 bg-purple-50 rounded-lg p-4 transition-all duration-300 hover:shadow-md"
+                  className="border-l-4 border-l-accent-500 bg-accent-50 rounded-lg p-4 transition-all duration-300 hover:shadow-md"
                 >
                   <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-medium text-gray-900">{model.name}</h4>
+                    <h4 className="font-medium text-neutral-900">{model.name}</h4>
                     <Badge className={getStatusColor(model.status)}>
                       {model.status === 'active' ? '运行中' : model.status === 'training' ? '训练中' : '未激活'}
                     </Badge>
                   </div>
                   <div className="grid grid-cols-2 gap-4 text-sm mb-3">
                     <div>
-                      <span className="text-gray-600">准确率: </span>
+                      <span className="text-neutral-600">准确率: </span>
                       <span className="font-medium">{model.accuracy}%</span>
                     </div>
                     <div>
-                      <span className="text-gray-600">预测次数: </span>
+                      <span className="text-neutral-600">预测次数: </span>
                       <span className="font-medium">{model.predictions}</span>
                     </div>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-xs text-gray-500">最后训练: {model.lastTrained}</span>
+                    <span className="text-xs text-neutral-500">最后训练: {model.lastTrained}</span>
                     <div className="flex space-x-1">
                       <Button
                         variant="ghost"
@@ -516,9 +517,9 @@ export function AIAnalysisModule() {
                     </div>
                   </div>
                   <div className="mt-2">
-                    <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-gradient-to-r from-purple-400 to-purple-500 rounded-full transition-all duration-500"
+                        className="h-full bg-gradient-to-r from-accent-400 to-accent-500 rounded-full transition-all duration-500"
                         style={{ width: `${model.accuracy}%` }}
                       ></div>
                     </div>
@@ -531,9 +532,9 @@ export function AIAnalysisModule() {
       </div>
 
       {/* AI分析工具 */}
-      <Card className="border-l-4 border-l-purple-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-accent-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center text-purple-700">
+          <CardTitle className="flex items-center text-accent-700">
             <BarChartIcon className="w-5 h-5 mr-2" />
             AI分析工具
           </CardTitle>
@@ -541,29 +542,29 @@ export function AIAnalysisModule() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <Button className="h-auto p-4 flex flex-col items-center space-y-2 bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white transition-all duration-300 hover:scale-105 group">
+            <Button className="h-auto p-4 flex flex-col items-center space-y-2 bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white transition-all duration-300 hover:scale-105 group">
               <TrendingUp className="w-6 h-6 group-hover:translate-x-1 transition-all duration-300" />
               <span className="text-sm">预测分析</span>
             </Button>
             <Button
               variant="outline"
-              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-purple-50 bg-transparent border-l-4 border-l-purple-500 transition-all duration-300 hover:scale-105 group"
+              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-accent-50 bg-transparent border-l-4 border-l-accent-500 transition-all duration-300 hover:scale-105 group"
             >
-              <Users className="w-6 h-6 text-purple-600 group-hover:translate-x-1 transition-all duration-300" />
+              <Users className="w-6 h-6 text-accent-600 group-hover:translate-x-1 transition-all duration-300" />
               <span className="text-sm">客户分析</span>
             </Button>
             <Button
               variant="outline"
-              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-purple-50 bg-transparent border-l-4 border-l-purple-500 transition-all duration-300 hover:scale-105 group"
+              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-accent-50 bg-transparent border-l-4 border-l-accent-500 transition-all duration-300 hover:scale-105 group"
             >
-              <RechartsBarChart className="w-6 h-6 text-purple-600 group-hover:translate-x-1 transition-all duration-300" />
+              <RechartsBarChart className="w-6 h-6 text-accent-600 group-hover:translate-x-1 transition-all duration-300" />
               <span className="text-sm">市场分析</span>
             </Button>
             <Button
               variant="outline"
-              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-purple-50 bg-transparent border-l-4 border-l-purple-500 transition-all duration-300 hover:scale-105 group"
+              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-accent-50 bg-transparent border-l-4 border-l-accent-500 transition-all duration-300 hover:scale-105 group"
             >
-              <Target className="w-6 h-6 text-purple-600 group-hover:translate-x-1 transition-all duration-300" />
+              <Target className="w-6 h-6 text-accent-600 group-hover:translate-x-1 transition-all duration-300" />
               <span className="text-sm">风险评估</span>
             </Button>
           </div>

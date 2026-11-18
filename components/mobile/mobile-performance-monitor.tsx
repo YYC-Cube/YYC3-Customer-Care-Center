@@ -259,13 +259,13 @@ export function MobilePerformanceMonitor() {
 
   const getBundleSize = (): number => {
     // 估算应用包大小
-    const resources = performance.getEntriesByType('resource');
+    const resources = performance.getEntriesByType('resource') as PerformanceResourceTiming[];
     return resources.reduce((total, resource) => total + (resource.transferSize || 0), 0);
   };
 
   const getCacheHitRate = (): number => {
     // 计算缓存命中率
-    const resources = performance.getEntriesByType('resource');
+    const resources = performance.getEntriesByType('resource') as PerformanceResourceTiming[];
     const cachedResources = resources.filter((resource) => resource.transferSize === 0);
     return resources.length > 0 ? (cachedResources.length / resources.length) * 100 : 0;
   };
@@ -277,7 +277,7 @@ export function MobilePerformanceMonitor() {
 
   const getDataUsage = (): number => {
     // 估算数据使用量
-    const resources = performance.getEntriesByType('resource');
+    const resources = performance.getEntriesByType('resource') as PerformanceResourceTiming[];
     return resources.reduce((total, resource) => total + (resource.transferSize || 0), 0) / 1024 / 1024; // MB
   };
 
@@ -312,8 +312,11 @@ export function MobilePerformanceMonitor() {
 
   const getTimeToInteractive = (): number => {
     // 简化的TTI计算
-    const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-    return navigation?.domInteractive - navigation?.navigationStart || 0;
+    // domInteractive 本身即相对于 navigationStart 的毫秒值
+    const navigation = performance.getEntriesByType('navigation')[0] as
+      | PerformanceNavigationTiming
+      | undefined;
+    return navigation?.domInteractive || 0;
   };
 
   const checkPerformanceAlerts = (metrics: MobilePerformanceMetrics): PerformanceAlert[] => {
@@ -401,20 +404,20 @@ export function MobilePerformanceMonitor() {
   };
 
   const getScoreColor = (score: number): string => {
-    if (score >= 80) return 'text-green-600';
-    if (score >= 60) return 'text-yellow-600';
-    if (score >= 40) return 'text-orange-600';
-    return 'text-red-600';
+    if (score >= 80) return 'text-success-600';
+    if (score >= 60) return 'text-warning-600';
+    if (score >= 40) return 'text-warning-600';
+    return 'text-danger-600';
   };
 
   const getAlertIcon = (type: string) => {
     switch (type) {
     case 'error':
-      return <AlertTriangle className="h-4 w-4 text-red-500" />;
+      return <AlertTriangle className="h-4 w-4 text-danger-500" />;
     case 'warning':
-      return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
+      return <AlertTriangle className="h-4 w-4 text-warning-500" />;
     default:
-      return <CheckCircle className="h-4 w-4 text-blue-500" />;
+      return <CheckCircle className="h-4 w-4 text-primary-500" />;
     }
   };
 
@@ -443,7 +446,7 @@ export function MobilePerformanceMonitor() {
           {metrics && (
             <div className="mt-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-gray-600">综合评分</span>
+                <span className="text-sm text-neutral-600">综合评分</span>
                 <span className={`font-bold ${getScoreColor(getPerformanceScore(metrics))}`}>
                   {getPerformanceScore(metrics).toFixed(0)}
                 </span>
@@ -463,11 +466,11 @@ export function MobilePerformanceMonitor() {
           <CardContent className="space-y-3">
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
-                <span className="text-gray-600">设备型号</span>
+                <span className="text-neutral-600">设备型号</span>
                 <p className="font-medium">{metrics.device.model}</p>
               </div>
               <div>
-                <span className="text-gray-600">操作系统</span>
+                <span className="text-neutral-600">操作系统</span>
                 <p className="font-medium">
                   {metrics.device.os} {metrics.device.version}
                 </p>
@@ -484,17 +487,17 @@ export function MobilePerformanceMonitor() {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center justify-between mb-2">
-                <HardDrive className="h-5 w-5 text-blue-500" />
+                <HardDrive className="h-5 w-5 text-primary-500" />
                 <span className="text-sm font-medium">
                   {((metrics.performance.memoryUsage / metrics.performance.memoryLimit) * 100).toFixed(0)}%
                 </span>
               </div>
-              <p className="text-xs text-gray-600 mb-2">内存使用</p>
+              <p className="text-xs text-neutral-600 mb-2">内存使用</p>
               <Progress
                 value={(metrics.performance.memoryUsage / metrics.performance.memoryLimit) * 100}
                 className="h-1"
               />
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-neutral-500 mt-1">
                 {formatBytes(metrics.performance.memoryUsage)} / {formatBytes(metrics.performance.memoryLimit)}
               </p>
             </CardContent>
@@ -507,17 +510,17 @@ export function MobilePerformanceMonitor() {
                 <Battery
                   className={`h-5 w-5 ${
                     metrics.performance.batteryLevel > 50
-                      ? 'text-green-500'
+                      ? 'text-success-500'
                       : metrics.performance.batteryLevel > 20
-                        ? 'text-yellow-500'
-                        : 'text-red-500'
+                        ? 'text-warning-500'
+                        : 'text-danger-500'
                   }`}
                 />
                 <span className="text-sm font-medium">{metrics.performance.batteryLevel.toFixed(0)}%</span>
               </div>
-              <p className="text-xs text-gray-600 mb-2">电池电量</p>
+              <p className="text-xs text-neutral-600 mb-2">电池电量</p>
               <Progress value={metrics.performance.batteryLevel} className="h-1" />
-              <p className="text-xs text-gray-500 mt-1">{metrics.performance.batteryCharging ? '充电中' : '未充电'}</p>
+              <p className="text-xs text-neutral-500 mt-1">{metrics.performance.batteryCharging ? '充电中' : '未充电'}</p>
             </CardContent>
           </Card>
 
@@ -525,12 +528,12 @@ export function MobilePerformanceMonitor() {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center justify-between mb-2">
-                <Wifi className="h-5 w-5 text-green-500" />
+                <Wifi className="h-5 w-5 text-success-500" />
                 <span className="text-sm font-medium">{metrics.performance.networkType.toUpperCase()}</span>
               </div>
-              <p className="text-xs text-gray-600 mb-2">网络连接</p>
-              <p className="text-xs text-gray-500">{metrics.performance.connectionSpeed.toFixed(1)} Mbps</p>
-              <p className="text-xs text-gray-500">延迟: {metrics.network.latency}ms</p>
+              <p className="text-xs text-neutral-600 mb-2">网络连接</p>
+              <p className="text-xs text-neutral-500">{metrics.performance.connectionSpeed.toFixed(1)} Mbps</p>
+              <p className="text-xs text-neutral-500">延迟: {metrics.network.latency}ms</p>
             </CardContent>
           </Card>
 
@@ -538,12 +541,12 @@ export function MobilePerformanceMonitor() {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center justify-between mb-2">
-                <Activity className="h-5 w-5 text-purple-500" />
+                <Activity className="h-5 w-5 text-accent-500" />
                 <span className="text-sm font-medium">{metrics.app.frameRate.toFixed(0)} FPS</span>
               </div>
-              <p className="text-xs text-gray-600 mb-2">帧率</p>
+              <p className="text-xs text-neutral-600 mb-2">帧率</p>
               <Progress value={(metrics.app.frameRate / 60) * 100} className="h-1" />
-              <p className="text-xs text-gray-500 mt-1">渲染时间: {metrics.app.renderTime.toFixed(0)}ms</p>
+              <p className="text-xs text-neutral-500 mt-1">渲染时间: {metrics.app.renderTime.toFixed(0)}ms</p>
             </CardContent>
           </Card>
         </div>
@@ -558,19 +561,19 @@ export function MobilePerformanceMonitor() {
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 gap-3 text-sm">
               <div className="flex justify-between">
-                <span className="text-gray-600">首次内容绘制 (FCP)</span>
+                <span className="text-neutral-600">首次内容绘制 (FCP)</span>
                 <span className="font-medium">{metrics.ux.firstContentfulPaint.toFixed(0)}ms</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">最大内容绘制 (LCP)</span>
+                <span className="text-neutral-600">最大内容绘制 (LCP)</span>
                 <span className="font-medium">{metrics.ux.largestContentfulPaint.toFixed(0)}ms</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">首次输入延迟 (FID)</span>
+                <span className="text-neutral-600">首次输入延迟 (FID)</span>
                 <span className="font-medium">{metrics.ux.firstInputDelay.toFixed(0)}ms</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">累积布局偏移 (CLS)</span>
+                <span className="text-neutral-600">累积布局偏移 (CLS)</span>
                 <span className="font-medium">{metrics.ux.cumulativeLayoutShift.toFixed(3)}</span>
               </div>
             </div>
@@ -583,7 +586,7 @@ export function MobilePerformanceMonitor() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
-              <AlertTriangle className="h-5 w-5 text-orange-500" />
+              <AlertTriangle className="h-5 w-5 text-warning-500" />
               <span>性能警报</span>
               <Badge variant="destructive">{alerts.length}</Badge>
             </CardTitle>
@@ -596,8 +599,8 @@ export function MobilePerformanceMonitor() {
                     {getAlertIcon(alert.type)}
                     <div className="flex-1 min-w-0">
                       <h4 className="text-sm font-medium">{alert.title}</h4>
-                      <p className="text-xs text-gray-600 mt-1">{alert.description}</p>
-                      <p className="text-xs text-gray-500 mt-1">{alert.timestamp.toLocaleTimeString('zh-CN')}</p>
+                      <p className="text-xs text-neutral-600 mt-1">{alert.description}</p>
+                      <p className="text-xs text-neutral-500 mt-1">{alert.timestamp.toLocaleTimeString('zh-CN')}</p>
                     </div>
                   </div>
                 </Alert>
@@ -616,19 +619,19 @@ export function MobilePerformanceMonitor() {
           <CardContent className="space-y-3">
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
-                <span className="text-gray-600">数据传输</span>
+                <span className="text-neutral-600">数据传输</span>
                 <p className="font-medium">{metrics.network.dataUsage.toFixed(2)} MB</p>
               </div>
               <div>
-                <span className="text-gray-600">请求次数</span>
+                <span className="text-neutral-600">请求次数</span>
                 <p className="font-medium">{metrics.network.requestCount}</p>
               </div>
               <div>
-                <span className="text-gray-600">缓存命中率</span>
+                <span className="text-neutral-600">缓存命中率</span>
                 <p className="font-medium">{metrics.app.cacheHitRate.toFixed(1)}%</p>
               </div>
               <div>
-                <span className="text-gray-600">错误率</span>
+                <span className="text-neutral-600">错误率</span>
                 <p className="font-medium">{metrics.network.errorRate.toFixed(1)}%</p>
               </div>
             </div>

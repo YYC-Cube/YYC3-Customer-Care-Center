@@ -58,13 +58,13 @@ export default function AIPage() {
   const getStatusColor = (status: string) => {
     switch (status) {
     case 'active':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'training':
-      return 'bg-purple-100 text-purple-800';
+      return 'bg-accent-100 text-accent-800';
     case 'pending':
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -83,25 +83,25 @@ export default function AIPage() {
 
   return (
     <ResponsiveLayout showSidebar={true} showHeader={true}>
-      <div className="px-6 pb-6 space-y-6 bg-gradient-to-br from-purple-50 via-violet-50 to-indigo-50 min-h-screen">
+      <div className="px-6 pb-6 space-y-6 bg-gradient-to-br from-accent-50 via-accent-50 to-primary-50 min-h-screen">
         {/* 页面头部 */}
         <div className="flex justify-between items-center pt-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-              <Brain className="w-8 h-8 mr-3 text-purple-600" />
+            <h1 className="text-3xl font-bold text-neutral-900 flex items-center">
+              <Brain className="w-8 h-8 mr-3 text-accent-600" />
               AI智能分析
             </h1>
-            <p className="text-gray-600 mt-2">人工智能驱动的企业数据分析和洞察</p>
+            <p className="text-neutral-600 mt-2">人工智能驱动的企业数据分析和洞察</p>
           </div>
           <div className="flex space-x-3">
             <Button
               variant="outline"
-              className="border-l-4 border-l-purple-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+              className="border-l-4 border-l-accent-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
             >
               <Settings className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
               AI设置
             </Button>
-            <Button className="bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+            <Button className="bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
               <Plus className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
               新建分析
             </Button>
@@ -110,59 +110,59 @@ export default function AIPage() {
 
         {/* AI功能概览 */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <Card className="border-l-4 border-l-purple-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <Card className="border-l-4 border-l-accent-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">AI模型数</CardTitle>
-              <Brain className="h-4 w-4 text-purple-600" />
+              <Brain className="h-4 w-4 text-accent-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-purple-700">{aiFeatures.length}</div>
-              <p className="text-xs text-gray-600">已部署模型</p>
+              <div className="text-2xl font-bold text-accent-700">{aiFeatures.length}</div>
+              <p className="text-xs text-neutral-600">已部署模型</p>
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-purple-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <Card className="border-l-4 border-l-accent-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">运行中</CardTitle>
-              <Bot className="h-4 w-4 text-green-600" />
+              <Bot className="h-4 w-4 text-success-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-700">
+              <div className="text-2xl font-bold text-success-700">
                 {aiFeatures.filter((f) => f.status === 'active').length}
               </div>
-              <p className="text-xs text-gray-600">活跃AI服务</p>
+              <p className="text-xs text-neutral-600">活跃AI服务</p>
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-purple-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <Card className="border-l-4 border-l-accent-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">训练中</CardTitle>
-              <TrendingUp className="h-4 w-4 text-purple-600" />
+              <TrendingUp className="h-4 w-4 text-accent-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-purple-700">
+              <div className="text-2xl font-bold text-accent-700">
                 {aiFeatures.filter((f) => f.status === 'training').length}
               </div>
-              <p className="text-xs text-gray-600">模型训练</p>
+              <p className="text-xs text-neutral-600">模型训练</p>
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-purple-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <Card className="border-l-4 border-l-accent-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">平均准确率</CardTitle>
-              <Target className="h-4 w-4 text-purple-600" />
+              <Target className="h-4 w-4 text-accent-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-purple-700">92.5%</div>
-              <p className="text-xs text-gray-600">模型性能</p>
+              <div className="text-2xl font-bold text-accent-700">92.5%</div>
+              <p className="text-xs text-neutral-600">模型性能</p>
             </CardContent>
           </Card>
         </div>
 
         {/* AI助手对话 */}
-        <Card className="border-l-4 border-l-purple-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+        <Card className="border-l-4 border-l-accent-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader>
-            <CardTitle className="flex items-center text-purple-700">
+            <CardTitle className="flex items-center text-accent-700">
               <MessageSquare className="w-5 h-5 mr-2" />
               AI智能助手
             </CardTitle>
@@ -172,24 +172,24 @@ export default function AIPage() {
             <div className="space-y-4">
               <div className="flex space-x-2">
                 <div className="relative flex-1">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 h-4 w-4" />
                   <Input
                     placeholder="询问AI助手关于业务数据的问题..."
-                    className="pl-10 border-l-4 border-l-purple-500"
+                    className="pl-10 border-l-4 border-l-accent-500"
                   />
                 </div>
-                <Button className="bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white transition-all duration-300 hover:scale-105 group">
+                <Button className="bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white transition-all duration-300 hover:scale-105 group">
                   <MessageSquare className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
                   发送
                 </Button>
               </div>
-              <div className="bg-purple-50 rounded-lg p-4 space-y-3">
+              <div className="bg-accent-50 rounded-lg p-4 space-y-3">
                 <div className="flex items-start space-x-3">
-                  <div className="w-8 h-8 bg-purple-200 rounded-full flex items-center justify-center">
-                    <Bot className="w-4 h-4 text-purple-600" />
+                  <div className="w-8 h-8 bg-accent-200 rounded-full flex items-center justify-center">
+                    <Bot className="w-4 h-4 text-accent-600" />
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm text-gray-700">
+                    <p className="text-sm text-neutral-700">
                       您好！我是您的AI智能助手。我可以帮您分析业务数据、预测趋势、优化流程。请告诉我您想了解什么？
                     </p>
                   </div>
@@ -198,21 +198,21 @@ export default function AIPage() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="border-l-4 border-l-purple-500 transition-all duration-300 hover:scale-105 group bg-transparent"
+                    className="border-l-4 border-l-accent-500 transition-all duration-300 hover:scale-105 group bg-transparent"
                   >
                     <span className="group-hover:translate-x-1 transition-all duration-300">分析销售趋势</span>
                   </Button>
                   <Button
                     variant="outline"
                     size="sm"
-                    className="border-l-4 border-l-purple-500 transition-all duration-300 hover:scale-105 group bg-transparent"
+                    className="border-l-4 border-l-accent-500 transition-all duration-300 hover:scale-105 group bg-transparent"
                   >
                     <span className="group-hover:translate-x-1 transition-all duration-300">预测客户需求</span>
                   </Button>
                   <Button
                     variant="outline"
                     size="sm"
-                    className="border-l-4 border-l-purple-500 transition-all duration-300 hover:scale-105 group bg-transparent"
+                    className="border-l-4 border-l-accent-500 transition-all duration-300 hover:scale-105 group bg-transparent"
                   >
                     <span className="group-hover:translate-x-1 transition-all duration-300">优化运营流程</span>
                   </Button>
@@ -223,9 +223,9 @@ export default function AIPage() {
         </Card>
 
         {/* AI功能模块 */}
-        <Card className="border-l-4 border-l-purple-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+        <Card className="border-l-4 border-l-accent-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader>
-            <CardTitle className="flex items-center text-purple-700">
+            <CardTitle className="flex items-center text-accent-700">
               <Brain className="w-5 h-5 mr-2" />
               AI功能模块
             </CardTitle>
@@ -238,18 +238,18 @@ export default function AIPage() {
                 return (
                   <div
                     key={feature.id}
-                    className="border-l-4 border-l-purple-500 bg-purple-50 rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:scale-105"
+                    className="border-l-4 border-l-accent-500 bg-accent-50 rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:scale-105"
                   >
                     <div className="flex items-start space-x-4 mb-4">
-                      <div className="w-12 h-12 bg-purple-200 rounded-lg flex items-center justify-center">
-                        <IconComponent className="w-6 h-6 text-purple-600" />
+                      <div className="w-12 h-12 bg-accent-200 rounded-lg flex items-center justify-center">
+                        <IconComponent className="w-6 h-6 text-accent-600" />
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center space-x-2 mb-2">
-                          <h3 className="font-bold text-gray-900">{feature.title}</h3>
+                          <h3 className="font-bold text-neutral-900">{feature.title}</h3>
                           <Badge className={getStatusColor(feature.status)}>{getStatusText(feature.status)}</Badge>
                         </div>
-                        <p className="text-sm text-gray-600">{feature.description}</p>
+                        <p className="text-sm text-neutral-600">{feature.description}</p>
                       </div>
                     </div>
 
@@ -258,9 +258,9 @@ export default function AIPage() {
                         <span>使用率</span>
                         <span>{feature.usage}%</span>
                       </div>
-                      <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-purple-400 to-purple-500 rounded-full transition-all duration-500"
+                          className="h-full bg-gradient-to-r from-accent-400 to-accent-500 rounded-full transition-all duration-500"
                           style={{ width: `${feature.usage}%` }}
                         ></div>
                       </div>
@@ -270,7 +270,7 @@ export default function AIPage() {
                       {feature.status === 'pending' ? (
                         <Button
                           size="sm"
-                          className="bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white transition-all duration-300 hover:scale-105 group"
+                          className="bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white transition-all duration-300 hover:scale-105 group"
                         >
                           <Play className="w-4 h-4 mr-1 group-hover:translate-x-1 transition-all duration-300" />
                           启动
@@ -279,7 +279,7 @@ export default function AIPage() {
                         <Button
                           variant="outline"
                           size="sm"
-                          className="border-l-4 border-l-purple-500 transition-all duration-300 hover:scale-105 group bg-transparent"
+                          className="border-l-4 border-l-accent-500 transition-all duration-300 hover:scale-105 group bg-transparent"
                         >
                           <Settings className="w-4 h-4 mr-1 group-hover:translate-x-1 transition-all duration-300" />
                           配置
@@ -294,9 +294,9 @@ export default function AIPage() {
         </Card>
 
         {/* AI洞察和建议 */}
-        <Card className="border-l-4 border-l-purple-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+        <Card className="border-l-4 border-l-accent-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader>
-            <CardTitle className="flex items-center text-purple-700">
+            <CardTitle className="flex items-center text-accent-700">
               <Lightbulb className="w-5 h-5 mr-2" />
               AI洞察建议
             </CardTitle>
@@ -304,34 +304,34 @@ export default function AIPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="p-4 bg-purple-50 border border-purple-200 rounded-lg transition-all duration-300 hover:scale-105">
+              <div className="p-4 bg-accent-50 border border-accent-200 rounded-lg transition-all duration-300 hover:scale-105">
                 <div className="flex items-start space-x-3">
-                  <Lightbulb className="w-5 h-5 text-purple-600 mt-0.5" />
+                  <Lightbulb className="w-5 h-5 text-accent-600 mt-0.5" />
                   <div>
-                    <h4 className="font-medium text-purple-800">销售机会识别</h4>
-                    <p className="text-sm text-purple-600 mt-1">
+                    <h4 className="font-medium text-accent-800">销售机会识别</h4>
+                    <p className="text-sm text-accent-600 mt-1">
                       AI分析发现，客户群体A在周末的购买转化率比工作日高35%，建议增加周末营销活动
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg transition-all duration-300 hover:scale-105">
+              <div className="p-4 bg-primary-50 border border-primary-200 rounded-lg transition-all duration-300 hover:scale-105">
                 <div className="flex items-start space-x-3">
-                  <Lightbulb className="w-5 h-5 text-blue-600 mt-0.5" />
+                  <Lightbulb className="w-5 h-5 text-primary-600 mt-0.5" />
                   <div>
-                    <h4 className="font-medium text-blue-800">成本优化建议</h4>
-                    <p className="text-sm text-blue-600 mt-1">
+                    <h4 className="font-medium text-primary-800">成本优化建议</h4>
+                    <p className="text-sm text-primary-600 mt-1">
                       通过优化库存管理流程，预计可以降低15%的运营成本，建议实施智能库存预测系统
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="p-4 bg-green-50 border border-green-200 rounded-lg transition-all duration-300 hover:scale-105">
+              <div className="p-4 bg-success-50 border border-success-200 rounded-lg transition-all duration-300 hover:scale-105">
                 <div className="flex items-start space-x-3">
-                  <Lightbulb className="w-5 h-5 text-green-600 mt-0.5" />
+                  <Lightbulb className="w-5 h-5 text-success-600 mt-0.5" />
                   <div>
-                    <h4 className="font-medium text-green-800">客户留存策略</h4>
-                    <p className="text-sm text-green-600 mt-1">
+                    <h4 className="font-medium text-success-800">客户留存策略</h4>
+                    <p className="text-sm text-success-600 mt-1">
                       高价值客户流失风险预警：3位重要客户可能在下月流失，建议主动联系并提供专属服务
                     </p>
                   </div>

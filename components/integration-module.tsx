@@ -125,15 +125,15 @@ export function IntegrationModule() {
   const getStatusColor = (status: string) => {
     switch (status) {
     case 'connected':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'disconnected':
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     case 'error':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     case 'pending':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-warning-100 text-warning-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -155,15 +155,15 @@ export function IntegrationModule() {
   const getStatusIcon = (status: string) => {
     switch (status) {
     case 'connected':
-      return <CheckCircle className="w-4 h-4 text-green-600" />;
+      return <CheckCircle className="w-4 h-4 text-success-600" />;
     case 'disconnected':
-      return <Clock className="w-4 h-4 text-gray-600" />;
+      return <Clock className="w-4 h-4 text-neutral-600" />;
     case 'error':
-      return <AlertTriangle className="w-4 h-4 text-red-600" />;
+      return <AlertTriangle className="w-4 h-4 text-danger-600" />;
     case 'pending':
-      return <Clock className="w-4 h-4 text-yellow-600" />;
+      return <Clock className="w-4 h-4 text-warning-600" />;
     default:
-      return <Clock className="w-4 h-4 text-gray-600" />;
+      return <Clock className="w-4 h-4 text-neutral-600" />;
     }
   };
 
@@ -180,24 +180,24 @@ export function IntegrationModule() {
   const totalDataPoints = integrations.reduce((sum, i) => sum + i.dataPoints, 0);
 
   return (
-    <div className="p-6 space-y-6 bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gradient-to-br from-danger-50 via-accent-50 to-accent-50 min-h-screen">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-            <Zap className="w-8 h-8 mr-3 text-rose-600" />
+          <h1 className="text-3xl font-bold text-neutral-900 flex items-center">
+            <Zap className="w-8 h-8 mr-3 text-danger-600" />
             集成管理中心
           </h1>
-          <p className="text-gray-600 mt-2">第三方服务集成和API管理</p>
+          <p className="text-neutral-600 mt-2">第三方服务集成和API管理</p>
         </div>
         <div className="flex space-x-2">
           <Button
             variant="outline"
-            className="border-l-4 border-l-rose-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+            className="border-l-4 border-l-danger-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
           >
             <Webhook className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             API文档
           </Button>
-          <Button className="bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+          <Button className="bg-gradient-to-r from-danger-500 to-accent-600 hover:from-danger-600 hover:to-accent-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
             <Plus className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             添加集成
           </Button>
@@ -206,55 +206,55 @@ export function IntegrationModule() {
 
       {/* 集成概览统计 */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="border-l-4 border-l-rose-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-danger-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">总集成数</CardTitle>
-            <Zap className="h-4 w-4 text-rose-600" />
+            <Zap className="h-4 w-4 text-danger-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-rose-700">{integrations.length}</div>
-            <p className="text-xs text-rose-600">已配置的服务</p>
+            <div className="text-2xl font-bold text-danger-700">{integrations.length}</div>
+            <p className="text-xs text-danger-600">已配置的服务</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-rose-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-danger-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">已连接</CardTitle>
-            <CheckCircle className="h-4 w-4 text-rose-600" />
+            <CheckCircle className="h-4 w-4 text-danger-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-rose-700">{connectedCount}</div>
-            <p className="text-xs text-green-600">正常运行中</p>
+            <div className="text-2xl font-bold text-danger-700">{connectedCount}</div>
+            <p className="text-xs text-success-600">正常运行中</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-rose-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-danger-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">异常服务</CardTitle>
-            <AlertTriangle className="h-4 w-4 text-rose-600" />
+            <AlertTriangle className="h-4 w-4 text-danger-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-rose-700">{errorCount}</div>
-            <p className="text-xs text-red-600">需要处理</p>
+            <div className="text-2xl font-bold text-danger-700">{errorCount}</div>
+            <p className="text-xs text-danger-600">需要处理</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-rose-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-danger-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">数据同步</CardTitle>
-            <Database className="h-4 w-4 text-rose-600" />
+            <Database className="h-4 w-4 text-danger-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-rose-700">{totalDataPoints.toLocaleString()}</div>
-            <p className="text-xs text-rose-600">今日同步条数</p>
+            <div className="text-2xl font-bold text-danger-700">{totalDataPoints.toLocaleString()}</div>
+            <p className="text-xs text-danger-600">今日同步条数</p>
           </CardContent>
         </Card>
       </div>
 
       {/* 集成管理详情 */}
-      <Card className="border-l-4 border-l-rose-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-danger-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center text-rose-700">
+          <CardTitle className="flex items-center text-danger-700">
             <Settings className="w-5 h-5 mr-2" />
             集成服务管理
           </CardTitle>
@@ -272,19 +272,19 @@ export function IntegrationModule() {
             <TabsContent value="all" className="space-y-4">
               <div className="flex justify-between items-center">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-4 h-4" />
                   <Input
                     placeholder="搜索集成服务..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 max-w-sm border-l-4 border-l-rose-500"
+                    className="pl-10 max-w-sm border-l-4 border-l-danger-500"
                   />
                 </div>
                 <div className="flex space-x-2">
-                  <Button variant="outline" size="sm" className="border-l-4 border-l-rose-500 bg-transparent">
+                  <Button variant="outline" size="sm" className="border-l-4 border-l-danger-500 bg-transparent">
                     筛选
                   </Button>
-                  <Button variant="outline" size="sm" className="border-l-4 border-l-rose-500 bg-transparent">
+                  <Button variant="outline" size="sm" className="border-l-4 border-l-danger-500 bg-transparent">
                     批量操作
                   </Button>
                 </div>
@@ -294,12 +294,12 @@ export function IntegrationModule() {
                 {filteredIntegrations.map((integration) => (
                   <Card
                     key={integration.id}
-                    className="border-l-4 border-l-rose-500 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200"
+                    className="border-l-4 border-l-danger-500 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200"
                   >
                     <CardHeader>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
-                          <integration.icon className="w-8 h-8 text-rose-600" />
+                          <integration.icon className="w-8 h-8 text-danger-600" />
                           <div>
                             <CardTitle className="text-base">{integration.name}</CardTitle>
                             <Badge variant="outline">{integration.category}</Badge>
@@ -327,7 +327,7 @@ export function IntegrationModule() {
                         </div>
                         <div className="flex justify-between items-center">
                           <span>启用状态:</span>
-                          <Switch checked={integration.isActive} className="data-[state=checked]:bg-rose-500" />
+                          <Switch checked={integration.isActive} className="data-[state=checked]:bg-danger-500" />
                         </div>
                       </div>
 
@@ -335,14 +335,14 @@ export function IntegrationModule() {
                         <Button
                           size="sm"
                           variant="outline"
-                          className="flex-1 border-l-4 border-l-rose-500 transition-all duration-300 hover:scale-105 bg-transparent"
+                          className="flex-1 border-l-4 border-l-danger-500 transition-all duration-300 hover:scale-105 bg-transparent"
                         >
                           <Settings className="w-3 h-3 mr-1" />
                           配置
                         </Button>
                         <Button
                           size="sm"
-                          className="flex-1 bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white transition-all duration-300 hover:scale-105 group"
+                          className="flex-1 bg-gradient-to-r from-danger-500 to-accent-600 hover:from-danger-600 hover:to-accent-700 text-white transition-all duration-300 hover:scale-105 group"
                         >
                           <Zap className="w-3 h-3 mr-1 group-hover:translate-x-1 transition-all duration-300" />
                           测试
@@ -361,18 +361,18 @@ export function IntegrationModule() {
                   .map((integration) => (
                     <Card
                       key={integration.id}
-                      className="border-l-4 border-l-green-500 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200"
+                      className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200"
                     >
                       <CardHeader>
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-3">
-                            <integration.icon className="w-8 h-8 text-green-600" />
+                            <integration.icon className="w-8 h-8 text-success-600" />
                             <div>
                               <CardTitle className="text-base">{integration.name}</CardTitle>
-                              <Badge className="bg-green-100 text-green-700">运行正常</Badge>
+                              <Badge className="bg-success-100 text-success-700">运行正常</Badge>
                             </div>
                           </div>
-                          <CheckCircle className="w-5 h-5 text-green-600" />
+                          <CheckCircle className="w-5 h-5 text-success-600" />
                         </div>
                       </CardHeader>
                       <CardContent>
@@ -381,7 +381,7 @@ export function IntegrationModule() {
                         <div className="space-y-2 text-xs text-muted-foreground">
                           <div className="flex justify-between">
                             <span>最后同步:</span>
-                            <span className="text-green-600">{integration.lastSync}</span>
+                            <span className="text-success-600">{integration.lastSync}</span>
                           </div>
                           <div className="flex justify-between">
                             <span>同步数据:</span>
@@ -389,8 +389,8 @@ export function IntegrationModule() {
                           </div>
                         </div>
 
-                        <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden mt-3">
-                          <div className="h-full bg-gradient-to-r from-green-400 to-green-500 rounded-full w-full"></div>
+                        <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden mt-3">
+                          <div className="h-full bg-gradient-to-r from-success-400 to-success-500 rounded-full w-full"></div>
                         </div>
                       </CardContent>
                     </Card>
@@ -405,29 +405,29 @@ export function IntegrationModule() {
                   .map((integration) => (
                     <Card
                       key={integration.id}
-                      className="border-l-4 border-l-red-500 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200"
+                      className="border-l-4 border-l-danger-500 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200"
                     >
                       <CardContent className="p-4">
                         <div className="flex justify-between items-start">
                           <div className="flex items-center space-x-3">
-                            <AlertTriangle className="w-8 h-8 text-red-600" />
+                            <AlertTriangle className="w-8 h-8 text-danger-600" />
                             <div>
-                              <h3 className="font-medium text-red-800">{integration.name}</h3>
+                              <h3 className="font-medium text-danger-800">{integration.name}</h3>
                               <p className="text-sm text-muted-foreground">{integration.description}</p>
-                              <div className="text-xs text-red-600 mt-2">连接失败 - API密钥可能已过期</div>
+                              <div className="text-xs text-danger-600 mt-2">连接失败 - API密钥可能已过期</div>
                             </div>
                           </div>
                           <div className="flex space-x-2">
                             <Button
                               size="sm"
                               variant="outline"
-                              className="border-red-600 text-red-600 hover:bg-red-50 transition-all duration-300 hover:scale-105 bg-transparent"
+                              className="border-danger-600 text-danger-600 hover:bg-danger-50 transition-all duration-300 hover:scale-105 bg-transparent"
                             >
                               重新连接
                             </Button>
                             <Button
                               size="sm"
-                              className="bg-red-600 hover:bg-red-700 text-white transition-all duration-300 hover:scale-105"
+                              className="bg-danger-600 hover:bg-danger-700 text-white transition-all duration-300 hover:scale-105"
                             >
                               修复问题
                             </Button>
@@ -440,9 +440,9 @@ export function IntegrationModule() {
             </TabsContent>
 
             <TabsContent value="settings" className="space-y-4">
-              <Card className="border-l-4 border-l-rose-500 bg-white/80 backdrop-blur-sm shadow-sm">
+              <Card className="border-l-4 border-l-danger-500 bg-white/80 backdrop-blur-sm shadow-sm">
                 <CardHeader>
-                  <CardTitle className="text-rose-700">全局集成设置</CardTitle>
+                  <CardTitle className="text-danger-700">全局集成设置</CardTitle>
                   <CardDescription>配置集成服务的全局参数和安全设置</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -452,7 +452,7 @@ export function IntegrationModule() {
                         <Label htmlFor="auto-sync">自动同步</Label>
                         <p className="text-sm text-muted-foreground">启用后将自动同步所有集成服务的数据</p>
                       </div>
-                      <Switch id="auto-sync" className="data-[state=checked]:bg-rose-500" />
+                      <Switch id="auto-sync" className="data-[state=checked]:bg-danger-500" />
                     </div>
 
                     <div className="flex items-center justify-between">
@@ -460,7 +460,7 @@ export function IntegrationModule() {
                         <Label htmlFor="error-notifications">错误通知</Label>
                         <p className="text-sm text-muted-foreground">集成服务出现错误时发送通知</p>
                       </div>
-                      <Switch id="error-notifications" defaultChecked className="data-[state=checked]:bg-rose-500" />
+                      <Switch id="error-notifications" defaultChecked className="data-[state=checked]:bg-danger-500" />
                     </div>
 
                     <div className="flex items-center justify-between">
@@ -468,7 +468,7 @@ export function IntegrationModule() {
                         <Label htmlFor="data-encryption">数据加密</Label>
                         <p className="text-sm text-muted-foreground">对同步的敏感数据进行加密存储</p>
                       </div>
-                      <Switch id="data-encryption" defaultChecked className="data-[state=checked]:bg-rose-500" />
+                      <Switch id="data-encryption" defaultChecked className="data-[state=checked]:bg-danger-500" />
                     </div>
 
                     <div className="flex items-center justify-between">
@@ -476,11 +476,11 @@ export function IntegrationModule() {
                         <Label htmlFor="rate-limiting">API限流</Label>
                         <p className="text-sm text-muted-foreground">启用API请求频率限制保护</p>
                       </div>
-                      <Switch id="rate-limiting" defaultChecked className="data-[state=checked]:bg-rose-500" />
+                      <Switch id="rate-limiting" defaultChecked className="data-[state=checked]:bg-danger-500" />
                     </div>
 
                     <div className="pt-4 border-t">
-                      <Button className="bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white transition-all duration-300 hover:scale-105">
+                      <Button className="bg-gradient-to-r from-danger-500 to-accent-600 hover:from-danger-600 hover:to-accent-700 text-white transition-all duration-300 hover:scale-105">
                         保存设置
                       </Button>
                     </div>

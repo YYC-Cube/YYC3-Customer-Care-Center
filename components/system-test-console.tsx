@@ -515,15 +515,15 @@ export function SystemTestConsole() {
   const getStatusIcon = (status: TestCase['status']) => {
     switch (status) {
     case 'passed':
-      return <CheckCircle className="w-4 h-4 text-green-500" />;
+      return <CheckCircle className="w-4 h-4 text-success-500" />;
     case 'failed':
-      return <XCircle className="w-4 h-4 text-red-500" />;
+      return <XCircle className="w-4 h-4 text-danger-500" />;
     case 'running':
-      return <RefreshCw className="w-4 h-4 text-blue-500 animate-spin" />;
+      return <RefreshCw className="w-4 h-4 text-primary-500 animate-spin" />;
     case 'skipped':
-      return <Clock className="w-4 h-4 text-gray-400" />;
+      return <Clock className="w-4 h-4 text-neutral-400" />;
     default:
-      return <Clock className="w-4 h-4 text-gray-400" />;
+      return <Clock className="w-4 h-4 text-neutral-400" />;
     }
   };
 
@@ -531,15 +531,15 @@ export function SystemTestConsole() {
   const getStatusColor = (status: TestCase['status']) => {
     switch (status) {
     case 'passed':
-      return 'text-green-600 bg-green-50 border-green-200';
+      return 'text-success-600 bg-success-50 border-success-200';
     case 'failed':
-      return 'text-red-600 bg-red-50 border-red-200';
+      return 'text-danger-600 bg-danger-50 border-danger-200';
     case 'running':
-      return 'text-blue-600 bg-blue-50 border-blue-200';
+      return 'text-primary-600 bg-primary-50 border-primary-200';
     case 'skipped':
-      return 'text-gray-600 bg-gray-50 border-gray-200';
+      return 'text-neutral-600 bg-neutral-50 border-neutral-200';
     default:
-      return 'text-gray-600 bg-gray-50 border-gray-200';
+      return 'text-neutral-600 bg-neutral-50 border-neutral-200';
     }
   };
 
@@ -565,7 +565,7 @@ export function SystemTestConsole() {
           <DialogTitle className="flex items-center space-x-2">
             <Monitor className="w-5 h-5" />
             <span>系统功能测试控制台</span>
-            {isRunning && <RefreshCw className="w-4 h-4 animate-spin text-blue-500" />}
+            {isRunning && <RefreshCw className="w-4 h-4 animate-spin text-primary-500" />}
           </DialogTitle>
         </DialogHeader>
 
@@ -614,22 +614,22 @@ export function SystemTestConsole() {
               {testResults && (
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
                   <div className="text-center">
-                    <p className="text-2xl font-bold text-green-600">{testResults.passedTests}</p>
-                    <p className="text-sm text-gray-600">通过</p>
+                    <p className="text-2xl font-bold text-success-600">{testResults.passedTests}</p>
+                    <p className="text-sm text-neutral-600">通过</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-2xl font-bold text-red-600">{testResults.failedTests}</p>
-                    <p className="text-sm text-gray-600">失败</p>
+                    <p className="text-2xl font-bold text-danger-600">{testResults.failedTests}</p>
+                    <p className="text-sm text-neutral-600">失败</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-2xl font-bold text-blue-600">{testResults.successRate.toFixed(1)}%</p>
-                    <p className="text-sm text-gray-600">成功率</p>
+                    <p className="text-2xl font-bold text-primary-600">{testResults.successRate.toFixed(1)}%</p>
+                    <p className="text-sm text-neutral-600">成功率</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-2xl font-bold text-purple-600">
+                    <p className="text-2xl font-bold text-accent-600">
                       {(testResults.totalDuration / 1000).toFixed(1)}s
                     </p>
-                    <p className="text-sm text-gray-600">总耗时</p>
+                    <p className="text-sm text-neutral-600">总耗时</p>
                   </div>
                 </div>
               )}
@@ -657,10 +657,10 @@ export function SystemTestConsole() {
                         <CardHeader>
                           <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-3">
-                              <SuiteIcon className="w-5 h-5 text-blue-600" />
+                              <SuiteIcon className="w-5 h-5 text-primary-600" />
                               <div>
                                 <h3 className="font-semibold">{suite.name}</h3>
-                                <p className="text-sm text-gray-600">{suite.description}</p>
+                                <p className="text-sm text-neutral-600">{suite.description}</p>
                               </div>
                             </div>
                             <div className="flex items-center space-x-2">
@@ -730,15 +730,15 @@ export function SystemTestConsole() {
                       <CardContent>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                           <div>
-                            <p className="text-sm text-gray-600">总测试数</p>
+                            <p className="text-sm text-neutral-600">总测试数</p>
                             <p className="text-2xl font-bold">{testResults.totalTests}</p>
                           </div>
                           <div>
-                            <p className="text-sm text-gray-600">成功率</p>
-                            <p className="text-2xl font-bold text-green-600">{testResults.successRate.toFixed(1)}%</p>
+                            <p className="text-sm text-neutral-600">成功率</p>
+                            <p className="text-2xl font-bold text-success-600">{testResults.successRate.toFixed(1)}%</p>
                           </div>
                           <div>
-                            <p className="text-sm text-gray-600">平均耗时</p>
+                            <p className="text-sm text-neutral-600">平均耗时</p>
                             <p className="text-2xl font-bold">{testResults.averageTestDuration.toFixed(0)}ms</p>
                           </div>
                         </div>
@@ -754,11 +754,11 @@ export function SystemTestConsole() {
                         <CardContent>
                           <div className="flex items-center space-x-4">
                             <div className="flex items-center space-x-2">
-                              <CheckCircle className="w-4 h-4 text-green-500" />
+                              <CheckCircle className="w-4 h-4 text-success-500" />
                               <span className="text-sm">通过: {suite.passed}</span>
                             </div>
                             <div className="flex items-center space-x-2">
-                              <XCircle className="w-4 h-4 text-red-500" />
+                              <XCircle className="w-4 h-4 text-danger-500" />
                               <span className="text-sm">失败: {suite.failed}</span>
                             </div>
                             <div className="flex items-center space-x-2">
@@ -773,8 +773,8 @@ export function SystemTestConsole() {
                 </ScrollArea>
               ) : (
                 <div className="text-center py-8">
-                  <Monitor className="w-12 h-12 mx-auto text-gray-400 mb-4" />
-                  <p className="text-gray-600">运行测试后查看详细报告</p>
+                  <Monitor className="w-12 h-12 mx-auto text-neutral-400 mb-4" />
+                  <p className="text-neutral-600">运行测试后查看详细报告</p>
                 </div>
               )}
             </TabsContent>

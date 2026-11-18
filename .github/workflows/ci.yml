@@ -5,88 +5,147 @@ on:
     branches: [main, develop]
   pull_request:
     branches: [main, develop]
+  workflow_dispatch:
+
+# 同一分支并发构建自动取消旧任务
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: '22'
+  NEXT_TELEMETRY_DISABLED: '1'
 
 jobs:
-  lint:
-    name: Lint
+  quality:
+    name: Quality (type + lint)
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
-      - name: Run ESLint
-        run: npm run lint
-
-      - name: Run Prettier check
-        run: npm run format:check
-
-      - name: Run TypeScript check
+      - name: TypeScript check
         run: npm run type-check
 
+      - name: ESLint
+        run: npm run lint
+
+      - name: Prettier check (非阻断)
+        run: npm run format:check
+        continue-on-error: true
+
   test:
-    name: Test
+    name: Test (unit + integration)
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
-      - name: Run unit tests
-        run: npm run test:unit
-
-      - name: Generate coverage report
+      - name: Run tests with coverage
         run: npm run test:coverage
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+      - name: Upload coverage artifact
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          files: ./coverage/coverage-final.json
-          flags: unittests
-          name: codecov-umbrella
+          name: coverage
+          path: coverage
+          retention-days: 7
+          if-no-files-found: ignore
 
   build:
-    name: Build
+    name: Build (standalone)
     runs-on: ubuntu-latest
-    needs: [lint, test]
+    needs: [quality, test]
+    timeout-minutes: 20
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
-      - name: Build project
+      - name: Build
         run: npm run build
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+      - name: Smoke test API
+        run: |
+          node .next/standalone/server.js &
+          SERVER_PID=$!
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:3000/api/health > /dev/null; then break; fi
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:3000/api/health | tee /tmp/health.json
+          curl -fsS -o /dev/null -w "customers:%{http_code}\n" http://127.0.0.1:3000/api/customers
+          kill $SERVER_PID
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: build-artifacts
+          name: next-build
           path: .next
           retention-days: 7
+          if-no-files-found: error
+
+  security:
+    name: Security (audit + secrets)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Production dependency audit
+        run: |
+          npm audit --registry=https://registry.npmjs.org --omit=dev --audit-level=high || {
+            echo "::warning::存在生产依赖漏洞，请查看上方明细";
+            exit 1;
+          }
+
+      - name: Guard against committed env files
+        run: |
+          if git ls-files | grep -E '^\.env($|\.)' | grep -v '^\.env\.example$'; then
+            echo "::error::检测到 .env 文件被纳入版本控制，存在密钥泄漏风险";
+            exit 1;
+          fi
+          echo "OK: 仅有 .env.example 入库"

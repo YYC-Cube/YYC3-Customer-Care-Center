@@ -225,9 +225,9 @@ export function RealTimeChat({ currentUserId, selectedRoomId, onRoomChange }: Re
   const getMessageStatus = (message: ChatMessage) => {
     if (message.senderId === currentUserId) {
       return message.isRead ? (
-        <CheckCheck className="w-3 h-3 text-blue-500" />
+        <CheckCheck className="w-3 h-3 text-primary-500" />
       ) : (
-        <Check className="w-3 h-3 text-gray-400" />
+        <Check className="w-3 h-3 text-neutral-400" />
       );
     }
     return null;
@@ -238,11 +238,11 @@ export function RealTimeChat({ currentUserId, selectedRoomId, onRoomChange }: Re
   return (
     <div className="flex h-[600px] bg-white rounded-lg border overflow-hidden">
       {/* 左侧聊天室列表 */}
-      <div className="w-80 border-r bg-gray-50">
+      <div className="w-80 border-r bg-neutral-50">
         {/* 搜索栏 */}
         <div className="p-4 border-b bg-white">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-4 h-4" />
             <Input
               placeholder="搜索聊天室..."
               value={searchQuery}
@@ -259,7 +259,7 @@ export function RealTimeChat({ currentUserId, selectedRoomId, onRoomChange }: Re
               <div
                 key={room.id}
                 className={`p-3 rounded-lg cursor-pointer transition-colors ${
-                  currentRoom?.id === room.id ? 'bg-blue-100 border border-blue-200' : 'hover:bg-white'
+                  currentRoom?.id === room.id ? 'bg-primary-100 border border-primary-200' : 'hover:bg-white'
                 }`}
                 onClick={() => handleRoomSelect(room)}
               >
@@ -270,7 +270,7 @@ export function RealTimeChat({ currentUserId, selectedRoomId, onRoomChange }: Re
                       <AvatarFallback>{room.name.charAt(0)}</AvatarFallback>
                     </Avatar>
                     {room.type === 'group' && (
-                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
+                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-primary-500 rounded-full flex items-center justify-center">
                         <Users className="w-2 h-2 text-white" />
                       </div>
                     )}
@@ -279,11 +279,11 @@ export function RealTimeChat({ currentUserId, selectedRoomId, onRoomChange }: Re
                     <div className="flex items-center justify-between">
                       <h4 className="font-medium text-sm truncate">{room.name}</h4>
                       {room.lastMessage && (
-                        <span className="text-xs text-gray-500">{formatTime(room.lastMessage.timestamp)}</span>
+                        <span className="text-xs text-neutral-500">{formatTime(room.lastMessage.timestamp)}</span>
                       )}
                     </div>
                     <div className="flex items-center justify-between">
-                      <p className="text-xs text-gray-600 truncate">{room.lastMessage?.content || '暂无消息'}</p>
+                      <p className="text-xs text-neutral-600 truncate">{room.lastMessage?.content || '暂无消息'}</p>
                       {room.unreadCount > 0 && (
                         <Badge variant="destructive" className="text-xs h-5 min-w-5 px-1">
                           {room.unreadCount}
@@ -299,7 +299,7 @@ export function RealTimeChat({ currentUserId, selectedRoomId, onRoomChange }: Re
 
         {/* 在线用户 */}
         <div className="border-t bg-white p-4">
-          <h4 className="text-sm font-medium text-gray-700 mb-2">在线用户 ({onlineUsers.length})</h4>
+          <h4 className="text-sm font-medium text-neutral-700 mb-2">在线用户 ({onlineUsers.length})</h4>
           <div className="flex space-x-2">
             {onlineUsers.slice(0, 5).map((user) => (
               <div key={user.id} className="relative">
@@ -307,12 +307,12 @@ export function RealTimeChat({ currentUserId, selectedRoomId, onRoomChange }: Re
                   <AvatarImage src={user.avatar || `/placeholder.svg?height=32&width=32&text=${user.name.charAt(0)}`} />
                   <AvatarFallback className="text-xs">{user.name.charAt(0)}</AvatarFallback>
                 </Avatar>
-                <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+                <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-success-500 border-2 border-white rounded-full"></div>
               </div>
             ))}
             {onlineUsers.length > 5 && (
-              <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
-                <span className="text-xs text-gray-600">+{onlineUsers.length - 5}</span>
+              <div className="w-8 h-8 bg-neutral-200 rounded-full flex items-center justify-center">
+                <span className="text-xs text-neutral-600">+{onlineUsers.length - 5}</span>
               </div>
             )}
           </div>
@@ -332,7 +332,7 @@ export function RealTimeChat({ currentUserId, selectedRoomId, onRoomChange }: Re
                 </Avatar>
                 <div>
                   <h3 className="font-medium">{currentRoom.name}</h3>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-neutral-500">
                     {currentRoom.type === 'group' ? `${currentRoom.participants.length} 位成员` : '私聊'}
                   </p>
                 </div>
@@ -362,7 +362,7 @@ export function RealTimeChat({ currentUserId, selectedRoomId, onRoomChange }: Re
                     <div key={message.id}>
                       {showDate && (
                         <div className="flex justify-center my-4">
-                          <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                          <span className="text-xs text-neutral-500 bg-neutral-100 px-3 py-1 rounded-full">
                             {formatDate(message.timestamp)}
                           </span>
                         </div>
@@ -383,7 +383,7 @@ export function RealTimeChat({ currentUserId, selectedRoomId, onRoomChange }: Re
 
                           <div
                             className={`relative group ${
-                              isOwn ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-900'
+                              isOwn ? 'bg-primary-500 text-white' : 'bg-neutral-100 text-neutral-900'
                             } rounded-lg px-3 py-2 cursor-pointer`}
                             onClick={() => setSelectedMessage(selectedMessage === message.id ? null : message.id)}
                           >
@@ -392,7 +392,7 @@ export function RealTimeChat({ currentUserId, selectedRoomId, onRoomChange }: Re
                             <p className="text-sm break-words">{message.content}</p>
 
                             <div className="flex items-center justify-between mt-1">
-                              <span className={`text-xs ${isOwn ? 'text-blue-100' : 'text-gray-500'}`}>
+                              <span className={`text-xs ${isOwn ? 'text-primary-100' : 'text-neutral-500'}`}>
                                 {formatTime(message.timestamp)}
                               </span>
                               {getMessageStatus(message)}
@@ -450,7 +450,7 @@ export function RealTimeChat({ currentUserId, selectedRoomId, onRoomChange }: Re
                                       <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                                         <Edit className="w-3 h-3" />
                                       </Button>
-                                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-red-500">
+                                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-danger-500">
                                         <Trash2 className="w-3 h-3" />
                                       </Button>
                                     </>
@@ -470,7 +470,7 @@ export function RealTimeChat({ currentUserId, selectedRoomId, onRoomChange }: Re
 
             {/* 输入区域 */}
             <div className="p-4 border-t bg-white">
-              {isTyping && <div className="mb-2 text-sm text-gray-500">有人正在输入...</div>}
+              {isTyping && <div className="mb-2 text-sm text-neutral-500">有人正在输入...</div>}
 
               <div className="flex items-end space-x-2">
                 <div className="flex-1">
@@ -495,7 +495,7 @@ export function RealTimeChat({ currentUserId, selectedRoomId, onRoomChange }: Re
                   <Button
                     variant="ghost"
                     size="sm"
-                    className={isRecording ? 'text-red-500' : ''}
+                    className={isRecording ? 'text-danger-500' : ''}
                     onMouseDown={startRecording}
                     onMouseUp={stopRecording}
                     onMouseLeave={stopRecording}
@@ -505,7 +505,7 @@ export function RealTimeChat({ currentUserId, selectedRoomId, onRoomChange }: Re
                   <Button
                     onClick={handleSendMessage}
                     disabled={!messageInput.trim()}
-                    className="bg-blue-500 hover:bg-blue-600"
+                    className="bg-primary-500 hover:bg-primary-600"
                   >
                     <Send className="w-4 h-4" />
                   </Button>
@@ -516,9 +516,9 @@ export function RealTimeChat({ currentUserId, selectedRoomId, onRoomChange }: Re
         ) : (
           <div className="flex-1 flex items-center justify-center">
             <div className="text-center">
-              <MessageSquare className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-600 mb-2">选择一个聊天室</h3>
-              <p className="text-gray-500">开始与团队成员交流</p>
+              <MessageSquare className="w-16 h-16 text-neutral-300 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-neutral-600 mb-2">选择一个聊天室</h3>
+              <p className="text-neutral-500">开始与团队成员交流</p>
             </div>
           </div>
         )}

@@ -153,43 +153,43 @@ export default function NotificationsPage() {
   const getNotificationIcon = (type: Notification['type']) => {
     switch (type) {
     case 'message':
-      return <MessageSquare className="w-5 h-5 text-blue-600" />;
+      return <MessageSquare className="w-5 h-5 text-primary-600" />;
     case 'meeting':
-      return <Calendar className="w-5 h-5 text-blue-600" />;
+      return <Calendar className="w-5 h-5 text-primary-600" />;
     case 'document':
-      return <FileText className="w-5 h-5 text-blue-600" />;
+      return <FileText className="w-5 h-5 text-primary-600" />;
     case 'system':
-      return <Settings className="w-5 h-5 text-blue-600" />;
+      return <Settings className="w-5 h-5 text-primary-600" />;
     case 'announcement':
-      return <Bell className="w-5 h-5 text-blue-600" />;
+      return <Bell className="w-5 h-5 text-primary-600" />;
     default:
-      return <Info className="w-5 h-5 text-blue-600" />;
+      return <Info className="w-5 h-5 text-primary-600" />;
     }
   };
 
   const getPriorityIcon = (priority: Notification['priority']) => {
     switch (priority) {
     case 'urgent':
-      return <AlertTriangle className="w-4 h-4 text-red-500" />;
+      return <AlertTriangle className="w-4 h-4 text-danger-500" />;
     case 'high':
-      return <AlertTriangle className="w-4 h-4 text-orange-500" />;
+      return <AlertTriangle className="w-4 h-4 text-warning-500" />;
     case 'medium':
-      return <Info className="w-4 h-4 text-blue-500" />;
+      return <Info className="w-4 h-4 text-primary-500" />;
     default:
-      return <CheckCircle className="w-4 h-4 text-green-500" />;
+      return <CheckCircle className="w-4 h-4 text-success-500" />;
     }
   };
 
   const getPriorityColor = (priority: Notification['priority']) => {
     switch (priority) {
     case 'urgent':
-      return 'bg-red-100 text-red-800 border-red-200';
+      return 'bg-danger-100 text-danger-800 border-danger-200';
     case 'high':
-      return 'bg-orange-100 text-orange-800 border-orange-200';
+      return 'bg-warning-100 text-warning-800 border-warning-200';
     case 'medium':
-      return 'bg-blue-100 text-blue-800 border-blue-200';
+      return 'bg-primary-100 text-primary-800 border-primary-200';
     default:
-      return 'bg-green-100 text-green-800 border-green-200';
+      return 'bg-success-100 text-success-800 border-success-200';
     }
   };
 
@@ -258,22 +258,22 @@ export default function NotificationsPage() {
   const actionRequiredCount = notifications.filter((notif) => notif.actionRequired).length;
 
   return (
-    <div className="p-6 space-y-6 bg-gradient-to-br from-blue-50 via-sky-50 to-indigo-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gradient-to-br from-primary-50 via-primary-50 to-primary-50 min-h-screen">
       {/* 页面标题 */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-slate-800 flex items-center">
-            <Bell className="w-8 h-8 mr-3 text-blue-600" />
+          <h1 className="text-3xl font-bold text-neutral-800 flex items-center">
+            <Bell className="w-8 h-8 mr-3 text-primary-600" />
             通知中心
           </h1>
-          <p className="text-slate-600 mt-1">管理您的所有通知和提醒</p>
+          <p className="text-neutral-600 mt-1">管理您的所有通知和提醒</p>
         </div>
         <div className="flex items-center space-x-3">
           <Button
             variant="outline"
             size="sm"
             onClick={markAllAsRead}
-            className="border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+            className="border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
           >
             <Check className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             全部已读
@@ -281,7 +281,7 @@ export default function NotificationsPage() {
           <Button
             variant="outline"
             size="sm"
-            className="border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+            className="border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
           >
             <Settings className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             通知设置
@@ -291,54 +291,54 @@ export default function NotificationsPage() {
 
       {/* 统计卡片 */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Bell className="w-5 h-5 mr-2 text-blue-600" />
+              <Bell className="w-5 h-5 mr-2 text-primary-600" />
               全部通知
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">{notifications.length}</div>
+            <div className="text-2xl font-bold text-primary-600">{notifications.length}</div>
             <p className="text-sm text-muted-foreground">总通知数量</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <AlertTriangle className="w-5 h-5 mr-2 text-blue-600" />
+              <AlertTriangle className="w-5 h-5 mr-2 text-primary-600" />
               未读通知
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">{unreadCount}</div>
+            <div className="text-2xl font-bold text-primary-600">{unreadCount}</div>
             <p className="text-sm text-muted-foreground">需要查看</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Star className="w-5 h-5 mr-2 text-blue-600" />
+              <Star className="w-5 h-5 mr-2 text-primary-600" />
               重要通知
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">{starredCount}</div>
+            <div className="text-2xl font-bold text-primary-600">{starredCount}</div>
             <p className="text-sm text-muted-foreground">已标记重要</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <CheckCircle className="w-5 h-5 mr-2 text-blue-600" />
+              <CheckCircle className="w-5 h-5 mr-2 text-primary-600" />
               待处理
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">{actionRequiredCount}</div>
+            <div className="text-2xl font-bold text-primary-600">{actionRequiredCount}</div>
             <p className="text-sm text-muted-foreground">需要操作</p>
           </CardContent>
         </Card>
@@ -347,9 +347,9 @@ export default function NotificationsPage() {
       {/* 主要内容区域 */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* 侧边栏 */}
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader className="pb-3">
-            <CardTitle className="text-base text-blue-700">通知分类</CardTitle>
+            <CardTitle className="text-base text-primary-700">通知分类</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             <Button
@@ -436,22 +436,22 @@ export default function NotificationsPage() {
         {/* 通知列表 */}
         <div className="lg:col-span-3 space-y-6">
           {/* 搜索和操作 */}
-          <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+          <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
             <CardContent className="p-4">
               <div className="flex items-center space-x-4">
                 <div className="relative flex-1">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-4 h-4" />
                   <Input
                     placeholder="搜索通知..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 border-l-4 border-l-blue-500"
+                    className="pl-10 border-l-4 border-l-primary-500"
                   />
                 </div>
                 <Button
                   variant="outline"
                   size="sm"
-                  className="border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+                  className="border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
                 >
                   <Filter className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
                   筛选
@@ -461,9 +461,9 @@ export default function NotificationsPage() {
           </Card>
 
           {/* 通知列表 */}
-          <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+          <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
             <CardHeader>
-              <CardTitle className="text-base text-blue-700">通知列表</CardTitle>
+              <CardTitle className="text-base text-primary-700">通知列表</CardTitle>
               <CardDescription>
                 {filteredNotifications.length} 条通知
                 {selectedFilter !== 'all' &&
@@ -476,8 +476,8 @@ export default function NotificationsPage() {
                   {filteredNotifications.map((notification) => (
                     <div
                       key={notification.id}
-                      className={`border-l-4 border-l-blue-500 p-4 rounded-lg transition-all duration-300 hover:shadow-md hover:scale-105 ${
-                        !notification.isRead ? 'bg-blue-50' : 'bg-white'
+                      className={`border-l-4 border-l-primary-500 p-4 rounded-lg transition-all duration-300 hover:shadow-md hover:scale-105 ${
+                        !notification.isRead ? 'bg-primary-50' : 'bg-white'
                       }`}
                     >
                       <div className="flex items-start space-x-3">
@@ -486,11 +486,11 @@ export default function NotificationsPage() {
                           <div className="flex items-start justify-between mb-2">
                             <div className="flex items-center space-x-2">
                               <h4
-                                className={`font-medium ${!notification.isRead ? 'text-slate-900' : 'text-slate-700'}`}
+                                className={`font-medium ${!notification.isRead ? 'text-neutral-900' : 'text-neutral-700'}`}
                               >
                                 {notification.title}
                               </h4>
-                              {!notification.isRead && <div className="w-2 h-2 bg-blue-500 rounded-full"></div>}
+                              {!notification.isRead && <div className="w-2 h-2 bg-primary-500 rounded-full"></div>}
                             </div>
                             <div className="flex items-center space-x-1">
                               <Badge
@@ -506,14 +506,14 @@ export default function NotificationsPage() {
                                 className="p-1 transition-all duration-300 hover:scale-105 group"
                               >
                                 <Star
-                                  className={`w-4 h-4 group-hover:translate-x-1 transition-all duration-300 ${notification.isStarred ? 'text-yellow-500 fill-current' : 'text-gray-400'}`}
+                                  className={`w-4 h-4 group-hover:translate-x-1 transition-all duration-300 ${notification.isStarred ? 'text-warning-500 fill-current' : 'text-neutral-400'}`}
                                 />
                               </Button>
                             </div>
                           </div>
-                          <p className="text-sm text-slate-600 mb-3 leading-relaxed">{notification.content}</p>
+                          <p className="text-sm text-neutral-600 mb-3 leading-relaxed">{notification.content}</p>
                           <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-3 text-xs text-slate-500">
+                            <div className="flex items-center space-x-3 text-xs text-neutral-500">
                               <div className="flex items-center space-x-1">
                                 <Avatar className="w-4 h-4">
                                   <AvatarImage src={notification.senderAvatar || '/placeholder.svg'} />
@@ -532,7 +532,7 @@ export default function NotificationsPage() {
                               {notification.actionRequired && (
                                 <Button
                                   size="sm"
-                                  className="text-xs bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group"
+                                  className="text-xs bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group"
                                 >
                                   处理
                                 </Button>
@@ -552,7 +552,7 @@ export default function NotificationsPage() {
                                 variant="ghost"
                                 size="sm"
                                 onClick={() => deleteNotification(notification.id)}
-                                className="text-xs text-red-600 hover:text-red-700 transition-all duration-300 hover:scale-105 group"
+                                className="text-xs text-danger-600 hover:text-danger-700 transition-all duration-300 hover:scale-105 group"
                               >
                                 <X className="w-3 h-3 group-hover:translate-x-1 transition-all duration-300" />
                               </Button>
@@ -569,11 +569,11 @@ export default function NotificationsPage() {
 
           {/* 空状态 */}
           {filteredNotifications.length === 0 && (
-            <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+            <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
               <CardContent className="flex flex-col items-center justify-center py-12">
-                <Bell className="w-16 h-16 text-slate-300 mb-4" />
-                <h3 className="text-lg font-medium text-slate-600 mb-2">没有找到通知</h3>
-                <p className="text-slate-500 text-center">{searchQuery ? '尝试调整搜索条件' : '您已查看了所有通知'}</p>
+                <Bell className="w-16 h-16 text-neutral-300 mb-4" />
+                <h3 className="text-lg font-medium text-neutral-600 mb-2">没有找到通知</h3>
+                <p className="text-neutral-500 text-center">{searchQuery ? '尝试调整搜索条件' : '您已查看了所有通知'}</p>
               </CardContent>
             </Card>
           )}
@@ -581,10 +581,10 @@ export default function NotificationsPage() {
       </div>
 
       {/* 通知设置 */}
-      <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
-          <CardTitle className="text-base flex items-center text-blue-700">
-            <Settings className="w-5 h-5 mr-2 text-blue-600" />
+          <CardTitle className="text-base flex items-center text-primary-700">
+            <Settings className="w-5 h-5 mr-2 text-primary-600" />
             通知设置
           </CardTitle>
           <CardDescription>管理您的通知偏好设置</CardDescription>

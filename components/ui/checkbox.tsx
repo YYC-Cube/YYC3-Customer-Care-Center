@@ -21,7 +21,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       role="checkbox"
       aria-checked={checked === 'indeterminate' ? 'mixed' : checked === true}
       checked={checked === true}
-      className={`h-4 w-4 shrink-0 cursor-pointer accent-slate-900 ${className}`}
+      className={`h-4 w-4 shrink-0 cursor-pointer accent-neutral-900 ${className}`}
       onChange={(e) => onCheckedChange?.(e.target.checked)}
       {...props}
     />

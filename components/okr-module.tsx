@@ -29,12 +29,12 @@ export function OKRModule() {
         <div className="flex space-x-2">
           <Button
             variant="outline"
-            className="bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white border-0"
+            className="bg-gradient-to-r from-primary-400 to-primary-500 hover:from-primary-500 hover:to-primary-600 text-white border-0"
           >
             <Target className="w-4 h-4 mr-2" />
             新建OKR
           </Button>
-          <Button className="bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white">
+          <Button className="bg-gradient-to-r from-primary-400 to-primary-500 hover:from-primary-500 hover:to-primary-600 text-white">
             <Award className="w-4 h-4 mr-2" />
             季度回顾
           </Button>
@@ -43,56 +43,56 @@ export function OKRModule() {
 
       {/* OKR概览卡片 */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="bg-white/80 backdrop-blur-sm border-l-4 border-l-blue-500 rounded-xl shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300">
+        <Card className="bg-white/80 backdrop-blur-sm border-l-4 border-l-primary-500 rounded-xl shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">总目标数</CardTitle>
             <Target className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">24</div>
-            <div className="flex items-center text-xs text-blue-600">
+            <div className="flex items-center text-xs text-primary-600">
               <Calendar className="w-3 h-3 mr-1" />
               <span>本季度目标</span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border-l-4 border-l-blue-500 rounded-xl shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300">
+        <Card className="bg-white/80 backdrop-blur-sm border-l-4 border-l-primary-500 rounded-xl shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">已完成</CardTitle>
             <CheckCircle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">18</div>
-            <div className="flex items-center text-xs text-green-600">
+            <div className="flex items-center text-xs text-success-600">
               <TrendingUp className="w-3 h-3 mr-1" />
               <span>完成率 75%</span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border-l-4 border-l-blue-500 rounded-xl shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300">
+        <Card className="bg-white/80 backdrop-blur-sm border-l-4 border-l-primary-500 rounded-xl shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">团队参与</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">32</div>
-            <div className="flex items-center text-xs text-purple-600">
+            <div className="flex items-center text-xs text-accent-600">
               <Users className="w-3 h-3 mr-1" />
               <span>活跃成员</span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border-l-4 border-l-blue-500 rounded-xl shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300">
+        <Card className="bg-white/80 backdrop-blur-sm border-l-4 border-l-primary-500 rounded-xl shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">平均得分</CardTitle>
             <Award className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">8.2</div>
-            <div className="flex items-center text-xs text-green-600">
+            <div className="flex items-center text-xs text-success-600">
               <Award className="w-3 h-3 mr-1" />
               <span>优秀表现</span>
             </div>
@@ -101,7 +101,7 @@ export function OKRModule() {
       </div>
 
       {/* OKR详细管理 */}
-      <Card className="bg-white/80 backdrop-blur-sm border-l-4 border-l-blue-500 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300">
+      <Card className="bg-white/80 backdrop-blur-sm border-l-4 border-l-primary-500 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300">
         <CardHeader>
           <CardTitle>OKR管理详情</CardTitle>
           <CardDescription>目标设定、跟踪和评估</CardDescription>
@@ -141,7 +141,7 @@ export function OKRModule() {
                 ].map((okr, index) => (
                   <Card
                     key={index}
-                    className="bg-white/80 backdrop-blur-sm border-l-4 border-l-blue-500 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+                    className="bg-white/80 backdrop-blur-sm border-l-4 border-l-primary-500 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
                   >
                     <CardHeader>
                       <div className="flex justify-between items-start">
@@ -151,7 +151,7 @@ export function OKRModule() {
                             {okr.owner} • {okr.quarter}
                           </CardDescription>
                         </div>
-                        <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                        <Badge variant="outline" className="bg-primary-50 text-primary-700 border-primary-200">
                           进行中
                         </Badge>
                       </div>
@@ -166,9 +166,9 @@ export function OKRModule() {
                                 {kr.progress}/{kr.target}
                               </span>
                             </div>
-                            <div className="w-full h-3 bg-blue-100 rounded-full overflow-hidden">
+                            <div className="w-full h-3 bg-primary-100 rounded-full overflow-hidden">
                               <div
-                                className="h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full transition-all duration-500"
+                                className="h-full bg-gradient-to-r from-primary-400 to-primary-500 rounded-full transition-all duration-500"
                                 style={{ width: `${(kr.progress / kr.target) * 100}%` }}
                               ></div>
                             </div>
@@ -194,7 +194,7 @@ export function OKRModule() {
                 ].map((team, index) => (
                   <Card
                     key={index}
-                    className="bg-white/80 backdrop-blur-sm border-l-4 border-l-blue-500 rounded-xl shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300"
+                    className="bg-white/80 backdrop-blur-sm border-l-4 border-l-primary-500 rounded-xl shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300"
                   >
                     <CardHeader>
                       <CardTitle className="text-base">{team.team}</CardTitle>
@@ -204,17 +204,17 @@ export function OKRModule() {
                       <div className="space-y-3">
                         <div className="flex justify-between">
                           <span className="text-sm">目标数量</span>
-                          <Badge variant="secondary" className="bg-blue-50 text-blue-700">
+                          <Badge variant="secondary" className="bg-primary-50 text-primary-700">
                             {team.objectives}
                           </Badge>
                         </div>
                         <div className="flex justify-between">
                           <span className="text-sm">平均得分</span>
-                          <span className="font-medium text-green-600">{team.avgScore}/10</span>
+                          <span className="font-medium text-success-600">{team.avgScore}/10</span>
                         </div>
-                        <div className="w-full h-3 bg-blue-100 rounded-full overflow-hidden">
+                        <div className="w-full h-3 bg-primary-100 rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full transition-all duration-500"
+                            className="h-full bg-gradient-to-r from-success-400 to-success-500 rounded-full transition-all duration-500"
                             style={{ width: `${team.avgScore * 10}%` }}
                           ></div>
                         </div>
@@ -227,22 +227,22 @@ export function OKRModule() {
 
             <TabsContent value="progress" className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Card className="bg-white/80 backdrop-blur-sm border-l-4 border-l-blue-500 rounded-xl shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300">
+                <Card className="bg-white/80 backdrop-blur-sm border-l-4 border-l-primary-500 rounded-xl shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300">
                   <CardHeader className="pb-3">
                     <CardTitle className="text-base">整体进度</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="text-center">
-                      <div className="text-3xl font-bold text-blue-600 mb-2">75%</div>
-                      <div className="w-full h-4 bg-blue-100 rounded-full overflow-hidden">
-                        <div className="w-3/4 h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full transition-all duration-500"></div>
+                      <div className="text-3xl font-bold text-primary-600 mb-2">75%</div>
+                      <div className="w-full h-4 bg-primary-100 rounded-full overflow-hidden">
+                        <div className="w-3/4 h-full bg-gradient-to-r from-primary-400 to-primary-500 rounded-full transition-all duration-500"></div>
                       </div>
                       <p className="text-sm text-muted-foreground mt-2">季度目标完成度</p>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="bg-white/80 backdrop-blur-sm border-l-4 border-l-blue-500 rounded-xl shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300">
+                <Card className="bg-white/80 backdrop-blur-sm border-l-4 border-l-primary-500 rounded-xl shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300">
                   <CardHeader className="pb-3">
                     <CardTitle className="text-base">风险目标</CardTitle>
                   </CardHeader>
@@ -264,22 +264,22 @@ export function OKRModule() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-white/80 backdrop-blur-sm border-l-4 border-l-blue-500 rounded-xl shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300">
+                <Card className="bg-white/80 backdrop-blur-sm border-l-4 border-l-primary-500 rounded-xl shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300">
                   <CardHeader className="pb-3">
                     <CardTitle className="text-base">关键里程碑</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2">
-                        <CheckCircle className="w-4 h-4 text-green-600" />
+                        <CheckCircle className="w-4 h-4 text-success-600" />
                         <span className="text-sm">Q1 中期检查</span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <div className="w-4 h-4 border-2 border-blue-400 rounded-full"></div>
+                        <div className="w-4 h-4 border-2 border-primary-400 rounded-full"></div>
                         <span className="text-sm">Q1 最终评估</span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <div className="w-4 h-4 border-2 border-gray-300 rounded-full"></div>
+                        <div className="w-4 h-4 border-2 border-neutral-300 rounded-full"></div>
                         <span className="text-sm">Q2 规划</span>
                       </div>
                     </div>
@@ -297,24 +297,24 @@ export function OKRModule() {
                 ].map((review, index) => (
                   <Card
                     key={index}
-                    className="bg-white/80 backdrop-blur-sm border-l-4 border-l-blue-500 rounded-xl shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300"
+                    className="bg-white/80 backdrop-blur-sm border-l-4 border-l-primary-500 rounded-xl shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300"
                   >
                     <CardContent className="p-4">
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 mb-2">
                             <h3 className="font-medium">{review.period}</h3>
-                            <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                            <Badge variant="outline" className="bg-success-50 text-success-700 border-success-200">
                               {review.status}
                             </Badge>
-                            <span className="text-lg font-bold text-green-600">{review.score}/10</span>
+                            <span className="text-lg font-bold text-success-600">{review.score}/10</span>
                           </div>
                           <p className="text-sm text-muted-foreground">{review.highlights}</p>
                         </div>
                         <Button
                           variant="outline"
                           size="sm"
-                          className="hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 transition-all duration-300 bg-transparent"
+                          className="hover:bg-primary-50 hover:text-primary-700 hover:border-primary-300 transition-all duration-300 bg-transparent"
                         >
                           查看详情
                         </Button>

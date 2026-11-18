@@ -94,10 +94,10 @@ const tasks = [
 ];
 
 const taskStats = [
-  { label: '总任务数', value: '156', change: '+12', icon: Target, color: 'from-blue-400 to-sky-500' },
-  { label: '进行中', value: '42', change: '+8', icon: PlayCircle, color: 'from-emerald-400 to-teal-500' },
-  { label: '已完成', value: '98', change: '+15', icon: CheckCircle, color: 'from-purple-400 to-indigo-500' },
-  { label: '完成率', value: '87.5%', change: '+5.2%', icon: BarChart3, color: 'from-orange-400 to-red-500' },
+  { label: '总任务数', value: '156', change: '+12', icon: Target, color: 'from-primary-400 to-primary-500' },
+  { label: '进行中', value: '42', change: '+8', icon: PlayCircle, color: 'from-success-400 to-success-500' },
+  { label: '已完成', value: '98', change: '+15', icon: CheckCircle, color: 'from-accent-400 to-primary-500' },
+  { label: '完成率', value: '87.5%', change: '+5.2%', icon: BarChart3, color: 'from-warning-400 to-danger-500' },
 ];
 
 export function TaskManagementEnhanced() {
@@ -133,11 +133,11 @@ export function TaskManagementEnhanced() {
   const getPriorityColor = (priority: string) => {
     switch (priority) {
     case '高':
-      return 'border-red-200 text-red-700 bg-red-50';
+      return 'border-danger-200 text-danger-700 bg-danger-50';
     case '中':
-      return 'border-yellow-200 text-yellow-700 bg-yellow-50';
+      return 'border-warning-200 text-warning-700 bg-warning-50';
     case '低':
-      return 'border-green-200 text-green-700 bg-green-50';
+      return 'border-success-200 text-success-700 bg-success-50';
     default:
       return commonStyles.badge.secondary;
     }
@@ -153,12 +153,12 @@ export function TaskManagementEnhanced() {
             <EnhancedCard key={index} variant="glass">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-slate-600 mb-1">{stat.label}</p>
-                  <p className="text-2xl font-bold text-slate-800">{stat.value}</p>
+                  <p className="text-sm font-medium text-neutral-600 mb-1">{stat.label}</p>
+                  <p className="text-2xl font-bold text-neutral-800">{stat.value}</p>
                   <div className="flex items-center mt-2">
-                    <TrendingUp className="w-3 h-3 text-emerald-500 mr-1" />
-                    <span className="text-sm font-medium text-emerald-600">{stat.change}</span>
-                    <span className="text-xs text-slate-500 ml-1">vs 上周</span>
+                    <TrendingUp className="w-3 h-3 text-success-500 mr-1" />
+                    <span className="text-sm font-medium text-success-600">{stat.change}</span>
+                    <span className="text-xs text-neutral-500 ml-1">vs 上周</span>
                   </div>
                 </div>
                 <div
@@ -176,25 +176,25 @@ export function TaskManagementEnhanced() {
       <EnhancedCard variant="gradient">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <div className="flex items-center justify-between mb-6">
-            <TabsList className="bg-sky-100/50 border border-sky-200">
-              <TabsTrigger value="kanban" className="data-[state=active]:bg-white data-[state=active]:text-sky-700">
+            <TabsList className="bg-primary-100/50 border border-primary-200">
+              <TabsTrigger value="kanban" className="data-[state=active]:bg-white data-[state=active]:text-primary-700">
                 看板视图
               </TabsTrigger>
-              <TabsTrigger value="list" className="data-[state=active]:bg-white data-[state=active]:text-sky-700">
+              <TabsTrigger value="list" className="data-[state=active]:bg-white data-[state=active]:text-primary-700">
                 列表视图
               </TabsTrigger>
-              <TabsTrigger value="calendar" className="data-[state=active]:bg-white data-[state=active]:text-sky-700">
+              <TabsTrigger value="calendar" className="data-[state=active]:bg-white data-[state=active]:text-primary-700">
                 日历视图
               </TabsTrigger>
-              <TabsTrigger value="analytics" className="data-[state=active]:bg-white data-[state=active]:text-sky-700">
+              <TabsTrigger value="analytics" className="data-[state=active]:bg-white data-[state=active]:text-primary-700">
                 数据分析
               </TabsTrigger>
-              <TabsTrigger value="templates" className="data-[state=active]:bg-white data-[state=active]:text-sky-700">
+              <TabsTrigger value="templates" className="data-[state=active]:bg-white data-[state=active]:text-primary-700">
                 任务模板
               </TabsTrigger>
               <TabsTrigger
                 value="time-tracking"
-                className="data-[state=active]:bg-white data-[state=active]:text-sky-700"
+                className="data-[state=active]:bg-white data-[state=active]:text-primary-700"
               >
                 时间追踪
               </TabsTrigger>
@@ -202,7 +202,7 @@ export function TaskManagementEnhanced() {
 
             <div className="flex items-center space-x-3">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-sky-400 w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-400 w-4 h-4" />
                 <Input
                   placeholder="搜索任务..."
                   value={searchTerm}
@@ -228,11 +228,11 @@ export function TaskManagementEnhanced() {
               {/* 待开始 */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-slate-800 flex items-center">
-                    <AlertCircle className="w-5 h-5 mr-2 text-orange-500" />
+                  <h3 className="font-semibold text-neutral-800 flex items-center">
+                    <AlertCircle className="w-5 h-5 mr-2 text-warning-500" />
                     待开始
                   </h3>
-                  <Badge variant="outline" className="bg-orange-50 text-orange-700 border-orange-200">
+                  <Badge variant="outline" className="bg-warning-50 text-warning-700 border-warning-200">
                     {filteredTasks.filter((t) => t.status === '待开始').length}
                   </Badge>
                 </div>
@@ -243,29 +243,29 @@ export function TaskManagementEnhanced() {
                       <div key={task.id} className={`${commonStyles.card} p-4 hover:scale-[1.02] cursor-pointer`}>
                         <div className="space-y-3">
                           <div className="flex items-start justify-between">
-                            <h4 className="font-medium text-slate-800 text-sm leading-tight">{task.title}</h4>
+                            <h4 className="font-medium text-neutral-800 text-sm leading-tight">{task.title}</h4>
                             <Badge variant="outline" className={getPriorityColor(task.priority)}>
                               {task.priority}
                             </Badge>
                           </div>
 
-                          <p className="text-xs text-slate-600 line-clamp-2">{task.description}</p>
+                          <p className="text-xs text-neutral-600 line-clamp-2">{task.description}</p>
 
                           <div className="flex items-center justify-between text-xs">
                             <div className="flex items-center space-x-2">
-                              <div className="flex items-center text-slate-500">
+                              <div className="flex items-center text-neutral-500">
                                 <Users className="w-3 h-3 mr-1" />
                                 {task.assignee}
                               </div>
                             </div>
-                            <div className="flex items-center text-slate-500">
+                            <div className="flex items-center text-neutral-500">
                               <Calendar className="w-3 h-3 mr-1" />
                               {task.dueDate}
                             </div>
                           </div>
 
-                          <div className="flex items-center justify-between pt-2 border-t border-sky-100">
-                            <div className="flex items-center space-x-3 text-xs text-slate-500">
+                          <div className="flex items-center justify-between pt-2 border-t border-primary-100">
+                            <div className="flex items-center space-x-3 text-xs text-neutral-500">
                               <div className="flex items-center">
                                 <MessageSquare className="w-3 h-3 mr-1" />
                                 {task.comments}
@@ -280,7 +280,7 @@ export function TaskManagementEnhanced() {
                                 <Badge
                                   key={tag}
                                   variant="outline"
-                                  className="text-xs px-2 py-0 bg-sky-50 text-sky-600 border-sky-200"
+                                  className="text-xs px-2 py-0 bg-primary-50 text-primary-600 border-primary-200"
                                 >
                                   {tag}
                                 </Badge>
@@ -296,11 +296,11 @@ export function TaskManagementEnhanced() {
               {/* 进行中 */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-slate-800 flex items-center">
-                    <PlayCircle className="w-5 h-5 mr-2 text-blue-500" />
+                  <h3 className="font-semibold text-neutral-800 flex items-center">
+                    <PlayCircle className="w-5 h-5 mr-2 text-primary-500" />
                     进行中
                   </h3>
-                  <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                  <Badge variant="outline" className="bg-primary-50 text-primary-700 border-primary-200">
                     {filteredTasks.filter((t) => t.status === '进行中').length}
                   </Badge>
                 </div>
@@ -310,26 +310,26 @@ export function TaskManagementEnhanced() {
                     .map((task) => (
                       <div
                         key={task.id}
-                        className={`${commonStyles.card} p-4 hover:scale-[1.02] cursor-pointer border-l-4 border-l-blue-400`}
+                        className={`${commonStyles.card} p-4 hover:scale-[1.02] cursor-pointer border-l-4 border-l-primary-400`}
                       >
                         <div className="space-y-3">
                           <div className="flex items-start justify-between">
-                            <h4 className="font-medium text-slate-800 text-sm leading-tight">{task.title}</h4>
+                            <h4 className="font-medium text-neutral-800 text-sm leading-tight">{task.title}</h4>
                             <Badge variant="outline" className={getPriorityColor(task.priority)}>
                               {task.priority}
                             </Badge>
                           </div>
 
-                          <p className="text-xs text-slate-600 line-clamp-2">{task.description}</p>
+                          <p className="text-xs text-neutral-600 line-clamp-2">{task.description}</p>
 
                           <div className="space-y-2">
                             <div className="flex items-center justify-between text-xs">
-                              <span className="text-slate-600">进度</span>
-                              <span className="font-medium text-blue-600">{task.progress}%</span>
+                              <span className="text-neutral-600">进度</span>
+                              <span className="font-medium text-primary-600">{task.progress}%</span>
                             </div>
-                            <div className="w-full bg-sky-100 rounded-full h-2">
+                            <div className="w-full bg-primary-100 rounded-full h-2">
                               <div
-                                className="bg-gradient-to-r from-blue-400 to-blue-500 h-2 rounded-full transition-all duration-500"
+                                className="bg-gradient-to-r from-primary-400 to-primary-500 h-2 rounded-full transition-all duration-500"
                                 style={{ width: `${task.progress}%` }}
                               />
                             </div>
@@ -337,23 +337,23 @@ export function TaskManagementEnhanced() {
 
                           <div className="flex items-center justify-between text-xs">
                             <div className="flex items-center space-x-2">
-                              <div className="flex items-center text-slate-500">
+                              <div className="flex items-center text-neutral-500">
                                 <Users className="w-3 h-3 mr-1" />
                                 {task.assignee}
                               </div>
-                              <div className="flex items-center text-slate-500">
+                              <div className="flex items-center text-neutral-500">
                                 <Timer className="w-3 h-3 mr-1" />
                                 {task.timeSpent}
                               </div>
                             </div>
-                            <div className="flex items-center text-slate-500">
+                            <div className="flex items-center text-neutral-500">
                               <Calendar className="w-3 h-3 mr-1" />
                               {task.dueDate}
                             </div>
                           </div>
 
-                          <div className="flex items-center justify-between pt-2 border-t border-sky-100">
-                            <div className="flex items-center space-x-3 text-xs text-slate-500">
+                          <div className="flex items-center justify-between pt-2 border-t border-primary-100">
+                            <div className="flex items-center space-x-3 text-xs text-neutral-500">
                               <div className="flex items-center">
                                 <MessageSquare className="w-3 h-3 mr-1" />
                                 {task.comments}
@@ -368,7 +368,7 @@ export function TaskManagementEnhanced() {
                                 <Badge
                                   key={tag}
                                   variant="outline"
-                                  className="text-xs px-2 py-0 bg-sky-50 text-sky-600 border-sky-200"
+                                  className="text-xs px-2 py-0 bg-primary-50 text-primary-600 border-primary-200"
                                 >
                                   {tag}
                                 </Badge>
@@ -384,11 +384,11 @@ export function TaskManagementEnhanced() {
               {/* 已完成 */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-slate-800 flex items-center">
-                    <CheckCircle className="w-5 h-5 mr-2 text-emerald-500" />
+                  <h3 className="font-semibold text-neutral-800 flex items-center">
+                    <CheckCircle className="w-5 h-5 mr-2 text-success-500" />
                     已完成
                   </h3>
-                  <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200">
+                  <Badge variant="outline" className="bg-success-50 text-success-700 border-success-200">
                     {filteredTasks.filter((t) => t.status === '已完成').length}
                   </Badge>
                 </div>
@@ -398,37 +398,37 @@ export function TaskManagementEnhanced() {
                     .map((task) => (
                       <div
                         key={task.id}
-                        className={`${commonStyles.card} p-4 hover:scale-[1.02] cursor-pointer bg-emerald-50/30 border-emerald-200`}
+                        className={`${commonStyles.card} p-4 hover:scale-[1.02] cursor-pointer bg-success-50/30 border-success-200`}
                       >
                         <div className="space-y-3">
                           <div className="flex items-start justify-between">
-                            <h4 className="font-medium text-slate-800 text-sm leading-tight line-through decoration-emerald-400">
+                            <h4 className="font-medium text-neutral-800 text-sm leading-tight line-through decoration-success-400">
                               {task.title}
                             </h4>
-                            <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                            <CheckCircle className="w-5 h-5 text-success-500 flex-shrink-0" />
                           </div>
 
-                          <p className="text-xs text-slate-600 line-clamp-2">{task.description}</p>
+                          <p className="text-xs text-neutral-600 line-clamp-2">{task.description}</p>
 
                           <div className="flex items-center justify-between text-xs">
                             <div className="flex items-center space-x-2">
-                              <div className="flex items-center text-slate-500">
+                              <div className="flex items-center text-neutral-500">
                                 <Users className="w-3 h-3 mr-1" />
                                 {task.assignee}
                               </div>
-                              <div className="flex items-center text-emerald-600">
+                              <div className="flex items-center text-success-600">
                                 <Timer className="w-3 h-3 mr-1" />
                                 {task.timeSpent}
                               </div>
                             </div>
-                            <div className="flex items-center text-slate-500">
+                            <div className="flex items-center text-neutral-500">
                               <Calendar className="w-3 h-3 mr-1" />
                               {task.dueDate}
                             </div>
                           </div>
 
-                          <div className="flex items-center justify-between pt-2 border-t border-emerald-200">
-                            <div className="flex items-center space-x-3 text-xs text-slate-500">
+                          <div className="flex items-center justify-between pt-2 border-t border-success-200">
+                            <div className="flex items-center space-x-3 text-xs text-neutral-500">
                               <div className="flex items-center">
                                 <MessageSquare className="w-3 h-3 mr-1" />
                                 {task.comments}
@@ -443,7 +443,7 @@ export function TaskManagementEnhanced() {
                                 <Badge
                                   key={tag}
                                   variant="outline"
-                                  className="text-xs px-2 py-0 bg-emerald-50 text-emerald-600 border-emerald-200"
+                                  className="text-xs px-2 py-0 bg-success-50 text-success-600 border-success-200"
                                 >
                                   {tag}
                                 </Badge>
@@ -467,17 +467,17 @@ export function TaskManagementEnhanced() {
                       <div
                         className={`w-3 h-3 rounded-full ${
                           task.status === '已完成'
-                            ? 'bg-emerald-400'
+                            ? 'bg-success-400'
                             : task.status === '进行中'
-                              ? 'bg-blue-400'
-                              : 'bg-orange-400'
+                              ? 'bg-primary-400'
+                              : 'bg-warning-400'
                         }`}
                       />
 
                       <div className="flex-1">
                         <div className="flex items-center space-x-3 mb-2">
                           <h3
-                            className={`font-semibold text-slate-800 ${task.status === '已完成' ? 'line-through decoration-emerald-400' : ''}`}
+                            className={`font-semibold text-neutral-800 ${task.status === '已完成' ? 'line-through decoration-success-400' : ''}`}
                           >
                             {task.title}
                           </h3>
@@ -487,27 +487,27 @@ export function TaskManagementEnhanced() {
                           <Badge className={getStatusColor(task.status)}>{task.status}</Badge>
                         </div>
 
-                        <p className="text-sm text-slate-600 mb-3">{task.description}</p>
+                        <p className="text-sm text-neutral-600 mb-3">{task.description}</p>
 
-                        <div className="flex items-center space-x-6 text-sm text-slate-500">
+                        <div className="flex items-center space-x-6 text-sm text-neutral-500">
                           <div className="flex items-center">
-                            <Users className="w-4 h-4 mr-1 text-sky-500" />
+                            <Users className="w-4 h-4 mr-1 text-primary-500" />
                             {task.assignee}
                           </div>
                           <div className="flex items-center">
-                            <Calendar className="w-4 h-4 mr-1 text-sky-500" />
+                            <Calendar className="w-4 h-4 mr-1 text-primary-500" />
                             {task.dueDate}
                           </div>
                           <div className="flex items-center">
-                            <Timer className="w-4 h-4 mr-1 text-sky-500" />
+                            <Timer className="w-4 h-4 mr-1 text-primary-500" />
                             {task.timeSpent} / {task.estimatedTime}
                           </div>
                           <div className="flex items-center">
-                            <MessageSquare className="w-4 h-4 mr-1 text-sky-500" />
+                            <MessageSquare className="w-4 h-4 mr-1 text-primary-500" />
                             {task.comments} 条评论
                           </div>
                           <div className="flex items-center">
-                            <Paperclip className="w-4 h-4 mr-1 text-sky-500" />
+                            <Paperclip className="w-4 h-4 mr-1 text-primary-500" />
                             {task.attachments} 个附件
                           </div>
                         </div>
@@ -517,15 +517,15 @@ export function TaskManagementEnhanced() {
                     <div className="flex items-center space-x-4">
                       {task.status === '进行中' && (
                         <div className="text-right">
-                          <p className="text-sm text-slate-600 mb-1">完成进度</p>
+                          <p className="text-sm text-neutral-600 mb-1">完成进度</p>
                           <div className="flex items-center">
-                            <div className="w-20 bg-sky-100 rounded-full h-2 mr-2">
+                            <div className="w-20 bg-primary-100 rounded-full h-2 mr-2">
                               <div
-                                className="bg-gradient-to-r from-blue-400 to-blue-500 h-2 rounded-full transition-all duration-500"
+                                className="bg-gradient-to-r from-primary-400 to-primary-500 h-2 rounded-full transition-all duration-500"
                                 style={{ width: `${task.progress}%` }}
                               />
                             </div>
-                            <span className="text-sm font-medium text-blue-600">{task.progress}%</span>
+                            <span className="text-sm font-medium text-primary-600">{task.progress}%</span>
                           </div>
                         </div>
                       )}
@@ -556,15 +556,15 @@ export function TaskManagementEnhanced() {
                     </div>
                   </div>
 
-                  <div className="mt-4 pt-4 border-t border-sky-100 flex items-center justify-between">
+                  <div className="mt-4 pt-4 border-t border-primary-100 flex items-center justify-between">
                     <div className="flex space-x-2">
                       {task.tags.map((tag) => (
-                        <Badge key={tag} variant="outline" className="bg-sky-50 text-sky-600 border-sky-200">
+                        <Badge key={tag} variant="outline" className="bg-primary-50 text-primary-600 border-primary-200">
                           {tag}
                         </Badge>
                       ))}
                     </div>
-                    <div className="text-xs text-slate-500">预计时间: {task.estimatedTime}</div>
+                    <div className="text-xs text-neutral-500">预计时间: {task.estimatedTime}</div>
                   </div>
                 </div>
               ))}
@@ -573,9 +573,9 @@ export function TaskManagementEnhanced() {
 
           <TabsContent value="calendar" className="space-y-6">
             <EnhancedCard title="任务日历" description="按时间线查看任务安排">
-              <div className="h-96 flex items-center justify-center text-slate-500">
+              <div className="h-96 flex items-center justify-center text-neutral-500">
                 <div className="text-center">
-                  <Calendar className="w-16 h-16 mx-auto mb-4 text-sky-300" />
+                  <Calendar className="w-16 h-16 mx-auto mb-4 text-primary-300" />
                   <p className="text-lg font-medium">日历视图</p>
                   <p className="text-sm">任务时间线和截止日期管理</p>
                 </div>
@@ -586,18 +586,18 @@ export function TaskManagementEnhanced() {
           <TabsContent value="analytics" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <EnhancedCard title="任务完成趋势" description="团队任务完成情况分析">
-                <div className="h-64 flex items-center justify-center text-slate-500">
+                <div className="h-64 flex items-center justify-center text-neutral-500">
                   <div className="text-center">
-                    <BarChart3 className="w-16 h-16 mx-auto mb-4 text-sky-300" />
+                    <BarChart3 className="w-16 h-16 mx-auto mb-4 text-primary-300" />
                     <p>任务趋势图表区域</p>
                   </div>
                 </div>
               </EnhancedCard>
 
               <EnhancedCard title="团队效率分析" description="成员工作效率和负载分析">
-                <div className="h-64 flex items-center justify-center text-slate-500">
+                <div className="h-64 flex items-center justify-center text-neutral-500">
                   <div className="text-center">
-                    <TrendingUp className="w-16 h-16 mx-auto mb-4 text-sky-300" />
+                    <TrendingUp className="w-16 h-16 mx-auto mb-4 text-primary-300" />
                     <p>效率分析图表区域</p>
                   </div>
                 </div>
@@ -606,65 +606,65 @@ export function TaskManagementEnhanced() {
 
             <EnhancedCard title="任务分布统计" description="按状态、优先级、负责人统计任务分布">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="text-center p-6 bg-sky-50/50 rounded-xl border border-sky-100">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-sky-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <div className="text-center p-6 bg-primary-50/50 rounded-xl border border-primary-100">
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary-400 to-primary-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
                     <Target className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="font-semibold text-slate-800 mb-2">按状态分布</h3>
+                  <h3 className="font-semibold text-neutral-800 mb-2">按状态分布</h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-slate-600">待开始</span>
-                      <span className="font-medium text-orange-600">16</span>
+                      <span className="text-neutral-600">待开始</span>
+                      <span className="font-medium text-warning-600">16</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-600">进行中</span>
-                      <span className="font-medium text-blue-600">42</span>
+                      <span className="text-neutral-600">进行中</span>
+                      <span className="font-medium text-primary-600">42</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-600">已完成</span>
-                      <span className="font-medium text-emerald-600">98</span>
+                      <span className="text-neutral-600">已完成</span>
+                      <span className="font-medium text-success-600">98</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="text-center p-6 bg-sky-50/50 rounded-xl border border-sky-100">
-                  <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <div className="text-center p-6 bg-primary-50/50 rounded-xl border border-primary-100">
+                  <div className="w-16 h-16 bg-gradient-to-br from-accent-400 to-primary-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
                     <Flag className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="font-semibold text-slate-800 mb-2">按优先级分布</h3>
+                  <h3 className="font-semibold text-neutral-800 mb-2">按优先级分布</h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-slate-600">高优先级</span>
-                      <span className="font-medium text-red-600">28</span>
+                      <span className="text-neutral-600">高优先级</span>
+                      <span className="font-medium text-danger-600">28</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-600">中优先级</span>
-                      <span className="font-medium text-yellow-600">89</span>
+                      <span className="text-neutral-600">中优先级</span>
+                      <span className="font-medium text-warning-600">89</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-600">低优先级</span>
-                      <span className="font-medium text-green-600">39</span>
+                      <span className="text-neutral-600">低优先级</span>
+                      <span className="font-medium text-success-600">39</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="text-center p-6 bg-sky-50/50 rounded-xl border border-sky-100">
-                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <div className="text-center p-6 bg-primary-50/50 rounded-xl border border-primary-100">
+                  <div className="w-16 h-16 bg-gradient-to-br from-success-400 to-success-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
                     <Users className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="font-semibold text-slate-800 mb-2">团队负载</h3>
+                  <h3 className="font-semibold text-neutral-800 mb-2">团队负载</h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-slate-600">张经理</span>
-                      <span className="font-medium text-blue-600">12</span>
+                      <span className="text-neutral-600">张经理</span>
+                      <span className="font-medium text-primary-600">12</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-600">李专员</span>
-                      <span className="font-medium text-blue-600">8</span>
+                      <span className="text-neutral-600">李专员</span>
+                      <span className="font-medium text-primary-600">8</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-600">王主管</span>
-                      <span className="font-medium text-blue-600">15</span>
+                      <span className="text-neutral-600">王主管</span>
+                      <span className="font-medium text-primary-600">15</span>
                     </div>
                   </div>
                 </div>

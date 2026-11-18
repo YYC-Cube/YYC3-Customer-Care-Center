@@ -266,17 +266,17 @@ export function DatabaseManagement() {
     case 'connected':
     case 'completed':
     case 'success':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'disconnected':
     case 'scheduled':
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     case 'error':
     case 'failed':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     case 'running':
-      return 'bg-blue-100 text-blue-800';
+      return 'bg-primary-100 text-primary-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -285,31 +285,31 @@ export function DatabaseManagement() {
     case 'connected':
     case 'completed':
     case 'success':
-      return <CheckCircle className="w-4 h-4 text-green-600" />;
+      return <CheckCircle className="w-4 h-4 text-success-600" />;
     case 'error':
     case 'failed':
-      return <AlertTriangle className="w-4 h-4 text-red-600" />;
+      return <AlertTriangle className="w-4 h-4 text-danger-600" />;
     case 'running':
-      return <RefreshCw className="w-4 h-4 text-blue-600 animate-spin" />;
+      return <RefreshCw className="w-4 h-4 text-primary-600 animate-spin" />;
     default:
-      return <Clock className="w-4 h-4 text-gray-600" />;
+      return <Clock className="w-4 h-4 text-neutral-600" />;
     }
   };
 
   const getDatabaseIcon = (type: string) => {
     switch (type) {
     case 'mysql':
-      return <Database className="w-5 h-5 text-blue-600" />;
+      return <Database className="w-5 h-5 text-primary-600" />;
     case 'postgresql':
-      return <Database className="w-5 h-5 text-blue-800" />;
+      return <Database className="w-5 h-5 text-primary-800" />;
     case 'mongodb':
-      return <Database className="w-5 h-5 text-green-600" />;
+      return <Database className="w-5 h-5 text-success-600" />;
     case 'redis':
-      return <Server className="w-5 h-5 text-red-600" />;
+      return <Server className="w-5 h-5 text-danger-600" />;
     case 'sqlite':
-      return <HardDrive className="w-5 h-5 text-gray-600" />;
+      return <HardDrive className="w-5 h-5 text-neutral-600" />;
     default:
-      return <Database className="w-5 h-5 text-gray-600" />;
+      return <Database className="w-5 h-5 text-neutral-600" />;
     }
   };
 
@@ -354,7 +354,7 @@ export function DatabaseManagement() {
           </Button>
           <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white">
+              <Button className="bg-gradient-to-r from-primary-500 to-accent-600 hover:from-primary-600 hover:to-accent-700 text-white">
                 <Plus className="w-4 h-4 mr-2" />
                 新建连接
               </Button>
@@ -372,10 +372,10 @@ export function DatabaseManagement() {
 
       {/* 数据库概览 */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="border-l-4 border-l-blue-500">
+        <Card className="border-l-4 border-l-primary-500">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Database className="w-5 h-5 mr-2 text-blue-600" />
+              <Database className="w-5 h-5 mr-2 text-primary-600" />
               总连接数
             </CardTitle>
           </CardHeader>
@@ -387,10 +387,10 @@ export function DatabaseManagement() {
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-green-500">
+        <Card className="border-l-4 border-l-success-500">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Activity className="w-5 h-5 mr-2 text-green-600" />
+              <Activity className="w-5 h-5 mr-2 text-success-600" />
               查询吞吐量
             </CardTitle>
           </CardHeader>
@@ -402,10 +402,10 @@ export function DatabaseManagement() {
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-purple-500">
+        <Card className="border-l-4 border-l-accent-500">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Clock className="w-5 h-5 mr-2 text-purple-600" />
+              <Clock className="w-5 h-5 mr-2 text-accent-600" />
               平均响应时间
             </CardTitle>
           </CardHeader>
@@ -417,10 +417,10 @@ export function DatabaseManagement() {
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-orange-500">
+        <Card className="border-l-4 border-l-warning-500">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Shield className="w-5 h-5 mr-2 text-orange-600" />
+              <Shield className="w-5 h-5 mr-2 text-warning-600" />
               错误率
             </CardTitle>
           </CardHeader>
@@ -650,7 +650,7 @@ export function DatabaseManagement() {
                 <Button
                   onClick={executeQuery}
                   disabled={isExecutingQuery || !queryInput.trim()}
-                  className="bg-green-600 hover:bg-green-700"
+                  className="bg-success-600 hover:bg-success-700"
                 >
                   {isExecutingQuery ? (
                     <>
@@ -691,7 +691,7 @@ export function DatabaseManagement() {
                       </div>
                       <span className="text-xs text-muted-foreground">{log.timestamp.toLocaleString()}</span>
                     </div>
-                    <code className="text-sm bg-gray-100 p-2 rounded block">{log.query}</code>
+                    <code className="text-sm bg-neutral-100 p-2 rounded block">{log.query}</code>
                     <div className="flex justify-between text-xs text-muted-foreground mt-2">
                       <span>返回行数: {log.rows}</span>
                       <span>状态: {log.status === 'success' ? '成功' : '失败'}</span>
@@ -842,7 +842,7 @@ export function DatabaseManagement() {
                 {connections
                   .filter((c) => c.status === 'error' || c.performance.errorRate > 0.1)
                   .map((conn) => (
-                    <Alert key={conn.id} className="border-red-200 bg-red-50">
+                    <Alert key={conn.id} className="border-danger-200 bg-danger-50">
                       <AlertTriangle className="h-4 w-4" />
                       <AlertDescription>
                         <strong>{conn.name}</strong>:
@@ -856,7 +856,7 @@ export function DatabaseManagement() {
                 {connections
                   .filter((c) => c.connectionPool.active / c.connectionPool.max > 0.8)
                   .map((conn) => (
-                    <Alert key={`pool_${conn.id}`} className="border-yellow-200 bg-yellow-50">
+                    <Alert key={`pool_${conn.id}`} className="border-warning-200 bg-warning-50">
                       <AlertTriangle className="h-4 w-4" />
                       <AlertDescription>
                         <strong>{conn.name}</strong>: 连接池使用率过高 (
@@ -871,7 +871,7 @@ export function DatabaseManagement() {
                     c.performance.errorRate <= 0.1 &&
                     c.connectionPool.active / c.connectionPool.max <= 0.8,
                 ) && (
-                  <Alert className="border-green-200 bg-green-50">
+                  <Alert className="border-success-200 bg-success-50">
                     <CheckCircle className="h-4 w-4" />
                     <AlertDescription>所有数据库连接状态正常，性能指标良好</AlertDescription>
                   </Alert>

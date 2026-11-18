@@ -19,6 +19,7 @@ import { cn } from '@/lib/utils';
 import { useMediaQuery } from '@/hooks/use-mobile';
 import { Button } from '@/components/ui/button';
 import { PanelLeftClose, PanelLeft, X } from 'lucide-react';
+import { componentAdaptiveSidebar, layoutToken } from '@/lib/design-tokens';
 
 // 侧边栏上下文类型定义
 interface SidebarContextType {
@@ -52,7 +53,7 @@ interface SidebarProviderProps {
 
 // 侧边栏提供者组件
 export function SidebarProvider({ children, defaultOpen = true, defaultCollapsed = false }: SidebarProviderProps) {
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery(`(max-width: ${layoutToken.sidebar.mobileBreakpoint - 1}px)`);
   const [isOpen, setIsOpen] = useState(defaultOpen);
   const [isCollapsed, setIsCollapsed] = useState(defaultCollapsed);
 
@@ -100,8 +101,8 @@ interface AdaptiveSidebarProps {
 function AdaptiveSidebarInner({
   children,
   className,
-  width = '280px',
-  collapsedWidth = '80px',
+  width = componentAdaptiveSidebar.width.expanded,
+  collapsedWidth = componentAdaptiveSidebar.width.collapsed,
 }: AdaptiveSidebarProps) {
   const { isOpen, isMobile, close, isCollapsed } = useSidebarContext();
 
@@ -117,7 +118,7 @@ function AdaptiveSidebarInner({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+              className="fixed inset-0 z-40 bg-overlay backdrop-blur-sm"
               onClick={close}
             />
           )}
@@ -131,7 +132,7 @@ function AdaptiveSidebarInner({
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className={cn('fixed left-0 top-0 z-50 h-full bg-white shadow-2xl', className)}
+              className={cn('fixed left-0 top-0 z-50 h-full bg-card text-card-foreground shadow-xl', className)}
               style={{ width }}
             >
               {/* 关闭按钮 */}
@@ -157,7 +158,7 @@ function AdaptiveSidebarInner({
         width: isCollapsed ? collapsedWidth : width,
       }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
-      className={cn('relative h-full bg-white border-r border-gray-200 overflow-hidden', className)}
+      className={cn('relative h-full bg-card text-card-foreground border-r border-border overflow-hidden', className)}
     >
       {/* 侧边栏内容 */}
       <div className="h-full overflow-y-auto">{children}</div>
@@ -221,7 +222,7 @@ interface SidebarHeaderProps {
 }
 
 export function SidebarHeader({ children, className }: SidebarHeaderProps) {
-  return <div className={cn('px-4 py-6 border-b border-gray-200', className)}>{children}</div>;
+  return <div className={cn('px-4 py-6 border-b border-border', className)}>{children}</div>;
 }
 
 // 侧边栏底部组件
@@ -231,5 +232,5 @@ interface SidebarFooterProps {
 }
 
 export function SidebarFooter({ children, className }: SidebarFooterProps) {
-  return <div className={cn('px-4 py-4 mt-auto border-t border-gray-200', className)}>{children}</div>;
+  return <div className={cn('px-4 py-4 mt-auto border-t border-border', className)}>{children}</div>;
 }

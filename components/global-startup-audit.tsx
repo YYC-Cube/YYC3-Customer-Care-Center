@@ -371,15 +371,15 @@ export function GlobalStartupAudit() {
   const getStatusIcon = (status: string) => {
     switch (status) {
     case 'success':
-      return <CheckCircle className="w-5 h-5 text-green-600" />;
+      return <CheckCircle className="w-5 h-5 text-success-600" />;
     case 'warning':
-      return <AlertTriangle className="w-5 h-5 text-yellow-600" />;
+      return <AlertTriangle className="w-5 h-5 text-warning-600" />;
     case 'error':
-      return <XCircle className="w-5 h-5 text-red-600" />;
+      return <XCircle className="w-5 h-5 text-danger-600" />;
     case 'pending':
-      return <Clock className="w-5 h-5 text-gray-600" />;
+      return <Clock className="w-5 h-5 text-neutral-600" />;
     default:
-      return <Clock className="w-5 h-5 text-gray-600" />;
+      return <Clock className="w-5 h-5 text-neutral-600" />;
     }
   };
 
@@ -387,23 +387,23 @@ export function GlobalStartupAudit() {
   const getStatusColor = (status: string) => {
     switch (status) {
     case 'success':
-      return 'text-green-600 bg-green-50 border-green-200';
+      return 'text-success-600 bg-success-50 border-success-200';
     case 'warning':
-      return 'text-yellow-600 bg-yellow-50 border-yellow-200';
+      return 'text-warning-600 bg-warning-50 border-warning-200';
     case 'error':
-      return 'text-red-600 bg-red-50 border-red-200';
+      return 'text-danger-600 bg-danger-50 border-danger-200';
     default:
-      return 'text-gray-600 bg-gray-50 border-gray-200';
+      return 'text-neutral-600 bg-neutral-50 border-neutral-200';
     }
   };
 
   // 获取评分等级
   const getScoreGrade = (score: number) => {
-    if (score >= 90) return { grade: 'A', color: 'text-green-600' };
-    if (score >= 80) return { grade: 'B', color: 'text-blue-600' };
-    if (score >= 70) return { grade: 'C', color: 'text-yellow-600' };
-    if (score >= 60) return { grade: 'D', color: 'text-orange-600' };
-    return { grade: 'F', color: 'text-red-600' };
+    if (score >= 90) return { grade: 'A', color: 'text-success-600' };
+    if (score >= 80) return { grade: 'B', color: 'text-primary-600' };
+    if (score >= 70) return { grade: 'C', color: 'text-warning-600' };
+    if (score >= 60) return { grade: 'D', color: 'text-warning-600' };
+    return { grade: 'F', color: 'text-danger-600' };
   };
 
   useEffect(() => {
@@ -415,12 +415,12 @@ export function GlobalStartupAudit() {
   const overallGrade = getScoreGrade(overallScore);
 
   return (
-    <div className="p-6 space-y-6 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gradient-to-br from-neutral-50 via-primary-50 to-primary-50 min-h-screen">
       {/* 页面标题 */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-slate-800">全局系统审核</h1>
-          <p className="text-slate-600 mt-1">全面检查系统功能完整性和性能表现</p>
+          <h1 className="text-3xl font-bold text-neutral-800">全局系统审核</h1>
+          <p className="text-neutral-600 mt-1">全面检查系统功能完整性和性能表现</p>
         </div>
         <div className="flex items-center space-x-3">
           <Button variant="outline" onClick={runAudit} disabled={isRunning}>
@@ -451,12 +451,12 @@ export function GlobalStartupAudit() {
 
       {/* 总体评分 */}
       {!isRunning && auditData.length > 0 && (
-        <Card className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
+        <Card className="bg-gradient-to-r from-primary-500 to-primary-600 text-white">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-2xl font-bold">系统总体评分</h2>
-                <p className="text-blue-100 mt-1">基于 {auditData.length} 个类别的综合评估</p>
+                <p className="text-primary-100 mt-1">基于 {auditData.length} 个类别的综合评估</p>
               </div>
               <div className="text-center">
                 <div className={`text-6xl font-bold ${overallGrade.color}`}>{overallGrade.grade}</div>
@@ -476,11 +476,11 @@ export function GlobalStartupAudit() {
               <Card key={category.id} className="hover:shadow-lg transition-shadow">
                 <CardContent className="pt-6">
                   <div className="flex items-center justify-between mb-4">
-                    <category.icon className="w-8 h-8 text-blue-600" />
+                    <category.icon className="w-8 h-8 text-primary-600" />
                     <div className={`text-2xl font-bold ${grade.color}`}>{grade.grade}</div>
                   </div>
-                  <h3 className="font-semibold text-slate-800">{category.name}</h3>
-                  <p className="text-sm text-slate-600 mt-1">{category.overallScore}/100</p>
+                  <h3 className="font-semibold text-neutral-800">{category.name}</h3>
+                  <p className="text-sm text-neutral-600 mt-1">{category.overallScore}/100</p>
                   <Progress value={category.overallScore} className="mt-2 h-2" />
                 </CardContent>
               </Card>
@@ -506,7 +506,7 @@ export function GlobalStartupAudit() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
-                    <category.icon className="w-6 h-6 text-blue-600" />
+                    <category.icon className="w-6 h-6 text-primary-600" />
                     <span>{category.name}</span>
                     <Badge variant="secondary">{category.overallScore}/100</Badge>
                   </CardTitle>
@@ -520,8 +520,8 @@ export function GlobalStartupAudit() {
                           <div className="flex items-center space-x-3">
                             {getStatusIcon(item.status)}
                             <div>
-                              <h4 className="font-semibold text-slate-800">{item.name}</h4>
-                              <p className="text-sm text-slate-600">{item.description}</p>
+                              <h4 className="font-semibold text-neutral-800">{item.name}</h4>
+                              <p className="text-sm text-neutral-600">{item.description}</p>
                             </div>
                           </div>
                           <Badge className={getStatusColor(item.status)}>{item.score}/100</Badge>
@@ -529,11 +529,11 @@ export function GlobalStartupAudit() {
 
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
                           <div>
-                            <h5 className="font-medium text-slate-700 mb-2">检查详情</h5>
+                            <h5 className="font-medium text-neutral-700 mb-2">检查详情</h5>
                             <ul className="space-y-1">
                               {item.details.map((detail, index) => (
-                                <li key={index} className="text-sm text-slate-600 flex items-center space-x-2">
-                                  <CheckCircle className="w-3 h-3 text-green-500 flex-shrink-0" />
+                                <li key={index} className="text-sm text-neutral-600 flex items-center space-x-2">
+                                  <CheckCircle className="w-3 h-3 text-success-500 flex-shrink-0" />
                                   <span>{detail}</span>
                                 </li>
                               ))}
@@ -541,11 +541,11 @@ export function GlobalStartupAudit() {
                           </div>
 
                           <div>
-                            <h5 className="font-medium text-slate-700 mb-2">改进建议</h5>
+                            <h5 className="font-medium text-neutral-700 mb-2">改进建议</h5>
                             <ul className="space-y-1">
                               {item.recommendations.map((recommendation, index) => (
-                                <li key={index} className="text-sm text-slate-600 flex items-center space-x-2">
-                                  <TrendingUp className="w-3 h-3 text-blue-500 flex-shrink-0" />
+                                <li key={index} className="text-sm text-neutral-600 flex items-center space-x-2">
+                                  <TrendingUp className="w-3 h-3 text-primary-500 flex-shrink-0" />
                                   <span>{recommendation}</span>
                                 </li>
                               ))}
@@ -567,16 +567,16 @@ export function GlobalStartupAudit() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
-              <FileText className="w-6 h-6 text-blue-600" />
+              <FileText className="w-6 h-6 text-primary-600" />
               <span>系统改进路线图</span>
             </CardTitle>
             <CardDescription>按优先级排序的改进建议</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="border-l-4 border-red-500 pl-4">
-                <h4 className="font-semibold text-red-700">🔥 高优先级 (立即处理)</h4>
-                <ul className="mt-2 space-y-1 text-sm text-slate-600">
+              <div className="border-l-4 border-danger-500 pl-4">
+                <h4 className="font-semibold text-danger-700">🔥 高优先级 (立即处理)</h4>
+                <ul className="mt-2 space-y-1 text-sm text-neutral-600">
                   <li>• 实现数据备份和恢复机制</li>
                   <li>• 加强数据加密和安全措施</li>
                   <li>• 完善用户认证和权限系统</li>
@@ -584,9 +584,9 @@ export function GlobalStartupAudit() {
                 </ul>
               </div>
 
-              <div className="border-l-4 border-yellow-500 pl-4">
-                <h4 className="font-semibold text-yellow-700">⏰ 中优先级 (短期目标)</h4>
-                <ul className="mt-2 space-y-1 text-sm text-slate-600">
+              <div className="border-l-4 border-warning-500 pl-4">
+                <h4 className="font-semibold text-warning-700">⏰ 中优先级 (短期目标)</h4>
+                <ul className="mt-2 space-y-1 text-sm text-neutral-600">
                   <li>• 优化数据同步机制</li>
                   <li>• 完善PWA功能</li>
                   <li>• 实现API文档和GraphQL</li>
@@ -594,9 +594,9 @@ export function GlobalStartupAudit() {
                 </ul>
               </div>
 
-              <div className="border-l-4 border-green-500 pl-4">
-                <h4 className="font-semibold text-green-700">📈 低优先级 (长期规划)</h4>
-                <ul className="mt-2 space-y-1 text-sm text-slate-600">
+              <div className="border-l-4 border-success-500 pl-4">
+                <h4 className="font-semibold text-success-700">📈 低优先级 (长期规划)</h4>
+                <ul className="mt-2 space-y-1 text-sm text-neutral-600">
                   <li>• 扩展个性化定制功能</li>
                   <li>• 优化移动端性能</li>
                   <li>• 实现高级AI功能</li>

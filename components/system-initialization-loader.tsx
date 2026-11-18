@@ -212,13 +212,13 @@ export function SystemInitializationLoader({ isVisible, onComplete, onError }: S
   const getStatusColor = (status: InitializationStep['status']) => {
     switch (status) {
     case 'completed':
-      return 'text-green-500';
+      return 'text-success-500';
     case 'loading':
-      return 'text-blue-500';
+      return 'text-primary-500';
     case 'error':
-      return 'text-red-500';
+      return 'text-danger-500';
     default:
-      return 'text-gray-400';
+      return 'text-neutral-400';
     }
   };
 
@@ -238,27 +238,27 @@ export function SystemInitializationLoader({ isVisible, onComplete, onError }: S
           <div className="text-center mb-6">
             <div className="flex items-center justify-center mb-4">
               <div className="relative">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                  <Database className="w-8 h-8 text-blue-600" />
+                <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center">
+                  <Database className="w-8 h-8 text-primary-600" />
                 </div>
                 {overallProgress > 0 && (
-                  <div className="absolute inset-0 rounded-full border-4 border-blue-600 border-t-transparent animate-spin"></div>
+                  <div className="absolute inset-0 rounded-full border-4 border-primary-600 border-t-transparent animate-spin"></div>
                 )}
               </div>
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">系统初始化中</h2>
-            <p className="text-gray-600">正在为您准备企业管理系统，请稍候...</p>
+            <h2 className="text-2xl font-bold text-neutral-900 mb-2">系统初始化中</h2>
+            <p className="text-neutral-600">正在为您准备企业管理系统，请稍候...</p>
           </div>
 
           {/* 总体进度 */}
           <div className="mb-6">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-700">初始化进度</span>
-              <span className="text-sm text-gray-500">{Math.round(overallProgress)}%</span>
+              <span className="text-sm font-medium text-neutral-700">初始化进度</span>
+              <span className="text-sm text-neutral-500">{Math.round(overallProgress)}%</span>
             </div>
             <Progress value={overallProgress} className="h-3" />
             {startTime > 0 && (
-              <div className="flex items-center justify-between mt-2 text-xs text-gray-500">
+              <div className="flex items-center justify-between mt-2 text-xs text-neutral-500">
                 <span>已用时: {Math.round((Date.now() - startTime) / 1000)}秒</span>
                 <span>预计剩余: {Math.round(((100 - overallProgress) / 100) * 5)}秒</span>
               </div>
@@ -268,15 +268,15 @@ export function SystemInitializationLoader({ isVisible, onComplete, onError }: S
           {/* 当前步骤 */}
           {!initializationError && (
             <div className="mb-4">
-              <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+              <div className="flex items-center space-x-3 p-3 bg-primary-50 rounded-lg">
                 <div className="flex-shrink-0">
-                  <RefreshCw className="w-5 h-5 text-blue-600 animate-spin" />
+                  <RefreshCw className="w-5 h-5 text-primary-600 animate-spin" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-blue-900">{steps[currentStep]?.name || '准备中...'}</p>
-                  <p className="text-xs text-blue-700">{steps[currentStep]?.description || '系统正在准备初始化'}</p>
+                  <p className="text-sm font-medium text-primary-900">{steps[currentStep]?.name || '准备中...'}</p>
+                  <p className="text-xs text-primary-700">{steps[currentStep]?.description || '系统正在准备初始化'}</p>
                 </div>
-                <Badge variant="outline" className="text-blue-600 border-blue-200">
+                <Badge variant="outline" className="text-primary-600 border-primary-200">
                   {currentStep + 1}/{steps.length}
                 </Badge>
               </div>
@@ -286,11 +286,11 @@ export function SystemInitializationLoader({ isVisible, onComplete, onError }: S
           {/* 错误信息 */}
           {initializationError && (
             <div className="mb-4">
-              <div className="flex items-center space-x-3 p-3 bg-red-50 rounded-lg border border-red-200">
-                <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
+              <div className="flex items-center space-x-3 p-3 bg-danger-50 rounded-lg border border-danger-200">
+                <AlertCircle className="w-5 h-5 text-danger-600 flex-shrink-0" />
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-red-900">初始化失败</p>
-                  <p className="text-xs text-red-700">{initializationError}</p>
+                  <p className="text-sm font-medium text-danger-900">初始化失败</p>
+                  <p className="text-xs text-danger-700">{initializationError}</p>
                 </div>
                 <Button size="sm" variant="outline" onClick={handleRetry}>
                   重试
@@ -319,38 +319,38 @@ export function SystemInitializationLoader({ isVisible, onComplete, onError }: S
                     <div
                       key={step.id}
                       className={`flex items-center space-x-3 p-2 rounded-lg transition-colors ${
-                        index === currentStep ? 'bg-blue-50' : 'bg-gray-50'
+                        index === currentStep ? 'bg-primary-50' : 'bg-neutral-50'
                       }`}
                     >
                       <div className="flex-shrink-0">
                         {step.status === 'loading' ? (
-                          <RefreshCw className="w-4 h-4 text-blue-500 animate-spin" />
+                          <RefreshCw className="w-4 h-4 text-primary-500 animate-spin" />
                         ) : step.status === 'completed' ? (
-                          <CheckCircle className="w-4 h-4 text-green-500" />
+                          <CheckCircle className="w-4 h-4 text-success-500" />
                         ) : step.status === 'error' ? (
-                          <AlertCircle className="w-4 h-4 text-red-500" />
+                          <AlertCircle className="w-4 h-4 text-danger-500" />
                         ) : (
                           <StepIcon className={`w-4 h-4 ${getStatusColor(step.status)}`} />
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate">{step.name}</p>
+                        <p className="text-sm font-medium text-neutral-900 truncate">{step.name}</p>
                         {step.status === 'loading' && (
                           <div className="mt-1">
                             <Progress value={step.progress} className="h-1" />
                           </div>
                         )}
-                        {step.duration && <p className="text-xs text-gray-500">耗时: {step.duration}ms</p>}
-                        {step.error && <p className="text-xs text-red-600">{step.error}</p>}
+                        {step.duration && <p className="text-xs text-neutral-500">耗时: {step.duration}ms</p>}
+                        {step.error && <p className="text-xs text-danger-600">{step.error}</p>}
                       </div>
                       <div className="flex-shrink-0">
                         {step.status === 'completed' && (
-                          <Badge variant="outline" className="text-green-600 border-green-200">
+                          <Badge variant="outline" className="text-success-600 border-success-200">
                             完成
                           </Badge>
                         )}
                         {step.status === 'error' && (
-                          <Badge variant="outline" className="text-red-600 border-red-200">
+                          <Badge variant="outline" className="text-danger-600 border-danger-200">
                             失败
                           </Badge>
                         )}
@@ -364,7 +364,7 @@ export function SystemInitializationLoader({ isVisible, onComplete, onError }: S
 
           {/* 底部提示 */}
           <div className="mt-6 text-center">
-            <p className="text-xs text-gray-500">首次启动可能需要较长时间，请耐心等待</p>
+            <p className="text-xs text-neutral-500">首次启动可能需要较长时间，请耐心等待</p>
           </div>
         </CardContent>
       </Card>

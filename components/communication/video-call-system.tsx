@@ -222,11 +222,11 @@ export function VideoCallSystem() {
   const getConnectionQualityColor = (quality: Participant['connectionQuality']) => {
     switch (quality) {
     case 'excellent':
-      return 'text-green-600';
+      return 'text-success-600';
     case 'good':
-      return 'text-yellow-600';
+      return 'text-warning-600';
     case 'poor':
-      return 'text-red-600';
+      return 'text-danger-600';
     }
   };
 
@@ -250,7 +250,7 @@ export function VideoCallSystem() {
           </Button>
           <Dialog open={isCreateMeetingOpen} onOpenChange={setIsCreateMeetingOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white">
+              <Button className="bg-gradient-to-r from-primary-400 to-primary-500 hover:from-primary-500 hover:to-primary-600 text-white">
                 <Video className="w-4 h-4 mr-2" />
                 发起会议
               </Button>
@@ -268,20 +268,20 @@ export function VideoCallSystem() {
 
       {/* 会议状态概览 */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">进行中会议</CardTitle>
-            <Video className="h-4 w-4 text-green-600" />
+            <Video className="h-4 w-4 text-success-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-2xl font-bold text-success-600">
               {meetings.filter((m) => m.status === 'ongoing').length}
             </div>
             <p className="text-xs text-muted-foreground">当前活跃会议</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">今日会议</CardTitle>
             <Calendar className="h-4 w-4 text-muted-foreground" />
@@ -292,7 +292,7 @@ export function VideoCallSystem() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">参与人数</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
@@ -303,7 +303,7 @@ export function VideoCallSystem() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">会议时长</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
@@ -319,13 +319,13 @@ export function VideoCallSystem() {
       {isInCall && currentMeeting ? (
         <Card className="bg-black rounded-xl overflow-hidden">
           <CardContent className="p-0">
-            <div className="relative h-[600px] bg-gray-900">
+            <div className="relative h-[600px] bg-neutral-900">
               {/* 主视频区域 */}
               <div className="absolute inset-0">
                 <video ref={remoteVideoRef} className="w-full h-full object-cover" autoPlay playsInline />
 
                 {/* 本地视频窗口 */}
-                <div className="absolute top-4 right-4 w-48 h-36 bg-gray-800 rounded-lg overflow-hidden">
+                <div className="absolute top-4 right-4 w-48 h-36 bg-neutral-800 rounded-lg overflow-hidden">
                   <video ref={localVideoRef} className="w-full h-full object-cover" autoPlay playsInline muted />
                 </div>
 
@@ -346,16 +346,16 @@ export function VideoCallSystem() {
                         <AvatarFallback>{participant.name.charAt(0)}</AvatarFallback>
                       </Avatar>
                       <span className="text-white text-sm">{participant.name}</span>
-                      {participant.isHost && <Badge className="bg-blue-600 text-white text-xs">主持人</Badge>}
-                      {participant.isMuted && <MicOff className="w-3 h-3 text-red-400" />}
-                      {!participant.isVideoOn && <VideoOff className="w-3 h-3 text-red-400" />}
+                      {participant.isHost && <Badge className="bg-primary-600 text-white text-xs">主持人</Badge>}
+                      {participant.isMuted && <MicOff className="w-3 h-3 text-danger-400" />}
+                      {!participant.isVideoOn && <VideoOff className="w-3 h-3 text-danger-400" />}
                       <div
                         className={`w-2 h-2 rounded-full ${
                           participant.connectionQuality === 'excellent'
-                            ? 'bg-green-400'
+                            ? 'bg-success-400'
                             : participant.connectionQuality === 'good'
-                              ? 'bg-yellow-400'
-                              : 'bg-red-400'
+                              ? 'bg-warning-400'
+                              : 'bg-danger-400'
                         }`}
                       />
                     </div>
@@ -369,7 +369,7 @@ export function VideoCallSystem() {
                     <p className="text-sm opacity-75">
                       {currentMeeting.participants.length} 位参与者 •
                       {currentMeeting.isRecording && (
-                        <span className="text-red-400 ml-1">
+                        <span className="text-danger-400 ml-1">
                           <Record className="w-3 h-3 inline mr-1" />
                           录制中
                         </span>
@@ -383,7 +383,7 @@ export function VideoCallSystem() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className={`rounded-full w-12 h-12 ${callSettings.microphone ? 'bg-gray-700 hover:bg-gray-600' : 'bg-red-600 hover:bg-red-700'}`}
+                    className={`rounded-full w-12 h-12 ${callSettings.microphone ? 'bg-neutral-700 hover:bg-neutral-600' : 'bg-danger-600 hover:bg-danger-700'}`}
                     onClick={toggleMute}
                   >
                     {callSettings.microphone ? (
@@ -396,7 +396,7 @@ export function VideoCallSystem() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className={`rounded-full w-12 h-12 ${callSettings.camera ? 'bg-gray-700 hover:bg-gray-600' : 'bg-red-600 hover:bg-red-700'}`}
+                    className={`rounded-full w-12 h-12 ${callSettings.camera ? 'bg-neutral-700 hover:bg-neutral-600' : 'bg-danger-600 hover:bg-danger-700'}`}
                     onClick={toggleVideo}
                   >
                     {callSettings.camera ? (
@@ -409,28 +409,28 @@ export function VideoCallSystem() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="rounded-full w-12 h-12 bg-gray-700 hover:bg-gray-600"
+                    className="rounded-full w-12 h-12 bg-neutral-700 hover:bg-neutral-600"
                     onClick={toggleScreenShare}
                   >
                     <Share className="w-5 h-5 text-white" />
                   </Button>
 
-                  <Button variant="ghost" size="sm" className="rounded-full w-12 h-12 bg-gray-700 hover:bg-gray-600">
+                  <Button variant="ghost" size="sm" className="rounded-full w-12 h-12 bg-neutral-700 hover:bg-neutral-600">
                     <MessageSquare className="w-5 h-5 text-white" />
                   </Button>
 
-                  <Button variant="ghost" size="sm" className="rounded-full w-12 h-12 bg-gray-700 hover:bg-gray-600">
+                  <Button variant="ghost" size="sm" className="rounded-full w-12 h-12 bg-neutral-700 hover:bg-neutral-600">
                     <UserPlus className="w-5 h-5 text-white" />
                   </Button>
 
-                  <Button variant="ghost" size="sm" className="rounded-full w-12 h-12 bg-gray-700 hover:bg-gray-600">
+                  <Button variant="ghost" size="sm" className="rounded-full w-12 h-12 bg-neutral-700 hover:bg-neutral-600">
                     <MoreHorizontal className="w-5 h-5 text-white" />
                   </Button>
 
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="rounded-full w-12 h-12 bg-red-600 hover:bg-red-700"
+                    className="rounded-full w-12 h-12 bg-danger-600 hover:bg-danger-700"
                     onClick={endCall}
                   >
                     <PhoneOff className="w-5 h-5 text-white" />
@@ -453,7 +453,7 @@ export function VideoCallSystem() {
               {meetings.map((meeting) => (
                 <Card
                   key={meeting.id}
-                  className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
+                  className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
                 >
                   <CardHeader>
                     <div className="flex items-center justify-between">
@@ -464,10 +464,10 @@ export function VideoCallSystem() {
                       <Badge
                         className={
                           meeting.status === 'ongoing'
-                            ? 'bg-green-100 text-green-800'
+                            ? 'bg-success-100 text-success-800'
                             : meeting.status === 'scheduled'
-                              ? 'bg-blue-100 text-blue-800'
-                              : 'bg-gray-100 text-gray-800'
+                              ? 'bg-primary-100 text-primary-800'
+                              : 'bg-neutral-100 text-neutral-800'
                         }
                       >
                         {meeting.status === 'ongoing' ? '进行中' : meeting.status === 'scheduled' ? '已安排' : '已结束'}
@@ -503,8 +503,8 @@ export function VideoCallSystem() {
                               </Avatar>
                             ))}
                             {meeting.participants.length > 4 && (
-                              <div className="w-6 h-6 bg-gray-200 rounded-full border-2 border-white flex items-center justify-center">
-                                <span className="text-xs text-gray-600">+{meeting.participants.length - 4}</span>
+                              <div className="w-6 h-6 bg-neutral-200 rounded-full border-2 border-white flex items-center justify-center">
+                                <span className="text-xs text-neutral-600">+{meeting.participants.length - 4}</span>
                               </div>
                             )}
                           </div>
@@ -514,7 +514,7 @@ export function VideoCallSystem() {
                       <div className="flex space-x-2">
                         {meeting.status === 'ongoing' ? (
                           <Button
-                            className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700"
+                            className="flex-1 bg-gradient-to-r from-success-500 to-success-600 hover:from-success-600 hover:to-success-700"
                             onClick={() => startCall(meeting.id)}
                           >
                             <Video className="w-4 h-4 mr-2" />
@@ -522,7 +522,7 @@ export function VideoCallSystem() {
                           </Button>
                         ) : meeting.status === 'scheduled' ? (
                           <Button
-                            className="flex-1 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700"
+                            className="flex-1 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700"
                             onClick={() => startCall(meeting.id)}
                           >
                             <Video className="w-4 h-4 mr-2" />
@@ -546,7 +546,7 @@ export function VideoCallSystem() {
           </TabsContent>
 
           <TabsContent value="schedule" className="space-y-6">
-            <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm">
+            <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm">
               <CardHeader>
                 <CardTitle>会议日程</CardTitle>
                 <CardDescription>查看和管理即将到来的会议</CardDescription>
@@ -567,7 +567,7 @@ export function VideoCallSystem() {
           </TabsContent>
 
           <TabsContent value="history" className="space-y-6">
-            <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm">
+            <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm">
               <CardHeader>
                 <CardTitle>会议历史</CardTitle>
                 <CardDescription>查看过往会议记录和录像</CardDescription>

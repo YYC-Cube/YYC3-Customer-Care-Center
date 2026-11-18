@@ -56,8 +56,6 @@ export function TouchGestures({
     const container = containerRef.current;
     if (!container) return;
 
-    let animationFrame: number;
-
     const handleTouchStart = (e: TouchEvent) => {
       const touch = e.touches[0];
       touchState.current = {
@@ -147,9 +145,6 @@ export function TouchGestures({
       container.removeEventListener('touchstart', handleTouchStart);
       container.removeEventListener('touchmove', handleTouchMove);
       container.removeEventListener('touchend', handleTouchEnd);
-      if (animationFrame) {
-        cancelAnimationFrame(animationFrame);
-      }
     };
   }, [
     enablePullToRefresh,
@@ -168,13 +163,13 @@ export function TouchGestures({
       {/* 下拉刷新指示器 */}
       {enablePullToRefresh && (showRefreshIndicator || isRefreshing) && (
         <div
-          className="absolute top-0 left-0 right-0 flex items-center justify-center py-4 bg-gradient-to-b from-sky-50 to-transparent z-10"
+          className="absolute top-0 left-0 right-0 flex items-center justify-center py-4 bg-gradient-to-b from-primary-50 to-transparent z-10"
           style={{
             transform: `translateY(${Math.max(0, pullDistance - 60)}px)`,
             opacity: Math.min(1, pullDistance / 40),
           }}
         >
-          <div className="flex items-center space-x-2 text-sky-600">
+          <div className="flex items-center space-x-2 text-primary-600">
             <RefreshCw
               className={`w-5 h-5 ${isRefreshing ? 'animate-spin' : ''} ${pullDistance >= refreshThreshold ? 'rotate-180' : ''} transition-transform duration-200`}
             />
@@ -188,8 +183,8 @@ export function TouchGestures({
       {/* 左右滑动提示 */}
       {enableSwipeNavigation && (
         <>
-          <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-16 bg-gradient-to-r from-sky-400 to-transparent opacity-20 pointer-events-none" />
-          <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1 h-16 bg-gradient-to-l from-sky-400 to-transparent opacity-20 pointer-events-none" />
+          <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-16 bg-gradient-to-r from-primary-400 to-transparent opacity-20 pointer-events-none" />
+          <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1 h-16 bg-gradient-to-l from-primary-400 to-transparent opacity-20 pointer-events-none" />
         </>
       )}
 

@@ -1,6 +1,6 @@
 
 <div align="center">
-  <img src="./public/yyc3-article-cover-03.png" alt="YYC³ Customer Care Center" width="100%" style="max-width: 1200px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);" />
+  <img src="./public/yyc3-family-ai.png" alt="YYC³ Customer Care Center" width="100%" style="max-width: 1200px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);" />
 </div>
 
 <div align="center" style="margin: 2rem 0;">

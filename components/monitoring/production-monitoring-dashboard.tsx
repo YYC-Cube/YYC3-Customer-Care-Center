@@ -278,15 +278,15 @@ export function ProductionMonitoringDashboard() {
     switch (status) {
     case 'healthy':
     case 'online':
-      return 'text-green-600 bg-green-100';
+      return 'text-success-600 bg-success-100';
     case 'warning':
     case 'degraded':
-      return 'text-yellow-600 bg-yellow-100';
+      return 'text-warning-600 bg-warning-100';
     case 'critical':
     case 'offline':
-      return 'text-red-600 bg-red-100';
+      return 'text-danger-600 bg-danger-100';
     default:
-      return 'text-gray-600 bg-gray-100';
+      return 'text-neutral-600 bg-neutral-100';
     }
   };
 
@@ -309,24 +309,24 @@ export function ProductionMonitoringDashboard() {
   const getTrendIcon = (trend: string) => {
     switch (trend) {
     case 'up':
-      return <TrendingUp className="w-4 h-4 text-red-600" />;
+      return <TrendingUp className="w-4 h-4 text-danger-600" />;
     case 'down':
-      return <TrendingDown className="w-4 h-4 text-green-600" />;
+      return <TrendingDown className="w-4 h-4 text-success-600" />;
     default:
-      return <div className="w-4 h-4 bg-gray-400 rounded-full" />;
+      return <div className="w-4 h-4 bg-neutral-400 rounded-full" />;
     }
   };
 
   const getAlertIcon = (type: string) => {
     switch (type) {
     case 'error':
-      return <AlertTriangle className="w-4 h-4 text-red-600" />;
+      return <AlertTriangle className="w-4 h-4 text-danger-600" />;
     case 'warning':
-      return <AlertTriangle className="w-4 h-4 text-yellow-600" />;
+      return <AlertTriangle className="w-4 h-4 text-warning-600" />;
     case 'info':
-      return <Activity className="w-4 h-4 text-blue-600" />;
+      return <Activity className="w-4 h-4 text-primary-600" />;
     default:
-      return <Activity className="w-4 h-4 text-gray-600" />;
+      return <Activity className="w-4 h-4 text-neutral-600" />;
     }
   };
 
@@ -345,7 +345,7 @@ export function ProductionMonitoringDashboard() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold flex items-center">
-            <Activity className="w-8 h-8 mr-3 text-green-600" />
+            <Activity className="w-8 h-8 mr-3 text-success-600" />
             生产环境监控
           </h1>
           <p className="text-muted-foreground">实时监控系统状态和性能指标</p>
@@ -374,37 +374,37 @@ export function ProductionMonitoringDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
         <Card>
           <CardContent className="p-6 text-center">
-            <Shield className="w-8 h-8 mx-auto mb-2 text-green-600" />
-            <p className="text-2xl font-bold text-green-600">{getSystemHealth()}%</p>
-            <p className="text-sm text-gray-600">系统健康度</p>
+            <Shield className="w-8 h-8 mx-auto mb-2 text-success-600" />
+            <p className="text-2xl font-bold text-success-600">{getSystemHealth()}%</p>
+            <p className="text-sm text-neutral-600">系统健康度</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <Server className="w-8 h-8 mx-auto mb-2 text-blue-600" />
+            <Server className="w-8 h-8 mx-auto mb-2 text-primary-600" />
             <p className="text-2xl font-bold">{services.filter((s) => s.status === 'online').length}</p>
-            <p className="text-sm text-gray-600">在线服务</p>
+            <p className="text-sm text-neutral-600">在线服务</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <Users className="w-8 h-8 mx-auto mb-2 text-purple-600" />
+            <Users className="w-8 h-8 mx-auto mb-2 text-accent-600" />
             <p className="text-2xl font-bold">1,245</p>
-            <p className="text-sm text-gray-600">在线用户</p>
+            <p className="text-sm text-neutral-600">在线用户</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <Globe className="w-8 h-8 mx-auto mb-2 text-orange-600" />
+            <Globe className="w-8 h-8 mx-auto mb-2 text-warning-600" />
             <p className="text-2xl font-bold">2,856</p>
-            <p className="text-sm text-gray-600">每分钟请求</p>
+            <p className="text-sm text-neutral-600">每分钟请求</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <AlertTriangle className="w-8 h-8 mx-auto mb-2 text-red-600" />
+            <AlertTriangle className="w-8 h-8 mx-auto mb-2 text-danger-600" />
             <p className="text-2xl font-bold">{alerts.filter((a) => !a.resolved).length}</p>
-            <p className="text-sm text-gray-600">活跃告警</p>
+            <p className="text-sm text-neutral-600">活跃告警</p>
           </CardContent>
         </Card>
       </div>
@@ -443,13 +443,13 @@ export function ProductionMonitoringDashboard() {
                       {getTrendIcon(metric.trend)}
                     </div>
                     <div className="space-y-2">
-                      <div className="flex justify-between text-sm text-gray-600">
+                      <div className="flex justify-between text-sm text-neutral-600">
                         <span>警告阈值</span>
                         <span>
                           {metric.threshold.warning} {metric.unit}
                         </span>
                       </div>
-                      <div className="flex justify-between text-sm text-gray-600">
+                      <div className="flex justify-between text-sm text-neutral-600">
                         <span>严重阈值</span>
                         <span>
                           {metric.threshold.critical} {metric.unit}
@@ -457,7 +457,7 @@ export function ProductionMonitoringDashboard() {
                       </div>
                     </div>
                     <Progress value={(metric.value / metric.threshold.critical) * 100} className="h-2" />
-                    <p className="text-xs text-gray-500">最后更新: {metric.lastUpdated.toLocaleTimeString('zh-CN')}</p>
+                    <p className="text-xs text-neutral-500">最后更新: {metric.lastUpdated.toLocaleTimeString('zh-CN')}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -525,12 +525,12 @@ export function ProductionMonitoringDashboard() {
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
-                      <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                        <Server className="w-4 h-4 text-blue-600" />
+                      <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
+                        <Server className="w-4 h-4 text-primary-600" />
                       </div>
                       <div>
                         <CardTitle className="text-lg">{service.name}</CardTitle>
-                        <p className="text-sm text-gray-600">{service.endpoint}</p>
+                        <p className="text-sm text-neutral-600">{service.endpoint}</p>
                       </div>
                     </div>
                     <Badge className={getStatusColor(service.status)}>
@@ -544,16 +544,16 @@ export function ProductionMonitoringDashboard() {
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <p className="text-sm text-gray-600">可用性</p>
-                      <p className="text-2xl font-bold text-green-600">{service.uptime}%</p>
+                      <p className="text-sm text-neutral-600">可用性</p>
+                      <p className="text-2xl font-bold text-success-600">{service.uptime}%</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600">响应时间</p>
+                      <p className="text-sm text-neutral-600">响应时间</p>
                       <p className="text-2xl font-bold">{service.responseTime}ms</p>
                     </div>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600 mb-2">依赖服务</p>
+                    <p className="text-sm text-neutral-600 mb-2">依赖服务</p>
                     <div className="flex flex-wrap gap-1">
                       {service.dependencies.length > 0 ? (
                         service.dependencies.map((dep, index) => (
@@ -562,12 +562,12 @@ export function ProductionMonitoringDashboard() {
                           </Badge>
                         ))
                       ) : (
-                        <span className="text-xs text-gray-500">无依赖</span>
+                        <span className="text-xs text-neutral-500">无依赖</span>
                       )}
                     </div>
                   </div>
                   <div className="flex justify-between items-center pt-2 border-t">
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-neutral-500">
                       最后检查: {service.lastCheck.toLocaleTimeString('zh-CN')}
                     </span>
                     <div className="flex space-x-2">
@@ -646,7 +646,7 @@ export function ProductionMonitoringDashboard() {
                     <div key={error.type} className="space-y-2">
                       <div className="flex justify-between">
                         <span className="text-sm font-medium">{error.type}</span>
-                        <span className="text-sm text-gray-600">{error.count}</span>
+                        <span className="text-sm text-neutral-600">{error.count}</span>
                       </div>
                       <Progress value={error.percentage} className="h-2" />
                     </div>
@@ -659,30 +659,30 @@ export function ProductionMonitoringDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <Card>
               <CardContent className="p-6 text-center">
-                <Cpu className="w-8 h-8 mx-auto mb-2 text-blue-600" />
+                <Cpu className="w-8 h-8 mx-auto mb-2 text-primary-600" />
                 <p className="text-2xl font-bold">45.2%</p>
-                <p className="text-sm text-gray-600">CPU使用率</p>
+                <p className="text-sm text-neutral-600">CPU使用率</p>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="p-6 text-center">
-                <MemoryStick className="w-8 h-8 mx-auto mb-2 text-green-600" />
+                <MemoryStick className="w-8 h-8 mx-auto mb-2 text-success-600" />
                 <p className="text-2xl font-bold">68.5%</p>
-                <p className="text-sm text-gray-600">内存使用率</p>
+                <p className="text-sm text-neutral-600">内存使用率</p>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="p-6 text-center">
-                <HardDrive className="w-8 h-8 mx-auto mb-2 text-purple-600" />
+                <HardDrive className="w-8 h-8 mx-auto mb-2 text-accent-600" />
                 <p className="text-2xl font-bold">42.1%</p>
-                <p className="text-sm text-gray-600">磁盘使用率</p>
+                <p className="text-sm text-neutral-600">磁盘使用率</p>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="p-6 text-center">
-                <Network className="w-8 h-8 mx-auto mb-2 text-orange-600" />
+                <Network className="w-8 h-8 mx-auto mb-2 text-warning-600" />
                 <p className="text-2xl font-bold">125.8</p>
-                <p className="text-sm text-gray-600">网络IO(MB/s)</p>
+                <p className="text-sm text-neutral-600">网络IO(MB/s)</p>
               </CardContent>
             </Card>
           </div>
@@ -715,12 +715,12 @@ export function ProductionMonitoringDashboard() {
                         <Badge
                           className={
                             alert.severity === 'critical'
-                              ? 'bg-red-100 text-red-800'
+                              ? 'bg-danger-100 text-danger-800'
                               : alert.severity === 'high'
-                                ? 'bg-orange-100 text-orange-800'
+                                ? 'bg-warning-100 text-warning-800'
                                 : alert.severity === 'medium'
-                                  ? 'bg-yellow-100 text-yellow-800'
-                                  : 'bg-green-100 text-green-800'
+                                  ? 'bg-warning-100 text-warning-800'
+                                  : 'bg-success-100 text-success-800'
                           }
                         >
                           {alert.severity === 'critical'
@@ -731,12 +731,12 @@ export function ProductionMonitoringDashboard() {
                                 ? '中'
                                 : '低'}
                         </Badge>
-                        {alert.resolved && <Badge className="bg-gray-100 text-gray-800">已解决</Badge>}
+                        {alert.resolved && <Badge className="bg-neutral-100 text-neutral-800">已解决</Badge>}
                       </div>
                     </div>
-                    <p className="mt-1 text-sm text-gray-600">{alert.description}</p>
+                    <p className="mt-1 text-sm text-neutral-600">{alert.description}</p>
                     <div className="flex items-center justify-between mt-3">
-                      <div className="flex items-center space-x-4 text-sm text-gray-500">
+                      <div className="flex items-center space-x-4 text-sm text-neutral-500">
                         <span className="flex items-center">
                           <Clock className="w-4 h-4 mr-1" />
                           {alert.timestamp.toLocaleString('zh-CN')}
@@ -767,28 +767,28 @@ export function ProductionMonitoringDashboard() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <Card>
                     <CardContent className="p-4 text-center">
-                      <Activity className="w-8 h-8 mx-auto mb-2 text-blue-600" />
+                      <Activity className="w-8 h-8 mx-auto mb-2 text-primary-600" />
                       <p className="text-2xl font-bold">15,234</p>
-                      <p className="text-sm text-gray-600">今日日志条数</p>
+                      <p className="text-sm text-neutral-600">今日日志条数</p>
                     </CardContent>
                   </Card>
                   <Card>
                     <CardContent className="p-4 text-center">
-                      <AlertTriangle className="w-8 h-8 mx-auto mb-2 text-red-600" />
+                      <AlertTriangle className="w-8 h-8 mx-auto mb-2 text-danger-600" />
                       <p className="text-2xl font-bold">23</p>
-                      <p className="text-sm text-gray-600">错误日志</p>
+                      <p className="text-sm text-neutral-600">错误日志</p>
                     </CardContent>
                   </Card>
                   <Card>
                     <CardContent className="p-4 text-center">
-                      <Zap className="w-8 h-8 mx-auto mb-2 text-yellow-600" />
+                      <Zap className="w-8 h-8 mx-auto mb-2 text-warning-600" />
                       <p className="text-2xl font-bold">156</p>
-                      <p className="text-sm text-gray-600">警告日志</p>
+                      <p className="text-sm text-neutral-600">警告日志</p>
                     </CardContent>
                   </Card>
                 </div>
 
-                <div className="bg-black text-green-400 p-4 rounded-lg font-mono text-sm h-96 overflow-y-auto">
+                <div className="bg-black text-success-400 p-4 rounded-lg font-mono text-sm h-96 overflow-y-auto">
                   <div className="space-y-1">
                     <div>[2024-01-20 14:30:15] INFO: 用户登录成功 - user_id: 12345</div>
                     <div>[2024-01-20 14:30:18] DEBUG: 数据库查询执行 - query_time: 45ms</div>

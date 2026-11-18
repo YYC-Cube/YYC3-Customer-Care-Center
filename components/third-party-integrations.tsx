@@ -123,11 +123,11 @@ export function ThirdPartyIntegrations() {
   const getStatusIcon = (status: Integration['status']) => {
     switch (status) {
     case 'connected':
-      return <CheckCircle className="w-4 h-4 text-green-600" />;
+      return <CheckCircle className="w-4 h-4 text-success-600" />;
     case 'error':
-      return <AlertCircle className="w-4 h-4 text-red-600" />;
+      return <AlertCircle className="w-4 h-4 text-danger-600" />;
     default:
-      return <AlertCircle className="w-4 h-4 text-gray-400" />;
+      return <AlertCircle className="w-4 h-4 text-neutral-400" />;
     }
   };
 
@@ -135,11 +135,11 @@ export function ThirdPartyIntegrations() {
   const getStatusColor = (status: Integration['status']) => {
     switch (status) {
     case 'connected':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'error':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -150,7 +150,7 @@ export function ThirdPartyIntegrations() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold flex items-center">
-            <Zap className="w-8 h-8 mr-3 text-blue-600" />
+            <Zap className="w-8 h-8 mr-3 text-primary-600" />
             第三方系统集成
           </h1>
           <p className="text-muted-foreground">连接国内主流办公和业务平台</p>
@@ -182,7 +182,7 @@ export function ThirdPartyIntegrations() {
                 <CardTitle className="text-base">已连接平台</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-green-600">{connectedCount}</div>
+                <div className="text-3xl font-bold text-success-600">{connectedCount}</div>
                 <p className="text-sm text-muted-foreground">正常运行中</p>
               </CardContent>
             </Card>
@@ -192,7 +192,7 @@ export function ThirdPartyIntegrations() {
                 <CardTitle className="text-base">可用功能</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-blue-600">
+                <div className="text-3xl font-bold text-primary-600">
                   {integrations.reduce((acc, item) => acc + item.features.length, 0)}
                 </div>
                 <p className="text-sm text-muted-foreground">集成功能总数</p>
@@ -204,7 +204,7 @@ export function ThirdPartyIntegrations() {
                 <CardTitle className="text-base">数据同步</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-purple-600">实时</div>
+                <div className="text-3xl font-bold text-accent-600">实时</div>
                 <p className="text-sm text-muted-foreground">同步状态</p>
               </CardContent>
             </Card>
@@ -219,7 +219,7 @@ export function ThirdPartyIntegrations() {
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
-                        <IconComponent className="w-8 h-8 text-blue-600" />
+                        <IconComponent className="w-8 h-8 text-primary-600" />
                         <div>
                           <CardTitle className="text-base">{integration.name}</CardTitle>
                           <div className="flex items-center space-x-2 mt-1">
@@ -241,7 +241,7 @@ export function ThirdPartyIntegrations() {
 
                     <div className="space-y-3">
                       <div>
-                        <p className="text-xs font-medium text-gray-700 mb-2">支持功能:</p>
+                        <p className="text-xs font-medium text-neutral-700 mb-2">支持功能:</p>
                         <div className="flex flex-wrap gap-1">
                           {integration.features.slice(0, 3).map((feature, index) => (
                             <Badge key={index} variant="outline" className="text-xs">
@@ -296,7 +296,7 @@ export function ThirdPartyIntegrations() {
                   <Card key={integration.id}>
                     <CardHeader>
                       <CardTitle className="flex items-center">
-                        <IconComponent className="w-6 h-6 mr-2 text-blue-600" />
+                        <IconComponent className="w-6 h-6 mr-2 text-primary-600" />
                         {integration.name}
                       </CardTitle>
                       <CardDescription>{integration.description}</CardDescription>
@@ -351,7 +351,7 @@ export function ThirdPartyIntegrations() {
                   <Card key={integration.id}>
                     <CardHeader>
                       <CardTitle className="flex items-center">
-                        <IconComponent className="w-6 h-6 mr-2 text-blue-600" />
+                        <IconComponent className="w-6 h-6 mr-2 text-primary-600" />
                         {integration.name}
                       </CardTitle>
                       <CardDescription>{integration.description}</CardDescription>

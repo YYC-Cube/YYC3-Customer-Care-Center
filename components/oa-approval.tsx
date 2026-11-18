@@ -70,44 +70,80 @@ const ApprovalTypes = {
   LEAVE: {
     name: '请假申请',
     icon: Calendar,
-    color: 'bg-blue-500',
+    color: 'bg-primary-500',
     workflow: ['直属主管', 'HR审核', '部门总监'],
   },
   EXPENSE: {
     name: '费用报销',
     icon: FileText,
-    color: 'bg-green-500',
+    color: 'bg-success-500',
     workflow: ['直属主管', '财务审核'],
   },
   PURCHASE: {
     name: '采购申请',
     icon: Upload,
-    color: 'bg-purple-500',
+    color: 'bg-accent-500',
     workflow: ['部门主管', '财务审核', '总经理'],
   },
   TRAVEL: {
     name: '出差申请',
     icon: User,
-    color: 'bg-orange-500',
+    color: 'bg-warning-500',
     workflow: ['直属主管', '行政审核'],
   },
   CONTRACT: {
     name: '合同审批',
     icon: FileText,
-    color: 'bg-red-500',
+    color: 'bg-danger-500',
     workflow: ['法务审核', '财务审核', '总经理', '董事长'],
   },
   OTHER: {
     name: '其他申请',
     icon: FileText,
-    color: 'bg-gray-500',
+    color: 'bg-neutral-500',
     workflow: ['直属主管'],
   },
 };
 
+type ApprovalTypeKey = keyof typeof ApprovalTypes;
+type WorkflowStatus = 'waiting' | 'pending' | 'approved' | 'rejected';
+
+interface WorkflowStep {
+  step: number;
+  name: string;
+  user: string;
+  status: WorkflowStatus;
+  time?: string | null;
+  reason?: string | null;
+  approver?: string;
+}
+
+interface ApprovalApplicant {
+  id: string;
+  name: string;
+  avatar: string;
+  department: string;
+}
+
+interface Approval {
+  id: string;
+  title: string;
+  type: ApprovalTypeKey;
+  applicant: ApprovalApplicant;
+  status: string;
+  priority: string;
+  createTime: string;
+  amount: number | null;
+  description: string;
+  attachments: string[];
+  currentStep: number;
+  totalSteps: number;
+  workflow: WorkflowStep[];
+}
+
 // 工作流引擎类
 class WorkflowEngine {
-  static createWorkflow(type, amount = 0) {
+  static createWorkflow(type: ApprovalTypeKey, amount = 0): WorkflowStep[] {
     const typeConfig = ApprovalTypes[type];
     if (!typeConfig) return [];
 
@@ -131,8 +167,8 @@ class WorkflowEngine {
     }));
   }
 
-  static getApproverByRole(role) {
-    const approvers = {
+  static getApproverByRole(role: string): string {
+    const approvers: Record<string, string> = {
       直属主管: '李经理',
       部门主管: '陈主管',
       部门总监: '王总监',
@@ -146,16 +182,22 @@ class WorkflowEngine {
     return approvers[role] || role;
   }
 
-  static getNextStep(workflow, currentStep) {
+  static getNextStep(workflow: WorkflowStep[], currentStep: number): WorkflowStep | undefined {
     return workflow.find((step) => step.step === currentStep + 1);
   }
 
-  static canApprove(workflow, currentStep, userId) {
+  static canApprove(workflow: WorkflowStep[], currentStep: number, userId: string): boolean {
     const step = workflow.find((s) => s.step === currentStep);
-    return step && step.status === 'pending';
+    return Boolean(step && step.status === 'pending');
   }
 
-  static processApproval(workflow, currentStep, action, reason = '', userId = 'current_user') {
+  static processApproval(
+    workflow: WorkflowStep[],
+    currentStep: number,
+    action: WorkflowStatus,
+    reason = '',
+    userId = 'current_user',
+  ): WorkflowStep[] {
     const updatedWorkflow = [...workflow];
     const stepIndex = currentStep - 1;
 
@@ -164,7 +206,7 @@ class WorkflowEngine {
         ...updatedWorkflow[stepIndex],
         status: action,
         time: new Date().toLocaleString('zh-CN'),
-        reason: reason || undefined,
+        reason: reason || null,
         approver: userId,
       };
 
@@ -180,12 +222,12 @@ class WorkflowEngine {
     return updatedWorkflow;
   }
 
-  static calculateProgress(workflow) {
+  static calculateProgress(workflow: WorkflowStep[]): number {
     const completedSteps = workflow.filter((step) => step.status === 'approved' || step.status === 'rejected').length;
     return Math.round((completedSteps / workflow.length) * 100);
   }
 
-  static getFinalStatus(workflow) {
+  static getFinalStatus(workflow: WorkflowStep[]): string {
     const hasRejected = workflow.some((step) => step.status === 'rejected');
     if (hasRejected) return 'rejected';
 
@@ -200,7 +242,7 @@ class WorkflowEngine {
 }
 
 // 模拟数据
-const mockApprovals = [
+const mockApprovals: Approval[] = [
   {
     id: 'APP001',
     title: '年假申请 - 2024年春节假期',
@@ -295,8 +337,8 @@ const mockApprovals = [
 ];
 
 export function OAApproval() {
-  const [approvals, setApprovals] = useState(mockApprovals);
-  const [selectedApproval, setSelectedApproval] = useState(null);
+  const [approvals, setApprovals] = useState<Approval[]>(mockApprovals);
+  const [selectedApproval, setSelectedApproval] = useState<Approval | null>(null);
   const [activeTab, setActiveTab] = useState('pending');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -304,7 +346,7 @@ export function OAApproval() {
   const [isWorkflowDialogOpen, setIsWorkflowDialogOpen] = useState(false);
   const [isSignatureDialogOpen, setIsSignatureDialogOpen] = useState(false);
   const [signatureRecords, setSignatureRecords] = useState([]);
-  const [currentSigningApproval, setCurrentSigningApproval] = useState(null);
+  const [currentSigningApproval, setCurrentSigningApproval] = useState<Approval | null>(null);
   const [isMobileView, setIsMobileView] = useState(false);
 
   useEffect(() => {
@@ -339,7 +381,7 @@ export function OAApproval() {
   });
 
   // 处理审批操作
-  const handleApprovalAction = (approvalId, action, reason = '') => {
+  const handleApprovalAction = (approvalId: string, action: WorkflowStatus, reason = '') => {
     setApprovals((prev) =>
       prev.map((approval) => {
         if (approval.id === approvalId) {
@@ -367,7 +409,7 @@ export function OAApproval() {
   };
 
   // 撤回申请
-  const handleRevoke = (approvalId) => {
+  const handleRevoke = (approvalId: string) => {
     setApprovals((prev) =>
       prev.map((approval) => {
         if (approval.id === approvalId && approval.status === 'pending') {
@@ -388,8 +430,8 @@ export function OAApproval() {
       {/* 页面标题和操作 */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">审批中心</h1>
-          <p className="text-gray-600 mt-1">智能工作流程管理和审批处理</p>
+          <h1 className="text-2xl font-bold text-neutral-900">审批中心</h1>
+          <p className="text-neutral-600 mt-1">智能工作流程管理和审批处理</p>
         </div>
         <div className="flex items-center space-x-3">
           <Button variant="outline" size="sm" onClick={() => setIsWorkflowDialogOpen(true)}>
@@ -402,7 +444,7 @@ export function OAApproval() {
           </Button>
           <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700">
+              <Button className="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700">
                 <Plus className="w-4 h-4 mr-2" />
                 发起申请
               </Button>
@@ -426,54 +468,54 @@ export function OAApproval() {
 
       {/* 统计卡片 */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="border-l-4 border-l-yellow-400 hover:shadow-md transition-shadow">
+        <Card className="border-l-4 border-l-warning-400 hover:shadow-md transition-shadow">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">待审批</p>
-                <p className="text-2xl font-bold text-yellow-600">{stats.pending}</p>
-                <p className="text-xs text-gray-500 mt-1">需要处理</p>
+                <p className="text-sm text-neutral-600">待审批</p>
+                <p className="text-2xl font-bold text-warning-600">{stats.pending}</p>
+                <p className="text-xs text-neutral-500 mt-1">需要处理</p>
               </div>
-              <Clock className="w-8 h-8 text-yellow-400" />
+              <Clock className="w-8 h-8 text-warning-400" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-green-400 hover:shadow-md transition-shadow">
+        <Card className="border-l-4 border-l-success-400 hover:shadow-md transition-shadow">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">已通过</p>
-                <p className="text-2xl font-bold text-green-600">{stats.approved}</p>
-                <p className="text-xs text-gray-500 mt-1">本月完成</p>
+                <p className="text-sm text-neutral-600">已通过</p>
+                <p className="text-2xl font-bold text-success-600">{stats.approved}</p>
+                <p className="text-xs text-neutral-500 mt-1">本月完成</p>
               </div>
-              <CheckCircle className="w-8 h-8 text-green-400" />
+              <CheckCircle className="w-8 h-8 text-success-400" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-red-400 hover:shadow-md transition-shadow">
+        <Card className="border-l-4 border-l-danger-400 hover:shadow-md transition-shadow">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">已拒绝</p>
-                <p className="text-2xl font-bold text-red-600">{stats.rejected}</p>
-                <p className="text-xs text-gray-500 mt-1">需要修改</p>
+                <p className="text-sm text-neutral-600">已拒绝</p>
+                <p className="text-2xl font-bold text-danger-600">{stats.rejected}</p>
+                <p className="text-xs text-neutral-500 mt-1">需要修改</p>
               </div>
-              <XCircle className="w-8 h-8 text-red-400" />
+              <XCircle className="w-8 h-8 text-danger-400" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-gray-400 hover:shadow-md transition-shadow">
+        <Card className="border-l-4 border-l-neutral-400 hover:shadow-md transition-shadow">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">草稿</p>
-                <p className="text-2xl font-bold text-gray-600">{stats.draft}</p>
-                <p className="text-xs text-gray-500 mt-1">待提交</p>
+                <p className="text-sm text-neutral-600">草稿</p>
+                <p className="text-2xl font-bold text-neutral-600">{stats.draft}</p>
+                <p className="text-xs text-neutral-500 mt-1">待提交</p>
               </div>
-              <Edit className="w-8 h-8 text-gray-400" />
+              <Edit className="w-8 h-8 text-neutral-400" />
             </div>
           </CardContent>
         </Card>
@@ -484,7 +526,7 @@ export function OAApproval() {
         <CardContent className="p-4">
           <div className="flex items-center space-x-4">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-4 h-4" />
               <Input
                 placeholder="搜索申请标题或申请人..."
                 value={searchTerm}
@@ -541,8 +583,8 @@ export function OAApproval() {
 
                 {filteredApprovals.length === 0 && (
                   <div className="text-center py-12">
-                    <FileText className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                    <p className="text-gray-500">暂无相关审批记录</p>
+                    <FileText className="w-12 h-12 text-neutral-300 mx-auto mb-4" />
+                    <p className="text-neutral-500">暂无相关审批记录</p>
                     <Button variant="outline" className="mt-4" onClick={() => setIsCreateDialogOpen(true)}>
                       <Plus className="w-4 h-4 mr-2" />
                       发起新申请
@@ -572,13 +614,23 @@ export function OAApproval() {
 }
 
 // 审批卡片组件
-function ApprovalCard({ approval, onAction, onView, onRevoke }) {
+function ApprovalCard({
+  approval,
+  onAction,
+  onView,
+  onRevoke,
+}: {
+  approval: Approval;
+  onAction: (id: string, action: WorkflowStatus, reason?: string) => void;
+  onView: (approval: Approval) => void;
+  onRevoke: (id: string) => void;
+}) {
   const ApprovalTypeConfig = ApprovalTypes[approval.type];
   const TypeIcon = ApprovalTypeConfig.icon;
   const progress = WorkflowEngine.calculateProgress(approval.workflow);
 
   return (
-    <Card className="hover:shadow-md transition-all duration-200 border-l-4 border-l-sky-200">
+    <Card className="hover:shadow-md transition-all duration-200 border-l-4 border-l-primary-200">
       <CardContent className="p-6">
         <div className="flex items-start justify-between">
           <div className="flex items-start space-x-4 flex-1">
@@ -592,7 +644,7 @@ function ApprovalCard({ approval, onAction, onView, onRevoke }) {
             {/* 申请信息 */}
             <div className="flex-1">
               <div className="flex items-center space-x-3 mb-2">
-                <h3 className="font-semibold text-gray-900 text-lg">{approval.title}</h3>
+                <h3 className="font-semibold text-neutral-900 text-lg">{approval.title}</h3>
                 <Badge className={`${getStatusColor(approval.status)} border`}>
                   {getStatusIcon(approval.status)}
                   <span className="ml-1">
@@ -614,11 +666,11 @@ function ApprovalCard({ approval, onAction, onView, onRevoke }) {
                 )}
               </div>
 
-              <div className="flex items-center space-x-6 text-sm text-gray-600 mb-3">
+              <div className="flex items-center space-x-6 text-sm text-neutral-600 mb-3">
                 <div className="flex items-center space-x-1">
                   <User className="w-4 h-4" />
                   <span>{approval.applicant.name}</span>
-                  <span className="text-gray-400">·</span>
+                  <span className="text-neutral-400">·</span>
                   <span>{approval.applicant.department}</span>
                 </div>
                 <div className="flex items-center space-x-1">
@@ -627,7 +679,7 @@ function ApprovalCard({ approval, onAction, onView, onRevoke }) {
                 </div>
                 {approval.amount && (
                   <div className="flex items-center space-x-1">
-                    <span className="font-medium text-green-600">¥{approval.amount.toLocaleString()}</span>
+                    <span className="font-medium text-success-600">¥{approval.amount.toLocaleString()}</span>
                   </div>
                 )}
               </div>
@@ -635,8 +687,8 @@ function ApprovalCard({ approval, onAction, onView, onRevoke }) {
               {/* 工作流进度 */}
               <div className="mb-3">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-gray-600">审批进度</span>
-                  <span className="text-sm text-gray-600">
+                  <span className="text-sm text-neutral-600">审批进度</span>
+                  <span className="text-sm text-neutral-600">
                     {approval.currentStep}/{approval.totalSteps} ({progress}%)
                   </span>
                 </div>
@@ -644,18 +696,18 @@ function ApprovalCard({ approval, onAction, onView, onRevoke }) {
 
                 {/* 当前审批人 */}
                 {approval.status === 'pending' && (
-                  <div className="flex items-center mt-2 text-sm text-sky-600">
+                  <div className="flex items-center mt-2 text-sm text-primary-600">
                     <ArrowRight className="w-4 h-4 mr-1" />
                     <span>当前审批人: {approval.workflow[approval.currentStep - 1]?.user}</span>
                   </div>
                 )}
               </div>
 
-              <p className="text-sm text-gray-600 line-clamp-2">{approval.description}</p>
+              <p className="text-sm text-neutral-600 line-clamp-2">{approval.description}</p>
 
               {/* 附件 */}
               {approval.attachments && approval.attachments.length > 0 && (
-                <div className="flex items-center mt-2 text-sm text-gray-500">
+                <div className="flex items-center mt-2 text-sm text-neutral-500">
                   <FileText className="w-4 h-4 mr-1" />
                   <span>{approval.attachments.length} 个附件</span>
                 </div>
@@ -675,7 +727,7 @@ function ApprovalCard({ approval, onAction, onView, onRevoke }) {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="text-green-600 border-green-200 hover:bg-green-50"
+                  className="text-success-600 border-success-200 hover:bg-success-50"
                   onClick={() => onAction(approval.id, 'approved')}
                 >
                   <CheckCircle className="w-4 h-4 mr-1" />
@@ -684,7 +736,7 @@ function ApprovalCard({ approval, onAction, onView, onRevoke }) {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="text-red-600 border-red-200 hover:bg-red-50"
+                  className="text-danger-600 border-danger-200 hover:bg-danger-50"
                   onClick={() => onAction(approval.id, 'rejected', '需要补充材料')}
                 >
                   <XCircle className="w-4 h-4 mr-1" />
@@ -695,7 +747,7 @@ function ApprovalCard({ approval, onAction, onView, onRevoke }) {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="text-orange-600 border-orange-200 hover:bg-orange-50"
+                  className="text-warning-600 border-warning-200 hover:bg-warning-50"
                   onClick={() => onRevoke(approval.id)}
                 >
                   撤回
@@ -710,7 +762,17 @@ function ApprovalCard({ approval, onAction, onView, onRevoke }) {
 }
 
 // 审批详情弹窗组件
-function ApprovalDetailDialog({ approval, onClose, onAction, onRevoke }) {
+function ApprovalDetailDialog({
+  approval,
+  onClose,
+  onAction,
+  onRevoke,
+}: {
+  approval: Approval;
+  onClose: () => void;
+  onAction: (id: string, action: WorkflowStatus, reason?: string) => void;
+  onRevoke: (id: string) => void;
+}) {
   const [comment, setComment] = useState('');
   const [activeDetailTab, setActiveDetailTab] = useState('info');
   const ApprovalTypeConfig = ApprovalTypes[approval.type];
@@ -741,34 +803,34 @@ function ApprovalDetailDialog({ approval, onClose, onAction, onRevoke }) {
             {/* 基本信息 */}
             <div className="grid grid-cols-2 gap-6">
               <div>
-                <Label className="text-sm font-medium text-gray-700">申请类型</Label>
+                <Label className="text-sm font-medium text-neutral-700">申请类型</Label>
                 <p className="mt-1 flex items-center space-x-2">
                   <ApprovalTypeConfig.icon className="w-4 h-4" />
                   <span>{ApprovalTypeConfig.name}</span>
                 </p>
               </div>
               <div>
-                <Label className="text-sm font-medium text-gray-700">申请时间</Label>
+                <Label className="text-sm font-medium text-neutral-700">申请时间</Label>
                 <p className="mt-1">{approval.createTime}</p>
               </div>
               <div>
-                <Label className="text-sm font-medium text-gray-700">申请人</Label>
+                <Label className="text-sm font-medium text-neutral-700">申请人</Label>
                 <p className="mt-1">
                   {approval.applicant.name} · {approval.applicant.department}
                 </p>
               </div>
               <div>
-                <Label className="text-sm font-medium text-gray-700">优先级</Label>
+                <Label className="text-sm font-medium text-neutral-700">优先级</Label>
                 <Badge
-                  className={approval.priority === 'high' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'}
+                  className={approval.priority === 'high' ? 'bg-danger-100 text-danger-800' : 'bg-neutral-100 text-neutral-800'}
                 >
                   {approval.priority === 'high' ? '紧急' : '普通'}
                 </Badge>
               </div>
               {approval.amount && (
                 <div>
-                  <Label className="text-sm font-medium text-gray-700">申请金额</Label>
-                  <p className="mt-1 font-medium text-green-600">¥{approval.amount.toLocaleString()}</p>
+                  <Label className="text-sm font-medium text-neutral-700">申请金额</Label>
+                  <p className="mt-1 font-medium text-success-600">¥{approval.amount.toLocaleString()}</p>
                 </div>
               )}
             </div>
@@ -777,20 +839,20 @@ function ApprovalDetailDialog({ approval, onClose, onAction, onRevoke }) {
 
             {/* 申请内容 */}
             <div>
-              <Label className="text-sm font-medium text-gray-700">申请说明</Label>
-              <div className="mt-2 p-4 bg-gray-50 rounded-lg">
-                <p className="text-gray-900 whitespace-pre-wrap">{approval.description}</p>
+              <Label className="text-sm font-medium text-neutral-700">申请说明</Label>
+              <div className="mt-2 p-4 bg-neutral-50 rounded-lg">
+                <p className="text-neutral-900 whitespace-pre-wrap">{approval.description}</p>
               </div>
             </div>
 
             {/* 附件 */}
             {approval.attachments && approval.attachments.length > 0 && (
               <div>
-                <Label className="text-sm font-medium text-gray-700 mb-3 block">相关附件</Label>
+                <Label className="text-sm font-medium text-neutral-700 mb-3 block">相关附件</Label>
                 <div className="grid grid-cols-2 gap-3">
                   {approval.attachments.map((file, index) => (
-                    <div key={index} className="flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50">
-                      <FileText className="w-5 h-5 text-blue-500" />
+                    <div key={index} className="flex items-center space-x-3 p-3 border rounded-lg hover:bg-neutral-50">
+                      <FileText className="w-5 h-5 text-primary-500" />
                       <span className="flex-1 text-sm">{file}</span>
                       <Button variant="ghost" size="sm">
                         <Download className="w-4 h-4" />
@@ -805,7 +867,7 @@ function ApprovalDetailDialog({ approval, onClose, onAction, onRevoke }) {
           <TabsContent value="workflow" className="space-y-6 mt-6">
             {/* 审批流程可视化 */}
             <div>
-              <Label className="text-sm font-medium text-gray-700 mb-4 block">审批流程</Label>
+              <Label className="text-sm font-medium text-neutral-700 mb-4 block">审批流程</Label>
               <div className="space-y-4">
                 {approval.workflow.map((step, index) => (
                   <div key={step.step} className="flex items-start space-x-4">
@@ -813,12 +875,12 @@ function ApprovalDetailDialog({ approval, onClose, onAction, onRevoke }) {
                       <div
                         className={`w-10 h-10 rounded-full flex items-center justify-center border-2 ${
                           step.status === 'approved'
-                            ? 'bg-green-100 text-green-600 border-green-300'
+                            ? 'bg-success-100 text-success-600 border-success-300'
                             : step.status === 'rejected'
-                              ? 'bg-red-100 text-red-600 border-red-300'
+                              ? 'bg-danger-100 text-danger-600 border-danger-300'
                               : step.status === 'pending'
-                                ? 'bg-yellow-100 text-yellow-600 border-yellow-300 animate-pulse'
-                                : 'bg-gray-100 text-gray-400 border-gray-300'
+                                ? 'bg-warning-100 text-warning-600 border-warning-300 animate-pulse'
+                                : 'bg-neutral-100 text-neutral-400 border-neutral-300'
                         }`}
                       >
                         {step.status === 'approved' ? (
@@ -833,7 +895,7 @@ function ApprovalDetailDialog({ approval, onClose, onAction, onRevoke }) {
                       </div>
                       {index < approval.workflow.length - 1 && (
                         <div
-                          className={`w-px h-12 mt-2 ${step.status === 'approved' ? 'bg-green-300' : 'bg-gray-200'}`}
+                          className={`w-px h-12 mt-2 ${step.status === 'approved' ? 'bg-success-300' : 'bg-neutral-200'}`}
                         />
                       )}
                     </div>
@@ -841,20 +903,20 @@ function ApprovalDetailDialog({ approval, onClose, onAction, onRevoke }) {
                     <div className="flex-1 pb-8">
                       <div className="flex items-center justify-between mb-2">
                         <div>
-                          <p className="font-medium text-gray-900">{step.name}</p>
-                          <p className="text-sm text-gray-600">{step.user}</p>
+                          <p className="font-medium text-neutral-900">{step.name}</p>
+                          <p className="text-sm text-neutral-600">{step.user}</p>
                         </div>
                         <div className="text-right">
-                          {step.time && <p className="text-sm text-gray-600">{step.time}</p>}
+                          {step.time && <p className="text-sm text-neutral-600">{step.time}</p>}
                           <Badge
                             className={`${
                               step.status === 'approved'
-                                ? 'bg-green-100 text-green-800'
+                                ? 'bg-success-100 text-success-800'
                                 : step.status === 'rejected'
-                                  ? 'bg-red-100 text-red-800'
+                                  ? 'bg-danger-100 text-danger-800'
                                   : step.status === 'pending'
-                                    ? 'bg-yellow-100 text-yellow-800'
-                                    : 'bg-gray-100 text-gray-800'
+                                    ? 'bg-warning-100 text-warning-800'
+                                    : 'bg-neutral-100 text-neutral-800'
                             }`}
                           >
                             {step.status === 'approved'
@@ -868,7 +930,7 @@ function ApprovalDetailDialog({ approval, onClose, onAction, onRevoke }) {
                         </div>
                       </div>
                       {step.reason && (
-                        <Alert className={step.status === 'rejected' ? 'border-red-200' : 'border-green-200'}>
+                        <Alert className={step.status === 'rejected' ? 'border-danger-200' : 'border-success-200'}>
                           <MessageCircle className="w-4 h-4" />
                           <AlertDescription>
                             <strong>审批意见：</strong>
@@ -885,11 +947,11 @@ function ApprovalDetailDialog({ approval, onClose, onAction, onRevoke }) {
 
           <TabsContent value="history" className="space-y-4 mt-6">
             <div className="space-y-3">
-              <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
-                <History className="w-5 h-5 text-blue-500" />
+              <div className="flex items-center space-x-3 p-3 bg-primary-50 rounded-lg">
+                <History className="w-5 h-5 text-primary-500" />
                 <div>
                   <p className="font-medium">申请创建</p>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-neutral-600">
                     {approval.createTime} · {approval.applicant.name}
                   </p>
                 </div>
@@ -898,20 +960,20 @@ function ApprovalDetailDialog({ approval, onClose, onAction, onRevoke }) {
               {approval.workflow
                 .filter((step) => step.time)
                 .map((step, index) => (
-                  <div key={index} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                  <div key={index} className="flex items-center space-x-3 p-3 bg-neutral-50 rounded-lg">
                     {step.status === 'approved' ? (
-                      <CheckCircle className="w-5 h-5 text-green-500" />
+                      <CheckCircle className="w-5 h-5 text-success-500" />
                     ) : (
-                      <XCircle className="w-5 h-5 text-red-500" />
+                      <XCircle className="w-5 h-5 text-danger-500" />
                     )}
                     <div>
                       <p className="font-medium">
                         {step.status === 'approved' ? '审批通过' : '审批拒绝'} - {step.name}
                       </p>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-neutral-600">
                         {step.time} · {step.user}
                       </p>
-                      {step.reason && <p className="text-sm text-gray-700 mt-1">{step.reason}</p>}
+                      {step.reason && <p className="text-sm text-neutral-700 mt-1">{step.reason}</p>}
                     </div>
                   </div>
                 ))}
@@ -924,7 +986,7 @@ function ApprovalDetailDialog({ approval, onClose, onAction, onRevoke }) {
           <>
             <Separator />
             <div>
-              <Label className="text-sm font-medium text-gray-700">审批意见</Label>
+              <Label className="text-sm font-medium text-neutral-700">审批意见</Label>
               <Textarea
                 placeholder="请输入审批意见..."
                 value={comment}
@@ -941,7 +1003,7 @@ function ApprovalDetailDialog({ approval, onClose, onAction, onRevoke }) {
             {approval.status === 'pending' && (
               <Button
                 variant="outline"
-                className="text-orange-600 border-orange-200 hover:bg-orange-50"
+                className="text-warning-600 border-warning-200 hover:bg-warning-50"
                 onClick={() => {
                   onRevoke(approval.id);
                   onClose();
@@ -960,7 +1022,7 @@ function ApprovalDetailDialog({ approval, onClose, onAction, onRevoke }) {
               <>
                 <Button
                   variant="outline"
-                  className="text-red-600 border-red-200 hover:bg-red-50"
+                  className="text-danger-600 border-danger-200 hover:bg-danger-50"
                   onClick={() => {
                     onAction(approval.id, 'rejected', comment || '审批不通过');
                     onClose();
@@ -970,7 +1032,7 @@ function ApprovalDetailDialog({ approval, onClose, onAction, onRevoke }) {
                   拒绝
                 </Button>
                 <Button
-                  className="bg-green-600 hover:bg-green-700"
+                  className="bg-success-600 hover:bg-success-700"
                   onClick={() => {
                     onAction(approval.id, 'approved', comment || '审批通过');
                     onClose();
@@ -989,7 +1051,13 @@ function ApprovalDetailDialog({ approval, onClose, onAction, onRevoke }) {
 }
 
 // 创建申请表单组件
-function CreateApprovalForm({ onClose, onSubmit }) {
+function CreateApprovalForm({
+  onClose,
+  onSubmit,
+}: {
+  onClose: () => void;
+  onSubmit: (approval: Approval) => void;
+}) {
   const [formData, setFormData] = useState({
     type: '',
     title: '',
@@ -999,14 +1067,14 @@ function CreateApprovalForm({ onClose, onSubmit }) {
     attachments: [],
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // 创建新的审批申请
-    const newApproval = {
+    const newApproval: Approval = {
       id: `APP${Date.now().toString().slice(-3)}`,
       title: formData.title,
-      type: formData.type,
+      type: formData.type as ApprovalTypeKey,
       applicant: { name: '当前用户', avatar: '', department: '当前部门', id: 'current_user' },
       status: 'pending',
       priority: formData.priority,
@@ -1020,7 +1088,10 @@ function CreateApprovalForm({ onClose, onSubmit }) {
     };
 
     // 使用工作流引擎创建工作流
-    const workflow = WorkflowEngine.createWorkflow(formData.type, newApproval.amount);
+    const workflow = WorkflowEngine.createWorkflow(
+      formData.type as ApprovalTypeKey,
+      newApproval.amount ?? 0,
+    );
     newApproval.workflow = workflow;
     newApproval.totalSteps = workflow.length;
 
@@ -1031,6 +1102,9 @@ function CreateApprovalForm({ onClose, onSubmit }) {
 
     onSubmit(newApproval);
   };
+
+  // 预览使用：未选择类型时回退到默认类型，避免索引越界
+  const selectedType = (formData.type || 'LEAVE') as ApprovalTypeKey;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -1105,14 +1179,14 @@ function CreateApprovalForm({ onClose, onSubmit }) {
       {/* 预览工作流 */}
       {formData.type && (
         <div>
-          <Label className="text-sm font-medium text-gray-700 mb-2 block">预览审批流程</Label>
-          <div className="p-3 bg-gray-50 rounded-lg">
+          <Label className="text-sm font-medium text-neutral-700 mb-2 block">预览审批流程</Label>
+          <div className="p-3 bg-neutral-50 rounded-lg">
             <div className="flex items-center space-x-2">
-              {ApprovalTypes[formData.type].workflow.map((step, index) => (
+              {ApprovalTypes[selectedType].workflow.map((step, index) => (
                 <div key={index} className="flex items-center">
-                  <div className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm">{step}</div>
-                  {index < ApprovalTypes[formData.type].workflow.length - 1 && (
-                    <ArrowRight className="w-4 h-4 text-gray-400 mx-1" />
+                  <div className="px-2 py-1 bg-primary-100 text-primary-800 rounded text-sm">{step}</div>
+                  {index < ApprovalTypes[selectedType].workflow.length - 1 && (
+                    <ArrowRight className="w-4 h-4 text-neutral-400 mx-1" />
                   )}
                 </div>
               ))}
@@ -1135,7 +1209,7 @@ function CreateApprovalForm({ onClose, onSubmit }) {
 }
 
 // 工作流设置弹窗
-function WorkflowSettingsDialog({ onClose }) {
+function WorkflowSettingsDialog({ onClose }: { onClose: () => void }) {
   return (
     <Dialog open={true} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl">
@@ -1158,11 +1232,11 @@ function WorkflowSettingsDialog({ onClose }) {
               </CardHeader>
               <CardContent>
                 <div className="flex items-center space-x-2">
-                  <span className="text-sm text-gray-600">审批流程：</span>
+                  <span className="text-sm text-neutral-600">审批流程：</span>
                   {type.workflow.map((step, index) => (
                     <div key={index} className="flex items-center">
                       <Badge variant="outline">{step}</Badge>
-                      {index < type.workflow.length - 1 && <ArrowRight className="w-4 h-4 text-gray-400 mx-1" />}
+                      {index < type.workflow.length - 1 && <ArrowRight className="w-4 h-4 text-neutral-400 mx-1" />}
                     </div>
                   ))}
                 </div>
@@ -1186,24 +1260,24 @@ function WorkflowSettingsDialog({ onClose }) {
 }
 
 // 辅助函数
-function getStatusColor(status) {
+function getStatusColor(status: string): string {
   switch (status) {
   case 'pending':
-    return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+    return 'bg-warning-100 text-warning-800 border-warning-200';
   case 'approved':
-    return 'bg-green-100 text-green-800 border-green-200';
+    return 'bg-success-100 text-success-800 border-success-200';
   case 'rejected':
-    return 'bg-red-100 text-red-800 border-red-200';
+    return 'bg-danger-100 text-danger-800 border-danger-200';
   case 'revoked':
-    return 'bg-orange-100 text-orange-800 border-orange-200';
+    return 'bg-warning-100 text-warning-800 border-warning-200';
   case 'draft':
-    return 'bg-gray-100 text-gray-800 border-gray-200';
+    return 'bg-neutral-100 text-neutral-800 border-neutral-200';
   default:
-    return 'bg-gray-100 text-gray-800 border-gray-200';
+    return 'bg-neutral-100 text-neutral-800 border-neutral-200';
   }
 }
 
-function getStatusIcon(status) {
+function getStatusIcon(status: string) {
   switch (status) {
   case 'pending':
     return <Clock className="w-4 h-4" />;

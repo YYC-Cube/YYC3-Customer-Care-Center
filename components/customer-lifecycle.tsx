@@ -36,7 +36,7 @@ export function CustomerLifecycle() {
       name: '潜在客户',
       description: '初次接触，了解需求',
       icon: <UserPlus className="w-5 h-5" />,
-      color: 'bg-gray-100 text-gray-800',
+      color: 'bg-neutral-100 text-neutral-800',
       customers: 45,
       percentage: 30,
     },
@@ -45,7 +45,7 @@ export function CustomerLifecycle() {
       name: '意向客户',
       description: '表现出购买意向',
       icon: <TrendingUp className="w-5 h-5" />,
-      color: 'bg-blue-100 text-blue-800',
+      color: 'bg-primary-100 text-primary-800',
       customers: 32,
       percentage: 21,
     },
@@ -54,7 +54,7 @@ export function CustomerLifecycle() {
       name: '新客户',
       description: '首次购买产品或服务',
       icon: <Star className="w-5 h-5" />,
-      color: 'bg-green-100 text-green-800',
+      color: 'bg-success-100 text-success-800',
       customers: 28,
       percentage: 19,
     },
@@ -63,7 +63,7 @@ export function CustomerLifecycle() {
       name: '回头客',
       description: '多次购买，建立信任',
       icon: <Heart className="w-5 h-5" />,
-      color: 'bg-purple-100 text-purple-800',
+      color: 'bg-accent-100 text-accent-800',
       customers: 25,
       percentage: 17,
     },
@@ -72,7 +72,7 @@ export function CustomerLifecycle() {
       name: '忠诚客户',
       description: '主动推荐，价值最高',
       icon: <Award className="w-5 h-5" />,
-      color: 'bg-yellow-100 text-yellow-800',
+      color: 'bg-warning-100 text-warning-800',
       customers: 20,
       percentage: 13,
     },
@@ -90,9 +90,9 @@ export function CustomerLifecycle() {
         <div className="space-y-4">
           {lifecycleStages.map((stage, index) => (
             <div key={stage.id} className="relative">
-              <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors">
+              <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-neutral-50 transition-colors">
                 <div className="flex items-center space-x-4">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100">
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-neutral-100">
                     {stage.icon}
                   </div>
                   <div>
@@ -117,26 +117,26 @@ export function CustomerLifecycle() {
           ))}
         </div>
 
-        <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+        <div className="mt-6 p-4 bg-primary-50 rounded-lg">
           <div className="flex items-center space-x-2 mb-2">
-            <Target className="w-5 h-5 text-blue-600" />
-            <h4 className="font-medium text-blue-900">转化目标</h4>
+            <Target className="w-5 h-5 text-primary-600" />
+            <h4 className="font-medium text-primary-900">转化目标</h4>
           </div>
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <span className="text-blue-700">潜在→意向:</span>
+              <span className="text-primary-700">潜在→意向:</span>
               <span className="font-medium ml-2">71%</span>
             </div>
             <div>
-              <span className="text-blue-700">意向→新客:</span>
+              <span className="text-primary-700">意向→新客:</span>
               <span className="font-medium ml-2">88%</span>
             </div>
             <div>
-              <span className="text-blue-700">新客→回头:</span>
+              <span className="text-primary-700">新客→回头:</span>
               <span className="font-medium ml-2">89%</span>
             </div>
             <div>
-              <span className="text-blue-700">回头→忠诚:</span>
+              <span className="text-primary-700">回头→忠诚:</span>
               <span className="font-medium ml-2">80%</span>
             </div>
           </div>

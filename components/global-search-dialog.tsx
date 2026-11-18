@@ -109,11 +109,11 @@ export function GlobalSearchDialog({ open, onOpenChange, onSearch, isLoading }: 
 
   const getTypeBadge = (type: SearchResult['type']) => {
     const badges = {
-      customer: { label: '客户', color: 'bg-blue-100 text-blue-800' },
-      task: { label: '任务', color: 'bg-green-100 text-green-800' },
-      document: { label: '文档', color: 'bg-purple-100 text-purple-800' },
-      user: { label: '用户', color: 'bg-orange-100 text-orange-800' },
-      event: { label: '日程', color: 'bg-pink-100 text-pink-800' },
+      customer: { label: '客户', color: 'bg-primary-100 text-primary-800' },
+      task: { label: '任务', color: 'bg-success-100 text-success-800' },
+      document: { label: '文档', color: 'bg-accent-100 text-accent-800' },
+      user: { label: '用户', color: 'bg-warning-100 text-warning-800' },
+      event: { label: '日程', color: 'bg-accent-100 text-accent-800' },
     };
     return badges[type];
   };
@@ -138,7 +138,7 @@ export function GlobalSearchDialog({ open, onOpenChange, onSearch, isLoading }: 
         <div className="space-y-4">
           {/* 搜索输入框 */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-4 h-4" />
             <Input
               placeholder="搜索客户、任务、文档..."
               value={query}
@@ -152,7 +152,7 @@ export function GlobalSearchDialog({ open, onOpenChange, onSearch, isLoading }: 
               autoFocus
             />
             {isLoading ? (
-              <RefreshCw className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 animate-spin" />
+              <RefreshCw className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-4 h-4 animate-spin" />
             ) : (
               <Button
                 size="sm"
@@ -167,7 +167,7 @@ export function GlobalSearchDialog({ open, onOpenChange, onSearch, isLoading }: 
           {/* 搜索结果 */}
           {results.length > 0 && (
             <div className="space-y-2 max-h-96 overflow-y-auto">
-              <h3 className="text-sm font-medium text-gray-700 flex items-center">
+              <h3 className="text-sm font-medium text-neutral-700 flex items-center">
                 <TrendingUp className="w-4 h-4 mr-2" />
                 搜索结果 ({results.length})
               </h3>
@@ -178,22 +178,22 @@ export function GlobalSearchDialog({ open, onOpenChange, onSearch, isLoading }: 
                 return (
                   <div
                     key={result.id}
-                    className="p-3 rounded-lg border hover:bg-gray-50 cursor-pointer transition-colors"
+                    className="p-3 rounded-lg border hover:bg-neutral-50 cursor-pointer transition-colors"
                     onClick={() => {
                       console.log('导航到:', result.url);
                       onOpenChange(false);
                     }}
                   >
                     <div className="flex items-start space-x-3">
-                      <TypeIcon className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                      <TypeIcon className="w-5 h-5 text-neutral-400 mt-0.5 flex-shrink-0" />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center space-x-2 mb-1">
-                          <h4 className="font-medium text-gray-900 truncate">{result.title}</h4>
+                          <h4 className="font-medium text-neutral-900 truncate">{result.title}</h4>
                           <Badge className={`text-xs ${typeBadge.color}`}>{typeBadge.label}</Badge>
                         </div>
-                        <p className="text-sm text-gray-600 line-clamp-2">{result.description}</p>
+                        <p className="text-sm text-neutral-600 line-clamp-2">{result.description}</p>
                         {result.timestamp && (
-                          <p className="text-xs text-gray-400 mt-1">{result.timestamp.toLocaleString('zh-CN')}</p>
+                          <p className="text-xs text-neutral-400 mt-1">{result.timestamp.toLocaleString('zh-CN')}</p>
                         )}
                       </div>
                     </div>
@@ -206,7 +206,7 @@ export function GlobalSearchDialog({ open, onOpenChange, onSearch, isLoading }: 
           {/* 最近搜索 */}
           {query === '' && recentSearches.length > 0 && (
             <div className="space-y-2">
-              <h3 className="text-sm font-medium text-gray-700 flex items-center">
+              <h3 className="text-sm font-medium text-neutral-700 flex items-center">
                 <Clock className="w-4 h-4 mr-2" />
                 最近搜索
               </h3>
@@ -232,9 +232,9 @@ export function GlobalSearchDialog({ open, onOpenChange, onSearch, isLoading }: 
           {/* 空状态 */}
           {query !== '' && results.length === 0 && !isLoading && (
             <div className="text-center py-8">
-              <Search className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-500">未找到相关结果</p>
-              <p className="text-sm text-gray-400 mt-1">尝试使用不同的关键词</p>
+              <Search className="w-12 h-12 text-neutral-300 mx-auto mb-4" />
+              <p className="text-neutral-500">未找到相关结果</p>
+              <p className="text-sm text-neutral-400 mt-1">尝试使用不同的关键词</p>
             </div>
           )}
         </div>

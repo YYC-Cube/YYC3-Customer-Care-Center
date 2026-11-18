@@ -1092,7 +1092,8 @@ const translations: Record<SupportedLanguage, TranslationKeys> = {
 interface I18nContextType {
   language: SupportedLanguage
   setLanguage: (language: SupportedLanguage) => void
-  t: (key: string) => string
+  /** 支持可选的插值参数（未实现插值时忽略） */
+  t: (key: string, params?: Record<string, string | number>) => string
   formatDate: (date: Date, format?: string) => string
   formatNumber: (number: number, options?: Intl.NumberFormatOptions) => string
   formatCurrency: (amount: number, currency?: string) => string

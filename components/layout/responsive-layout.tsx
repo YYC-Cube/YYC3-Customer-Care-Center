@@ -1,11 +1,11 @@
 /**
  * @file responsive-layout.tsx
- * @description responsive-layout component/module for YYC3 Customer Care Center
+ * @description 全局响应式布局：Provider + 主壳体（导航 / 头部 / 内容区）
  * @module components.layout.responsive-layout
  * @author YYC³ Team
- * @version 1.0.0
+ * @version 2.0.0
  * @created 2026-01-23
- * @updated 2026-01-23
+ * @updated 2026-11-18
  * @copyright Copyright (c) 2026 YYC³
  * @license MIT
  */
@@ -13,20 +13,31 @@
 'use client';
 
 import type React from 'react';
-import { createContext, useContext, useState, useEffect } from 'react';
-import { useResponsiveLayout, type LayoutConfig } from '@/lib/responsive-layout';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import {
+  useResponsiveLayout,
+  normalizeLayoutConfig,
+  loadStoredLayoutConfig,
+  getSidebarOffset,
+  type LayoutConfig,
+} from '@/lib/responsive-layout';
 import { Sidebar } from '@/components/sidebar';
 import { Header } from '@/components/header';
 import { cn } from '@/lib/utils';
 
-// 布局上下文
+type ContentStyles = ReturnType<typeof useResponsiveLayout>['getContentStyles'] extends () => infer T ? T : never;
+
 interface LayoutContextType {
   sidebarCollapsed: boolean
   setSidebarCollapsed: (collapsed: boolean) => void
   sidebarOpen: boolean
   setSidebarOpen: (open: boolean) => void
+  isMobile: boolean
+  isTablet: boolean
+  isDesktop: boolean
   layoutConfig: LayoutConfig
   updateLayoutConfig: (config: Partial<LayoutConfig>) => void
+  getContentStyles: () => ContentStyles
 }
 
 const LayoutContext = createContext<LayoutContextType | undefined>(undefined);
@@ -34,47 +45,82 @@ const LayoutContext = createContext<LayoutContextType | undefined>(undefined);
 export function useLayoutContext() {
   const context = useContext(LayoutContext);
   if (!context) {
-    throw new Error('useLayoutContext must be used within a LayoutProvider');
+    throw new Error('useLayoutContext must be used within a ResponsiveLayoutProvider');
   }
   return context;
 }
 
-// 响应式布局提供者
+/**
+ * 可选读取布局上下文：未包裹 Provider 时返回 undefined，
+ * 供移动端布局等「可独立使用」的组件复用统一状态机而不抛错。
+ */
+export function useOptionalLayoutContext() {
+  return useContext(LayoutContext);
+}
+
+/** 深度合并布局配置（保留未修改的嵌套字段） */
+function mergeLayoutConfig(prev: LayoutConfig, patch: Partial<LayoutConfig>): LayoutConfig {
+  return normalizeLayoutConfig({
+    ...prev,
+    ...patch,
+    sidebar: { ...prev.sidebar, ...patch.sidebar, width: { ...prev.sidebar.width, ...patch.sidebar?.width } },
+    header: { ...prev.header, ...patch.header },
+    content: { ...prev.content, ...patch.content, padding: { ...prev.content.padding, ...patch.content?.padding } },
+    grid: {
+      ...prev.grid,
+      ...patch.grid,
+      columns: { ...prev.grid.columns, ...patch.grid?.columns },
+      gap: { ...prev.grid.gap, ...patch.grid?.gap },
+    },
+  });
+}
+
 interface ResponsiveLayoutProviderProps {
   children: React.ReactNode
   initialConfig?: Partial<LayoutConfig>
 }
 
 export function ResponsiveLayoutProvider({ children, initialConfig }: ResponsiveLayoutProviderProps) {
-  const { layoutConfig: defaultConfig, isMobile } = useResponsiveLayout(initialConfig);
-  const [layoutConfig, setLayoutConfig] = useState(defaultConfig);
+  const [layoutConfig, setLayoutConfig] = useState<LayoutConfig>(() => normalizeLayoutConfig(initialConfig));
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // 移动端自动关闭侧边栏
+  // 客户端挂载后恢复用户配置（localStorage 在设置页写入）
   useEffect(() => {
-    if (isMobile) {
-      setSidebarOpen(false);
-    }
+    const stored = loadStoredLayoutConfig();
+    if (initialConfig) setLayoutConfig(mergeLayoutConfig(stored, initialConfig));
+    else setLayoutConfig(stored);
+  }, [initialConfig]);
+
+  // 所有响应式判定只调用一次 Hook，配置来源唯一
+  const { isMobile, isTablet, isDesktop, getContentStyles } = useResponsiveLayout(layoutConfig);
+
+  // 移动端进入抽屉模式时关闭侧栏
+  useEffect(() => {
+    if (isMobile) setSidebarOpen(false);
   }, [isMobile]);
 
-  const updateLayoutConfig = (config: Partial<LayoutConfig>) => {
-    setLayoutConfig((prev) => ({ ...prev, ...config }));
-  };
+  const updateLayoutConfig = useCallback((config: Partial<LayoutConfig>) => {
+    setLayoutConfig((prev) => {
+      const next = mergeLayoutConfig(prev, config);
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem('layout-config', JSON.stringify(next));
+      }
+      return next;
+    });
+  }, []);
 
   const value: LayoutContextType = {
-    sidebarCollapsed,
-    setSidebarCollapsed,
-    sidebarOpen,
-    setSidebarOpen,
-    layoutConfig,
-    updateLayoutConfig,
+    sidebarCollapsed, setSidebarCollapsed,
+    sidebarOpen, setSidebarOpen,
+    isMobile, isTablet, isDesktop,
+    layoutConfig, updateLayoutConfig,
+    getContentStyles,
   };
 
   return <LayoutContext.Provider value={value}>{children}</LayoutContext.Provider>;
 }
 
-// 主布局组件
 interface ResponsiveLayoutProps {
   children: React.ReactNode
   showSidebar?: boolean
@@ -88,57 +134,48 @@ export function ResponsiveLayout({
   showHeader = true,
   className,
 }: ResponsiveLayoutProps) {
-  const { sidebarCollapsed, sidebarOpen, setSidebarOpen, layoutConfig } = useLayoutContext();
-  const { isMobile, isTablet, getContentStyles } = useResponsiveLayout();
+  const {
+    sidebarCollapsed, sidebarOpen, setSidebarOpen,
+    isMobile, layoutConfig, getContentStyles,
+  } = useLayoutContext();
 
-  // 计算主内容区域的边距
-  const getMainContentMargin = () => {
-    if (!showSidebar) return '0';
-    if (isMobile) return '0';
-
-    return sidebarCollapsed ? `${layoutConfig.sidebar.width.collapsed}px` : `${layoutConfig.sidebar.width.expanded}px`;
-  };
+  // 侧栏宽度与视觉宽度共用同一配置，消除 w-56/w-14 与 256/64 的双源偏差
+  const sidebarWidth = getSidebarOffset(isMobile, sidebarCollapsed, layoutConfig);
+  const showHeaderThisViewport = showHeader && (layoutConfig.header.showOnMobile || !isMobile);
 
   return (
-    <div className={cn('min-h-screen bg-gray-50', className)}>
-      {/* 侧边栏 */}
+    <div className={cn('min-h-screen bg-background', className)}>
       {showSidebar && (
         <>
           <Sidebar />
-
-          {/* 移动端遮罩 */}
+          {/* 移动端遮罩：抽屉打开时可点击关闭 */}
           {isMobile && sidebarOpen && (
-            <div className="fixed inset-0 bg-black/50 z-30 lg:hidden" onClick={() => setSidebarOpen(false)} />
+            <div
+              className="fixed inset-0 z-30 bg-black/50"
+              aria-hidden="true"
+              onClick={() => setSidebarOpen(false)}
+            />
           )}
         </>
       )}
 
-      {/* 主内容区域 */}
+      {/* 主区域：宽度 = 100% - 侧栏宽度，避免 100% + marginLeft 造成横向溢出 */}
       <div
-        className="transition-all duration-300 ease-in-out min-h-screen w-full"
+        className="min-h-screen transition-[margin,width] duration-300 ease-in-out"
         style={{
-          marginLeft: getMainContentMargin(),
-          width: '100%',
+          marginLeft: showSidebar ? `${sidebarWidth}px` : 0,
+          width: showSidebar ? `calc(100% - ${sidebarWidth}px)` : '100%',
         }}
       >
-        {/* 头部 */}
-        {showHeader && (
+        {showHeaderThisViewport && (
           <Header
             height={layoutConfig.header.height}
             sticky={layoutConfig.header.sticky}
-            showOnMobile={layoutConfig.header.showOnMobile}
+            onMenuClick={showSidebar && isMobile ? () => setSidebarOpen(true) : undefined}
           />
         )}
 
-        {/* 页面内容 */}
-        <main
-          className="min-h-screen w-full"
-          style={{
-            width: '100%',
-            ...getContentStyles(),
-            marginTop: showHeader && layoutConfig.header.sticky ? `${layoutConfig.header.height}px` : '0',
-          }}
-        >
+        <main className="min-h-screen w-full" style={getContentStyles()}>
           {children}
         </main>
       </div>

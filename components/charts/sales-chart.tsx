@@ -11,6 +11,7 @@
  */
 
 'use client';
+import { colorRamp } from '@/lib/design-tokens';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
@@ -48,10 +49,10 @@ const productSalesData = [
 
 // 区域销售数据
 const regionSalesData = [
-  { name: '华东', value: 35, color: '#3b82f6' },
-  { name: '华南', value: 28, color: '#10b981' },
-  { name: '华北', value: 22, color: '#f59e0b' },
-  { name: '西部', value: 15, color: '#ef4444' },
+  { name: '华东', value: 35, color: colorRamp.primary[500] },
+  { name: '华南', value: 28, color: colorRamp.success[500] },
+  { name: '华北', value: 22, color: colorRamp.warning[500] },
+  { name: '西部', value: 15, color: colorRamp.danger[500] },
 ];
 
 export function SalesChart() {
@@ -79,9 +80,9 @@ export function SalesChart() {
           >
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={salesTrendData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                <XAxis dataKey="month" stroke="#64748b" />
-                <YAxis stroke="#64748b" />
+                <CartesianGrid strokeDasharray="3 3" stroke={colorRamp.neutral[200]} />
+                <XAxis dataKey="month" stroke={colorRamp.neutral[500]} />
+                <YAxis stroke={colorRamp.neutral[500]} />
                 <ChartTooltip content={<ChartTooltipContent />} />
                 <Line
                   type="monotone"
@@ -123,9 +124,9 @@ export function SalesChart() {
             >
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={productSalesData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                  <XAxis dataKey="product" stroke="#64748b" />
-                  <YAxis stroke="#64748b" />
+                  <CartesianGrid strokeDasharray="3 3" stroke={colorRamp.neutral[200]} />
+                  <XAxis dataKey="product" stroke={colorRamp.neutral[500]} />
+                  <YAxis stroke={colorRamp.neutral[500]} />
                   <ChartTooltip content={<ChartTooltipContent />} />
                   <Bar dataKey="sales" fill="var(--color-sales)" radius={[4, 4, 0, 0]} />
                 </BarChart>
@@ -165,8 +166,8 @@ export function SalesChart() {
               {regionSalesData.map((item, index) => (
                 <div key={index} className="flex items-center space-x-2">
                   <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }}></div>
-                  <span className="text-sm text-slate-600">{item.name}</span>
-                  <span className="text-sm font-semibold text-slate-800">{item.value}%</span>
+                  <span className="text-sm text-neutral-600">{item.name}</span>
+                  <span className="text-sm font-semibold text-neutral-800">{item.value}%</span>
                 </div>
               ))}
             </div>

@@ -11,6 +11,7 @@
  */
 
 'use client';
+import { colorRamp } from '@/lib/design-tokens';
 
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -204,11 +205,11 @@ export function FeedbackCollectionSystem() {
 
   // 反馈类型分布
   const typeDistribution = [
-    { type: '功能建议', count: 25, color: '#3b82f6' },
-    { type: '问题反馈', count: 18, color: '#ef4444' },
-    { type: '改进建议', count: 12, color: '#f59e0b' },
-    { type: '投诉', count: 8, color: '#8b5cf6' },
-    { type: '表扬', count: 15, color: '#10b981' },
+    { type: '功能建议', count: 25, color: colorRamp.primary[500] },
+    { type: '问题反馈', count: 18, color: colorRamp.danger[500] },
+    { type: '改进建议', count: 12, color: colorRamp.warning[500] },
+    { type: '投诉', count: 8, color: colorRamp.accent[500] },
+    { type: '表扬', count: 15, color: colorRamp.success[500] },
   ];
 
   // 满意度分布
@@ -260,17 +261,17 @@ export function FeedbackCollectionSystem() {
   const getStatusColor = (status: string) => {
     switch (status) {
     case 'pending':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-warning-100 text-warning-800';
     case 'reviewing':
-      return 'bg-blue-100 text-blue-800';
+      return 'bg-primary-100 text-primary-800';
     case 'in_progress':
-      return 'bg-purple-100 text-purple-800';
+      return 'bg-accent-100 text-accent-800';
     case 'resolved':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'closed':
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -288,15 +289,15 @@ export function FeedbackCollectionSystem() {
   const getPriorityColor = (priority: string) => {
     switch (priority) {
     case 'urgent':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     case 'high':
-      return 'bg-orange-100 text-orange-800';
+      return 'bg-warning-100 text-warning-800';
     case 'medium':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-warning-100 text-warning-800';
     case 'low':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -336,7 +337,7 @@ export function FeedbackCollectionSystem() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold flex items-center">
-            <MessageSquare className="w-8 h-8 mr-3 text-blue-600" />
+            <MessageSquare className="w-8 h-8 mr-3 text-primary-600" />
             用户反馈收集系统
           </h1>
           <p className="text-muted-foreground">收集、管理和分析用户反馈，持续改进产品体验</p>
@@ -357,44 +358,44 @@ export function FeedbackCollectionSystem() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
         <Card>
           <CardContent className="p-6 text-center">
-            <MessageSquare className="w-8 h-8 mx-auto mb-2 text-blue-600" />
+            <MessageSquare className="w-8 h-8 mx-auto mb-2 text-primary-600" />
             <p className="text-2xl font-bold">{stats.total}</p>
-            <p className="text-sm text-gray-600">总反馈数</p>
+            <p className="text-sm text-neutral-600">总反馈数</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <Clock className="w-8 h-8 mx-auto mb-2 text-yellow-600" />
+            <Clock className="w-8 h-8 mx-auto mb-2 text-warning-600" />
             <p className="text-2xl font-bold">{stats.pending}</p>
-            <p className="text-sm text-gray-600">待处理</p>
+            <p className="text-sm text-neutral-600">待处理</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <CheckCircle className="w-8 h-8 mx-auto mb-2 text-green-600" />
+            <CheckCircle className="w-8 h-8 mx-auto mb-2 text-success-600" />
             <p className="text-2xl font-bold">{stats.resolved}</p>
-            <p className="text-sm text-gray-600">已解决</p>
+            <p className="text-sm text-neutral-600">已解决</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <Star className="w-8 h-8 mx-auto mb-2 text-orange-600" />
+            <Star className="w-8 h-8 mx-auto mb-2 text-warning-600" />
             <p className="text-2xl font-bold">{stats.averageRating.toFixed(1)}</p>
-            <p className="text-sm text-gray-600">平均评分</p>
+            <p className="text-sm text-neutral-600">平均评分</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <TrendingUp className="w-8 h-8 mx-auto mb-2 text-purple-600" />
+            <TrendingUp className="w-8 h-8 mx-auto mb-2 text-accent-600" />
             <p className="text-2xl font-bold">{stats.responseTime}h</p>
-            <p className="text-sm text-gray-600">响应时间</p>
+            <p className="text-sm text-neutral-600">响应时间</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <Target className="w-8 h-8 mx-auto mb-2 text-pink-600" />
+            <Target className="w-8 h-8 mx-auto mb-2 text-accent-600" />
             <p className="text-2xl font-bold">{stats.satisfactionRate}%</p>
-            <p className="text-sm text-gray-600">满意度</p>
+            <p className="text-sm text-neutral-600">满意度</p>
           </CardContent>
         </Card>
       </div>
@@ -413,7 +414,7 @@ export function FeedbackCollectionSystem() {
             <CardContent className="p-4">
               <div className="flex flex-wrap gap-4 items-center">
                 <div className="flex items-center space-x-2">
-                  <Search className="w-4 h-4 text-gray-500" />
+                  <Search className="w-4 h-4 text-neutral-500" />
                   <Input
                     placeholder="搜索反馈..."
                     value={searchTerm}
@@ -422,7 +423,7 @@ export function FeedbackCollectionSystem() {
                   />
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Filter className="w-4 h-4 text-gray-500" />
+                  <Filter className="w-4 h-4 text-neutral-500" />
                   <Select value={selectedType} onValueChange={setSelectedType}>
                     <SelectTrigger className="w-32">
                       <SelectValue />
@@ -473,8 +474,8 @@ export function FeedbackCollectionSystem() {
                             <Badge variant="outline">{getTypeLabel(feedback.type)}</Badge>
                           </div>
                         </div>
-                        <p className="text-gray-600 mb-3">{feedback.description}</p>
-                        <div className="flex items-center space-x-4 text-sm text-gray-500">
+                        <p className="text-neutral-600 mb-3">{feedback.description}</p>
+                        <div className="flex items-center space-x-4 text-sm text-neutral-500">
                           <span className="flex items-center">
                             <Users className="w-4 h-4 mr-1" />
                             {feedback.userName}
@@ -484,7 +485,7 @@ export function FeedbackCollectionSystem() {
                             {feedback.createdAt.toLocaleDateString('zh-CN')}
                           </span>
                           <span className="flex items-center">
-                            <Star className="w-4 h-4 mr-1 text-yellow-500" />
+                            <Star className="w-4 h-4 mr-1 text-warning-500" />
                             {feedback.rating}/5
                           </span>
                           <span className="flex items-center">
@@ -527,7 +528,7 @@ export function FeedbackCollectionSystem() {
                     <div className="mt-4 pt-4 border-t">
                       <h4 className="font-medium mb-2">官方回复</h4>
                       {feedback.responses.map((response) => (
-                        <div key={response.id} className="bg-blue-50 p-3 rounded-lg">
+                        <div key={response.id} className="bg-primary-50 p-3 rounded-lg">
                           <div className="flex items-center space-x-2 mb-1">
                             <span className="font-medium text-sm">{response.authorName}</span>
                             {response.isOfficial && (
@@ -535,7 +536,7 @@ export function FeedbackCollectionSystem() {
                                 官方
                               </Badge>
                             )}
-                            <span className="text-xs text-gray-500">
+                            <span className="text-xs text-neutral-500">
                               {response.createdAt.toLocaleDateString('zh-CN')}
                             </span>
                           </div>
@@ -613,13 +614,13 @@ export function FeedbackCollectionSystem() {
                       key={rating}
                       onClick={() => setNewFeedback({ ...newFeedback, rating })}
                       className={`p-1 ${
-                        rating <= newFeedback.rating ? 'text-yellow-500' : 'text-gray-300'
-                      } hover:text-yellow-500 transition-colors`}
+                        rating <= newFeedback.rating ? 'text-warning-500' : 'text-neutral-300'
+                      } hover:text-warning-500 transition-colors`}
                     >
                       <Star className="w-6 h-6 fill-current" />
                     </button>
                   ))}
-                  <span className="ml-2 text-sm text-gray-600">{newFeedback.rating}/5</span>
+                  <span className="ml-2 text-sm text-neutral-600">{newFeedback.rating}/5</span>
                 </div>
               </div>
 
@@ -725,8 +726,8 @@ export function FeedbackCollectionSystem() {
                     <div className="flex justify-between items-center">
                       <span className="text-sm font-medium">{item.rating}</span>
                       <div className="flex items-center space-x-2">
-                        <span className="text-sm text-gray-600">{item.count}</span>
-                        <span className="text-sm text-gray-600">({item.percentage}%)</span>
+                        <span className="text-sm text-neutral-600">{item.count}</span>
+                        <span className="text-sm text-neutral-600">({item.percentage}%)</span>
                       </div>
                     </div>
                     <Progress value={item.percentage} className="h-2" />
@@ -748,9 +749,9 @@ export function FeedbackCollectionSystem() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <Card>
                     <CardContent className="p-4 text-center">
-                      <Clock className="w-8 h-8 mx-auto mb-2 text-yellow-600" />
+                      <Clock className="w-8 h-8 mx-auto mb-2 text-warning-600" />
                       <p className="text-2xl font-bold">{feedbacks.filter((f) => f.status === 'pending').length}</p>
-                      <p className="text-sm text-gray-600">待处理反馈</p>
+                      <p className="text-sm text-neutral-600">待处理反馈</p>
                       <Button size="sm" className="mt-2">
                         立即处理
                       </Button>
@@ -758,11 +759,11 @@ export function FeedbackCollectionSystem() {
                   </Card>
                   <Card>
                     <CardContent className="p-4 text-center">
-                      <AlertTriangle className="w-8 h-8 mx-auto mb-2 text-red-600" />
+                      <AlertTriangle className="w-8 h-8 mx-auto mb-2 text-danger-600" />
                       <p className="text-2xl font-bold">
                         {feedbacks.filter((f) => f.priority === 'urgent' || f.priority === 'high').length}
                       </p>
-                      <p className="text-sm text-gray-600">高优先级</p>
+                      <p className="text-sm text-neutral-600">高优先级</p>
                       <Button size="sm" className="mt-2" variant="destructive">
                         紧急处理
                       </Button>
@@ -770,12 +771,12 @@ export function FeedbackCollectionSystem() {
                   </Card>
                   <Card>
                     <CardContent className="p-4 text-center">
-                      <TrendingUp className="w-8 h-8 mx-auto mb-2 text-green-600" />
+                      <TrendingUp className="w-8 h-8 mx-auto mb-2 text-success-600" />
                       <p className="text-2xl font-bold">
                         {Math.round((feedbacks.filter((f) => f.status === 'resolved').length / feedbacks.length) * 100)}
                         %
                       </p>
-                      <p className="text-sm text-gray-600">解决率</p>
+                      <p className="text-sm text-neutral-600">解决率</p>
                       <Button size="sm" className="mt-2 bg-transparent" variant="outline">
                         查看详情
                       </Button>

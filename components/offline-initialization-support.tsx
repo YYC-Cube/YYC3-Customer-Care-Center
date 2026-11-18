@@ -195,26 +195,26 @@ export function OfflineInitializationSupport() {
   const getStatusColor = (status: typeof initializationStatus) => {
     switch (status) {
     case 'ready':
-      return 'text-green-600 bg-green-50 border-green-200';
+      return 'text-success-600 bg-success-50 border-success-200';
     case 'limited':
-      return 'text-yellow-600 bg-yellow-50 border-yellow-200';
+      return 'text-warning-600 bg-warning-50 border-warning-200';
     case 'failed':
-      return 'text-red-600 bg-red-50 border-red-200';
+      return 'text-danger-600 bg-danger-50 border-danger-200';
     default:
-      return 'text-blue-600 bg-blue-50 border-blue-200';
+      return 'text-primary-600 bg-primary-50 border-primary-200';
     }
   };
 
   const getStatusIcon = (status: typeof initializationStatus) => {
     switch (status) {
     case 'ready':
-      return <CheckCircle className="w-5 h-5 text-green-600" />;
+      return <CheckCircle className="w-5 h-5 text-success-600" />;
     case 'limited':
-      return <AlertCircle className="w-5 h-5 text-yellow-600" />;
+      return <AlertCircle className="w-5 h-5 text-warning-600" />;
     case 'failed':
-      return <AlertCircle className="w-5 h-5 text-red-600" />;
+      return <AlertCircle className="w-5 h-5 text-danger-600" />;
     default:
-      return <Sync className="w-5 h-5 text-blue-600 animate-spin" />;
+      return <Sync className="w-5 h-5 text-primary-600 animate-spin" />;
     }
   };
 
@@ -233,13 +233,13 @@ export function OfflineInitializationSupport() {
 
   if (!isOnline) {
     return (
-      <Card className="border-orange-200 bg-orange-50">
+      <Card className="border-warning-200 bg-warning-50">
         <CardContent className="p-6">
           <div className="flex items-center space-x-3 mb-4">
-            <WifiOff className="w-6 h-6 text-orange-600" />
+            <WifiOff className="w-6 h-6 text-warning-600" />
             <div>
-              <h3 className="font-medium text-orange-900">网络连接不可用</h3>
-              <p className="text-sm text-orange-700">正在启用离线模式...</p>
+              <h3 className="font-medium text-warning-900">网络连接不可用</h3>
+              <p className="text-sm text-warning-700">正在启用离线模式...</p>
             </div>
           </div>
 
@@ -248,13 +248,13 @@ export function OfflineInitializationSupport() {
               <div key={capability.id} className="flex items-center justify-between p-3 bg-white rounded-lg">
                 <div className="flex items-center space-x-3">
                   {capability.isAvailable ? (
-                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <CheckCircle className="w-4 h-4 text-success-500" />
                   ) : (
-                    <AlertCircle className="w-4 h-4 text-red-500" />
+                    <AlertCircle className="w-4 h-4 text-danger-500" />
                   )}
                   <div>
-                    <p className="text-sm font-medium text-gray-900">{capability.name}</p>
-                    <p className="text-xs text-gray-600">{capability.description}</p>
+                    <p className="text-sm font-medium text-neutral-900">{capability.name}</p>
+                    <p className="text-xs text-neutral-600">{capability.description}</p>
                   </div>
                 </div>
                 <Badge variant={capability.isAvailable ? 'default' : 'secondary'}>
@@ -282,22 +282,22 @@ export function OfflineInitializationSupport() {
     <Card className={`border ${getStatusColor(initializationStatus)}`}>
       <CardContent className="p-4">
         <div className="flex items-center space-x-3">
-          <Wifi className="w-5 h-5 text-green-600" />
+          <Wifi className="w-5 h-5 text-success-600" />
           {getStatusIcon(initializationStatus)}
           <div className="flex-1">
             <div className="flex items-center justify-between">
-              <h4 className="font-medium text-gray-900">网络状态</h4>
-              <Badge variant="outline" className="text-green-600 border-green-200">
+              <h4 className="font-medium text-neutral-900">网络状态</h4>
+              <Badge variant="outline" className="text-success-600 border-success-200">
                 在线
               </Badge>
             </div>
-            <p className="text-sm text-gray-600 mt-1">{getStatusMessage(initializationStatus)}</p>
+            <p className="text-sm text-neutral-600 mt-1">{getStatusMessage(initializationStatus)}</p>
           </div>
         </div>
 
         {initializationStatus === 'limited' && (
-          <div className="mt-3 p-3 bg-yellow-50 rounded-lg">
-            <p className="text-xs text-yellow-800">部分离线功能不可用，建议在网络稳定时使用完整功能。</p>
+          <div className="mt-3 p-3 bg-warning-50 rounded-lg">
+            <p className="text-xs text-warning-800">部分离线功能不可用，建议在网络稳定时使用完整功能。</p>
           </div>
         )}
       </CardContent>

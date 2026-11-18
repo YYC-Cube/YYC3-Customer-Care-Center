@@ -231,11 +231,11 @@ export function AIAnalysisCenter() {
   const getStatusIcon = (status: AnalysisResult['status']) => {
     switch (status) {
     case 'success':
-      return <CheckCircle className="w-4 h-4 text-green-600" />;
+      return <CheckCircle className="w-4 h-4 text-success-600" />;
     case 'error':
-      return <AlertCircle className="w-4 h-4 text-red-600" />;
+      return <AlertCircle className="w-4 h-4 text-danger-600" />;
     case 'processing':
-      return <RefreshCw className="w-4 h-4 text-blue-600 animate-spin" />;
+      return <RefreshCw className="w-4 h-4 text-primary-600 animate-spin" />;
     }
   };
 
@@ -244,14 +244,14 @@ export function AIAnalysisCenter() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold flex items-center">
-            <Brain className="w-8 h-8 mr-3 text-purple-600" />
+            <Brain className="w-8 h-8 mr-3 text-accent-600" />
             AI智能分析中心
           </h1>
           <p className="text-muted-foreground">基于本地大模型的智能业务分析</p>
         </div>
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
-            <div className={`w-3 h-3 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`}></div>
+            <div className={`w-3 h-3 rounded-full ${isConnected ? 'bg-success-500' : 'bg-danger-500'}`}></div>
             <span className="text-sm">{isConnected ? 'AI服务已连接' : 'AI服务未连接'}</span>
           </div>
           <Button variant="outline" onClick={checkOllamaConnection}>
@@ -267,7 +267,7 @@ export function AIAnalysisCenter() {
           <AlertDescription>
             AI服务未连接。请确保Ollama服务正在运行，并检查配置。
             <br />
-            启动命令: <code className="bg-gray-100 px-2 py-1 rounded">ollama serve</code>
+            启动命令: <code className="bg-neutral-100 px-2 py-1 rounded">ollama serve</code>
           </AlertDescription>
         </Alert>
       )}
@@ -289,7 +289,7 @@ export function AIAnalysisCenter() {
             >
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center">
-                  <TrendingUp className="w-5 h-5 mr-2 text-blue-600" />
+                  <TrendingUp className="w-5 h-5 mr-2 text-primary-600" />
                   数据分析
                 </CardTitle>
               </CardHeader>
@@ -304,7 +304,7 @@ export function AIAnalysisCenter() {
             >
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center">
-                  <Activity className="w-5 h-5 mr-2 text-green-600" />
+                  <Activity className="w-5 h-5 mr-2 text-success-600" />
                   预测分析
                 </CardTitle>
               </CardHeader>
@@ -319,7 +319,7 @@ export function AIAnalysisCenter() {
             >
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center">
-                  <Lightbulb className="w-5 h-5 mr-2 text-yellow-600" />
+                  <Lightbulb className="w-5 h-5 mr-2 text-warning-600" />
                   智能建议
                 </CardTitle>
               </CardHeader>
@@ -334,7 +334,7 @@ export function AIAnalysisCenter() {
             >
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center">
-                  <FileText className="w-5 h-5 mr-2 text-purple-600" />
+                  <FileText className="w-5 h-5 mr-2 text-accent-600" />
                   数据总结
                 </CardTitle>
               </CardHeader>
@@ -370,7 +370,7 @@ export function AIAnalysisCenter() {
                           {result.timestamp.toLocaleString('zh-CN')}
                         </span>
                       </div>
-                      <div className="text-sm whitespace-pre-wrap bg-gray-50 p-3 rounded">{result.content}</div>
+                      <div className="text-sm whitespace-pre-wrap bg-neutral-50 p-3 rounded">{result.content}</div>
                     </div>
                   ))
                 )}
@@ -446,7 +446,7 @@ export function AIAnalysisCenter() {
               >
                 <CardHeader>
                   <CardTitle className="text-base flex items-center">
-                    <FileText className="w-5 h-5 mr-2 text-blue-600" />
+                    <FileText className="w-5 h-5 mr-2 text-primary-600" />
                     {report.type}报告
                   </CardTitle>
                 </CardHeader>

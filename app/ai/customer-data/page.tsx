@@ -11,6 +11,7 @@
  */
 
 'use client';
+import { colorRamp } from '@/lib/design-tokens';
 
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -95,10 +96,10 @@ export default function AICustomerDataPage() {
 
   // 客户分段数据
   const customerSegments = [
-    { name: 'VIP客户', value: 28, color: '#8b5cf6', growth: 12 },
-    { name: '活跃客户', value: 45, color: '#3b82f6', growth: 8 },
-    { name: '潜在客户', value: 67, color: '#10b981', growth: 15 },
-    { name: '流失风险', value: 16, color: '#f59e0b', growth: -5 },
+    { name: 'VIP客户', value: 28, color: colorRamp.accent[500], growth: 12 },
+    { name: '活跃客户', value: 45, color: colorRamp.primary[500], growth: 8 },
+    { name: '潜在客户', value: 67, color: colorRamp.success[500], growth: 15 },
+    { name: '流失风险', value: 16, color: colorRamp.warning[500], growth: -5 },
   ];
 
   // 客户价值趋势
@@ -123,60 +124,60 @@ export default function AICustomerDataPage() {
   const getStatusColor = (status: string) => {
     switch (status) {
     case 'active':
-      return 'border-l-emerald-500 bg-emerald-50';
+      return 'border-l-success-500 bg-success-50';
     case 'warning':
-      return 'border-l-orange-500 bg-orange-50';
+      return 'border-l-warning-500 bg-warning-50';
     case 'opportunity':
-      return 'border-l-blue-500 bg-blue-50';
+      return 'border-l-primary-500 bg-primary-50';
     case 'completed':
-      return 'border-l-purple-500 bg-purple-50';
+      return 'border-l-accent-500 bg-accent-50';
     default:
-      return 'border-l-gray-500 bg-gray-50';
+      return 'border-l-neutral-500 bg-neutral-50';
     }
   };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
     case 'active':
-      return <CheckCircle className="w-5 h-5 text-emerald-600" />;
+      return <CheckCircle className="w-5 h-5 text-success-600" />;
     case 'warning':
-      return <AlertTriangle className="w-5 h-5 text-orange-600" />;
+      return <AlertTriangle className="w-5 h-5 text-warning-600" />;
     case 'opportunity':
-      return <Target className="w-5 h-5 text-blue-600" />;
+      return <Target className="w-5 h-5 text-primary-600" />;
     case 'completed':
-      return <Star className="w-5 h-5 text-purple-600" />;
+      return <Star className="w-5 h-5 text-accent-600" />;
     default:
-      return <Clock className="w-5 h-5 text-gray-600" />;
+      return <Clock className="w-5 h-5 text-neutral-600" />;
     }
   };
 
   const getImpactBadge = (impact: string) => {
     switch (impact) {
     case 'high':
-      return <Badge className="bg-red-100 text-red-700">高影响</Badge>;
+      return <Badge className="bg-danger-100 text-danger-700">高影响</Badge>;
     case 'medium':
-      return <Badge className="bg-yellow-100 text-yellow-700">中影响</Badge>;
+      return <Badge className="bg-warning-100 text-warning-700">中影响</Badge>;
     case 'critical':
-      return <Badge className="bg-purple-100 text-purple-700">关键</Badge>;
+      return <Badge className="bg-accent-100 text-accent-700">关键</Badge>;
     default:
-      return <Badge className="bg-gray-100 text-gray-700">低影响</Badge>;
+      return <Badge className="bg-neutral-100 text-neutral-700">低影响</Badge>;
     }
   };
 
   return (
-    <div className="p-6 space-y-6 bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gradient-to-br from-accent-50 via-primary-50 to-primary-50 min-h-screen">
       {/* 页面头部 */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-            <Brain className="w-8 h-8 mr-3 text-purple-600" />
+          <h1 className="text-3xl font-bold text-neutral-900 flex items-center">
+            <Brain className="w-8 h-8 mr-3 text-accent-600" />
             AI客户数据分析
           </h1>
-          <p className="text-gray-600 mt-2">智能客户洞察与预测分析系统</p>
+          <p className="text-neutral-600 mt-2">智能客户洞察与预测分析系统</p>
         </div>
         <div className="flex space-x-3">
           <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
-            <SelectTrigger className="w-32 border-l-4 border-l-purple-500">
+            <SelectTrigger className="w-32 border-l-4 border-l-accent-500">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -186,7 +187,7 @@ export default function AICustomerDataPage() {
               <SelectItem value="year">本年度</SelectItem>
             </SelectContent>
           </Select>
-          <Button className="bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105">
+          <Button className="bg-gradient-to-r from-accent-500 to-primary-600 hover:from-accent-600 hover:to-primary-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105">
             <RefreshCw className="w-4 h-4 mr-2" />
             刷新分析
           </Button>
@@ -195,55 +196,55 @@ export default function AICustomerDataPage() {
 
       {/* AI洞察概览 */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="border-l-4 border-l-purple-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-accent-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">AI洞察数量</CardTitle>
-            <Brain className="h-4 w-4 text-purple-600" />
+            <Brain className="h-4 w-4 text-accent-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-purple-700">127</div>
-            <p className="text-xs text-gray-600">本月新增 +23</p>
+            <div className="text-2xl font-bold text-accent-700">127</div>
+            <p className="text-xs text-neutral-600">本月新增 +23</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">预测准确率</CardTitle>
-            <Target className="h-4 w-4 text-emerald-600" />
+            <Target className="h-4 w-4 text-success-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-700">94.2%</div>
-            <p className="text-xs text-gray-600">较上月 +2.1%</p>
+            <div className="text-2xl font-bold text-success-700">94.2%</div>
+            <p className="text-xs text-neutral-600">较上月 +2.1%</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">客户价值</CardTitle>
-            <TrendingUp className="h-4 w-4 text-blue-600" />
+            <TrendingUp className="h-4 w-4 text-primary-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-700">¥350万</div>
-            <p className="text-xs text-gray-600">预测增长 +15%</p>
+            <div className="text-2xl font-bold text-primary-700">¥350万</div>
+            <p className="text-xs text-neutral-600">预测增长 +15%</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">风险客户</CardTitle>
-            <AlertTriangle className="h-4 w-4 text-orange-600" />
+            <AlertTriangle className="h-4 w-4 text-warning-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-700">15</div>
-            <p className="text-xs text-gray-600">需要立即关注</p>
+            <div className="text-2xl font-bold text-warning-700">15</div>
+            <p className="text-xs text-neutral-600">需要立即关注</p>
           </CardContent>
         </Card>
       </div>
 
       {/* AI洞察列表 */}
-      <Card className="border-l-4 border-l-purple-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-accent-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center text-purple-700">
+          <CardTitle className="flex items-center text-accent-700">
             <Zap className="w-5 h-5 mr-2" />
             AI智能洞察
           </CardTitle>
@@ -260,8 +261,8 @@ export default function AICustomerDataPage() {
                   <div className="flex items-center space-x-3">
                     {getStatusIcon(insight.status)}
                     <div>
-                      <h4 className="font-semibold text-gray-900">{insight.title}</h4>
-                      <p className="text-sm text-gray-600 mt-1">{insight.description}</p>
+                      <h4 className="font-semibold text-neutral-900">{insight.title}</h4>
+                      <p className="text-sm text-neutral-600 mt-1">{insight.description}</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -272,14 +273,14 @@ export default function AICustomerDataPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                   <div className="text-center">
-                    <div className="text-lg font-bold text-gray-900">{insight.customers}</div>
-                    <div className="text-xs text-gray-600">涉及客户</div>
+                    <div className="text-lg font-bold text-neutral-900">{insight.customers}</div>
+                    <div className="text-xs text-neutral-600">涉及客户</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-lg font-bold text-gray-900">
+                    <div className="text-lg font-bold text-neutral-900">
                       {insight.value > 0 ? `¥${(insight.value / 10000).toFixed(0)}万` : '-'}
                     </div>
-                    <div className="text-xs text-gray-600">预估价值</div>
+                    <div className="text-xs text-neutral-600">预估价值</div>
                   </div>
                   <div className="text-center">
                     <Progress
@@ -289,16 +290,16 @@ export default function AICustomerDataPage() {
                         background: `linear-gradient(to right, 
                           ${
               insight.status === 'active'
-                ? '#10b981, #059669'
+                ? `${colorRamp.success[500]}, ${colorRamp.success[600]}`
                 : insight.status === 'warning'
-                  ? '#f59e0b, #d97706'
+                  ? `${colorRamp.warning[500]}, ${colorRamp.warning[600]}`
                   : insight.status === 'opportunity'
-                    ? '#3b82f6, #2563eb'
-                    : '#8b5cf6, #7c3aed'
+                    ? `${colorRamp.primary[500]}, ${colorRamp.primary[600]}`
+                    : `${colorRamp.accent[500]}, ${colorRamp.accent[600]}`
               })`,
                       }}
                     />
-                    <div className="text-xs text-gray-600 mt-1">置信度</div>
+                    <div className="text-xs text-neutral-600 mt-1">置信度</div>
                   </div>
                 </div>
 
@@ -312,7 +313,7 @@ export default function AICustomerDataPage() {
                   </Button>
                   <Button
                     size="sm"
-                    className="bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white transition-all duration-300 hover:scale-105"
+                    className="bg-gradient-to-r from-accent-500 to-primary-600 hover:from-accent-600 hover:to-primary-700 text-white transition-all duration-300 hover:scale-105"
                   >
                     执行建议
                   </Button>
@@ -326,9 +327,9 @@ export default function AICustomerDataPage() {
       {/* 数据可视化 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* 客户价值趋势 */}
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader>
-            <CardTitle className="flex items-center text-blue-700">
+            <CardTitle className="flex items-center text-primary-700">
               <TrendingUp className="w-5 h-5 mr-2" />
               客户价值趋势预测
             </CardTitle>
@@ -345,7 +346,7 @@ export default function AICustomerDataPage() {
                   type="monotone"
                   dataKey="value"
                   stackId="1"
-                  stroke="#3b82f6"
+                  stroke={colorRamp.primary[500]}
                   fill="url(#blueGradient)"
                   name="实际价值"
                 />
@@ -353,18 +354,18 @@ export default function AICustomerDataPage() {
                   type="monotone"
                   dataKey="prediction"
                   stackId="2"
-                  stroke="#8b5cf6"
+                  stroke={colorRamp.accent[500]}
                   fill="url(#purpleGradient)"
                   name="预测价值"
                 />
                 <defs>
                   <linearGradient id="blueGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.1} />
+                    <stop offset="5%" stopColor={colorRamp.primary[500]} stopOpacity={0.8} />
+                    <stop offset="95%" stopColor={colorRamp.primary[500]} stopOpacity={0.1} />
                   </linearGradient>
                   <linearGradient id="purpleGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0.1} />
+                    <stop offset="5%" stopColor={colorRamp.accent[500]} stopOpacity={0.8} />
+                    <stop offset="95%" stopColor={colorRamp.accent[500]} stopOpacity={0.1} />
                   </linearGradient>
                 </defs>
               </AreaChart>
@@ -373,9 +374,9 @@ export default function AICustomerDataPage() {
         </Card>
 
         {/* 客户分段分布 */}
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader>
-            <CardTitle className="flex items-center text-emerald-700">
+            <CardTitle className="flex items-center text-success-700">
               <RechartsPieChart className="w-5 h-5 mr-2" />
               客户分段分布
             </CardTitle>
@@ -389,7 +390,7 @@ export default function AICustomerDataPage() {
                   cx="50%"
                   cy="50%"
                   outerRadius={100}
-                  fill="#8884d8"
+                  fill={colorRamp.accent[500]}
                   dataKey="value"
                   label={({ name, value }) => `${name}: ${value}`}
                 >
@@ -405,9 +406,9 @@ export default function AICustomerDataPage() {
       </div>
 
       {/* 客户行为分析 */}
-      <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center text-orange-700">
+          <CardTitle className="flex items-center text-warning-700">
             <Activity className="w-5 h-5 mr-2" />
             客户行为转化分析
           </CardTitle>
@@ -420,8 +421,8 @@ export default function AICustomerDataPage() {
               <XAxis dataKey="behavior" />
               <YAxis />
               <Tooltip />
-              <Bar dataKey="frequency" fill="#f59e0b" name="行为频次" />
-              <Bar dataKey="conversion" fill="#10b981" name="转化率%" />
+              <Bar dataKey="frequency" fill={colorRamp.warning[500]} name="行为频次" />
+              <Bar dataKey="conversion" fill={colorRamp.success[500]} name="转化率%" />
             </BarChart>
           </ResponsiveContainer>
         </CardContent>

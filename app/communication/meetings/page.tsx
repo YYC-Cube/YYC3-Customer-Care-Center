@@ -101,13 +101,13 @@ export default function MeetingsPage() {
   const getStatusColor = (status: ScheduledMeeting['status']) => {
     switch (status) {
     case 'upcoming':
-      return 'bg-blue-100 text-blue-800';
+      return 'bg-primary-100 text-primary-800';
     case 'ongoing':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'ended':
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -142,21 +142,21 @@ export default function MeetingsPage() {
   }
 
   return (
-    <div className="p-6 space-y-6 bg-gradient-to-br from-blue-50 via-sky-50 to-indigo-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gradient-to-br from-primary-50 via-primary-50 to-primary-50 min-h-screen">
       {/* 页面标题 */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-slate-800 flex items-center">
-            <Video className="w-8 h-8 mr-3 text-blue-600" />
+          <h1 className="text-3xl font-bold text-neutral-800 flex items-center">
+            <Video className="w-8 h-8 mr-3 text-primary-600" />
             视频会议
           </h1>
-          <p className="text-slate-600 mt-1">高效的远程会议和协作</p>
+          <p className="text-neutral-600 mt-1">高效的远程会议和协作</p>
         </div>
         <div className="flex items-center space-x-3">
           <Button
             variant="outline"
             size="sm"
-            className="border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+            className="border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
           >
             <Calendar className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             会议日历
@@ -164,12 +164,12 @@ export default function MeetingsPage() {
           <Button
             variant="outline"
             size="sm"
-            className="border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+            className="border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
           >
             <Settings className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             会议设置
           </Button>
-          <Button className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+          <Button className="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
             <Plus className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             创建会议
           </Button>
@@ -178,63 +178,63 @@ export default function MeetingsPage() {
 
       {/* 统计卡片 */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Calendar className="w-5 h-5 mr-2 text-blue-600" />
+              <Calendar className="w-5 h-5 mr-2 text-primary-600" />
               今日会议
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">{meetingStats.todayMeetings}</div>
+            <div className="text-2xl font-bold text-primary-600">{meetingStats.todayMeetings}</div>
             <p className="text-sm text-muted-foreground">已安排的会议</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Video className="w-5 h-5 mr-2 text-blue-600" />
+              <Video className="w-5 h-5 mr-2 text-primary-600" />
               进行中
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">{meetingStats.ongoingMeetings}</div>
+            <div className="text-2xl font-bold text-primary-600">{meetingStats.ongoingMeetings}</div>
             <p className="text-sm text-muted-foreground">正在进行的会议</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Users className="w-5 h-5 mr-2 text-blue-600" />
+              <Users className="w-5 h-5 mr-2 text-primary-600" />
               参与人数
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">{meetingStats.totalParticipants}</div>
+            <div className="text-2xl font-bold text-primary-600">{meetingStats.totalParticipants}</div>
             <p className="text-sm text-muted-foreground">总参与人数</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Clock className="w-5 h-5 mr-2 text-blue-600" />
+              <Clock className="w-5 h-5 mr-2 text-primary-600" />
               平均时长
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">{meetingStats.averageDuration}分钟</div>
+            <div className="text-2xl font-bold text-primary-600">{meetingStats.averageDuration}分钟</div>
             <p className="text-sm text-muted-foreground">会议平均时长</p>
           </CardContent>
         </Card>
       </div>
 
       {/* 会议列表 */}
-      <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
-          <CardTitle className="text-lg text-blue-700">会议安排</CardTitle>
+          <CardTitle className="text-lg text-primary-700">会议安排</CardTitle>
           <CardDescription>查看和管理您的会议安排</CardDescription>
         </CardHeader>
         <CardContent>
@@ -242,12 +242,12 @@ export default function MeetingsPage() {
             {meetings.map((meeting) => (
               <div
                 key={meeting.id}
-                className="border-l-4 border-l-blue-500 bg-blue-50 rounded-lg p-4 hover:shadow-md transition-all duration-300 hover:scale-105"
+                className="border-l-4 border-l-primary-500 bg-primary-50 rounded-lg p-4 hover:shadow-md transition-all duration-300 hover:scale-105"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-2">
-                      <h3 className="font-medium text-lg text-blue-700">{meeting.title}</h3>
+                      <h3 className="font-medium text-lg text-primary-700">{meeting.title}</h3>
                       <Badge className={getStatusColor(meeting.status)}>{getStatusText(meeting.status)}</Badge>
                       {meeting.status === 'ongoing' && (
                         <Badge variant="destructive" className="animate-pulse">
@@ -256,15 +256,15 @@ export default function MeetingsPage() {
                         </Badge>
                       )}
                     </div>
-                    <p className="text-gray-600 mb-3">{meeting.description}</p>
+                    <p className="text-neutral-600 mb-3">{meeting.description}</p>
 
-                    <div className="flex items-center space-x-6 text-sm text-gray-500">
+                    <div className="flex items-center space-x-6 text-sm text-neutral-500">
                       <div className="flex items-center space-x-1">
                         <Clock className="w-4 h-4" />
                         <span>
                           {formatTime(meeting.startTime)} - {formatTime(meeting.endTime)}
                         </span>
-                        <span className="text-gray-400">({formatDuration(meeting.startTime, meeting.endTime)})</span>
+                        <span className="text-neutral-400">({formatDuration(meeting.startTime, meeting.endTime)})</span>
                       </div>
                       <div className="flex items-center space-x-1">
                         <Users className="w-4 h-4" />
@@ -283,7 +283,7 @@ export default function MeetingsPage() {
 
                     {/* 参与者头像 */}
                     <div className="flex items-center space-x-2 mt-3">
-                      <span className="text-sm text-gray-500">参与者:</span>
+                      <span className="text-sm text-neutral-500">参与者:</span>
                       <div className="flex -space-x-2">
                         <Avatar className="w-6 h-6 border-2 border-white">
                           <AvatarImage
@@ -298,8 +298,8 @@ export default function MeetingsPage() {
                           </Avatar>
                         ))}
                         {meeting.participants.length > 4 && (
-                          <div className="w-6 h-6 bg-gray-200 border-2 border-white rounded-full flex items-center justify-center">
-                            <span className="text-xs text-gray-600">+{meeting.participants.length - 4}</span>
+                          <div className="w-6 h-6 bg-neutral-200 border-2 border-white rounded-full flex items-center justify-center">
+                            <span className="text-xs text-neutral-600">+{meeting.participants.length - 4}</span>
                           </div>
                         )}
                       </div>
@@ -310,7 +310,7 @@ export default function MeetingsPage() {
                     {meeting.status === 'ongoing' ? (
                       <Button
                         onClick={() => joinMeeting(meeting.id)}
-                        className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group"
+                        className="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group"
                       >
                         <Video className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
                         加入会议
@@ -320,14 +320,14 @@ export default function MeetingsPage() {
                         <Button
                           variant="outline"
                           onClick={() => joinMeeting(meeting.id)}
-                          className="border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+                          className="border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
                         >
                           <Play className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
                           提前加入
                         </Button>
                         <Button
                           variant="outline"
-                          className="border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+                          className="border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
                         >
                           <Calendar className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
                           编辑
@@ -348,36 +348,36 @@ export default function MeetingsPage() {
       </Card>
 
       {/* 快捷操作 */}
-      <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
-          <CardTitle className="text-base text-blue-700">快捷操作</CardTitle>
+          <CardTitle className="text-base text-primary-700">快捷操作</CardTitle>
           <CardDescription>常用会议功能</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <Button className="h-auto p-4 flex flex-col items-center space-y-2 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+            <Button className="h-auto p-4 flex flex-col items-center space-y-2 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
               <Plus className="w-6 h-6 group-hover:translate-x-1 transition-all duration-300" />
               <span className="text-sm">创建会议</span>
             </Button>
             <Button
               variant="outline"
-              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-blue-50 bg-transparent border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 group"
+              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-primary-50 bg-transparent border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 group"
             >
-              <Calendar className="w-6 h-6 text-blue-600 group-hover:translate-x-1 transition-all duration-300" />
+              <Calendar className="w-6 h-6 text-primary-600 group-hover:translate-x-1 transition-all duration-300" />
               <span className="text-sm">会议日历</span>
             </Button>
             <Button
               variant="outline"
-              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-blue-50 bg-transparent border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 group"
+              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-primary-50 bg-transparent border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 group"
             >
-              <Monitor className="w-6 h-6 text-blue-600 group-hover:translate-x-1 transition-all duration-300" />
+              <Monitor className="w-6 h-6 text-primary-600 group-hover:translate-x-1 transition-all duration-300" />
               <span className="text-sm">屏幕共享</span>
             </Button>
             <Button
               variant="outline"
-              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-blue-50 bg-transparent border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 group"
+              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-primary-50 bg-transparent border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 group"
             >
-              <Settings className="w-6 h-6 text-blue-600 group-hover:translate-x-1 transition-all duration-300" />
+              <Settings className="w-6 h-6 text-primary-600 group-hover:translate-x-1 transition-all duration-300" />
               <span className="text-sm">会议设置</span>
             </Button>
           </div>

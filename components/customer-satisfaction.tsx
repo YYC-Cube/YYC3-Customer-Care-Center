@@ -80,18 +80,18 @@ export function CustomerSatisfaction() {
 
   const getRatingStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
-      <Star key={i} className={`w-4 h-4 ${i < rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} />
+      <Star key={i} className={`w-4 h-4 ${i < rating ? 'fill-warning-400 text-warning-400' : 'text-neutral-300'}`} />
     ));
   };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
     case 'pending':
-      return <Badge className="bg-yellow-100 text-yellow-800">待处理</Badge>;
+      return <Badge className="bg-warning-100 text-warning-800">待处理</Badge>;
     case 'responded':
-      return <Badge className="bg-blue-100 text-blue-800">已回复</Badge>;
+      return <Badge className="bg-primary-100 text-primary-800">已回复</Badge>;
     case 'resolved':
-      return <Badge className="bg-green-100 text-green-800">已解决</Badge>;
+      return <Badge className="bg-success-100 text-success-800">已解决</Badge>;
     default:
       return <Badge variant="secondary">未知</Badge>;
     }
@@ -99,20 +99,20 @@ export function CustomerSatisfaction() {
 
   const getCategoryBadge = (category: string) => {
     const categories = {
-      product: { label: '产品', color: 'bg-blue-100 text-blue-800' },
-      service: { label: '服务', color: 'bg-green-100 text-green-800' },
-      support: { label: '支持', color: 'bg-purple-100 text-purple-800' },
-      overall: { label: '整体', color: 'bg-orange-100 text-orange-800' },
+      product: { label: '产品', color: 'bg-primary-100 text-primary-800' },
+      service: { label: '服务', color: 'bg-success-100 text-success-800' },
+      support: { label: '支持', color: 'bg-accent-100 text-accent-800' },
+      overall: { label: '整体', color: 'bg-warning-100 text-warning-800' },
     };
     const cat = categories[category as keyof typeof categories] || categories.overall;
     return <Badge className={cat.color}>{cat.label}</Badge>;
   };
 
   const getSatisfactionLevel = (rating: number) => {
-    if (rating >= 4.5) return { label: '非常满意', color: 'text-green-600', icon: <Award className="w-4 h-4" /> };
-    if (rating >= 3.5) return { label: '满意', color: 'text-blue-600', icon: <ThumbsUp className="w-4 h-4" /> };
-    if (rating >= 2.5) return { label: '一般', color: 'text-yellow-600', icon: <MessageSquare className="w-4 h-4" /> };
-    return { label: '不满意', color: 'text-red-600', icon: <ThumbsDown className="w-4 h-4" /> };
+    if (rating >= 4.5) return { label: '非常满意', color: 'text-success-600', icon: <Award className="w-4 h-4" /> };
+    if (rating >= 3.5) return { label: '满意', color: 'text-primary-600', icon: <ThumbsUp className="w-4 h-4" /> };
+    if (rating >= 2.5) return { label: '一般', color: 'text-warning-600', icon: <MessageSquare className="w-4 h-4" /> };
+    return { label: '不满意', color: 'text-danger-600', icon: <ThumbsDown className="w-4 h-4" /> };
   };
 
   const satisfactionLevel = getSatisfactionLevel(metrics.averageRating);
@@ -124,7 +124,7 @@ export function CustomerSatisfaction() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">平均评分</CardTitle>
-            <Star className="h-4 w-4 text-yellow-500" />
+            <Star className="h-4 w-4 text-warning-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold flex items-center space-x-2">
@@ -156,14 +156,14 @@ export function CustomerSatisfaction() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{metrics.npsScore}</div>
-            <p className="text-xs text-green-600">+{metrics.satisfactionTrend}% 较上月</p>
+            <p className="text-xs text-success-600">+{metrics.satisfactionTrend}% 较上月</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">待处理</CardTitle>
-            <AlertCircle className="h-4 w-4 text-orange-500" />
+            <AlertCircle className="h-4 w-4 text-warning-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{surveys.filter((s) => s.status === 'pending').length}</div>
@@ -187,7 +187,7 @@ export function CustomerSatisfaction() {
                 <div key={rating} className="flex items-center space-x-4">
                   <div className="flex items-center space-x-2 w-20">
                     <span className="text-sm font-medium">{rating}</span>
-                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    <Star className="w-4 h-4 fill-warning-400 text-warning-400" />
                   </div>
                   <div className="flex-1">
                     <Progress value={percentage} className="h-2" />
@@ -225,7 +225,7 @@ export function CustomerSatisfaction() {
                   </div>
                 </div>
 
-                <p className="text-sm text-muted-foreground mb-3">"{survey.feedback}"</p>
+                <p className="text-sm text-muted-foreground mb-3">「{survey.feedback}」</p>
 
                 <div className="flex justify-between items-center">
                   <span className="text-xs text-muted-foreground">{survey.date}</span>
@@ -253,15 +253,15 @@ export function CustomerSatisfaction() {
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            <div className="p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+            <div className="p-3 border rounded-lg hover:bg-neutral-50 cursor-pointer">
               <h4 className="font-medium text-sm">感谢反馈模板</h4>
               <p className="text-xs text-muted-foreground">感谢您的宝贵反馈，我们会持续改进产品和服务质量...</p>
             </div>
-            <div className="p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+            <div className="p-3 border rounded-lg hover:bg-neutral-50 cursor-pointer">
               <h4 className="font-medium text-sm">问题解决模板</h4>
               <p className="text-xs text-muted-foreground">我们已经了解到您遇到的问题，正在积极处理中...</p>
             </div>
-            <div className="p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+            <div className="p-3 border rounded-lg hover:bg-neutral-50 cursor-pointer">
               <h4 className="font-medium text-sm">服务改进模板</h4>
               <p className="text-xs text-muted-foreground">根据您的建议，我们将在以下方面进行改进...</p>
             </div>

@@ -1,4 +1,5 @@
 'use client';
+import { colorRamp } from '@/lib/design-tokens';
 
 import {
   localDB,
@@ -90,8 +91,8 @@ export class DatabaseSeeder {
       {
         key: 'theme_config',
         value: {
-          primaryColor: '#3b82f6',
-          secondaryColor: '#10b981',
+          primaryColor: colorRamp.primary[500],
+          secondaryColor: colorRamp.success[500],
           darkMode: false,
         },
         category: 'appearance',
@@ -399,15 +400,15 @@ export class DatabaseSeeder {
 
     for (let i = 0; i < 200; i++) {
       const level = levels[Math.floor(Math.random() * levels.length)];
-      const module = modules[Math.floor(Math.random() * modules.length)];
+      const moduleName = modules[Math.floor(Math.random() * modules.length)];
       const user = users[Math.floor(Math.random() * users.length)];
       const messages = logMessages[level];
       const message = messages[Math.floor(Math.random() * messages.length)];
 
       logs.push({
         level,
-        message: `${message} - ${module}模块`,
-        module,
+        message: `${message} - ${moduleName}模块`,
+        module: moduleName,
         timestamp: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000),
         userId: Math.random() > 0.3 ? user.id : undefined,
         metadata: {

@@ -182,28 +182,28 @@ export function CommunicationModule() {
   const getStatusColor = (status: string) => {
     switch (status) {
     case 'online':
-      return 'bg-green-500';
+      return 'bg-success-500';
     case 'away':
-      return 'bg-yellow-500';
+      return 'bg-warning-500';
     case 'busy':
-      return 'bg-red-500';
+      return 'bg-danger-500';
     case 'offline':
-      return 'bg-gray-400';
+      return 'bg-neutral-400';
     default:
-      return 'bg-gray-400';
+      return 'bg-neutral-400';
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
     case 'high':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     case 'medium':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-warning-100 text-warning-800';
     case 'low':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -221,32 +221,32 @@ export function CommunicationModule() {
   };
 
   return (
-    <div className="p-6 space-y-6 bg-gradient-to-br from-blue-50 via-indigo-50 to-cyan-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gradient-to-br from-primary-50 via-primary-50 to-primary-50 min-h-screen">
       {/* 页面头部 */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-            <MessageSquare className="w-8 h-8 mr-3 text-blue-600" />
+          <h1 className="text-3xl font-bold text-neutral-900 flex items-center">
+            <MessageSquare className="w-8 h-8 mr-3 text-primary-600" />
             沟通协作
           </h1>
-          <p className="text-gray-600 mt-2">统一的团队沟通和协作平台</p>
+          <p className="text-neutral-600 mt-2">统一的团队沟通和协作平台</p>
         </div>
         <div className="flex space-x-3">
           <Button
             variant="outline"
-            className="border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+            className="border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
           >
             <Search className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             搜索
           </Button>
           <Button
             variant="outline"
-            className="border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+            className="border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
           >
             <Settings className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             设置
           </Button>
-          <Button className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+          <Button className="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
             <Plus className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             新建对话
           </Button>
@@ -258,15 +258,15 @@ export function CommunicationModule() {
         {communicationStats.map((stat, index) => (
           <Card
             key={index}
-            className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
           >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">{stat.title}</CardTitle>
-              <stat.icon className="h-4 w-4 text-blue-600" />
+              <stat.icon className="h-4 w-4 text-primary-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-blue-700">{stat.value}</div>
-              <p className="text-xs text-green-600">{stat.change} 较上周</p>
+              <div className="text-2xl font-bold text-primary-700">{stat.value}</div>
+              <p className="text-xs text-success-600">{stat.change} 较上周</p>
             </CardContent>
           </Card>
         ))}
@@ -275,9 +275,9 @@ export function CommunicationModule() {
       {/* 主要内容区域 */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* 最近对话 */}
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 lg:col-span-2">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 lg:col-span-2">
           <CardHeader>
-            <CardTitle className="flex items-center text-blue-700">
+            <CardTitle className="flex items-center text-primary-700">
               <MessageSquare className="w-5 h-5 mr-2" />
               最近对话
             </CardTitle>
@@ -288,8 +288,8 @@ export function CommunicationModule() {
               {recentChats.map((chat) => (
                 <div
                   key={chat.id}
-                  className={`border-l-4 border-l-blue-500 bg-blue-50 rounded-lg p-4 cursor-pointer transition-all duration-300 hover:shadow-md hover:scale-105 ${
-                    selectedChat === chat.id ? 'ring-2 ring-blue-300' : ''
+                  className={`border-l-4 border-l-primary-500 bg-primary-50 rounded-lg p-4 cursor-pointer transition-all duration-300 hover:shadow-md hover:scale-105 ${
+                    selectedChat === chat.id ? 'ring-2 ring-primary-300' : ''
                   }`}
                   onClick={() => setSelectedChat(chat.id)}
                 >
@@ -298,7 +298,7 @@ export function CommunicationModule() {
                       <div className="relative">
                         <Avatar className="h-10 w-10">
                           <AvatarImage src={chat.avatar || '/placeholder.svg'} />
-                          <AvatarFallback className="bg-blue-200 text-blue-700">{chat.name.slice(0, 2)}</AvatarFallback>
+                          <AvatarFallback className="bg-primary-200 text-primary-700">{chat.name.slice(0, 2)}</AvatarFallback>
                         </Avatar>
                         <div
                           className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-white ${getStatusColor(
@@ -308,19 +308,19 @@ export function CommunicationModule() {
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center space-x-2">
-                          <h4 className="font-medium text-gray-900">{chat.name}</h4>
+                          <h4 className="font-medium text-neutral-900">{chat.name}</h4>
                           {chat.type === 'group' && (
-                            <Badge variant="secondary" className="text-xs bg-blue-100 text-blue-700">
+                            <Badge variant="secondary" className="text-xs bg-primary-100 text-primary-700">
                               群组
                             </Badge>
                           )}
                         </div>
-                        <p className="text-sm text-gray-600 truncate">{chat.lastMessage}</p>
+                        <p className="text-sm text-neutral-600 truncate">{chat.lastMessage}</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs text-gray-500">{chat.time}</p>
-                      {chat.unread > 0 && <Badge className="bg-red-500 text-white text-xs mt-1">{chat.unread}</Badge>}
+                      <p className="text-xs text-neutral-500">{chat.time}</p>
+                      {chat.unread > 0 && <Badge className="bg-danger-500 text-white text-xs mt-1">{chat.unread}</Badge>}
                     </div>
                   </div>
                 </div>
@@ -338,9 +338,9 @@ export function CommunicationModule() {
         {/* 侧边栏 - 会议和通知 */}
         <div className="space-y-6">
           {/* 即将到来的会议 */}
-          <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+          <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
             <CardHeader>
-              <CardTitle className="flex items-center text-blue-700">
+              <CardTitle className="flex items-center text-primary-700">
                 <Video className="w-5 h-5 mr-2" />
                 即将到来的会议
               </CardTitle>
@@ -350,31 +350,31 @@ export function CommunicationModule() {
                 {upcomingMeetings.map((meeting) => (
                   <div
                     key={meeting.id}
-                    className="border-l-4 border-l-blue-500 bg-blue-50 rounded-lg p-3 transition-all duration-300 hover:shadow-md"
+                    className="border-l-4 border-l-primary-500 bg-primary-50 rounded-lg p-3 transition-all duration-300 hover:shadow-md"
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-medium text-gray-900 text-sm">{meeting.title}</h4>
-                      <Video className="w-4 h-4 text-blue-600" />
+                      <h4 className="font-medium text-neutral-900 text-sm">{meeting.title}</h4>
+                      <Video className="w-4 h-4 text-primary-600" />
                     </div>
-                    <p className="text-xs text-gray-600 mb-2">{meeting.time}</p>
+                    <p className="text-xs text-neutral-600 mb-2">{meeting.time}</p>
                     <div className="flex items-center justify-between">
                       <div className="flex -space-x-2">
                         {meeting.participants.slice(0, 3).map((participant, index) => (
                           <Avatar key={index} className="w-6 h-6 border-2 border-white">
-                            <AvatarFallback className="text-xs bg-blue-200 text-blue-700">
+                            <AvatarFallback className="text-xs bg-primary-200 text-primary-700">
                               {participant.slice(0, 1)}
                             </AvatarFallback>
                           </Avatar>
                         ))}
                         {meeting.participants.length > 3 && (
-                          <div className="w-6 h-6 bg-gray-200 border-2 border-white rounded-full flex items-center justify-center">
-                            <span className="text-xs text-gray-600">+{meeting.participants.length - 3}</span>
+                          <div className="w-6 h-6 bg-neutral-200 border-2 border-white rounded-full flex items-center justify-center">
+                            <span className="text-xs text-neutral-600">+{meeting.participants.length - 3}</span>
                           </div>
                         )}
                       </div>
                       <Button
                         size="sm"
-                        className="h-6 px-2 text-xs bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white transition-all duration-300 hover:scale-105 group"
+                        className="h-6 px-2 text-xs bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white transition-all duration-300 hover:scale-105 group"
                       >
                         <Video className="w-3 h-3 mr-1 group-hover:translate-x-1 transition-all duration-300" />
                         加入
@@ -387,9 +387,9 @@ export function CommunicationModule() {
           </Card>
 
           {/* 最新通知 */}
-          <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+          <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
             <CardHeader>
-              <CardTitle className="flex items-center text-blue-700">
+              <CardTitle className="flex items-center text-primary-700">
                 <Bell className="w-5 h-5 mr-2" />
                 最新通知
               </CardTitle>
@@ -399,19 +399,19 @@ export function CommunicationModule() {
                 {notifications.map((notification) => (
                   <div
                     key={notification.id}
-                    className="border-l-4 border-l-blue-500 bg-blue-50 rounded-lg p-3 transition-all duration-300 hover:shadow-md"
+                    className="border-l-4 border-l-primary-500 bg-primary-50 rounded-lg p-3 transition-all duration-300 hover:shadow-md"
                   >
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex items-center space-x-2">
                         {getTypeIcon(notification.type)}
-                        <h4 className="font-medium text-gray-900 text-sm">{notification.title}</h4>
+                        <h4 className="font-medium text-neutral-900 text-sm">{notification.title}</h4>
                       </div>
                       <Badge className={getPriorityColor(notification.priority)}>
                         {notification.priority === 'high' ? '高' : notification.priority === 'medium' ? '中' : '低'}
                       </Badge>
                     </div>
-                    <p className="text-xs text-gray-600 mb-2">{notification.content}</p>
-                    <p className="text-xs text-gray-500">{notification.time}</p>
+                    <p className="text-xs text-neutral-600 mb-2">{notification.content}</p>
+                    <p className="text-xs text-neutral-500">{notification.time}</p>
                   </div>
                 ))}
               </div>
@@ -431,9 +431,9 @@ export function CommunicationModule() {
       </div>
 
       {/* 快速操作面板 */}
-      <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center text-blue-700">
+          <CardTitle className="flex items-center text-primary-700">
             <Zap className="w-5 h-5 mr-2" />
             快速操作
           </CardTitle>
@@ -441,29 +441,29 @@ export function CommunicationModule() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <Button className="h-auto p-4 flex flex-col items-center space-y-2 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white transition-all duration-300 hover:scale-105 group">
+            <Button className="h-auto p-4 flex flex-col items-center space-y-2 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white transition-all duration-300 hover:scale-105 group">
               <MessageSquare className="w-6 h-6 group-hover:translate-x-1 transition-all duration-300" />
               <span className="text-sm">发起聊天</span>
             </Button>
             <Button
               variant="outline"
-              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-blue-50 bg-transparent border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 group"
+              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-primary-50 bg-transparent border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 group"
             >
-              <Video className="w-6 h-6 text-blue-600 group-hover:translate-x-1 transition-all duration-300" />
+              <Video className="w-6 h-6 text-primary-600 group-hover:translate-x-1 transition-all duration-300" />
               <span className="text-sm">视频会议</span>
             </Button>
             <Button
               variant="outline"
-              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-blue-50 bg-transparent border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 group"
+              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-primary-50 bg-transparent border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 group"
             >
-              <FileText className="w-6 h-6 text-blue-600 group-hover:translate-x-1 transition-all duration-300" />
+              <FileText className="w-6 h-6 text-primary-600 group-hover:translate-x-1 transition-all duration-300" />
               <span className="text-sm">文档协作</span>
             </Button>
             <Button
               variant="outline"
-              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-blue-50 bg-transparent border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 group"
+              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-primary-50 bg-transparent border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 group"
             >
-              <Share2 className="w-6 h-6 text-blue-600 group-hover:translate-x-1 transition-all duration-300" />
+              <Share2 className="w-6 h-6 text-primary-600 group-hover:translate-x-1 transition-all duration-300" />
               <span className="text-sm">文件共享</span>
             </Button>
           </div>
@@ -471,9 +471,9 @@ export function CommunicationModule() {
       </Card>
 
       {/* 团队状态 */}
-      <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center text-blue-700">
+          <CardTitle className="flex items-center text-primary-700">
             <Users className="w-5 h-5 mr-2" />
             团队在线状态
           </CardTitle>
@@ -489,12 +489,12 @@ export function CommunicationModule() {
             ].map((member, index) => (
               <div
                 key={index}
-                className="border-l-4 border-l-blue-500 bg-blue-50 rounded-lg p-3 transition-all duration-300 hover:shadow-md hover:scale-105"
+                className="border-l-4 border-l-primary-500 bg-primary-50 rounded-lg p-3 transition-all duration-300 hover:shadow-md hover:scale-105"
               >
                 <div className="flex items-center space-x-3">
                   <div className="relative">
                     <Avatar className="h-8 w-8">
-                      <AvatarFallback className="bg-blue-200 text-blue-700">{member.name.slice(0, 1)}</AvatarFallback>
+                      <AvatarFallback className="bg-primary-200 text-primary-700">{member.name.slice(0, 1)}</AvatarFallback>
                     </Avatar>
                     <div
                       className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-white ${getStatusColor(
@@ -503,8 +503,8 @@ export function CommunicationModule() {
                     ></div>
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 text-sm">{member.name}</h4>
-                    <p className="text-xs text-gray-600">{member.activity}</p>
+                    <h4 className="font-medium text-neutral-900 text-sm">{member.name}</h4>
+                    <p className="text-xs text-neutral-600">{member.activity}</p>
                   </div>
                 </div>
               </div>

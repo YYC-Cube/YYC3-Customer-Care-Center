@@ -140,7 +140,7 @@ export function LogoManager({ onLogoChange }: LogoManagerProps) {
 
   return (
     <>
-      <Button variant="ghost" size="sm" onClick={() => setIsOpen(true)} className="text-gray-600 hover:text-gray-800">
+      <Button variant="ghost" size="sm" onClick={() => setIsOpen(true)} className="text-neutral-600 hover:text-neutral-800">
         <Settings className="w-4 h-4 mr-2" />
         标志设置
       </Button>
@@ -149,14 +149,14 @@ export function LogoManager({ onLogoChange }: LogoManagerProps) {
         <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="flex items-center">
-              <ImageIcon className="w-5 h-5 mr-2 text-sky-600" />
+              <ImageIcon className="w-5 h-5 mr-2 text-primary-600" />
               企业标志管理
             </DialogTitle>
           </DialogHeader>
 
           <div className="space-y-6 py-4">
             {/* 标志预览 */}
-            <div className="bg-gray-50 p-6 rounded-lg">
+            <div className="bg-neutral-50 p-6 rounded-lg">
               <Label className="text-sm font-medium mb-3 block">预览效果</Label>
               <div className="flex items-center space-x-4 bg-white p-4 rounded-lg border">
                 <img
@@ -169,8 +169,8 @@ export function LogoManager({ onLogoChange }: LogoManagerProps) {
                   }}
                 />
                 <div>
-                  <h1 className="text-lg font-bold text-slate-800">{previewData.title}</h1>
-                  <p className="text-xs text-slate-500">{previewData.subtitle}</p>
+                  <h1 className="text-lg font-bold text-neutral-800">{previewData.title}</h1>
+                  <p className="text-xs text-neutral-500">{previewData.subtitle}</p>
                 </div>
               </div>
             </div>
@@ -197,7 +197,7 @@ export function LogoManager({ onLogoChange }: LogoManagerProps) {
                     className="hidden"
                   />
                 </div>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-neutral-500 mt-1">
                   推荐尺寸：200x60px，支持 PNG、JPG、SVG 格式，文件大小不超过 2MB
                 </p>
               </div>
@@ -247,7 +247,7 @@ export function LogoManager({ onLogoChange }: LogoManagerProps) {
                   <Button
                     key={index}
                     variant="outline"
-                    className="h-auto p-4 justify-start hover:bg-blue-50 hover:border-blue-300 bg-transparent"
+                    className="h-auto p-4 justify-start hover:bg-primary-50 hover:border-primary-300 bg-transparent"
                     onClick={() => handleTemplateSelect(template)}
                   >
                     <div className="flex items-center space-x-3 w-full">
@@ -262,7 +262,7 @@ export function LogoManager({ onLogoChange }: LogoManagerProps) {
                       />
                       <div className="text-left flex-1">
                         <div className="font-medium text-sm">{template.title}</div>
-                        <div className="text-xs text-gray-500">{template.subtitle}</div>
+                        <div className="text-xs text-neutral-500">{template.subtitle}</div>
                       </div>
                     </div>
                   </Button>
@@ -275,7 +275,7 @@ export function LogoManager({ onLogoChange }: LogoManagerProps) {
               <Button
                 variant="outline"
                 onClick={handleReset}
-                className="text-red-600 hover:text-red-700 bg-transparent"
+                className="text-danger-600 hover:text-danger-700 bg-transparent"
               >
                 <RotateCcw className="w-4 h-4 mr-2" />
                 恢复默认
@@ -285,7 +285,7 @@ export function LogoManager({ onLogoChange }: LogoManagerProps) {
                 <Button variant="outline" onClick={() => setIsOpen(false)}>
                   取消
                 </Button>
-                <Button onClick={handleSave} className="bg-sky-600 hover:bg-sky-700">
+                <Button onClick={handleSave} className="bg-primary-600 hover:bg-primary-700">
                   <Save className="w-4 h-4 mr-2" />
                   保存设置
                 </Button>

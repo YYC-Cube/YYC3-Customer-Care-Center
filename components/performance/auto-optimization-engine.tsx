@@ -11,6 +11,7 @@
  */
 
 'use client';
+import { colorRamp } from '@/lib/design-tokens';
 
 import { useState, useEffect, useMemo } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -258,17 +259,17 @@ export function AutoOptimizationEngine() {
     switch (status) {
     case 'optimal':
     case 'completed':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'warning':
     case 'running':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-warning-100 text-warning-800';
     case 'critical':
     case 'failed':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     case 'pending':
-      return 'bg-blue-100 text-blue-800';
+      return 'bg-primary-100 text-primary-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -276,11 +277,11 @@ export function AutoOptimizationEngine() {
   const getTrendIcon = (trend: string) => {
     switch (trend) {
     case 'up':
-      return <TrendingUp className="w-4 h-4 text-red-600" />;
+      return <TrendingUp className="w-4 h-4 text-danger-600" />;
     case 'down':
-      return <TrendingDown className="w-4 h-4 text-green-600" />;
+      return <TrendingDown className="w-4 h-4 text-success-600" />;
     default:
-      return <Activity className="w-4 h-4 text-gray-600" />;
+      return <Activity className="w-4 h-4 text-neutral-600" />;
     }
   };
 
@@ -288,19 +289,19 @@ export function AutoOptimizationEngine() {
   const getCategoryIcon = (category: string) => {
     switch (category) {
     case 'cpu':
-      return <Cpu className="w-5 h-5 text-blue-600" />;
+      return <Cpu className="w-5 h-5 text-primary-600" />;
     case 'memory':
-      return <HardDrive className="w-5 h-5 text-green-600" />;
+      return <HardDrive className="w-5 h-5 text-success-600" />;
     case 'disk':
-      return <HardDrive className="w-5 h-5 text-purple-600" />;
+      return <HardDrive className="w-5 h-5 text-accent-600" />;
     case 'network':
-      return <Wifi className="w-5 h-5 text-orange-600" />;
+      return <Wifi className="w-5 h-5 text-warning-600" />;
     case 'database':
-      return <Database className="w-5 h-5 text-red-600" />;
+      return <Database className="w-5 h-5 text-danger-600" />;
     case 'api':
-      return <Zap className="w-5 h-5 text-yellow-600" />;
+      return <Zap className="w-5 h-5 text-warning-600" />;
     default:
-      return <Activity className="w-5 h-5 text-gray-600" />;
+      return <Activity className="w-5 h-5 text-neutral-600" />;
     }
   };
 
@@ -308,17 +309,17 @@ export function AutoOptimizationEngine() {
   const getTaskTypeIcon = (type: string) => {
     switch (type) {
     case 'cache':
-      return <RefreshCw className="w-4 h-4 text-blue-600" />;
+      return <RefreshCw className="w-4 h-4 text-primary-600" />;
     case 'query':
-      return <Database className="w-4 h-4 text-green-600" />;
+      return <Database className="w-4 h-4 text-success-600" />;
     case 'resource':
-      return <Cpu className="w-4 h-4 text-purple-600" />;
+      return <Cpu className="w-4 h-4 text-accent-600" />;
     case 'network':
-      return <Wifi className="w-4 h-4 text-orange-600" />;
+      return <Wifi className="w-4 h-4 text-warning-600" />;
     case 'storage':
-      return <HardDrive className="w-4 h-4 text-red-600" />;
+      return <HardDrive className="w-4 h-4 text-danger-600" />;
     default:
-      return <Settings className="w-4 h-4 text-gray-600" />;
+      return <Settings className="w-4 h-4 text-neutral-600" />;
     }
   };
 
@@ -351,7 +352,7 @@ export function AutoOptimizationEngine() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold flex items-center">
-            <Zap className="w-8 h-8 mr-3 text-yellow-600" />
+            <Zap className="w-8 h-8 mr-3 text-warning-600" />
             自动优化引擎
           </h1>
           <p className="text-muted-foreground">智能监控系统性能并自动执行优化策略</p>
@@ -365,7 +366,7 @@ export function AutoOptimizationEngine() {
             <Settings className="w-4 h-4 mr-2" />
             配置规则
           </Button>
-          <Button className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white">
+          <Button className="bg-gradient-to-r from-warning-500 to-warning-600 hover:from-warning-600 hover:to-warning-700 text-white">
             <Play className="w-4 h-4 mr-2" />
             立即优化
           </Button>
@@ -394,13 +395,12 @@ export function AutoOptimizationEngine() {
                 <Progress
                   value={(metric.currentValue / metric.targetValue) * 100}
                   className="h-2"
-                  // @ts-ignore
                   indicatorClassName={
                     metric.status === 'optimal'
-                      ? 'bg-green-500'
+                      ? 'bg-success-500'
                       : metric.status === 'warning'
-                        ? 'bg-yellow-500'
-                        : 'bg-red-500'
+                        ? 'bg-warning-500'
+                        : 'bg-danger-500'
                   }
                 />
                 <div className="flex items-center justify-between text-xs">
@@ -458,9 +458,9 @@ export function AutoOptimizationEngine() {
                     <XAxis dataKey="hour" />
                     <YAxis />
                     <Tooltip />
-                    <Line type="monotone" dataKey="cpu" stroke="#3b82f6" strokeWidth={2} name="CPU" />
-                    <Line type="monotone" dataKey="memory" stroke="#10b981" strokeWidth={2} name="内存" />
-                    <Line type="monotone" dataKey="api" stroke="#f59e0b" strokeWidth={2} name="API" />
+                    <Line type="monotone" dataKey="cpu" stroke={colorRamp.primary[500]} strokeWidth={2} name="CPU" />
+                    <Line type="monotone" dataKey="memory" stroke={colorRamp.success[500]} strokeWidth={2} name="内存" />
+                    <Line type="monotone" dataKey="api" stroke={colorRamp.warning[500]} strokeWidth={2} name="API" />
                   </LineChart>
                 </ResponsiveContainer>
               </CardContent>
@@ -476,21 +476,21 @@ export function AutoOptimizationEngine() {
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="text-center">
-                      <div className="text-3xl font-bold text-green-600">23%</div>
+                      <div className="text-3xl font-bold text-success-600">23%</div>
                       <p className="text-sm text-muted-foreground">性能提升</p>
                     </div>
                     <div className="text-center">
-                      <div className="text-3xl font-bold text-blue-600">156</div>
+                      <div className="text-3xl font-bold text-primary-600">156</div>
                       <p className="text-sm text-muted-foreground">优化次数</p>
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="text-center">
-                      <div className="text-3xl font-bold text-purple-600">2.3GB</div>
+                      <div className="text-3xl font-bold text-accent-600">2.3GB</div>
                       <p className="text-sm text-muted-foreground">节省资源</p>
                     </div>
                     <div className="text-center">
-                      <div className="text-3xl font-bold text-orange-600">94.2%</div>
+                      <div className="text-3xl font-bold text-warning-600">94.2%</div>
                       <p className="text-sm text-muted-foreground">成功率</p>
                     </div>
                   </div>
@@ -567,10 +567,10 @@ export function AutoOptimizationEngine() {
                       <Badge
                         className={
                           rule.priority === 'high'
-                            ? 'bg-red-100 text-red-800'
+                            ? 'bg-danger-100 text-danger-800'
                             : rule.priority === 'medium'
-                              ? 'bg-yellow-100 text-yellow-800'
-                              : 'bg-green-100 text-green-800'
+                              ? 'bg-warning-100 text-warning-800'
+                              : 'bg-success-100 text-success-800'
                         }
                       >
                         {rule.priority === 'high' ? '高优先级' : rule.priority === 'medium' ? '中优先级' : '低优先级'}
@@ -584,7 +584,7 @@ export function AutoOptimizationEngine() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <Label className="text-sm font-medium">触发条件</Label>
-                        <code className="block text-sm bg-gray-100 p-2 rounded mt-1">{rule.condition}</code>
+                        <code className="block text-sm bg-neutral-100 p-2 rounded mt-1">{rule.condition}</code>
                       </div>
                       <div>
                         <Label className="text-sm font-medium">执行动作</Label>
@@ -750,16 +750,16 @@ export function AutoOptimizationEngine() {
                   <XAxis dataKey="hour" />
                   <YAxis />
                   <Tooltip />
-                  <Area type="monotone" dataKey="cpu" stackId="1" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.3} />
+                  <Area type="monotone" dataKey="cpu" stackId="1" stroke={colorRamp.primary[500]} fill={colorRamp.primary[500]} fillOpacity={0.3} />
                   <Area
                     type="monotone"
                     dataKey="memory"
                     stackId="1"
-                    stroke="#10b981"
-                    fill="#10b981"
+                    stroke={colorRamp.success[500]}
+                    fill={colorRamp.success[500]}
                     fillOpacity={0.3}
                   />
-                  <Area type="monotone" dataKey="disk" stackId="1" stroke="#8b5cf6" fill="#8b5cf6" fillOpacity={0.3} />
+                  <Area type="monotone" dataKey="disk" stackId="1" stroke={colorRamp.accent[500]} fill={colorRamp.accent[500]} fillOpacity={0.3} />
                 </AreaChart>
               </ResponsiveContainer>
             </CardContent>
@@ -772,7 +772,7 @@ export function AutoOptimizationEngine() {
                 <CardTitle>本月优化次数</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-blue-600">156</div>
+                <div className="text-3xl font-bold text-primary-600">156</div>
                 <p className="text-sm text-muted-foreground">比上月增加23%</p>
               </CardContent>
             </Card>
@@ -782,7 +782,7 @@ export function AutoOptimizationEngine() {
                 <CardTitle>平均性能提升</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-green-600">23.4%</div>
+                <div className="text-3xl font-bold text-success-600">23.4%</div>
                 <p className="text-sm text-muted-foreground">系统整体性能</p>
               </CardContent>
             </Card>
@@ -792,7 +792,7 @@ export function AutoOptimizationEngine() {
                 <CardTitle>节省资源成本</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-purple-600">¥12,450</div>
+                <div className="text-3xl font-bold text-accent-600">¥12,450</div>
                 <p className="text-sm text-muted-foreground">本月节省金额</p>
               </CardContent>
             </Card>

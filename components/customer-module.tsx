@@ -30,12 +30,12 @@ export function CustomerModule() {
         <div className="flex space-x-2">
           <Button
             variant="outline"
-            className="bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white border-0"
+            className="bg-gradient-to-r from-primary-400 to-primary-500 hover:from-primary-500 hover:to-primary-600 text-white border-0"
           >
             <UserPlus className="w-4 h-4 mr-2" />
             添加客户
           </Button>
-          <Button className="bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white">
+          <Button className="bg-gradient-to-r from-primary-400 to-primary-500 hover:from-primary-500 hover:to-primary-600 text-white">
             <TrendingUp className="w-4 h-4 mr-2" />
             客户分析
           </Button>
@@ -44,56 +44,56 @@ export function CustomerModule() {
 
       {/* 客户概览卡片 */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">总客户数</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">1,247</div>
-            <div className="flex items-center text-xs text-green-600">
+            <div className="flex items-center text-xs text-success-600">
               <TrendingUp className="w-3 h-3 mr-1" />
               <span>+12.5% 较上月</span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">活跃客户</CardTitle>
             <Star className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">892</div>
-            <div className="flex items-center text-xs text-green-600">
+            <div className="flex items-center text-xs text-success-600">
               <TrendingUp className="w-3 h-3 mr-1" />
               <span>活跃度 71.5%</span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">新增客户</CardTitle>
             <UserPlus className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">156</div>
-            <div className="flex items-center text-xs text-blue-600">
+            <div className="flex items-center text-xs text-primary-600">
               <Calendar className="w-3 h-3 mr-1" />
               <span>本月新增</span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">客户满意度</CardTitle>
             <Star className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">94.2%</div>
-            <div className="flex items-center text-xs text-green-600">
+            <div className="flex items-center text-xs text-success-600">
               <Star className="w-3 h-3 mr-1" />
               <span>优秀评级</span>
             </div>
@@ -102,7 +102,7 @@ export function CustomerModule() {
       </div>
 
       {/* 客户管理详情 */}
-      <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+      <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
         <CardHeader>
           <CardTitle>客户管理详情</CardTitle>
           <CardDescription>全面的客户信息管理和分析</CardDescription>
@@ -166,12 +166,12 @@ export function CustomerModule() {
                 ].map((customer, index) => (
                   <Card
                     key={index}
-                    className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
+                    className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
                   >
                     <CardContent className="p-4">
                       <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-4">
-                          <div className="w-10 h-10 bg-gradient-to-r from-sky-400 to-blue-500 rounded-full flex items-center justify-center text-white font-medium">
+                          <div className="w-10 h-10 bg-gradient-to-r from-primary-400 to-primary-500 rounded-full flex items-center justify-center text-white font-medium">
                             {customer.name.charAt(0)}
                           </div>
                           <div>
@@ -217,7 +217,7 @@ export function CustomerModule() {
 
             <TabsContent value="analysis" className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+                <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
                   <CardHeader>
                     <CardTitle className="text-base">客户分布</CardTitle>
                   </CardHeader>
@@ -226,8 +226,8 @@ export function CustomerModule() {
                       <div className="flex justify-between items-center">
                         <span className="text-sm">企业客户</span>
                         <div className="flex items-center space-x-2">
-                          <div className="w-20 h-2 bg-sky-100 rounded-full overflow-hidden">
-                            <div className="w-3/5 h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full"></div>
+                          <div className="w-20 h-2 bg-primary-100 rounded-full overflow-hidden">
+                            <div className="w-3/5 h-full bg-gradient-to-r from-primary-400 to-primary-500 rounded-full"></div>
                           </div>
                           <span className="text-sm font-medium">60%</span>
                         </div>
@@ -235,8 +235,8 @@ export function CustomerModule() {
                       <div className="flex justify-between items-center">
                         <span className="text-sm">个人客户</span>
                         <div className="flex items-center space-x-2">
-                          <div className="w-20 h-2 bg-sky-100 rounded-full overflow-hidden">
-                            <div className="w-2/5 h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full"></div>
+                          <div className="w-20 h-2 bg-primary-100 rounded-full overflow-hidden">
+                            <div className="w-2/5 h-full bg-gradient-to-r from-success-400 to-success-500 rounded-full"></div>
                           </div>
                           <span className="text-sm font-medium">40%</span>
                         </div>
@@ -245,7 +245,7 @@ export function CustomerModule() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+                <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
                   <CardHeader>
                     <CardTitle className="text-base">地区分布</CardTitle>
                   </CardHeader>
@@ -283,7 +283,7 @@ export function CustomerModule() {
                 ].map((record, index) => (
                   <Card
                     key={index}
-                    className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
+                    className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
                   >
                     <CardContent className="p-4">
                       <div className="flex justify-between items-start">
@@ -347,7 +347,7 @@ export function CustomerModule() {
                 ].map((opportunity, index) => (
                   <Card
                     key={index}
-                    className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
+                    className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
                   >
                     <CardHeader className="pb-3">
                       <CardTitle className="text-base">{opportunity.title}</CardTitle>
@@ -365,7 +365,7 @@ export function CustomerModule() {
                         </div>
                         <div className="flex justify-between">
                           <span className="text-sm">成功概率</span>
-                          <span className="font-medium text-green-600">{opportunity.probability}</span>
+                          <span className="font-medium text-success-600">{opportunity.probability}</span>
                         </div>
                       </div>
                     </CardContent>

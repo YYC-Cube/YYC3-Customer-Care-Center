@@ -53,10 +53,10 @@ export function MobileButton({
   };
 
   const variantClasses = {
-    default: 'bg-sky-600 text-white hover:bg-sky-700 active:bg-sky-800',
-    outline: 'border-2 border-sky-600 text-sky-600 hover:bg-sky-50 active:bg-sky-100',
-    ghost: 'text-sky-600 hover:bg-sky-50 active:bg-sky-100',
-    destructive: 'bg-red-600 text-white hover:bg-red-700 active:bg-red-800',
+    default: 'bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800',
+    outline: 'border-2 border-primary-600 text-primary-600 hover:bg-primary-50 active:bg-primary-100',
+    ghost: 'text-primary-600 hover:bg-primary-50 active:bg-primary-100',
+    destructive: 'bg-danger-600 text-white hover:bg-danger-700 active:bg-danger-800',
   };
 
   return (
@@ -123,9 +123,9 @@ export function MobileInput({
   return (
     <div className={`space-y-2 ${className}`}>
       {label && (
-        <Label className="text-base font-medium text-gray-700">
+        <Label className="text-base font-medium text-neutral-700">
           {label}
-          {required && <span className="text-red-500 ml-1">*</span>}
+          {required && <span className="text-danger-500 ml-1">*</span>}
         </Label>
       )}
       <div className="relative">
@@ -146,19 +146,19 @@ export function MobileInput({
           }}
           className={`
             min-h-[48px] text-base px-4 py-3
-            ${isFocused ? 'ring-2 ring-sky-500 border-sky-500' : ''}
-            ${error ? 'border-red-500 ring-red-500' : ''}
+            ${isFocused ? 'ring-2 ring-primary-500 border-primary-500' : ''}
+            ${error ? 'border-danger-500 ring-danger-500' : ''}
             transition-all duration-200
           `}
         />
         {error && (
           <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-            <X className="w-5 h-5 text-red-500" />
+            <X className="w-5 h-5 text-danger-500" />
           </div>
         )}
       </div>
       {error && (
-        <p className="text-sm text-red-600 flex items-center space-x-1">
+        <p className="text-sm text-danger-600 flex items-center space-x-1">
           <X className="w-4 h-4" />
           <span>{error}</span>
         </p>
@@ -203,9 +203,9 @@ export function MobileSelect({
   return (
     <div className={`space-y-2 ${className}`}>
       {label && (
-        <Label className="text-base font-medium text-gray-700">
+        <Label className="text-base font-medium text-neutral-700">
           {label}
-          {required && <span className="text-red-500 ml-1">*</span>}
+          {required && <span className="text-danger-500 ml-1">*</span>}
         </Label>
       )}
 
@@ -217,34 +217,34 @@ export function MobileSelect({
           className={`
             w-full min-h-[48px] px-4 py-3 text-left bg-white border rounded-md
             flex items-center justify-between
-            ${isOpen ? 'ring-2 ring-sky-500 border-sky-500' : 'border-gray-300'}
-            ${error ? 'border-red-500 ring-red-500' : ''}
-            ${disabled ? 'bg-gray-100 cursor-not-allowed' : 'cursor-pointer'}
+            ${isOpen ? 'ring-2 ring-primary-500 border-primary-500' : 'border-neutral-300'}
+            ${error ? 'border-danger-500 ring-danger-500' : ''}
+            ${disabled ? 'bg-neutral-100 cursor-not-allowed' : 'cursor-pointer'}
             transition-all duration-200
           `}
         >
-          <span className={selectedOption ? 'text-gray-900' : 'text-gray-500'}>
+          <span className={selectedOption ? 'text-neutral-900' : 'text-neutral-500'}>
             {selectedOption?.label || placeholder}
           </span>
-          {isOpen ? <ChevronUp className="w-5 h-5 text-gray-400" /> : <ChevronDown className="w-5 h-5 text-gray-400" />}
+          {isOpen ? <ChevronUp className="w-5 h-5 text-neutral-400" /> : <ChevronDown className="w-5 h-5 text-neutral-400" />}
         </button>
 
         {isOpen && (
-          <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-md shadow-lg z-50 max-h-60 overflow-y-auto">
+          <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-neutral-300 rounded-md shadow-lg z-50 max-h-60 overflow-y-auto">
             {options.map((option) => (
               <button
                 key={option.value}
                 type="button"
                 onClick={() => handleSelect(option)}
                 className={`
-                  w-full px-4 py-3 text-left hover:bg-gray-50 active:bg-gray-100
+                  w-full px-4 py-3 text-left hover:bg-neutral-50 active:bg-neutral-100
                   flex items-center justify-between
-                  ${selectedOption?.value === option.value ? 'bg-sky-50 text-sky-700' : 'text-gray-900'}
+                  ${selectedOption?.value === option.value ? 'bg-primary-50 text-primary-700' : 'text-neutral-900'}
                   transition-colors duration-150
                 `}
               >
                 <span>{option.label}</span>
-                {selectedOption?.value === option.value && <Check className="w-4 h-4 text-sky-600" />}
+                {selectedOption?.value === option.value && <Check className="w-4 h-4 text-primary-600" />}
               </button>
             ))}
           </div>
@@ -252,7 +252,7 @@ export function MobileSelect({
       </div>
 
       {error && (
-        <p className="text-sm text-red-600 flex items-center space-x-1">
+        <p className="text-sm text-danger-600 flex items-center space-x-1">
           <X className="w-4 h-4" />
           <span>{error}</span>
         </p>
@@ -289,7 +289,7 @@ export function MobileCard({
     <Card
       className={`
         ${clickable ? 'cursor-pointer' : ''}
-        ${selected ? 'ring-2 ring-sky-500 border-sky-500' : ''}
+        ${selected ? 'ring-2 ring-primary-500 border-primary-500' : ''}
         ${isPressed ? 'scale-98' : ''}
         transition-all duration-150 ease-out
         ${className}
@@ -303,8 +303,8 @@ export function MobileCard({
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <div className="flex-1 min-w-0">
-              {title && <CardTitle className="text-lg font-semibold text-gray-900 truncate">{title}</CardTitle>}
-              {subtitle && <p className="text-sm text-gray-600 mt-1 truncate">{subtitle}</p>}
+              {title && <CardTitle className="text-lg font-semibold text-neutral-900 truncate">{title}</CardTitle>}
+              {subtitle && <p className="text-sm text-neutral-600 mt-1 truncate">{subtitle}</p>}
             </div>
             {actions && <div className="flex items-center space-x-2 ml-4">{actions}</div>}
           </div>
@@ -355,7 +355,7 @@ export function MobileSearch({
     <div className={`flex items-center space-x-2 ${className}`}>
       <div className="flex-1 relative">
         <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-          <Search className="w-5 h-5 text-gray-400" />
+          <Search className="w-5 h-5 text-neutral-400" />
         </div>
         <Input
           type="text"
@@ -366,7 +366,7 @@ export function MobileSearch({
           onBlur={() => setIsFocused(false)}
           className={`
             pl-10 pr-10 min-h-[48px] text-base
-            ${isFocused ? 'ring-2 ring-sky-500 border-sky-500' : ''}
+            ${isFocused ? 'ring-2 ring-primary-500 border-primary-500' : ''}
             transition-all duration-200
           `}
         />
@@ -374,9 +374,9 @@ export function MobileSearch({
           <button
             type="button"
             onClick={handleClear}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 hover:bg-neutral-100 rounded-full"
           >
-            <X className="w-4 h-4 text-gray-400" />
+            <X className="w-4 h-4 text-neutral-400" />
           </button>
         )}
       </div>
@@ -385,7 +385,7 @@ export function MobileSearch({
         <Button variant="outline" size="sm" onClick={onFilter} className="min-h-[48px] px-3 relative bg-transparent">
           <Filter className="w-5 h-5" />
           {filterCount > 0 && (
-            <Badge className="absolute -top-2 -right-2 w-5 h-5 p-0 flex items-center justify-center bg-red-500 text-white text-xs">
+            <Badge className="absolute -top-2 -right-2 w-5 h-5 p-0 flex items-center justify-center bg-danger-500 text-white text-xs">
               {filterCount}
             </Badge>
           )}
@@ -435,16 +435,16 @@ export function MobileNumberInput({
 
   return (
     <div className={`space-y-2 ${className}`}>
-      {label && <Label className="text-base font-medium text-gray-700">{label}</Label>}
+      {label && <Label className="text-base font-medium text-neutral-700">{label}</Label>}
 
-      <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
+      <div className="flex items-center border border-neutral-300 rounded-md overflow-hidden">
         <button
           type="button"
           disabled={disabled || value <= min}
           onClick={handleDecrement}
-          className="p-3 bg-gray-50 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-150"
+          className="p-3 bg-neutral-50 hover:bg-neutral-100 active:bg-neutral-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-150"
         >
-          <Minus className="w-5 h-5 text-gray-600" />
+          <Minus className="w-5 h-5 text-neutral-600" />
         </button>
 
         <Input
@@ -462,9 +462,9 @@ export function MobileNumberInput({
           type="button"
           disabled={disabled || value >= max}
           onClick={handleIncrement}
-          className="p-3 bg-gray-50 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-150"
+          className="p-3 bg-neutral-50 hover:bg-neutral-100 active:bg-neutral-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-150"
         >
-          <Plus className="w-5 h-5 text-gray-600" />
+          <Plus className="w-5 h-5 text-neutral-600" />
         </button>
       </div>
     </div>

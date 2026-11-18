@@ -44,9 +44,9 @@ const useDashboardData = () => {
         stats: { total: 1248, active: 892, growth: '+12%' },
         progress: 85,
         status: '正常',
-        color: 'from-blue-500 to-cyan-500',
-        bgColor: 'from-blue-50 to-cyan-50',
-        borderColor: 'border-blue-200',
+        color: 'from-primary-500 to-primary-500',
+        bgColor: 'from-primary-50 to-primary-50',
+        borderColor: 'border-primary-200',
       },
       {
         id: 'tasks',
@@ -56,9 +56,9 @@ const useDashboardData = () => {
         stats: { total: 156, completed: 89, growth: '+8%' },
         progress: 57,
         status: '进行中',
-        color: 'from-green-500 to-emerald-500',
-        bgColor: 'from-green-50 to-emerald-50',
-        borderColor: 'border-green-200',
+        color: 'from-success-500 to-success-500',
+        bgColor: 'from-success-50 to-success-50',
+        borderColor: 'border-success-200',
       },
       {
         id: 'finance',
@@ -68,9 +68,9 @@ const useDashboardData = () => {
         stats: { total: '¥2.4M', monthly: '¥180K', growth: '+15%' },
         progress: 92,
         status: '优秀',
-        color: 'from-yellow-500 to-orange-500',
-        bgColor: 'from-yellow-50 to-orange-50',
-        borderColor: 'border-yellow-200',
+        color: 'from-warning-500 to-warning-500',
+        bgColor: 'from-warning-50 to-warning-50',
+        borderColor: 'border-warning-200',
       },
       {
         id: 'okr',
@@ -80,9 +80,9 @@ const useDashboardData = () => {
         stats: { total: 24, achieved: 18, growth: '+5%' },
         progress: 75,
         status: '良好',
-        color: 'from-purple-500 to-pink-500',
-        bgColor: 'from-purple-50 to-pink-50',
-        borderColor: 'border-purple-200',
+        color: 'from-accent-500 to-accent-500',
+        bgColor: 'from-accent-50 to-accent-50',
+        borderColor: 'border-accent-200',
       },
       {
         id: 'approval',
@@ -92,9 +92,9 @@ const useDashboardData = () => {
         stats: { total: 89, pending: 12, growth: '-3%' },
         progress: 86,
         status: '待处理',
-        color: 'from-indigo-500 to-blue-500',
-        bgColor: 'from-indigo-50 to-blue-50',
-        borderColor: 'border-indigo-200',
+        color: 'from-primary-500 to-primary-500',
+        bgColor: 'from-primary-50 to-primary-50',
+        borderColor: 'border-primary-200',
       },
       {
         id: 'communication',
@@ -104,9 +104,9 @@ const useDashboardData = () => {
         stats: { total: 2341, unread: 23, growth: '+25%' },
         progress: 68,
         status: '活跃',
-        color: 'from-teal-500 to-cyan-500',
-        bgColor: 'from-teal-50 to-cyan-50',
-        borderColor: 'border-teal-200',
+        color: 'from-success-500 to-primary-500',
+        bgColor: 'from-success-50 to-primary-50',
+        borderColor: 'border-success-200',
       },
       {
         id: 'kpi',
@@ -116,9 +116,9 @@ const useDashboardData = () => {
         stats: { total: 16, achieved: 12, growth: '+7%' },
         progress: 75,
         status: '达标',
-        color: 'from-rose-500 to-pink-500',
-        bgColor: 'from-rose-50 to-pink-50',
-        borderColor: 'border-rose-200',
+        color: 'from-danger-500 to-accent-500',
+        bgColor: 'from-danger-50 to-accent-50',
+        borderColor: 'border-danger-200',
       },
       {
         id: 'analytics',
@@ -128,9 +128,9 @@ const useDashboardData = () => {
         stats: { total: '45TB', processed: '38TB', growth: '+18%' },
         progress: 84,
         status: '正常',
-        color: 'from-violet-500 to-purple-500',
-        bgColor: 'from-violet-50 to-purple-50',
-        borderColor: 'border-violet-200',
+        color: 'from-accent-500 to-accent-500',
+        bgColor: 'from-accent-50 to-accent-50',
+        borderColor: 'border-accent-200',
       },
     ];
 
@@ -141,7 +141,7 @@ const useDashboardData = () => {
         change: '+3',
         trend: 'up',
         icon: CheckSquare,
-        color: 'text-green-600',
+        color: 'text-success-600',
       },
       {
         title: '待审批',
@@ -149,7 +149,7 @@ const useDashboardData = () => {
         change: '-2',
         trend: 'down',
         icon: Clock,
-        color: 'text-orange-600',
+        color: 'text-warning-600',
       },
       {
         title: '新消息',
@@ -157,7 +157,7 @@ const useDashboardData = () => {
         change: '+5',
         trend: 'up',
         icon: MessageSquare,
-        color: 'text-blue-600',
+        color: 'text-primary-600',
       },
       {
         title: '告警',
@@ -165,7 +165,7 @@ const useDashboardData = () => {
         change: '0',
         trend: 'stable',
         icon: AlertCircle,
-        color: 'text-red-600',
+        color: 'text-danger-600',
       },
     ];
 
@@ -177,29 +177,29 @@ const useDashboardData = () => {
 const QuickStatCard = React.memo(({ stat }: { stat: any }) => {
   const Icon = stat.icon;
   return (
-    <Card className="border-sky-200 shadow-sm hover:shadow-md transition-shadow">
+    <Card className="border-primary-200 shadow-sm hover:shadow-md transition-shadow">
       <CardContent className="p-4">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-slate-600 mb-1">{stat.title}</p>
-            <p className="text-2xl font-bold text-slate-800">{stat.value}</p>
+            <p className="text-sm text-neutral-600 mb-1">{stat.title}</p>
+            <p className="text-2xl font-bold text-neutral-800">{stat.value}</p>
             <div className="flex items-center mt-1">
-              {stat.trend === 'up' && <ArrowUpRight className="w-4 h-4 text-green-500 mr-1" />}
-              {stat.trend === 'down' && <ArrowDownRight className="w-4 h-4 text-red-500 mr-1" />}
+              {stat.trend === 'up' && <ArrowUpRight className="w-4 h-4 text-success-500 mr-1" />}
+              {stat.trend === 'down' && <ArrowDownRight className="w-4 h-4 text-danger-500 mr-1" />}
               <span
                 className={`text-sm ${
                   stat.trend === 'up'
-                    ? 'text-green-600'
+                    ? 'text-success-600'
                     : stat.trend === 'down'
-                      ? 'text-red-600'
-                      : 'text-slate-500'
+                      ? 'text-danger-600'
+                      : 'text-neutral-500'
                 }`}
               >
                 {stat.change}
               </span>
             </div>
           </div>
-          <div className={'w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center'}>
+          <div className={'w-12 h-12 rounded-lg bg-neutral-100 flex items-center justify-center'}>
             <Icon className={`w-6 h-6 ${stat.color}`} />
           </div>
         </div>
@@ -207,6 +207,7 @@ const QuickStatCard = React.memo(({ stat }: { stat: any }) => {
     </Card>
   );
 });
+QuickStatCard.displayName = 'QuickStatCard';
 
 // 模块卡片组件
 const ModuleCard = React.memo(({ module }: { module: any }) => {
@@ -223,33 +224,33 @@ const ModuleCard = React.memo(({ module }: { module: any }) => {
           >
             <Icon className="w-6 h-6 text-white" />
           </div>
-          <Badge variant="secondary" className={`bg-gradient-to-r ${module.bgColor} text-slate-700 border-0`}>
+          <Badge variant="secondary" className={`bg-gradient-to-r ${module.bgColor} text-neutral-700 border-0`}>
             {module.status}
           </Badge>
         </div>
-        <CardTitle className="text-lg text-slate-800 group-hover:text-sky-700 transition-colors">
+        <CardTitle className="text-lg text-neutral-800 group-hover:text-primary-700 transition-colors">
           {module.title}
         </CardTitle>
-        <CardDescription className="text-slate-600">{module.description}</CardDescription>
+        <CardDescription className="text-neutral-600">{module.description}</CardDescription>
       </CardHeader>
       <CardContent className="pt-0">
         <div className="space-y-3">
           <div className="flex justify-between text-sm">
-            <span className="text-slate-600">完成度</span>
-            <span className="font-medium text-slate-800">{module.progress}%</span>
+            <span className="text-neutral-600">完成度</span>
+            <span className="font-medium text-neutral-800">{module.progress}%</span>
           </div>
           <Progress value={module.progress} className="h-2" />
           <div className="flex justify-between items-center text-sm">
-            <span className="text-slate-600">
+            <span className="text-neutral-600">
               {typeof module.stats.total === 'string' ? module.stats.total : `${module.stats.total} 项`}
             </span>
             <span
               className={`font-medium ${
                 module.stats.growth.startsWith('+')
-                  ? 'text-green-600'
+                  ? 'text-success-600'
                   : module.stats.growth.startsWith('-')
-                    ? 'text-red-600'
-                    : 'text-slate-600'
+                    ? 'text-danger-600'
+                    : 'text-neutral-600'
               }`}
             >
               {module.stats.growth}
@@ -260,43 +261,45 @@ const ModuleCard = React.memo(({ module }: { module: any }) => {
     </Card>
   );
 });
+ModuleCard.displayName = 'ModuleCard';
 
 // 系统状态卡片组件
 const SystemStatusCard = React.memo(() => {
   return (
-    <Card className="border-sky-200 shadow-sm">
+    <Card className="border-primary-200 shadow-sm">
       <CardHeader>
-        <CardTitle className="text-lg text-slate-800">系统运行状态</CardTitle>
+        <CardTitle className="text-lg text-neutral-800">系统运行状态</CardTitle>
         <CardDescription>实时监控系统各项指标</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <div className="w-8 h-8 bg-green-500 rounded-full animate-pulse"></div>
+            <div className="w-16 h-16 bg-success-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <div className="w-8 h-8 bg-success-500 rounded-full animate-pulse"></div>
             </div>
-            <h3 className="font-medium text-slate-800 mb-1">系统状态</h3>
-            <p className="text-sm text-green-600">运行正常</p>
+            <h3 className="font-medium text-neutral-800 mb-1">系统状态</h3>
+            <p className="text-sm text-success-600">运行正常</p>
           </div>
           <div className="text-center">
-            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <TrendingUp className="w-8 h-8 text-blue-500" />
+            <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <TrendingUp className="w-8 h-8 text-primary-500" />
             </div>
-            <h3 className="font-medium text-slate-800 mb-1">性能指标</h3>
-            <p className="text-sm text-blue-600">优秀 (95%)</p>
+            <h3 className="font-medium text-neutral-800 mb-1">性能指标</h3>
+            <p className="text-sm text-primary-600">优秀 (95%)</p>
           </div>
           <div className="text-center">
-            <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <Users className="w-8 h-8 text-purple-500" />
+            <div className="w-16 h-16 bg-accent-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <Users className="w-8 h-8 text-accent-500" />
             </div>
-            <h3 className="font-medium text-slate-800 mb-1">在线用户</h3>
-            <p className="text-sm text-purple-600">1,247 人</p>
+            <h3 className="font-medium text-neutral-800 mb-1">在线用户</h3>
+            <p className="text-sm text-accent-600">1,247 人</p>
           </div>
         </div>
       </CardContent>
     </Card>
   );
 });
+SystemStatusCard.displayName = 'SystemStatusCard';
 
 // 主仪表盘组件
 const DashboardModuleComponent = () => {
@@ -306,12 +309,12 @@ const DashboardModuleComponent = () => {
     <div className="space-y-6">
       {/* 页面标题 */}
       <div className="flex items-center space-x-3">
-        <div className="w-10 h-10 bg-gradient-to-br from-sky-500 to-blue-600 rounded-lg flex items-center justify-center">
+        <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
           <LayoutDashboard className="w-5 h-5 text-white" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">企业管理仪表盘</h1>
-          <p className="text-slate-600">全面掌控企业运营状况</p>
+          <h1 className="text-2xl font-bold text-neutral-800">企业管理仪表盘</h1>
+          <p className="text-neutral-600">全面掌控企业运营状况</p>
         </div>
       </div>
 

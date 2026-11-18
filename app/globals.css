@@ -2,36 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
+/**
+ * YYC³ 设计令牌运行时映射
+ * 权威 HEX 值定义于 lib/design-tokens.ts；此处 HSL 通道值与之逐一对应。
+ * 修改令牌必须先改 design-tokens.ts，再同步此处，禁止反向或就地硬编码。
+ */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* surface */
+    --background: 0 0% 100%;              /* #FFFFFF */
+    --foreground: 222.2 84% 4.9%;         /* #0F172A */
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
+
+    /* brand primary = #0EA5E9 */
+    --primary: 198.6 88.7% 48.4%;
+    --primary-hover: 200.4 98% 39.4%;
+    --primary-foreground: 0 0% 100%;
+
+    /* secondary = #3B82F6 */
+    --secondary: 217.2 91.2% 59.8%;
     --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --muted: 210 40% 96.1%;               /* #F1F5F9 */
+    --muted-foreground: 215.4 16.3% 46.9%;/* #64748B */
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
+
+    /* semantic = #10B981 / #F59E0B / #EF4444 */
+    --success: 160.1 84.1% 39.4%;
+    --warning: 38 92.1% 50.2%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
+    --destructive-hover: 0 72.2% 50.6%;   /* #DC2626 */
+    --destructive-foreground: 0 0% 100%;
+
+    /* 遮罩层 = rgba(15, 23, 42, 0.50) */
+    --overlay: 222.2 47.4% 11.2% / 0.5;
+
+    --border: 214.3 31.8% 91.4%;          /* #E2E8F0 */
     --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --ring: 198.6 88.7% 48.4%;
+
+    /* radius = 8px (md token) */
     --radius: 0.5rem;
+
+    /* chart tokens（原先缺失，图表组件已引用） */
+    --chart-1: 198.6 88.7% 48.4%;         /* #0EA5E9 */
+    --chart-2: 217.2 91.2% 59.8%;         /* #3B82F6 */
+    --chart-3: 160.1 84.1% 39.4%;         /* #10B981 */
+    --chart-4: 38 92.1% 50.2%;            /* #F59E0B */
+    --chart-5: 0 84.2% 60.2%;             /* #EF4444 */
+
+    /* sidebar */
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-primary: 198.6 88.7% 48.4%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 198.6 88.7% 95%;
+    --sidebar-accent-foreground: 200.4 98% 39.4%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 198.6 88.7% 48.4%;
   }
 
   .dark {
@@ -41,27 +73,43 @@
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
+
+    --primary: 198.9 93.5% 62.5%;         /* #38BDF8 */
+    --primary-hover: 198.6 88.7% 48.4%;
     --primary-foreground: 222.2 47.4% 11.2%;
+
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+
+    --success: 158.1 64.8% 51.8%;
+    --warning: 45.4 93.6% 62.9%;
+    --destructive: 0 90.6% 70.8%;
+    --destructive-hover: 0 84.2% 60.2%;
+    --destructive-foreground: 222.2 47.4% 11.2%;
+    --overlay: 222.2 47.4% 4% / 0.7;
+
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    --ring: 198.9 93.5% 62.5%;
+
+    --chart-1: 198.9 93.5% 62.5%;
+    --chart-2: 213.1 93.9% 67.5%;
+    --chart-3: 158.1 64.8% 51.8%;
+    --chart-4: 45.4 93.6% 62.9%;
+    --chart-5: 0 90.6% 70.8%;
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary: 198.9 93.5% 62.5%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 198.9 93.5% 62.5%;
   }
 }
 

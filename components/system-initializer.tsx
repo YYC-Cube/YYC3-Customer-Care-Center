@@ -134,15 +134,15 @@ export function SystemInitializer() {
   const getStepIcon = (status: InitializationStep['status']) => {
     switch (status) {
     case 'completed':
-      return <CheckCircle className="w-5 h-5 text-green-600" />;
+      return <CheckCircle className="w-5 h-5 text-success-600" />;
     case 'failed':
-      return <XCircle className="w-5 h-5 text-red-600" />;
+      return <XCircle className="w-5 h-5 text-danger-600" />;
     case 'running':
-      return <Clock className="w-5 h-5 text-blue-600 animate-spin" />;
+      return <Clock className="w-5 h-5 text-primary-600 animate-spin" />;
     case 'skipped':
-      return <AlertTriangle className="w-5 h-5 text-yellow-600" />;
+      return <AlertTriangle className="w-5 h-5 text-warning-600" />;
     default:
-      return <Clock className="w-5 h-5 text-gray-400" />;
+      return <Clock className="w-5 h-5 text-neutral-400" />;
     }
   };
 
@@ -164,13 +164,13 @@ export function SystemInitializer() {
   const getResourceColor = (status: SystemResource['status']) => {
     switch (status) {
     case 'normal':
-      return 'text-green-600';
+      return 'text-success-600';
     case 'warning':
-      return 'text-yellow-600';
+      return 'text-warning-600';
     case 'critical':
-      return 'text-red-600';
+      return 'text-danger-600';
     default:
-      return 'text-gray-600';
+      return 'text-neutral-600';
     }
   };
 
@@ -311,7 +311,7 @@ export function SystemInitializer() {
           <div className="flex items-center justify-between">
             <div>
               <CardTitle className="flex items-center">
-                <Settings className="w-5 h-5 mr-2 text-blue-600" />
+                <Settings className="w-5 h-5 mr-2 text-primary-600" />
                 系统初始化控制台
               </CardTitle>
               <CardDescription>管理和监控系统初始化过程</CardDescription>
@@ -320,7 +320,7 @@ export function SystemInitializer() {
               <Button
                 onClick={startInitialization}
                 disabled={isInitializing}
-                className="bg-gradient-to-r from-blue-500 to-indigo-600"
+                className="bg-gradient-to-r from-primary-500 to-primary-600"
               >
                 {isInitializing ? <Pause className="w-4 h-4 mr-2" /> : <Play className="w-4 h-4 mr-2" />}
                 {isInitializing ? '初始化中...' : '开始初始化'}
@@ -337,15 +337,15 @@ export function SystemInitializer() {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium">总体进度</span>
-                <span className="text-sm text-gray-600">{Math.round(overallProgress)}%</span>
+                <span className="text-sm text-neutral-600">{Math.round(overallProgress)}%</span>
               </div>
               <Progress value={overallProgress} className="h-2" />
             </div>
             {currentStep && (
-              <div className="p-3 bg-blue-50 rounded-lg">
+              <div className="p-3 bg-primary-50 rounded-lg">
                 <div className="flex items-center space-x-2">
-                  <Clock className="w-4 h-4 text-blue-600 animate-spin" />
-                  <span className="text-sm font-medium text-blue-800">
+                  <Clock className="w-4 h-4 text-primary-600 animate-spin" />
+                  <span className="text-sm font-medium text-primary-800">
                     正在执行: {initSteps.find((s) => s.id === currentStep)?.name}
                   </span>
                 </div>
@@ -360,7 +360,7 @@ export function SystemInitializer() {
         <Card className="lg:col-span-2 bg-white/80 backdrop-blur-sm border-0 shadow-lg">
           <CardHeader>
             <CardTitle className="flex items-center">
-              <Database className="w-5 h-5 mr-2 text-green-600" />
+              <Database className="w-5 h-5 mr-2 text-success-600" />
               初始化步骤
             </CardTitle>
             <CardDescription>系统组件初始化进度</CardDescription>
@@ -372,17 +372,17 @@ export function SystemInitializer() {
                   key={step.id}
                   className={`p-4 rounded-lg border transition-all ${
                     step.status === 'running'
-                      ? 'border-blue-200 bg-blue-50'
+                      ? 'border-primary-200 bg-primary-50'
                       : step.status === 'completed'
-                        ? 'border-green-200 bg-green-50'
+                        ? 'border-success-200 bg-success-50'
                         : step.status === 'failed'
-                          ? 'border-red-200 bg-red-50'
-                          : 'border-gray-200'
+                          ? 'border-danger-200 bg-danger-50'
+                          : 'border-neutral-200'
                   }`}
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex items-start space-x-3">
-                      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 text-sm font-medium">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-neutral-100 text-sm font-medium">
                         {index + 1}
                       </div>
                       <div className="flex-1">
@@ -412,27 +412,27 @@ export function SystemInitializer() {
                                     : '已跳过'}
                           </Badge>
                         </div>
-                        <p className="text-sm text-gray-600 mb-2">{step.description}</p>
+                        <p className="text-sm text-neutral-600 mb-2">{step.description}</p>
 
                         {step.dependencies && step.dependencies.length > 0 && (
-                          <div className="text-xs text-gray-500 mb-2">依赖: {step.dependencies.join(', ')}</div>
+                          <div className="text-xs text-neutral-500 mb-2">依赖: {step.dependencies.join(', ')}</div>
                         )}
 
                         {step.status === 'running' || step.progress > 0 ? (
                           <div className="space-y-1">
                             <div className="flex items-center justify-between">
-                              <span className="text-xs text-gray-600">进度</span>
-                              <span className="text-xs text-gray-600">{step.progress}%</span>
+                              <span className="text-xs text-neutral-600">进度</span>
+                              <span className="text-xs text-neutral-600">{step.progress}%</span>
                             </div>
                             <Progress value={step.progress} className="h-1" />
                           </div>
                         ) : null}
 
                         {step.error && (
-                          <div className="mt-2 p-2 bg-red-100 rounded text-sm text-red-700">{step.error}</div>
+                          <div className="mt-2 p-2 bg-danger-100 rounded text-sm text-danger-700">{step.error}</div>
                         )}
 
-                        {step.duration && <div className="mt-2 text-xs text-gray-500">耗时: {step.duration}ms</div>}
+                        {step.duration && <div className="mt-2 text-xs text-neutral-500">耗时: {step.duration}ms</div>}
                       </div>
                     </div>
                     <div className="flex items-center space-x-2">
@@ -456,7 +456,7 @@ export function SystemInitializer() {
           <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Server className="w-5 h-5 mr-2 text-purple-600" />
+                <Server className="w-5 h-5 mr-2 text-accent-600" />
                 系统资源
               </CardTitle>
               <CardDescription>实时系统资源使用情况</CardDescription>
@@ -470,7 +470,7 @@ export function SystemInitializer() {
                         <div className={getResourceColor(resource.status)}>{getResourceIcon(resource.type)}</div>
                         <span className="text-sm font-medium">{resource.name}</span>
                       </div>
-                      <span className="text-sm text-gray-600">
+                      <span className="text-sm text-neutral-600">
                         {resource.type === 'memory'
                           ? `${resource.usage.toFixed(1)}GB / ${resource.total}GB`
                           : resource.type === 'disk'
@@ -496,7 +496,7 @@ export function SystemInitializer() {
           <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Zap className="w-5 h-5 mr-2 text-yellow-600" />
+                <Zap className="w-5 h-5 mr-2 text-warning-600" />
                 初始化日志
               </CardTitle>
               <CardDescription>实时初始化过程日志</CardDescription>
@@ -509,18 +509,18 @@ export function SystemInitializer() {
                       key={index}
                       className={`p-2 rounded ${
                         log.includes('❌')
-                          ? 'bg-red-50 text-red-700'
+                          ? 'bg-danger-50 text-danger-700'
                           : log.includes('✅')
-                            ? 'bg-green-50 text-green-700'
+                            ? 'bg-success-50 text-success-700'
                             : log.includes('⏭️')
-                              ? 'bg-yellow-50 text-yellow-700'
-                              : 'bg-gray-50 text-gray-700'
+                              ? 'bg-warning-50 text-warning-700'
+                              : 'bg-neutral-50 text-neutral-700'
                       }`}
                     >
                       {log}
                     </div>
                   ))}
-                  {logs.length === 0 && <div className="text-center text-gray-500 py-8">暂无日志信息</div>}
+                  {logs.length === 0 && <div className="text-center text-neutral-500 py-8">暂无日志信息</div>}
                 </div>
               </ScrollArea>
             </CardContent>
@@ -538,30 +538,30 @@ export function SystemInitializer() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <Button
               variant="outline"
-              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-blue-50 bg-transparent"
+              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-primary-50 bg-transparent"
             >
-              <Download className="w-6 h-6 text-blue-600" />
+              <Download className="w-6 h-6 text-primary-600" />
               <span className="text-sm">导出配置</span>
             </Button>
             <Button
               variant="outline"
-              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-green-50 bg-transparent"
+              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-success-50 bg-transparent"
             >
-              <Upload className="w-6 h-6 text-green-600" />
+              <Upload className="w-6 h-6 text-success-600" />
               <span className="text-sm">导入配置</span>
             </Button>
             <Button
               variant="outline"
-              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-purple-50 bg-transparent"
+              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-accent-50 bg-transparent"
             >
-              <Shield className="w-6 h-6 text-purple-600" />
+              <Shield className="w-6 h-6 text-accent-600" />
               <span className="text-sm">安全检查</span>
             </Button>
             <Button
               variant="outline"
-              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-orange-50 bg-transparent"
+              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-warning-50 bg-transparent"
             >
-              <Users className="w-6 h-6 text-orange-600" />
+              <Users className="w-6 h-6 text-warning-600" />
               <span className="text-sm">用户管理</span>
             </Button>
           </div>

@@ -11,6 +11,7 @@
  */
 
 'use client';
+import { colorRamp } from '@/lib/design-tokens';
 
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -250,19 +251,19 @@ export function UserTrainingCenter() {
 
   // 技能分布
   const skillDistribution = [
-    { skill: '基础操作', level: 85, color: '#3b82f6' },
-    { skill: '客户管理', level: 70, color: '#10b981' },
-    { skill: '数据分析', level: 45, color: '#f59e0b' },
-    { skill: '任务管理', level: 60, color: '#8b5cf6' },
-    { skill: '系统配置', level: 30, color: '#ef4444' },
+    { skill: '基础操作', level: 85, color: colorRamp.primary[500] },
+    { skill: '客户管理', level: 70, color: colorRamp.success[500] },
+    { skill: '数据分析', level: 45, color: colorRamp.warning[500] },
+    { skill: '任务管理', level: 60, color: colorRamp.accent[500] },
+    { skill: '系统配置', level: 30, color: colorRamp.danger[500] },
   ];
 
   // 课程完成率分布
   const completionData = [
-    { range: '0-25%', count: 1, color: '#ef4444' },
-    { range: '26-50%', count: 1, color: '#f59e0b' },
-    { range: '51-75%', count: 1, color: '#3b82f6' },
-    { range: '76-100%', count: 1, color: '#10b981' },
+    { range: '0-25%', count: 1, color: colorRamp.danger[500] },
+    { range: '26-50%', count: 1, color: colorRamp.warning[500] },
+    { range: '51-75%', count: 1, color: colorRamp.primary[500] },
+    { range: '76-100%', count: 1, color: colorRamp.success[500] },
   ];
 
   const filteredCourses = courses.filter((course) => {
@@ -275,13 +276,13 @@ export function UserTrainingCenter() {
   const getLevelColor = (level: string) => {
     switch (level) {
     case 'beginner':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'intermediate':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-warning-100 text-warning-800';
     case 'advanced':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -313,7 +314,7 @@ export function UserTrainingCenter() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold flex items-center">
-            <BookOpen className="w-8 h-8 mr-3 text-blue-600" />
+            <BookOpen className="w-8 h-8 mr-3 text-primary-600" />
             用户培训中心
           </h1>
           <p className="text-muted-foreground">提升技能水平，掌握系统使用技巧</p>
@@ -334,37 +335,37 @@ export function UserTrainingCenter() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
         <Card>
           <CardContent className="p-6 text-center">
-            <BookOpen className="w-8 h-8 mx-auto mb-2 text-blue-600" />
+            <BookOpen className="w-8 h-8 mx-auto mb-2 text-primary-600" />
             <p className="text-2xl font-bold">{learningStats.enrolledCourses}</p>
-            <p className="text-sm text-gray-600">已报名课程</p>
+            <p className="text-sm text-neutral-600">已报名课程</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <CheckCircle className="w-8 h-8 mx-auto mb-2 text-green-600" />
+            <CheckCircle className="w-8 h-8 mx-auto mb-2 text-success-600" />
             <p className="text-2xl font-bold">{learningStats.completedCourses}</p>
-            <p className="text-sm text-gray-600">已完成课程</p>
+            <p className="text-sm text-neutral-600">已完成课程</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <Clock className="w-8 h-8 mx-auto mb-2 text-purple-600" />
+            <Clock className="w-8 h-8 mx-auto mb-2 text-accent-600" />
             <p className="text-2xl font-bold">{learningStats.totalHours.toFixed(1)}</p>
-            <p className="text-sm text-gray-600">学习时长(小时)</p>
+            <p className="text-sm text-neutral-600">学习时长(小时)</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <Target className="w-8 h-8 mx-auto mb-2 text-orange-600" />
+            <Target className="w-8 h-8 mx-auto mb-2 text-warning-600" />
             <p className="text-2xl font-bold">{learningStats.averageProgress}%</p>
-            <p className="text-sm text-gray-600">平均进度</p>
+            <p className="text-sm text-neutral-600">平均进度</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <Trophy className="w-8 h-8 mx-auto mb-2 text-yellow-600" />
+            <Trophy className="w-8 h-8 mx-auto mb-2 text-warning-600" />
             <p className="text-2xl font-bold">{achievements.filter((a) => a.earnedAt).length}</p>
-            <p className="text-sm text-gray-600">获得成就</p>
+            <p className="text-sm text-neutral-600">获得成就</p>
           </CardContent>
         </Card>
       </div>
@@ -384,7 +385,7 @@ export function UserTrainingCenter() {
             <CardContent className="p-4">
               <div className="flex flex-wrap gap-4 items-center">
                 <div className="flex items-center space-x-2">
-                  <Search className="w-4 h-4 text-gray-500" />
+                  <Search className="w-4 h-4 text-neutral-500" />
                   <Input
                     placeholder="搜索课程..."
                     value={searchTerm}
@@ -393,7 +394,7 @@ export function UserTrainingCenter() {
                   />
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Filter className="w-4 h-4 text-gray-500" />
+                  <Filter className="w-4 h-4 text-neutral-500" />
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
@@ -424,7 +425,7 @@ export function UserTrainingCenter() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {filteredCourses.map((course) => (
               <Card key={course.id} className="hover:shadow-lg transition-shadow">
-                <div className="aspect-video bg-gray-100 rounded-t-lg overflow-hidden">
+                <div className="aspect-video bg-neutral-100 rounded-t-lg overflow-hidden">
                   <img
                     src={course.thumbnail || '/placeholder.svg'}
                     alt={course.title}
@@ -441,7 +442,7 @@ export function UserTrainingCenter() {
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex items-center justify-between text-sm text-gray-600">
+                  <div className="flex items-center justify-between text-sm text-neutral-600">
                     <div className="flex items-center space-x-4">
                       <span className="flex items-center">
                         <Users className="w-4 h-4 mr-1" />
@@ -452,7 +453,7 @@ export function UserTrainingCenter() {
                         {course.duration}分钟
                       </span>
                       <span className="flex items-center">
-                        <Star className="w-4 h-4 mr-1 text-yellow-500" />
+                        <Star className="w-4 h-4 mr-1 text-warning-500" />
                         {course.rating}
                       </span>
                     </div>
@@ -462,7 +463,7 @@ export function UserTrainingCenter() {
                     <Avatar className="w-6 h-6">
                       <AvatarFallback className="text-xs">{course.instructor.charAt(0)}</AvatarFallback>
                     </Avatar>
-                    <span className="text-sm text-gray-600">{course.instructor}</span>
+                    <span className="text-sm text-neutral-600">{course.instructor}</span>
                   </div>
 
                   <div className="flex flex-wrap gap-1">
@@ -518,16 +519,16 @@ export function UserTrainingCenter() {
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
-                      <p className="text-2xl font-bold text-blue-600">{path.courses.length}</p>
-                      <p className="text-sm text-gray-600">课程数量</p>
+                      <p className="text-2xl font-bold text-primary-600">{path.courses.length}</p>
+                      <p className="text-sm text-neutral-600">课程数量</p>
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-green-600">{Math.round(path.estimatedTime / 60)}h</p>
-                      <p className="text-sm text-gray-600">预计时长</p>
+                      <p className="text-2xl font-bold text-success-600">{Math.round(path.estimatedTime / 60)}h</p>
+                      <p className="text-sm text-neutral-600">预计时长</p>
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-purple-600">{path.enrollments}</p>
-                      <p className="text-sm text-gray-600">学习人数</p>
+                      <p className="text-2xl font-bold text-accent-600">{path.enrollments}</p>
+                      <p className="text-sm text-neutral-600">学习人数</p>
                     </div>
                   </div>
 
@@ -626,9 +627,9 @@ export function UserTrainingCenter() {
                     <div key={skill.skill} className="space-y-2">
                       <div className="flex justify-between">
                         <span className="text-sm font-medium">{skill.skill}</span>
-                        <span className="text-sm text-gray-600">{skill.level}%</span>
+                        <span className="text-sm text-neutral-600">{skill.level}%</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="w-full bg-neutral-200 rounded-full h-2">
                         <div
                           className="h-2 rounded-full transition-all duration-500"
                           style={{
@@ -656,7 +657,7 @@ export function UserTrainingCenter() {
                   .map((course) => (
                     <div key={course.id} className="flex items-center justify-between p-4 border rounded-lg">
                       <div className="flex items-center space-x-4">
-                        <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden">
+                        <div className="w-12 h-12 bg-neutral-100 rounded-lg overflow-hidden">
                           <img
                             src={course.thumbnail || '/placeholder.svg'}
                             alt={course.title}
@@ -665,13 +666,13 @@ export function UserTrainingCenter() {
                         </div>
                         <div>
                           <h4 className="font-medium">{course.title}</h4>
-                          <p className="text-sm text-gray-600">{course.instructor}</p>
+                          <p className="text-sm text-neutral-600">{course.instructor}</p>
                         </div>
                       </div>
                       <div className="flex items-center space-x-4">
                         <div className="text-right">
                           <p className="text-sm font-medium">{course.progress}%</p>
-                          <p className="text-xs text-gray-500">{course.lastAccessed?.toLocaleDateString('zh-CN')}</p>
+                          <p className="text-xs text-neutral-500">{course.lastAccessed?.toLocaleDateString('zh-CN')}</p>
                         </div>
                         <div className="w-24">
                           <Progress value={course.progress} className="h-2" />
@@ -694,18 +695,18 @@ export function UserTrainingCenter() {
               <Card
                 key={achievement.id}
                 className={`hover:shadow-lg transition-shadow ${
-                  achievement.earnedAt ? 'border-yellow-200 bg-yellow-50' : ''
+                  achievement.earnedAt ? 'border-warning-200 bg-warning-50' : ''
                 }`}
               >
                 <CardContent className="p-6 text-center">
                   <div className="text-4xl mb-3">{achievement.icon}</div>
                   <h3 className="font-semibold mb-2">{achievement.title}</h3>
-                  <p className="text-sm text-gray-600 mb-4">{achievement.description}</p>
+                  <p className="text-sm text-neutral-600 mb-4">{achievement.description}</p>
 
                   {achievement.earnedAt ? (
                     <div>
-                      <Badge className="bg-yellow-100 text-yellow-800 mb-2">已获得</Badge>
-                      <p className="text-xs text-gray-500">{achievement.earnedAt.toLocaleDateString('zh-CN')}</p>
+                      <Badge className="bg-warning-100 text-warning-800 mb-2">已获得</Badge>
+                      <p className="text-xs text-neutral-500">{achievement.earnedAt.toLocaleDateString('zh-CN')}</p>
                     </div>
                   ) : (
                     <div className="space-y-2">
@@ -742,16 +743,16 @@ export function UserTrainingCenter() {
                   <PieChart>
                     <Pie
                       data={[
-                        { name: '已获得', value: achievements.filter((a) => a.earnedAt).length, color: '#10b981' },
+                        { name: '已获得', value: achievements.filter((a) => a.earnedAt).length, color: colorRamp.success[500] },
                         {
                           name: '进行中',
                           value: achievements.filter((a) => !a.earnedAt && a.progress > 0).length,
-                          color: '#f59e0b',
+                          color: colorRamp.warning[500],
                         },
                         {
                           name: '未开始',
                           value: achievements.filter((a) => !a.earnedAt && a.progress === 0).length,
-                          color: '#6b7280',
+                          color: colorRamp.neutral[500],
                         },
                       ]}
                       cx="50%"
@@ -761,16 +762,16 @@ export function UserTrainingCenter() {
                       label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                     >
                       {[
-                        { name: '已获得', value: achievements.filter((a) => a.earnedAt).length, color: '#10b981' },
+                        { name: '已获得', value: achievements.filter((a) => a.earnedAt).length, color: colorRamp.success[500] },
                         {
                           name: '进行中',
                           value: achievements.filter((a) => !a.earnedAt && a.progress > 0).length,
-                          color: '#f59e0b',
+                          color: colorRamp.warning[500],
                         },
                         {
                           name: '未开始',
                           value: achievements.filter((a) => !a.earnedAt && a.progress === 0).length,
-                          color: '#6b7280',
+                          color: colorRamp.neutral[500],
                         },
                       ].map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
@@ -831,16 +832,16 @@ export function UserTrainingCenter() {
                             <Badge variant="outline" className="text-xs">
                               {discussion.course}
                             </Badge>
-                            <span className="text-xs text-gray-500">{discussion.time}</span>
+                            <span className="text-xs text-neutral-500">{discussion.time}</span>
                           </div>
-                          <p className="text-sm text-gray-700 mb-2">{discussion.content}</p>
-                          <div className="flex items-center space-x-4 text-xs text-gray-500">
-                            <button className="flex items-center space-x-1 hover:text-blue-600">
+                          <p className="text-sm text-neutral-700 mb-2">{discussion.content}</p>
+                          <div className="flex items-center space-x-4 text-xs text-neutral-500">
+                            <button className="flex items-center space-x-1 hover:text-primary-600">
                               <Star className="w-3 h-3" />
                               <span>{discussion.likes}</span>
                             </button>
-                            <button className="hover:text-blue-600">回复</button>
-                            <button className="hover:text-blue-600">分享</button>
+                            <button className="hover:text-primary-600">回复</button>
+                            <button className="hover:text-primary-600">分享</button>
                           </div>
                         </div>
                       </div>
@@ -869,7 +870,7 @@ export function UserTrainingCenter() {
                         <div className="flex items-center space-x-3">
                           <div
                             className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                              user.rank <= 3 ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-600'
+                              user.rank <= 3 ? 'bg-warning-100 text-warning-800' : 'bg-neutral-100 text-neutral-600'
                             }`}
                           >
                             {user.rank}
@@ -880,7 +881,7 @@ export function UserTrainingCenter() {
                           </Avatar>
                           <span className="text-sm font-medium">{user.name}</span>
                         </div>
-                        <span className="text-sm text-gray-600">{user.hours}h</span>
+                        <span className="text-sm text-neutral-600">{user.hours}h</span>
                       </div>
                     ))}
                   </div>
@@ -907,7 +908,7 @@ export function UserTrainingCenter() {
                           </Badge>
                         </div>
                         <div className="flex items-center justify-between">
-                          <span className="text-xs text-gray-600">活跃度: {group.activity}</span>
+                          <span className="text-xs text-neutral-600">活跃度: {group.activity}</span>
                           <Button size="sm" variant="outline">
                             加入
                           </Button>

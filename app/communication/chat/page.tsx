@@ -34,21 +34,21 @@ export default function ChatPage() {
   });
 
   return (
-    <div className="p-6 space-y-6 bg-gradient-to-br from-blue-50 via-sky-50 to-indigo-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gradient-to-br from-primary-50 via-primary-50 to-primary-50 min-h-screen">
       {/* 页面标题 */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-slate-800 flex items-center">
-            <MessageSquare className="w-8 h-8 mr-3 text-blue-600" />
+          <h1 className="text-3xl font-bold text-neutral-800 flex items-center">
+            <MessageSquare className="w-8 h-8 mr-3 text-primary-600" />
             团队聊天
           </h1>
-          <p className="text-slate-600 mt-1">实时沟通与协作交流</p>
+          <p className="text-neutral-600 mt-1">实时沟通与协作交流</p>
         </div>
         <div className="flex items-center space-x-3">
           <Button
             variant="outline"
             size="sm"
-            className="border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+            className="border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
           >
             <Search className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             搜索消息
@@ -56,12 +56,12 @@ export default function ChatPage() {
           <Button
             variant="outline"
             size="sm"
-            className="border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+            className="border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
           >
             <Filter className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             筛选
           </Button>
-          <Button className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+          <Button className="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
             <Plus className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             新建群聊
           </Button>
@@ -70,70 +70,70 @@ export default function ChatPage() {
 
       {/* 统计卡片 */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <MessageSquare className="w-5 h-5 mr-2 text-blue-600" />
+              <MessageSquare className="w-5 h-5 mr-2 text-primary-600" />
               总消息数
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">{chatStats.totalMessages.toLocaleString()}</div>
+            <div className="text-2xl font-bold text-primary-600">{chatStats.totalMessages.toLocaleString()}</div>
             <p className="text-sm text-muted-foreground">累计发送消息</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Users className="w-5 h-5 mr-2 text-blue-600" />
+              <Users className="w-5 h-5 mr-2 text-primary-600" />
               活跃聊天
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">{chatStats.activeChats}</div>
+            <div className="text-2xl font-bold text-primary-600">{chatStats.activeChats}</div>
             <p className="text-sm text-muted-foreground">正在进行的对话</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Zap className="w-5 h-5 mr-2 text-blue-600" />
+              <Zap className="w-5 h-5 mr-2 text-primary-600" />
               在线用户
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">{chatStats.onlineUsers}</div>
+            <div className="text-2xl font-bold text-primary-600">{chatStats.onlineUsers}</div>
             <p className="text-sm text-muted-foreground">当前在线人数</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <TrendingUp className="w-5 h-5 mr-2 text-blue-600" />
+              <TrendingUp className="w-5 h-5 mr-2 text-primary-600" />
               今日消息
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">{chatStats.todayMessages}</div>
+            <div className="text-2xl font-bold text-primary-600">{chatStats.todayMessages}</div>
             <p className="text-sm text-muted-foreground">今天发送的消息</p>
           </CardContent>
         </Card>
       </div>
 
       {/* 主聊天界面 */}
-      <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="text-lg text-blue-700">实时聊天</CardTitle>
+              <CardTitle className="text-lg text-primary-700">实时聊天</CardTitle>
               <CardDescription>与团队成员进行实时沟通交流</CardDescription>
             </div>
             <div className="flex items-center space-x-2">
-              <Badge variant="secondary" className="bg-blue-100 text-blue-800">
-                <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
+              <Badge variant="secondary" className="bg-primary-100 text-primary-800">
+                <div className="w-2 h-2 bg-primary-500 rounded-full mr-2"></div>
                 在线
               </Badge>
               <Button variant="ghost" size="sm" className="transition-all duration-300 hover:scale-105 group">
@@ -152,36 +152,36 @@ export default function ChatPage() {
       </Card>
 
       {/* 快捷操作 */}
-      <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
-          <CardTitle className="text-base text-blue-700">快捷操作</CardTitle>
+          <CardTitle className="text-base text-primary-700">快捷操作</CardTitle>
           <CardDescription>常用聊天功能</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <Button className="h-auto p-4 flex flex-col items-center space-y-2 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+            <Button className="h-auto p-4 flex flex-col items-center space-y-2 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
               <Plus className="w-6 h-6 group-hover:translate-x-1 transition-all duration-300" />
               <span className="text-sm">创建群聊</span>
             </Button>
             <Button
               variant="outline"
-              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-blue-50 bg-transparent border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 group"
+              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-primary-50 bg-transparent border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 group"
             >
-              <Users className="w-6 h-6 text-blue-600 group-hover:translate-x-1 transition-all duration-300" />
+              <Users className="w-6 h-6 text-primary-600 group-hover:translate-x-1 transition-all duration-300" />
               <span className="text-sm">邀请成员</span>
             </Button>
             <Button
               variant="outline"
-              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-blue-50 bg-transparent border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 group"
+              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-primary-50 bg-transparent border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 group"
             >
-              <Search className="w-6 h-6 text-blue-600 group-hover:translate-x-1 transition-all duration-300" />
+              <Search className="w-6 h-6 text-primary-600 group-hover:translate-x-1 transition-all duration-300" />
               <span className="text-sm">搜索消息</span>
             </Button>
             <Button
               variant="outline"
-              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-blue-50 bg-transparent border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 group"
+              className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-primary-50 bg-transparent border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 group"
             >
-              <Settings className="w-6 h-6 text-blue-600 group-hover:translate-x-1 transition-all duration-300" />
+              <Settings className="w-6 h-6 text-primary-600 group-hover:translate-x-1 transition-all duration-300" />
               <span className="text-sm">聊天设置</span>
             </Button>
           </div>

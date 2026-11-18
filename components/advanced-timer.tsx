@@ -138,7 +138,7 @@ export function AdvancedTimer() {
             <div className="text-center space-y-4">
               <div>
                 <h3 className="font-medium text-lg">{currentSession.taskTitle}</h3>
-                <div className="text-3xl font-bold text-blue-600 mt-2">{formatTime(currentSession.elapsedTime)}</div>
+                <div className="text-3xl font-bold text-primary-600 mt-2">{formatTime(currentSession.elapsedTime)}</div>
               </div>
 
               <div className="flex justify-center space-x-2">

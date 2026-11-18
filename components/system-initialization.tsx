@@ -274,41 +274,41 @@ export function SystemInitialization() {
   const getStatusIcon = (status: InitializationStep['status']) => {
     switch (status) {
     case 'completed':
-      return <CheckCircle className="w-5 h-5 text-green-600" />;
+      return <CheckCircle className="w-5 h-5 text-success-600" />;
     case 'running':
-      return <RefreshCw className="w-5 h-5 text-blue-600 animate-spin" />;
+      return <RefreshCw className="w-5 h-5 text-primary-600 animate-spin" />;
     case 'failed':
-      return <AlertTriangle className="w-5 h-5 text-red-600" />;
+      return <AlertTriangle className="w-5 h-5 text-danger-600" />;
     case 'skipped':
-      return <Clock className="w-5 h-5 text-gray-400" />;
+      return <Clock className="w-5 h-5 text-neutral-400" />;
     default:
-      return <Clock className="w-5 h-5 text-gray-400" />;
+      return <Clock className="w-5 h-5 text-neutral-400" />;
     }
   };
 
   const getStatusColor = (status: InitializationStep['status']) => {
     switch (status) {
     case 'completed':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'running':
-      return 'bg-blue-100 text-blue-800';
+      return 'bg-primary-100 text-primary-800';
     case 'failed':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     case 'skipped':
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
   const getCheckStatusIcon = (status: SystemCheck['status']) => {
     switch (status) {
     case 'pass':
-      return <CheckCircle className="w-4 h-4 text-green-600" />;
+      return <CheckCircle className="w-4 h-4 text-success-600" />;
     case 'warning':
-      return <AlertTriangle className="w-4 h-4 text-yellow-600" />;
+      return <AlertTriangle className="w-4 h-4 text-warning-600" />;
     case 'fail':
-      return <AlertTriangle className="w-4 h-4 text-red-600" />;
+      return <AlertTriangle className="w-4 h-4 text-danger-600" />;
     }
   };
 
@@ -340,7 +340,7 @@ export function SystemInitialization() {
           <Button
             onClick={startInitialization}
             disabled={isInitializing}
-            className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white"
+            className="bg-gradient-to-r from-primary-500 to-accent-600 hover:from-primary-600 hover:to-accent-700 text-white"
           >
             {isInitializing ? (
               <>
@@ -358,10 +358,10 @@ export function SystemInitialization() {
       </div>
 
       {/* 总体进度 */}
-      <Card className="bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 border-l-4 border-l-blue-500">
+      <Card className="bg-gradient-to-r from-primary-50 via-accent-50 to-accent-50 border-l-4 border-l-primary-500">
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
-            <Database className="w-5 h-5 text-blue-600" />
+            <Database className="w-5 h-5 text-primary-600" />
             <span>初始化进度</span>
           </CardTitle>
           <CardDescription>系统初始化总体进度: {Math.round(overallProgress)}%</CardDescription>
@@ -374,7 +374,7 @@ export function SystemInitialization() {
               <span>总计: {initSteps.length} 项</span>
             </div>
             {currentStep && (
-              <Alert className="bg-blue-50 border-blue-200">
+              <Alert className="bg-primary-50 border-primary-200">
                 <RefreshCw className="h-4 w-4 animate-spin" />
                 <AlertDescription>正在执行: {initSteps.find((s) => s.id === currentStep)?.name}</AlertDescription>
               </Alert>
@@ -396,7 +396,7 @@ export function SystemInitialization() {
               <Card
                 key={step.id}
                 className={`transition-all duration-300 ${
-                  currentStep === step.id ? 'ring-2 ring-blue-500 shadow-lg' : ''
+                  currentStep === step.id ? 'ring-2 ring-primary-500 shadow-lg' : ''
                 }`}
               >
                 <CardHeader>
@@ -526,7 +526,7 @@ export function SystemInitialization() {
                 {initSteps.map(
                   (step) =>
                     step.logs.length > 0 && (
-                      <div key={step.id} className="border-l-4 border-l-blue-500 pl-4">
+                      <div key={step.id} className="border-l-4 border-l-primary-500 pl-4">
                         <h4 className="font-medium mb-2">{step.name}</h4>
                         <div className="space-y-1">
                           {step.logs.map((log, index) => (
@@ -541,7 +541,7 @@ export function SystemInitialization() {
 
                 {initSteps.every((step) => step.logs.length === 0) && (
                   <div className="text-center py-8 text-muted-foreground">
-                    <Database className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                    <Database className="w-12 h-12 mx-auto mb-4 text-neutral-300" />
                     <p>暂无执行日志</p>
                     <p className="text-sm">开始初始化后将显示详细日志</p>
                   </div>

@@ -122,7 +122,7 @@ export function SidebarConfig({ onConfigChange }: SidebarConfigProps) {
 
       <CardContent className="space-y-6">
         {/* 当前屏幕状态 */}
-        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+        <div className="flex items-center justify-between p-3 bg-neutral-50 rounded-lg">
           <div className="flex items-center space-x-2">
             {getScreenIcon(currentScreenSize)}
             <span className="font-medium">当前屏幕: {currentScreenSize}</span>
@@ -155,7 +155,7 @@ export function SidebarConfig({ onConfigChange }: SidebarConfigProps) {
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <label className="text-sm font-medium">自动收缩</label>
-                <p className="text-xs text-gray-500">无操作时自动收缩侧边栏</p>
+                <p className="text-xs text-neutral-500">无操作时自动收缩侧边栏</p>
               </div>
               <Switch
                 checked={config.autoCollapse}
@@ -180,7 +180,7 @@ export function SidebarConfig({ onConfigChange }: SidebarConfigProps) {
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <label className="text-sm font-medium">悬停展开</label>
-                <p className="text-xs text-gray-500">鼠标悬停时自动展开</p>
+                <p className="text-xs text-neutral-500">鼠标悬停时自动展开</p>
               </div>
               <Switch
                 checked={config.hoverExpand}
@@ -196,7 +196,7 @@ export function SidebarConfig({ onConfigChange }: SidebarConfigProps) {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-2">
-              <label className="text-xs text-gray-500 flex items-center space-x-1">
+              <label className="text-xs text-neutral-500 flex items-center space-x-1">
                 <Smartphone className="h-3 w-3" />
                 <span>移动端 (px)</span>
               </label>
@@ -211,12 +211,12 @@ export function SidebarConfig({ onConfigChange }: SidebarConfigProps) {
                     },
                   })
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-md text-sm"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs text-gray-500 flex items-center space-x-1">
+              <label className="text-xs text-neutral-500 flex items-center space-x-1">
                 <Tablet className="h-3 w-3" />
                 <span>平板端 (px)</span>
               </label>
@@ -231,12 +231,12 @@ export function SidebarConfig({ onConfigChange }: SidebarConfigProps) {
                     },
                   })
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-md text-sm"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs text-gray-500 flex items-center space-x-1">
+              <label className="text-xs text-neutral-500 flex items-center space-x-1">
                 <Monitor className="h-3 w-3" />
                 <span>桌面端 (px)</span>
               </label>
@@ -251,7 +251,7 @@ export function SidebarConfig({ onConfigChange }: SidebarConfigProps) {
                     },
                   })
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-md text-sm"
               />
             </div>
           </div>
@@ -308,9 +308,9 @@ export function SidebarConfig({ onConfigChange }: SidebarConfigProps) {
         </div>
 
         {/* 配置预览 */}
-        <div className="p-3 bg-blue-50 rounded-lg">
-          <h4 className="text-sm font-medium text-blue-900 mb-2">当前配置预览</h4>
-          <div className="text-xs text-blue-700 space-y-1">
+        <div className="p-3 bg-primary-50 rounded-lg">
+          <h4 className="text-sm font-medium text-primary-900 mb-2">当前配置预览</h4>
+          <div className="text-xs text-primary-700 space-y-1">
             <p>
               • 行为模式:{' '}
               {config.behavior === 'smart'

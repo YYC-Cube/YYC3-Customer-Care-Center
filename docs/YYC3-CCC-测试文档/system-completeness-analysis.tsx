@@ -564,19 +564,19 @@ export function SystemCompletenessAnalysis() {
         <TabsContent value="details" className="space-y-6">
           {selectedModule ? (
             (() => {
-              const module = modules.find((m) => m.id === selectedModule)!
+              const moduleInfo = modules.find((m) => m.id === selectedModule)!
               return (
                 <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
                   <CardHeader>
-                    <CardTitle className="text-xl">{module.name} - 详细分析</CardTitle>
-                    <CardDescription>{module.description}</CardDescription>
+                    <CardTitle className="text-xl">{moduleInfo.name} - 详细分析</CardTitle>
+                    <CardDescription>{moduleInfo.description}</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     {/* 功能完成度详情 */}
                     <div>
                       <h3 className="text-lg font-semibold mb-4">功能完成度详情</h3>
                       <div className="space-y-3">
-                        {module.features.map((feature, index) => (
+                        {moduleInfo.features.map((feature, index) => (
                           <div key={index} className="border rounded-lg p-4">
                             <div className="flex justify-between items-center mb-2">
                               <div className="flex items-center space-x-2">
@@ -595,7 +595,7 @@ export function SystemCompletenessAnalysis() {
                     <div>
                       <h3 className="text-lg font-semibold mb-4">技术债务</h3>
                       <div className="space-y-2">
-                        {module.technicalDebt.map((debt, index) => (
+                        {moduleInfo.technicalDebt.map((debt, index) => (
                           <Alert key={index}>
                             <AlertTriangle className="h-4 w-4" />
                             <AlertDescription>{debt}</AlertDescription>
@@ -608,7 +608,7 @@ export function SystemCompletenessAnalysis() {
                     <div>
                       <h3 className="text-lg font-semibold mb-4">相关组件</h3>
                       <div className="grid grid-cols-2 gap-2">
-                        {module.components.map((component, index) => (
+                        {moduleInfo.components.map((component, index) => (
                           <Badge key={index} variant="outline" className="justify-start">
                             <FileText className="w-3 h-3 mr-1" />
                             {component}

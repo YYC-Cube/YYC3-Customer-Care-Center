@@ -93,24 +93,24 @@ export function TaskDependencies() {
   const getStatusIcon = (status: string) => {
     switch (status) {
     case 'completed':
-      return <CheckCircle className="w-4 h-4 text-green-500" />;
+      return <CheckCircle className="w-4 h-4 text-success-500" />;
     case 'in-progress':
-      return <Clock className="w-4 h-4 text-blue-500" />;
+      return <Clock className="w-4 h-4 text-primary-500" />;
     case 'blocked':
-      return <AlertTriangle className="w-4 h-4 text-red-500" />;
+      return <AlertTriangle className="w-4 h-4 text-danger-500" />;
     default:
-      return <Clock className="w-4 h-4 text-gray-400" />;
+      return <Clock className="w-4 h-4 text-neutral-400" />;
     }
   };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
     case 'completed':
-      return <Badge className="bg-green-100 text-green-800">已完成</Badge>;
+      return <Badge className="bg-success-100 text-success-800">已完成</Badge>;
     case 'in-progress':
-      return <Badge className="bg-blue-100 text-blue-800">进行中</Badge>;
+      return <Badge className="bg-primary-100 text-primary-800">进行中</Badge>;
     case 'todo':
-      return <Badge className="bg-gray-100 text-gray-800">待开始</Badge>;
+      return <Badge className="bg-neutral-100 text-neutral-800">待开始</Badge>;
     default:
       return <Badge variant="secondary">未知</Badge>;
     }
@@ -119,11 +119,11 @@ export function TaskDependencies() {
   const getDependencyStatus = (status: string) => {
     switch (status) {
     case 'completed':
-      return <Badge className="bg-green-100 text-green-800">已完成</Badge>;
+      return <Badge className="bg-success-100 text-success-800">已完成</Badge>;
     case 'active':
-      return <Badge className="bg-blue-100 text-blue-800">进行中</Badge>;
+      return <Badge className="bg-primary-100 text-primary-800">进行中</Badge>;
     case 'blocked':
-      return <Badge className="bg-red-100 text-red-800">阻塞</Badge>;
+      return <Badge className="bg-danger-100 text-danger-800">阻塞</Badge>;
     default:
       return <Badge variant="secondary">未知</Badge>;
     }
@@ -179,7 +179,7 @@ export function TaskDependencies() {
           <div className="space-y-4">
             {tasks.map((task, index) => (
               <div key={task.id} className="relative">
-                <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
+                <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-neutral-50">
                   <div className="flex items-center space-x-4">
                     {getStatusIcon(task.status)}
                     <div>

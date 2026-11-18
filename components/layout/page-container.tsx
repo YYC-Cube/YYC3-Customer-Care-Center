@@ -26,8 +26,8 @@ export function PageContainer({ children, className, title, description }: PageC
     <div className={cn(commonStyles.layout.container, className)}>
       {(title || description) && (
         <div className="mb-8">
-          {title && <h1 className="text-3xl font-bold text-slate-800 mb-2">{title}</h1>}
-          {description && <p className="text-sky-600 text-lg">{description}</p>}
+          {title && <h1 className="text-3xl font-bold text-neutral-800 mb-2">{title}</h1>}
+          {description && <p className="text-primary-600 text-lg">{description}</p>}
         </div>
       )}
       {children}

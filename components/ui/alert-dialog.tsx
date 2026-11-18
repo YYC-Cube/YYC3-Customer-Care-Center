@@ -62,7 +62,7 @@ export function AlertDialogTitle({ className = '', children }: { className?: str
 }
 
 export function AlertDialogDescription({ className = '', children }: { className?: string; children: ReactNode }) {
-  return <p className={`text-sm text-gray-500 ${className}`}>{children}</p>;
+  return <p className={`text-sm text-neutral-500 ${className}`}>{children}</p>;
 }
 
 export function AlertDialogCancel({ className = '', children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
@@ -70,9 +70,9 @@ export function AlertDialogCancel({ className = '', children, ...props }: React.
   return (
     <button
       type="button"
-      className={`mt-3 rounded-md border px-4 py-2 text-sm font-medium hover:bg-gray-50 sm:mt-0 ${className}`}
-      onClick={() => {
-        props.onClick?.();
+      className={`mt-3 rounded-md border px-4 py-2 text-sm font-medium hover:bg-neutral-50 sm:mt-0 ${className}`}
+      onClick={(event) => {
+        props.onClick?.(event);
         onOpenChange?.(false);
       }}
     >
@@ -86,9 +86,9 @@ export function AlertDialogAction({ className = '', children, ...props }: React.
   return (
     <button
       type="button"
-      className={`rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 ${className}`}
-      onClick={() => {
-        props.onClick?.();
+      className={`rounded-md bg-danger-600 px-4 py-2 text-sm font-medium text-white hover:bg-danger-700 ${className}`}
+      onClick={(event) => {
+        props.onClick?.(event);
         onOpenChange?.(false);
       }}
     >

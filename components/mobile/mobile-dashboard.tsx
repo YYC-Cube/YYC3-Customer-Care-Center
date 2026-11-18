@@ -150,39 +150,39 @@ export function MobileDashboard() {
   const getActivityColor = (type: string) => {
     switch (type) {
     case 'task':
-      return 'text-blue-600 bg-blue-100';
+      return 'text-primary-600 bg-primary-100';
     case 'customer':
-      return 'text-green-600 bg-green-100';
+      return 'text-success-600 bg-success-100';
     case 'approval':
-      return 'text-orange-600 bg-orange-100';
+      return 'text-warning-600 bg-warning-100';
     case 'message':
-      return 'text-purple-600 bg-purple-100';
+      return 'text-accent-600 bg-accent-100';
     default:
-      return 'text-gray-600 bg-gray-100';
+      return 'text-neutral-600 bg-neutral-100';
     }
   };
 
   const getPriorityColor = (priority?: string) => {
     switch (priority) {
     case 'high':
-      return 'bg-red-500';
+      return 'bg-danger-500';
     case 'medium':
-      return 'bg-yellow-500';
+      return 'bg-warning-500';
     case 'low':
-      return 'bg-green-500';
+      return 'bg-success-500';
     default:
-      return 'bg-gray-500';
+      return 'bg-neutral-500';
     }
   };
 
   return (
     <div className="space-y-6 pb-6">
       {/* 欢迎区域 */}
-      <div className="bg-gradient-to-r from-sky-500 to-blue-600 rounded-2xl p-6 text-white">
+      <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl p-6 text-white">
         <div className="flex justify-between items-start mb-4">
           <div>
             <h1 className="text-2xl font-bold mb-1">{getGreeting()}，管理员</h1>
-            <p className="text-sky-100 text-sm">
+            <p className="text-primary-100 text-sm">
               {currentTime.toLocaleDateString('zh-CN', {
                 year: 'numeric',
                 month: 'long',
@@ -205,20 +205,20 @@ export function MobileDashboard() {
         <div className="grid grid-cols-2 gap-4">
           <div className="bg-white/20 rounded-xl p-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sky-100 text-sm">今日任务</span>
-              <CheckSquare className="w-4 h-4 text-sky-100" />
+              <span className="text-primary-100 text-sm">今日任务</span>
+              <CheckSquare className="w-4 h-4 text-primary-100" />
             </div>
             <div className="text-2xl font-bold">{stats.tasks.pending}</div>
-            <div className="text-sky-100 text-xs">待处理</div>
+            <div className="text-primary-100 text-xs">待处理</div>
           </div>
 
           <div className="bg-white/20 rounded-xl p-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sky-100 text-sm">新客户</span>
-              <Users className="w-4 h-4 text-sky-100" />
+              <span className="text-primary-100 text-sm">新客户</span>
+              <Users className="w-4 h-4 text-primary-100" />
             </div>
             <div className="text-2xl font-bold">{stats.customers.new}</div>
-            <div className="text-sky-100 text-xs">本周新增</div>
+            <div className="text-primary-100 text-xs">本周新增</div>
           </div>
         </div>
       </div>
@@ -226,17 +226,17 @@ export function MobileDashboard() {
       {/* 快速操作 */}
       <div className="grid grid-cols-4 gap-3">
         {[
-          { label: '新建任务', icon: Plus, color: 'bg-blue-500' },
-          { label: '添加客户', icon: Users, color: 'bg-green-500' },
-          { label: '查看报表', icon: TrendingUp, color: 'bg-purple-500' },
-          { label: '更多', icon: MoreHorizontal, color: 'bg-gray-500' },
+          { label: '新建任务', icon: Plus, color: 'bg-primary-500' },
+          { label: '添加客户', icon: Users, color: 'bg-success-500' },
+          { label: '查看报表', icon: TrendingUp, color: 'bg-accent-500' },
+          { label: '更多', icon: MoreHorizontal, color: 'bg-neutral-500' },
         ].map((action, index) => {
           const Icon = action.icon;
           return (
             <Button
               key={index}
               variant="outline"
-              className="flex flex-col items-center space-y-2 p-4 h-auto border-2 hover:border-sky-300"
+              className="flex flex-col items-center space-y-2 p-4 h-auto border-2 hover:border-primary-300"
             >
               <div className={`w-10 h-10 rounded-full ${action.color} flex items-center justify-center`}>
                 <Icon className="w-5 h-5 text-white" />
@@ -252,34 +252,34 @@ export function MobileDashboard() {
         <Card className="border-0 shadow-md">
           <CardContent className="p-4">
             <div className="flex items-center justify-between mb-3">
-              <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                <Users className="w-5 h-5 text-blue-600" />
+              <div className="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center">
+                <Users className="w-5 h-5 text-primary-600" />
               </div>
-              <div className="flex items-center text-green-600 text-sm">
+              <div className="flex items-center text-success-600 text-sm">
                 <ArrowUp className="w-3 h-3 mr-1" />
                 <span>{stats.customers.trend}%</span>
               </div>
             </div>
-            <div className="text-2xl font-bold text-slate-800 mb-1">{stats.customers.total.toLocaleString()}</div>
-            <div className="text-sm text-slate-500">客户总数</div>
+            <div className="text-2xl font-bold text-neutral-800 mb-1">{stats.customers.total.toLocaleString()}</div>
+            <div className="text-sm text-neutral-500">客户总数</div>
           </CardContent>
         </Card>
 
         <Card className="border-0 shadow-md">
           <CardContent className="p-4">
             <div className="flex items-center justify-between mb-3">
-              <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
-                <DollarSign className="w-5 h-5 text-green-600" />
+              <div className="w-10 h-10 rounded-full bg-success-100 flex items-center justify-center">
+                <DollarSign className="w-5 h-5 text-success-600" />
               </div>
-              <div className="flex items-center text-green-600 text-sm">
+              <div className="flex items-center text-success-600 text-sm">
                 <ArrowUp className="w-3 h-3 mr-1" />
                 <span>{stats.revenue.trend}%</span>
               </div>
             </div>
-            <div className="text-2xl font-bold text-slate-800 mb-1">
+            <div className="text-2xl font-bold text-neutral-800 mb-1">
               ¥{(stats.revenue.monthly / 10000).toFixed(1)}万
             </div>
-            <div className="text-sm text-slate-500">本月收入</div>
+            <div className="text-sm text-neutral-500">本月收入</div>
           </CardContent>
         </Card>
       </div>
@@ -297,9 +297,9 @@ export function MobileDashboard() {
         <CardContent className="pt-0">
           <div className="space-y-3">
             <Progress value={(stats.kpi.score / stats.kpi.target) * 100} className="h-3" />
-            <div className="flex justify-between text-sm text-slate-500">
+            <div className="flex justify-between text-sm text-neutral-500">
               <span>当前进度: {stats.kpi.score}%</span>
-              <span className="flex items-center text-green-600">
+              <span className="flex items-center text-success-600">
                 <ArrowUp className="w-3 h-3 mr-1" />
                 <span>+{stats.kpi.trend}%</span>
               </span>
@@ -331,14 +331,14 @@ export function MobileDashboard() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center space-x-2 mb-1">
-                      <p className="text-sm font-medium text-slate-800 truncate">{activity.title}</p>
+                      <p className="text-sm font-medium text-neutral-800 truncate">{activity.title}</p>
                       {activity.priority && (
                         <div className={`w-2 h-2 rounded-full ${getPriorityColor(activity.priority)}`} />
                       )}
                     </div>
-                    <p className="text-xs text-slate-500 mb-1">{activity.description}</p>
+                    <p className="text-xs text-neutral-500 mb-1">{activity.description}</p>
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-slate-400">{activity.time}</span>
+                      <span className="text-xs text-neutral-400">{activity.time}</span>
                       {activity.status && (
                         <Badge variant={activity.status === 'completed' ? 'default' : 'secondary'} className="text-xs">
                           {activity.status === 'completed'
@@ -374,11 +374,11 @@ export function MobileDashboard() {
               { time: '14:00', title: '客户需求评审', type: '评审' },
               { time: '16:30', title: '项目进度汇报', type: '汇报' },
             ].map((schedule, index) => (
-              <div key={index} className="flex items-center space-x-3 p-3 bg-slate-50 rounded-lg">
-                <div className="text-sm font-medium text-sky-600 w-12">{schedule.time}</div>
+              <div key={index} className="flex items-center space-x-3 p-3 bg-neutral-50 rounded-lg">
+                <div className="text-sm font-medium text-primary-600 w-12">{schedule.time}</div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-slate-800">{schedule.title}</p>
-                  <p className="text-xs text-slate-500">{schedule.type}</p>
+                  <p className="text-sm font-medium text-neutral-800">{schedule.title}</p>
+                  <p className="text-xs text-neutral-500">{schedule.type}</p>
                 </div>
                 <Badge variant="outline" className="text-xs">
                   即将开始

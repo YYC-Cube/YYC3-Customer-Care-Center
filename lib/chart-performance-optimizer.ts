@@ -31,6 +31,10 @@ class ChartPerformanceOptimizer {
       compressionLevel: 0.8,
       ...config,
     };
+
+    this.throttledUpdate = this.throttle((callback: () => void) => {
+      callback();
+    }, this.config.updateThrottle);
   }
 
   // 数据优化
@@ -161,7 +165,7 @@ class ChartPerformanceOptimizer {
   private compressBarData(data: any[]): any[] {
     // 对于柱图，主要是合并相似的数据点
     const threshold = this.config.compressionLevel * 0.1;
-    const compressed = [];
+    const compressed: any[] = [];
 
     for (const item of data) {
       const similar = compressed.find((comp) => this.isSimilarBarData(comp, item, threshold));
@@ -224,7 +228,7 @@ class ChartPerformanceOptimizer {
     // 限制缓存大小
     if (this.cache.size > 100) {
       const oldestKey = this.cache.keys().next().value;
-      this.cache.delete(oldestKey);
+      if (oldestKey !== undefined) this.cache.delete(oldestKey);
     }
   }
 
@@ -254,10 +258,8 @@ class ChartPerformanceOptimizer {
     }
   }
 
-  // 节流更新
-  throttledUpdate = this.throttle((callback: () => void) => {
-    callback();
-  }, this.config.updateThrottle);
+  // 节流更新（在构造函数内初始化，避免类字段初始化早于 config 赋值）
+  private throttledUpdate: (callback: () => void) => void = () => {};
 
   private throttle(func: Function, delay: number) {
     let timeoutId: NodeJS.Timeout | null = null;

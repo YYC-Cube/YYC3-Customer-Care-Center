@@ -63,57 +63,57 @@ export default function PaymentsPage() {
   const getStatusIcon = (status: string) => {
     switch (status) {
     case '已完成':
-      return <CheckCircle className="w-4 h-4 text-emerald-500" />;
+      return <CheckCircle className="w-4 h-4 text-success-500" />;
     case '处理中':
-      return <Clock className="w-4 h-4 text-orange-500" />;
+      return <Clock className="w-4 h-4 text-warning-500" />;
     case '失败':
-      return <XCircle className="w-4 h-4 text-red-500" />;
+      return <XCircle className="w-4 h-4 text-danger-500" />;
     default:
-      return <Clock className="w-4 h-4 text-gray-500" />;
+      return <Clock className="w-4 h-4 text-neutral-500" />;
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
     case '已完成':
-      return 'bg-emerald-100 text-emerald-700';
+      return 'bg-success-100 text-success-700';
     case '处理中':
-      return 'bg-orange-100 text-orange-700';
+      return 'bg-warning-100 text-warning-700';
     case '失败':
-      return 'bg-red-100 text-red-700';
+      return 'bg-danger-100 text-danger-700';
     default:
-      return 'bg-gray-100 text-gray-700';
+      return 'bg-neutral-100 text-neutral-700';
     }
   };
 
   return (
     <ResponsiveLayout showSidebar={true} showHeader={true}>
-      <div className="space-y-6 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 min-h-screen p-6">
+      <div className="space-y-6 bg-gradient-to-br from-success-50 via-success-50 to-success-50 min-h-screen p-6">
         {/* 页面标题 */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-              <CreditCard className="w-8 h-8 mr-3 text-emerald-600" />
+            <h1 className="text-3xl font-bold text-neutral-900 flex items-center">
+              <CreditCard className="w-8 h-8 mr-3 text-success-600" />
               支付管理
             </h1>
-            <p className="text-gray-600 mt-2">管理和跟踪所有支付交易</p>
+            <p className="text-neutral-600 mt-2">管理和跟踪所有支付交易</p>
           </div>
-          <Button className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+          <Button className="bg-gradient-to-r from-success-500 to-success-600 hover:from-success-600 hover:to-success-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
             <Plus className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             新建支付
           </Button>
         </div>
 
         {/* 搜索和筛选 */}
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center space-x-4">
               <div className="relative flex-1 max-w-md">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                <Input placeholder="搜索支付记录..." className="pl-10 border-l-4 border-l-emerald-500" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 h-4 w-4" />
+                <Input placeholder="搜索支付记录..." className="pl-10 border-l-4 border-l-success-500" />
               </div>
               <Select>
-                <SelectTrigger className="w-32 border-l-4 border-l-emerald-500">
+                <SelectTrigger className="w-32 border-l-4 border-l-success-500">
                   <Filter className="w-4 h-4 mr-2" />
                   <SelectValue placeholder="筛选" />
                 </SelectTrigger>
@@ -130,55 +130,55 @@ export default function PaymentsPage() {
 
         {/* 支付统计 */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">今日支付</CardTitle>
-              <CreditCard className="h-4 w-4 text-emerald-600" />
+              <CreditCard className="h-4 w-4 text-success-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-emerald-700">¥23,500</div>
-              <p className="text-xs text-gray-600">+12.5% 较昨日</p>
+              <div className="text-2xl font-bold text-success-700">¥23,500</div>
+              <p className="text-xs text-neutral-600">+12.5% 较昨日</p>
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">本月支付</CardTitle>
-              <DollarSign className="h-4 w-4 text-emerald-600" />
+              <DollarSign className="h-4 w-4 text-success-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-emerald-700">¥456,700</div>
-              <p className="text-xs text-gray-600">+8.2% 较上月</p>
+              <div className="text-2xl font-bold text-success-700">¥456,700</div>
+              <p className="text-xs text-neutral-600">+8.2% 较上月</p>
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">待处理</CardTitle>
-              <Clock className="h-4 w-4 text-orange-600" />
+              <Clock className="h-4 w-4 text-warning-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-orange-700">3</div>
-              <p className="text-xs text-gray-600">笔支付待处理</p>
+              <div className="text-2xl font-bold text-warning-700">3</div>
+              <p className="text-xs text-neutral-600">笔支付待处理</p>
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">成功率</CardTitle>
-              <CheckCircle className="h-4 w-4 text-green-600" />
+              <CheckCircle className="h-4 w-4 text-success-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-700">98.5%</div>
-              <p className="text-xs text-gray-600">支付成功率</p>
+              <div className="text-2xl font-bold text-success-700">98.5%</div>
+              <p className="text-xs text-neutral-600">支付成功率</p>
             </CardContent>
           </Card>
         </div>
 
         {/* 支付记录 */}
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader>
-            <CardTitle className="text-emerald-700">支付记录</CardTitle>
+            <CardTitle className="text-success-700">支付记录</CardTitle>
             <CardDescription>最近的支付交易记录</CardDescription>
           </CardHeader>
           <CardContent>
@@ -186,14 +186,14 @@ export default function PaymentsPage() {
               {payments.map((payment) => (
                 <div
                   key={payment.id}
-                  className="flex items-center justify-between p-4 border-l-4 border-l-emerald-500 bg-emerald-50 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105"
+                  className="flex items-center justify-between p-4 border-l-4 border-l-success-500 bg-success-50 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105"
                 >
                   <div className="flex items-center space-x-4">
                     <div className="flex items-center space-x-2">
                       {getStatusIcon(payment.status)}
                       <div>
                         <p className="font-medium">{payment.recipient}</p>
-                        <p className="text-sm text-gray-500">{payment.description}</p>
+                        <p className="text-sm text-neutral-500">{payment.description}</p>
                       </div>
                     </div>
                   </div>
@@ -201,14 +201,14 @@ export default function PaymentsPage() {
                   <div className="flex items-center space-x-4">
                     <div className="text-right">
                       <p className="font-semibold">¥{payment.amount.toLocaleString()}</p>
-                      <p className="text-sm text-gray-500">{payment.method}</p>
+                      <p className="text-sm text-neutral-500">{payment.method}</p>
                     </div>
                     <Badge className={getStatusColor(payment.status)}>{payment.status}</Badge>
-                    <div className="text-sm text-gray-500">{payment.date}</div>
+                    <div className="text-sm text-neutral-500">{payment.date}</div>
                     <Button
                       variant="outline"
                       size="sm"
-                      className="border-l-4 border-l-emerald-500 transition-all duration-300 hover:scale-105 group bg-transparent"
+                      className="border-l-4 border-l-success-500 transition-all duration-300 hover:scale-105 group bg-transparent"
                     >
                       查看
                     </Button>

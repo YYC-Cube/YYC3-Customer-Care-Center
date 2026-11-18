@@ -165,13 +165,13 @@ export function PermissionManagement() {
   const getStatusColor = (status: string) => {
     switch (status) {
     case 'active':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'inactive':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     case 'pending':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-warning-100 text-warning-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -204,7 +204,7 @@ export function PermissionManagement() {
             <DialogTrigger asChild>
               <Button
                 variant="outline"
-                className="bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white border-0"
+                className="bg-gradient-to-r from-primary-400 to-primary-500 hover:from-primary-500 hover:to-primary-600 text-white border-0"
               >
                 <UserPlus className="w-4 h-4 mr-2" />
                 添加用户
@@ -259,7 +259,7 @@ export function PermissionManagement() {
                   </Button>
                   <Button
                     onClick={() => setIsCreateUserDialogOpen(false)}
-                    className="bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white"
+                    className="bg-gradient-to-r from-primary-400 to-primary-500 hover:from-primary-500 hover:to-primary-600 text-white"
                   >
                     创建用户
                   </Button>
@@ -269,7 +269,7 @@ export function PermissionManagement() {
           </Dialog>
           <Dialog open={isCreateRoleDialogOpen} onOpenChange={setIsCreateRoleDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white">
+              <Button className="bg-gradient-to-r from-primary-400 to-primary-500 hover:from-primary-500 hover:to-primary-600 text-white">
                 <Shield className="w-4 h-4 mr-2" />
                 创建角色
               </Button>
@@ -294,7 +294,7 @@ export function PermissionManagement() {
                     {['系统', '业务', '报表', '数据'].map((category) => (
                       <div
                         key={category}
-                        className="border border-sky-200 rounded-xl p-4 bg-white/80 backdrop-blur-sm shadow-sm"
+                        className="border border-primary-200 rounded-xl p-4 bg-white/80 backdrop-blur-sm shadow-sm"
                       >
                         <h4 className="font-medium mb-3">{category}权限</h4>
                         <div className="grid grid-cols-2 gap-3">
@@ -317,7 +317,7 @@ export function PermissionManagement() {
                   </Button>
                   <Button
                     onClick={() => setIsCreateRoleDialogOpen(false)}
-                    className="bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white"
+                    className="bg-gradient-to-r from-primary-400 to-primary-500 hover:from-primary-500 hover:to-primary-600 text-white"
                   >
                     创建角色
                   </Button>
@@ -330,7 +330,7 @@ export function PermissionManagement() {
 
       {/* 权限统计 */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">总用户数</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
@@ -341,7 +341,7 @@ export function PermissionManagement() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">角色数量</CardTitle>
             <Shield className="h-4 w-4 text-muted-foreground" />
@@ -352,7 +352,7 @@ export function PermissionManagement() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">权限数量</CardTitle>
             <Key className="h-4 w-4 text-muted-foreground" />
@@ -363,7 +363,7 @@ export function PermissionManagement() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">待处理</CardTitle>
             <Lock className="h-4 w-4 text-muted-foreground" />
@@ -384,7 +384,7 @@ export function PermissionManagement() {
         </TabsList>
 
         <TabsContent value="users" className="space-y-4">
-          <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+          <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
             <CardHeader>
               <CardTitle>用户列表</CardTitle>
               <CardDescription>管理系统用户账户和权限</CardDescription>
@@ -394,12 +394,12 @@ export function PermissionManagement() {
                 {users.map((user) => (
                   <div
                     key={user.id}
-                    className="border border-sky-200 rounded-xl p-4 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200"
+                    className="border border-primary-200 rounded-xl p-4 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200"
                   >
                     <div className="flex justify-between items-start">
                       <div className="flex items-start space-x-4">
-                        <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                          <span className="text-blue-600 font-medium">{user.name.charAt(0)}</span>
+                        <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                          <span className="text-primary-600 font-medium">{user.name.charAt(0)}</span>
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center space-x-2 mb-1">
@@ -449,7 +449,7 @@ export function PermissionManagement() {
         </TabsContent>
 
         <TabsContent value="roles" className="space-y-4">
-          <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+          <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
             <CardHeader>
               <CardTitle>角色管理</CardTitle>
               <CardDescription>管理用户角色和权限分配</CardDescription>
@@ -459,7 +459,7 @@ export function PermissionManagement() {
                 {roles.map((role) => (
                   <Card
                     key={role.id}
-                    className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
+                    className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
                   >
                     <CardHeader>
                       <div className="flex justify-between items-start">
@@ -507,7 +507,7 @@ export function PermissionManagement() {
         </TabsContent>
 
         <TabsContent value="permissions" className="space-y-4">
-          <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+          <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
             <CardHeader>
               <CardTitle>权限管理</CardTitle>
               <CardDescription>系统权限定义和分类管理</CardDescription>
@@ -521,7 +521,7 @@ export function PermissionManagement() {
                       {getPermissionsByCategory(category).map((permission) => (
                         <div
                           key={permission.id}
-                          className="border border-sky-200 rounded-xl p-3 bg-white/80 backdrop-blur-sm shadow-sm"
+                          className="border border-primary-200 rounded-xl p-3 bg-white/80 backdrop-blur-sm shadow-sm"
                         >
                           <div className="flex justify-between items-start">
                             <div>

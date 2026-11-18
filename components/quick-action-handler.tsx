@@ -265,7 +265,7 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
         <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="flex items-center">
-              <Calendar className="w-5 h-5 mr-2 text-sky-600" />
+              <Calendar className="w-5 h-5 mr-2 text-primary-600" />
               创建日程安排
             </DialogTitle>
           </DialogHeader>
@@ -394,7 +394,7 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
               <X className="w-4 h-4 mr-2" />
               取消
             </Button>
-            <Button onClick={handleSaveSchedule} className="bg-sky-600 hover:bg-sky-700">
+            <Button onClick={handleSaveSchedule} className="bg-primary-600 hover:bg-primary-700">
               <Save className="w-4 h-4 mr-2" />
               创建日程
             </Button>
@@ -407,7 +407,7 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
         <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="flex items-center">
-              <User className="w-5 h-5 mr-2 text-sky-600" />
+              <User className="w-5 h-5 mr-2 text-primary-600" />
               个人资料设置
             </DialogTitle>
           </DialogHeader>
@@ -422,14 +422,14 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
               />
               <div className="text-center">
                 <h3 className="text-lg font-semibold">{profileForm.username}</h3>
-                <p className="text-sm text-gray-500">{profileForm.position}</p>
-                <p className="text-xs text-gray-400">{profileForm.department}</p>
+                <p className="text-sm text-neutral-500">{profileForm.position}</p>
+                <p className="text-xs text-neutral-400">{profileForm.department}</p>
               </div>
             </div>
 
             {/* 基本信息 */}
             <div className="space-y-4">
-              <h4 className="text-sm font-medium text-gray-900">基本信息</h4>
+              <h4 className="text-sm font-medium text-neutral-900">基本信息</h4>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -543,7 +543,7 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
               <X className="w-4 h-4 mr-2" />
               取消
             </Button>
-            <Button onClick={handleSaveProfile} className="bg-sky-600 hover:bg-sky-700">
+            <Button onClick={handleSaveProfile} className="bg-primary-600 hover:bg-primary-700">
               <Save className="w-4 h-4 mr-2" />
               保存资料
             </Button>
@@ -556,7 +556,7 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
         <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="flex items-center">
-              <Settings className="w-5 h-5 mr-2 text-sky-600" />
+              <Settings className="w-5 h-5 mr-2 text-primary-600" />
               系统设置
             </DialogTitle>
           </DialogHeader>
@@ -571,7 +571,7 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
                 <label className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <span className="text-sm">桌面通知</span>
-                    <span className="text-xs text-gray-500">在浏览器中显示通知</span>
+                    <span className="text-xs text-neutral-500">在浏览器中显示通知</span>
                   </div>
                   <input
                     type="checkbox"
@@ -582,13 +582,13 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
                         notifications: { ...settingsForm.notifications, desktop: e.target.checked },
                       })
                     }
-                    className="rounded border-gray-300"
+                    className="rounded border-neutral-300"
                   />
                 </label>
                 <label className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <span className="text-sm">邮件通知</span>
-                    <span className="text-xs text-gray-500">发送邮件提醒</span>
+                    <span className="text-xs text-neutral-500">发送邮件提醒</span>
                   </div>
                   <input
                     type="checkbox"
@@ -599,13 +599,13 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
                         notifications: { ...settingsForm.notifications, email: e.target.checked },
                       })
                     }
-                    className="rounded border-gray-300"
+                    className="rounded border-neutral-300"
                   />
                 </label>
                 <label className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <span className="text-sm">短信通知</span>
-                    <span className="text-xs text-gray-500">发送短信提醒</span>
+                    <span className="text-xs text-neutral-500">发送短信提醒</span>
                   </div>
                   <input
                     type="checkbox"
@@ -616,13 +616,13 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
                         notifications: { ...settingsForm.notifications, sms: e.target.checked },
                       })
                     }
-                    className="rounded border-gray-300"
+                    className="rounded border-neutral-300"
                   />
                 </label>
                 <label className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <span className="text-sm">声音提醒</span>
-                    <span className="text-xs text-gray-500">播放提示音</span>
+                    <span className="text-xs text-neutral-500">播放提示音</span>
                   </div>
                   <input
                     type="checkbox"
@@ -633,7 +633,7 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
                         notifications: { ...settingsForm.notifications, sound: e.target.checked },
                       })
                     }
-                    className="rounded border-gray-300"
+                    className="rounded border-neutral-300"
                   />
                 </label>
               </div>
@@ -646,7 +646,7 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
                 <label className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <span className="text-sm">暗色模式</span>
-                    <span className="text-xs text-gray-500">使用深色主题</span>
+                    <span className="text-xs text-neutral-500">使用深色主题</span>
                   </div>
                   <input
                     type="checkbox"
@@ -657,13 +657,13 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
                         interface: { ...settingsForm.interface, darkMode: e.target.checked },
                       })
                     }
-                    className="rounded border-gray-300"
+                    className="rounded border-neutral-300"
                   />
                 </label>
                 <label className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <span className="text-sm">紧凑布局</span>
-                    <span className="text-xs text-gray-500">减少界面间距</span>
+                    <span className="text-xs text-neutral-500">减少界面间距</span>
                   </div>
                   <input
                     type="checkbox"
@@ -674,13 +674,13 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
                         interface: { ...settingsForm.interface, compactLayout: e.target.checked },
                       })
                     }
-                    className="rounded border-gray-300"
+                    className="rounded border-neutral-300"
                   />
                 </label>
                 <label className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <span className="text-sm">显示提示</span>
-                    <span className="text-xs text-gray-500">显示操作提示信息</span>
+                    <span className="text-xs text-neutral-500">显示操作提示信息</span>
                   </div>
                   <input
                     type="checkbox"
@@ -691,7 +691,7 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
                         interface: { ...settingsForm.interface, showTips: e.target.checked },
                       })
                     }
-                    className="rounded border-gray-300"
+                    className="rounded border-neutral-300"
                   />
                 </label>
               </div>
@@ -704,7 +704,7 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
                 <label className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <span className="text-sm">公开个人资料</span>
-                    <span className="text-xs text-gray-500">其他用户可查看</span>
+                    <span className="text-xs text-neutral-500">其他用户可查看</span>
                   </div>
                   <input
                     type="checkbox"
@@ -715,13 +715,13 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
                         privacy: { ...settingsForm.privacy, profileVisible: e.target.checked },
                       })
                     }
-                    className="rounded border-gray-300"
+                    className="rounded border-neutral-300"
                   />
                 </label>
                 <label className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <span className="text-sm">显示活动状态</span>
-                    <span className="text-xs text-gray-500">显示在线状态</span>
+                    <span className="text-xs text-neutral-500">显示在线状态</span>
                   </div>
                   <input
                     type="checkbox"
@@ -732,13 +732,13 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
                         privacy: { ...settingsForm.privacy, activityVisible: e.target.checked },
                       })
                     }
-                    className="rounded border-gray-300"
+                    className="rounded border-neutral-300"
                   />
                 </label>
                 <label className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <span className="text-sm">公开邮箱地址</span>
-                    <span className="text-xs text-gray-500">其他用户可查看邮箱</span>
+                    <span className="text-xs text-neutral-500">其他用户可查看邮箱</span>
                   </div>
                   <input
                     type="checkbox"
@@ -749,7 +749,7 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
                         privacy: { ...settingsForm.privacy, emailVisible: e.target.checked },
                       })
                     }
-                    className="rounded border-gray-300"
+                    className="rounded border-neutral-300"
                   />
                 </label>
               </div>
@@ -760,7 +760,7 @@ export function QuickActionHandler({ onActionComplete }: QuickActionHandlerProps
               <X className="w-4 h-4 mr-2" />
               取消
             </Button>
-            <Button onClick={handleSaveSettings} className="bg-sky-600 hover:bg-sky-700">
+            <Button onClick={handleSaveSettings} className="bg-primary-600 hover:bg-primary-700">
               <Save className="w-4 h-4 mr-2" />
               保存设置
             </Button>

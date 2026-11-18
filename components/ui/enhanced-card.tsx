@@ -2,12 +2,23 @@
 
 /**
  * @file enhanced-card.tsx
- * @description 增强卡片（title/description/footer 提升常用区块）——原模块缺失，本文件为恢复构建的兼容实现。
+ * @description 增强卡片（title/description/footer）——组件令牌 component.enhancedCard
+ * @module components.ui.enhanced-card
+ * @author YYC³ Team
+ * @version 2.0.0
+ * @created 2026-01-23
+ * @updated 2026-11-18
+ * @copyright Copyright (c) 2026 YYC³
+ * @license MIT
+ *
+ * 令牌来源：lib/design-tokens.ts → component.enhancedCard（default / glass / gradient）
+ * 禁止就地硬编码色值 / 圆角 / 阴影。
  */
 
 import { forwardRef } from 'react';
+import { cn } from '@/lib/utils';
 
-export interface EnhancedCardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface EnhancedCardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   title?: React.ReactNode;
   description?: React.ReactNode;
   footer?: React.ReactNode;
@@ -15,23 +26,30 @@ export interface EnhancedCardProps extends React.HTMLAttributes<HTMLDivElement> 
   variant?: 'default' | 'glass' | 'gradient';
 }
 
+/** 变体 → 令牌映射（对应 component.enhancedCard.variant） */
 const variantCls: Record<string, string> = {
   default: 'bg-card text-card-foreground shadow-sm',
-  glass: 'bg-white/10 backdrop-blur border border-white/20',
-  gradient: 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white border border-slate-700',
+  glass: 'bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-md',
+  gradient: 'bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 text-white border border-neutral-700 shadow-lg',
 };
 
 export const EnhancedCard = forwardRef<HTMLDivElement, EnhancedCardProps>(
-  ({ className = '', title, description, footer, bordered = true, variant = 'default', children, ...props }, ref) => {
+  ({ className, title, description, footer, bordered = true, variant = 'default', children, ...props }, ref) => {
+    const isDefault = variant === 'default';
     return (
       <div
         ref={ref}
-        className={`rounded-xl ${variantCls[variant] || variantCls.default} ${bordered && variant === 'default' ? 'border' : ''} ${className}`}
+        className={cn(
+          'rounded-xl',
+          variantCls[variant] || variantCls.default,
+          bordered && isDefault && 'border border-border',
+          className,
+        )}
         {...props}
       >
         {(title || description) && (
-          <div className="flex flex-col space-y-1.5 p-6">
-            {title ? <h3 className="font-semibold leading-none tracking-tight">{title}</h3> : null}
+          <div className="flex flex-col gap-2 p-6">
+            {title ? <h3 className="text-base font-semibold leading-6 tracking-tight">{title}</h3> : null}
             {description ? <p className="text-sm text-muted-foreground">{description}</p> : null}
           </div>
         )}

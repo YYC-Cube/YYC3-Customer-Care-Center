@@ -26,10 +26,10 @@ export default function InitializationLoading() {
       </div>
 
       {/* 总体进度卡片加载 */}
-      <Card className="bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 border-l-4 border-l-blue-500">
+      <Card className="bg-gradient-to-r from-primary-50 via-accent-50 to-accent-50 border-l-4 border-l-primary-500">
         <CardHeader>
           <div className="flex items-center space-x-2">
-            <Database className="w-5 h-5 text-blue-600" />
+            <Database className="w-5 h-5 text-primary-600" />
             <Skeleton className="h-5 w-32" />
           </div>
           <Skeleton className="h-4 w-48" />
@@ -41,9 +41,9 @@ export default function InitializationLoading() {
               <Skeleton className="h-3 w-24" />
               <Skeleton className="h-3 w-16" />
             </div>
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+            <div className="bg-primary-50 border border-primary-200 rounded-lg p-3">
               <div className="flex items-center space-x-2">
-                <RefreshCw className="w-4 h-4 text-blue-600 animate-spin" />
+                <RefreshCw className="w-4 h-4 text-primary-600 animate-spin" />
                 <Skeleton className="h-4 w-40" />
               </div>
             </div>
@@ -53,7 +53,7 @@ export default function InitializationLoading() {
 
       {/* 标签页加载 */}
       <div className="space-y-4">
-        <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg w-fit">
+        <div className="flex space-x-1 bg-neutral-100 p-1 rounded-lg w-fit">
           <Skeleton className="h-8 w-24" />
           <Skeleton className="h-8 w-24" />
           <Skeleton className="h-8 w-24" />
@@ -66,7 +66,7 @@ export default function InitializationLoading() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <div className="w-5 h-5 bg-gray-200 rounded-full animate-pulse" />
+                    <div className="w-5 h-5 bg-neutral-200 rounded-full animate-pulse" />
                     <div className="space-y-2">
                       <Skeleton className="h-5 w-48" />
                       <Skeleton className="h-4 w-64" />
@@ -124,13 +124,13 @@ export default function InitializationLoading() {
 
       {/* 加载提示 */}
       <div className="fixed bottom-4 right-4">
-        <Card className="bg-white shadow-lg border border-blue-200">
+        <Card className="bg-white shadow-lg border border-primary-200">
           <CardContent className="p-4">
             <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+              <div className="w-6 h-6 border-2 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
               <div className="space-y-1">
-                <p className="text-sm font-medium text-blue-900">系统初始化中</p>
-                <p className="text-xs text-blue-600">正在检查系统组件...</p>
+                <p className="text-sm font-medium text-primary-900">系统初始化中</p>
+                <p className="text-xs text-primary-600">正在检查系统组件...</p>
               </div>
             </div>
           </CardContent>

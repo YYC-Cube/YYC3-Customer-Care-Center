@@ -60,17 +60,46 @@ YYC³ Customer Care Center（YYC3-CCC）项目是一个基于「五高五标五�
 
 ### 3. 技术栈
 
-- Next.js 14.2.25
-- React 19
-- TypeScript 5
-- Tailwind CSS 4.1.9
+> 版本以 `package.json` 为准（2026-11-18 对齐）。
+
+- Next.js 16.4.6（Turbopack）
+- React 19.3.1
+- TypeScript 5.9.3
+- Tailwind CSS 3.4.19
 - shadcn/ui + Radix UI
-- Framer Motion 12.23.12
-- @splinetool/react-spline 4.1.0
-- @tsparticles/react 3.0.0
-- Vercel (部署平台)
+- Framer Motion 12.43.0
+- Recharts 2.15.4
+- Vitest 4.0.18
 
 ### 4. 组件设计文档
+
+#### 4.1 令牌引用（强制）
+
+组件的一切视觉参数必须来自
+[`lib/design-tokens.ts`](../../lib/design-tokens.ts)，使用方式见
+[055-设计令牌开发者规范](./055-YYC3-CCC-详细设计-设计令牌开发者规范.md)。
+
+组件令牌清单：`component.button`、`component.enhancedButton`、`component.enhancedCard`、
+`component.adaptiveSidebar`、`component.common`（card / input / dialog / badge / sidebar / header）。
+
+#### 4.2 组件编写约束
+
+1. 颜色：仅使用语义类名（`bg-primary`、`text-muted-foreground`、`border-border`）或在需要真实色值时引用 `colorRamp`；禁止调色板类名与内联 HEX。
+2. 尺寸：高度、内边距、圆角、阴影取自令牌，禁止魔法数字。
+3. 状态：`hover / active / focus-visible / disabled / loading` 五态齐备；数据组件补齐 `empty / error`。
+4. 变体：主/次/文本/危险按钮必须分别实现，危险色与成功色不得混用。
+5. 自定义组件：若无法映射到既有令牌，须先在 `design-tokens.ts` 中补充 `component.*`，再实现组件。
+
+#### 4.3 已令牌化组件
+
+| 组件 | 令牌 | 说明 |
+| ---- | ---- | ---- |
+| `components/ui/button.tsx` | `component.button` | 6 变体 × 4 尺寸，含 disabled |
+| `components/ui/enhanced-button.tsx` | `component.enhancedButton` | 增加 icon 槽与 loading 态 |
+| `components/ui/enhanced-card.tsx` | `component.enhancedCard` | default / glass / gradient |
+| `components/ui/card.tsx` | `component.common.card` | 圆角 12px、`shadow.sm` |
+| `components/layout/adaptive-sidebar.tsx` | `component.adaptiveSidebar` | 宽度 224/56px、遮罩令牌 |
+| `components/ui/sheet.tsx` | `component.common.badge` + `color.surface.overlay` | 触发器常驻、内容受控 |
 
 ---
 

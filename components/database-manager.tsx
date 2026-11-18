@@ -148,41 +148,41 @@ export function DatabaseManager() {
   const getTableIcon = (type: DatabaseTable['type']) => {
     switch (type) {
     case 'data':
-      return <Table className="w-4 h-4 text-blue-600" />;
+      return <Table className="w-4 h-4 text-primary-600" />;
     case 'log':
-      return <FileText className="w-4 h-4 text-green-600" />;
+      return <FileText className="w-4 h-4 text-success-600" />;
     case 'cache':
-      return <Zap className="w-4 h-4 text-yellow-600" />;
+      return <Zap className="w-4 h-4 text-warning-600" />;
     case 'config':
-      return <Settings className="w-4 h-4 text-purple-600" />;
+      return <Settings className="w-4 h-4 text-accent-600" />;
     default:
-      return <Table className="w-4 h-4 text-gray-600" />;
+      return <Table className="w-4 h-4 text-neutral-600" />;
     }
   };
 
   const getStatusIcon = (status: DatabaseTable['status']) => {
     switch (status) {
     case 'healthy':
-      return <CheckCircle className="w-4 h-4 text-green-600" />;
+      return <CheckCircle className="w-4 h-4 text-success-600" />;
     case 'warning':
-      return <AlertTriangle className="w-4 h-4 text-yellow-600" />;
+      return <AlertTriangle className="w-4 h-4 text-warning-600" />;
     case 'error':
-      return <AlertTriangle className="w-4 h-4 text-red-600" />;
+      return <AlertTriangle className="w-4 h-4 text-danger-600" />;
     default:
-      return <Clock className="w-4 h-4 text-gray-600" />;
+      return <Clock className="w-4 h-4 text-neutral-600" />;
     }
   };
 
   const getStatusColor = (status: DatabaseTable['status']) => {
     switch (status) {
     case 'healthy':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'warning':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-warning-100 text-warning-800';
     case 'error':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -277,12 +277,12 @@ export function DatabaseManager() {
         <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Database className="w-5 h-5 mr-2 text-blue-600" />
+              <Database className="w-5 h-5 mr-2 text-primary-600" />
               数据库大小
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">{dbStats.totalSize}</div>
+            <div className="text-2xl font-bold text-primary-600">{dbStats.totalSize}</div>
             <p className="text-sm text-muted-foreground">总存储空间</p>
           </CardContent>
         </Card>
@@ -290,12 +290,12 @@ export function DatabaseManager() {
         <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Table className="w-5 h-5 mr-2 text-green-600" />
+              <Table className="w-5 h-5 mr-2 text-success-600" />
               数据表数量
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">{dbStats.totalTables}</div>
+            <div className="text-2xl font-bold text-success-600">{dbStats.totalTables}</div>
             <p className="text-sm text-muted-foreground">活跃数据表</p>
           </CardContent>
         </Card>
@@ -303,12 +303,12 @@ export function DatabaseManager() {
         <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <BarChart3 className="w-5 h-5 mr-2 text-purple-600" />
+              <BarChart3 className="w-5 h-5 mr-2 text-accent-600" />
               总记录数
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-purple-600">{dbStats.totalRows.toLocaleString()}</div>
+            <div className="text-2xl font-bold text-accent-600">{dbStats.totalRows.toLocaleString()}</div>
             <p className="text-sm text-muted-foreground">数据记录总数</p>
           </CardContent>
         </Card>
@@ -316,12 +316,12 @@ export function DatabaseManager() {
         <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Users className="w-5 h-5 mr-2 text-orange-600" />
+              <Users className="w-5 h-5 mr-2 text-warning-600" />
               活跃连接
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-600">{dbStats.connections}</div>
+            <div className="text-2xl font-bold text-warning-600">{dbStats.connections}</div>
             <p className="text-sm text-muted-foreground">当前连接数</p>
           </CardContent>
         </Card>
@@ -343,7 +343,7 @@ export function DatabaseManager() {
             <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <Activity className="w-5 h-5 mr-2 text-green-600" />
+                  <Activity className="w-5 h-5 mr-2 text-success-600" />
                   系统状态
                 </CardTitle>
                 <CardDescription>数据库运行状态概览</CardDescription>
@@ -351,7 +351,7 @@ export function DatabaseManager() {
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-sm">运行时间</span>
-                  <Badge className="bg-green-100 text-green-800">{dbStats.uptime}</Badge>
+                  <Badge className="bg-success-100 text-success-800">{dbStats.uptime}</Badge>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm">数据库版本</span>
@@ -376,7 +376,7 @@ export function DatabaseManager() {
             <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <Clock className="w-5 h-5 mr-2 text-blue-600" />
+                  <Clock className="w-5 h-5 mr-2 text-primary-600" />
                   最近活动
                 </CardTitle>
                 <CardDescription>数据库最近的操作记录</CardDescription>
@@ -384,19 +384,19 @@ export function DatabaseManager() {
               <CardContent>
                 <div className="space-y-3">
                   {queryResults.slice(0, 5).map((result) => (
-                    <div key={result.id} className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50">
+                    <div key={result.id} className="flex items-center space-x-3 p-2 rounded-lg hover:bg-neutral-50">
                       <div
-                        className={`w-2 h-2 rounded-full ${result.status === 'success' ? 'bg-green-500' : 'bg-red-500'}`}
+                        className={`w-2 h-2 rounded-full ${result.status === 'success' ? 'bg-success-500' : 'bg-danger-500'}`}
                       ></div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium truncate">{result.query}</p>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-neutral-500">
                           {formatTime(result.timestamp)} • {result.duration}ms • {result.rows} 行
                         </p>
                       </div>
                     </div>
                   ))}
-                  {queryResults.length === 0 && <div className="text-center text-gray-500 py-4">暂无查询记录</div>}
+                  {queryResults.length === 0 && <div className="text-center text-neutral-500 py-4">暂无查询记录</div>}
                 </div>
               </CardContent>
             </Card>
@@ -409,14 +409,14 @@ export function DatabaseManager() {
               <div className="flex items-center justify-between">
                 <div>
                   <CardTitle className="flex items-center">
-                    <Table className="w-5 h-5 mr-2 text-blue-600" />
+                    <Table className="w-5 h-5 mr-2 text-primary-600" />
                     数据表管理
                   </CardTitle>
                   <CardDescription>查看和管理数据库表</CardDescription>
                 </div>
                 <div className="flex items-center space-x-2">
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-4 h-4" />
                     <Input
                       placeholder="搜索表名..."
                       value={searchTerm}
@@ -436,13 +436,13 @@ export function DatabaseManager() {
                 {filteredTables.map((table) => (
                   <div
                     key={table.name}
-                    className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50"
+                    className="flex items-center justify-between p-3 border rounded-lg hover:bg-neutral-50"
                   >
                     <div className="flex items-center space-x-3">
                       {getTableIcon(table.type)}
                       <div>
                         <h4 className="font-medium">{table.name}</h4>
-                        <div className="flex items-center space-x-4 text-sm text-gray-500">
+                        <div className="flex items-center space-x-4 text-sm text-neutral-500">
                           <span>{table.rows.toLocaleString()} 行</span>
                           <span>{table.size}</span>
                           <span>更新于 {formatTime(table.lastUpdated)}</span>
@@ -471,7 +471,7 @@ export function DatabaseManager() {
           <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Play className="w-5 h-5 mr-2 text-green-600" />
+                <Play className="w-5 h-5 mr-2 text-success-600" />
                 SQL 查询执行器
               </CardTitle>
               <CardDescription>执行 SQL 查询并查看结果</CardDescription>
@@ -506,7 +506,7 @@ export function DatabaseManager() {
           <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center">
-                <BarChart3 className="w-5 h-5 mr-2 text-purple-600" />
+                <BarChart3 className="w-5 h-5 mr-2 text-accent-600" />
                 查询结果
               </CardTitle>
               <CardDescription>最近的查询执行结果</CardDescription>
@@ -517,33 +517,33 @@ export function DatabaseManager() {
                   <div
                     key={result.id}
                     className={`p-4 rounded-lg border ${
-                      result.status === 'success' ? 'border-green-200 bg-green-50' : 'border-red-200 bg-red-50'
+                      result.status === 'success' ? 'border-success-200 bg-success-50' : 'border-danger-200 bg-danger-50'
                     }`}
                   >
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex items-center space-x-2">
                         {result.status === 'success' ? (
-                          <CheckCircle className="w-4 h-4 text-green-600" />
+                          <CheckCircle className="w-4 h-4 text-success-600" />
                         ) : (
-                          <AlertTriangle className="w-4 h-4 text-red-600" />
+                          <AlertTriangle className="w-4 h-4 text-danger-600" />
                         )}
                         <span className="text-sm font-medium">
                           {result.status === 'success' ? '查询成功' : '查询失败'}
                         </span>
                       </div>
-                      <span className="text-xs text-gray-500">{formatTime(result.timestamp)}</span>
+                      <span className="text-xs text-neutral-500">{formatTime(result.timestamp)}</span>
                     </div>
-                    <div className="bg-gray-900 text-gray-100 p-3 rounded font-mono text-sm mb-2">{result.query}</div>
+                    <div className="bg-neutral-900 text-neutral-100 p-3 rounded font-mono text-sm mb-2">{result.query}</div>
                     {result.status === 'success' ? (
-                      <div className="text-sm text-gray-600">
+                      <div className="text-sm text-neutral-600">
                         返回 {result.rows} 行，耗时 {result.duration}ms
                       </div>
                     ) : (
-                      <div className="text-sm text-red-600">{result.error}</div>
+                      <div className="text-sm text-danger-600">{result.error}</div>
                     )}
                   </div>
                 ))}
-                {queryResults.length === 0 && <div className="text-center text-gray-500 py-8">暂无查询结果</div>}
+                {queryResults.length === 0 && <div className="text-center text-neutral-500 py-8">暂无查询结果</div>}
               </div>
             </CardContent>
           </Card>
@@ -554,7 +554,7 @@ export function DatabaseManager() {
             <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <Activity className="w-5 h-5 mr-2 text-blue-600" />
+                  <Activity className="w-5 h-5 mr-2 text-primary-600" />
                   系统性能
                 </CardTitle>
                 <CardDescription>实时系统资源使用情况</CardDescription>
@@ -565,9 +565,9 @@ export function DatabaseManager() {
                     <span>CPU 使用率</span>
                     <span>{dbStats.performance.cpu}%</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="w-full bg-neutral-200 rounded-full h-2">
                     <div
-                      className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                      className="bg-primary-600 h-2 rounded-full transition-all duration-300"
                       style={{ width: `${dbStats.performance.cpu}%` }}
                     ></div>
                   </div>
@@ -577,9 +577,9 @@ export function DatabaseManager() {
                     <span>内存使用率</span>
                     <span>{dbStats.performance.memory}%</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="w-full bg-neutral-200 rounded-full h-2">
                     <div
-                      className="bg-green-600 h-2 rounded-full transition-all duration-300"
+                      className="bg-success-600 h-2 rounded-full transition-all duration-300"
                       style={{ width: `${dbStats.performance.memory}%` }}
                     ></div>
                   </div>
@@ -589,9 +589,9 @@ export function DatabaseManager() {
                     <span>磁盘使用率</span>
                     <span>{dbStats.performance.disk}%</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="w-full bg-neutral-200 rounded-full h-2">
                     <div
-                      className="bg-purple-600 h-2 rounded-full transition-all duration-300"
+                      className="bg-accent-600 h-2 rounded-full transition-all duration-300"
                       style={{ width: `${dbStats.performance.disk}%` }}
                     ></div>
                   </div>
@@ -602,30 +602,30 @@ export function DatabaseManager() {
             <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <BarChart3 className="w-5 h-5 mr-2 text-green-600" />
+                  <BarChart3 className="w-5 h-5 mr-2 text-success-600" />
                   查询统计
                 </CardTitle>
                 <CardDescription>数据库查询性能统计</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center p-3 bg-blue-50 rounded-lg">
-                    <div className="text-2xl font-bold text-blue-600">{dbStats.performance.queries}</div>
-                    <div className="text-sm text-gray-600">总查询数</div>
+                  <div className="text-center p-3 bg-primary-50 rounded-lg">
+                    <div className="text-2xl font-bold text-primary-600">{dbStats.performance.queries}</div>
+                    <div className="text-sm text-neutral-600">总查询数</div>
                   </div>
-                  <div className="text-center p-3 bg-green-50 rounded-lg">
-                    <div className="text-2xl font-bold text-green-600">
+                  <div className="text-center p-3 bg-success-50 rounded-lg">
+                    <div className="text-2xl font-bold text-success-600">
                       {Math.round(dbStats.performance.queries / 24)}
                     </div>
-                    <div className="text-sm text-gray-600">每小时查询</div>
+                    <div className="text-sm text-neutral-600">每小时查询</div>
                   </div>
-                  <div className="text-center p-3 bg-purple-50 rounded-lg">
-                    <div className="text-2xl font-bold text-purple-600">156ms</div>
-                    <div className="text-sm text-gray-600">平均响应时间</div>
+                  <div className="text-center p-3 bg-accent-50 rounded-lg">
+                    <div className="text-2xl font-bold text-accent-600">156ms</div>
+                    <div className="text-sm text-neutral-600">平均响应时间</div>
                   </div>
-                  <div className="text-center p-3 bg-orange-50 rounded-lg">
-                    <div className="text-2xl font-bold text-orange-600">99.2%</div>
-                    <div className="text-sm text-gray-600">成功率</div>
+                  <div className="text-center p-3 bg-warning-50 rounded-lg">
+                    <div className="text-2xl font-bold text-warning-600">99.2%</div>
+                    <div className="text-sm text-neutral-600">成功率</div>
                   </div>
                 </div>
               </CardContent>
@@ -637,50 +637,50 @@ export function DatabaseManager() {
           <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Settings className="w-5 h-5 mr-2 text-purple-600" />
+                <Settings className="w-5 h-5 mr-2 text-accent-600" />
                 数据库维护
               </CardTitle>
               <CardDescription>数据库备份、恢复和优化操作</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <Button className="h-auto p-4 flex flex-col items-center space-y-2 bg-gradient-to-r from-blue-500 to-indigo-600">
+                <Button className="h-auto p-4 flex flex-col items-center space-y-2 bg-gradient-to-r from-primary-500 to-primary-600">
                   <Download className="w-6 h-6" />
                   <span className="text-sm">创建备份</span>
                 </Button>
                 <Button
                   variant="outline"
-                  className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-green-50 bg-transparent"
+                  className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-success-50 bg-transparent"
                 >
-                  <Upload className="w-6 h-6 text-green-600" />
+                  <Upload className="w-6 h-6 text-success-600" />
                   <span className="text-sm">恢复备份</span>
                 </Button>
                 <Button
                   variant="outline"
-                  className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-purple-50 bg-transparent"
+                  className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-accent-50 bg-transparent"
                 >
-                  <Zap className="w-6 h-6 text-purple-600" />
+                  <Zap className="w-6 h-6 text-accent-600" />
                   <span className="text-sm">优化数据库</span>
                 </Button>
                 <Button
                   variant="outline"
-                  className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-orange-50 bg-transparent"
+                  className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-warning-50 bg-transparent"
                 >
-                  <RefreshCw className="w-6 h-6 text-orange-600" />
+                  <RefreshCw className="w-6 h-6 text-warning-600" />
                   <span className="text-sm">重建索引</span>
                 </Button>
                 <Button
                   variant="outline"
-                  className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-red-50 bg-transparent"
+                  className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-danger-50 bg-transparent"
                 >
-                  <Trash2 className="w-6 h-6 text-red-600" />
+                  <Trash2 className="w-6 h-6 text-danger-600" />
                   <span className="text-sm">清理日志</span>
                 </Button>
                 <Button
                   variant="outline"
-                  className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-gray-50 bg-transparent"
+                  className="h-auto p-4 flex flex-col items-center space-y-2 hover:bg-neutral-50 bg-transparent"
                 >
-                  <HardDrive className="w-6 h-6 text-gray-600" />
+                  <HardDrive className="w-6 h-6 text-neutral-600" />
                   <span className="text-sm">磁盘清理</span>
                 </Button>
               </div>
@@ -691,7 +691,7 @@ export function DatabaseManager() {
           <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Clock className="w-5 h-5 mr-2 text-blue-600" />
+                <Clock className="w-5 h-5 mr-2 text-primary-600" />
                 备份历史
               </CardTitle>
               <CardDescription>最近的数据库备份记录</CardDescription>
@@ -718,12 +718,12 @@ export function DatabaseManager() {
                     type: '手动备份',
                   },
                 ].map((backup, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
+                  <div key={index} className="flex items-center justify-between p-3 border rounded-lg hover:bg-neutral-50">
                     <div className="flex items-center space-x-3">
-                      <Database className="w-5 h-5 text-blue-600" />
+                      <Database className="w-5 h-5 text-primary-600" />
                       <div>
                         <h4 className="font-medium">{backup.name}</h4>
-                        <div className="flex items-center space-x-4 text-sm text-gray-500">
+                        <div className="flex items-center space-x-4 text-sm text-neutral-500">
                           <span>{backup.size}</span>
                           <span>{formatTime(backup.date)}</span>
                           <Badge variant="outline">{backup.type}</Badge>

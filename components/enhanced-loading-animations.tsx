@@ -48,10 +48,10 @@ export function EnhancedLoadingAnimation({
   };
 
   const colorClasses = {
-    blue: 'from-blue-400 to-blue-600',
-    green: 'from-green-400 to-green-600',
-    purple: 'from-purple-400 to-purple-600',
-    orange: 'from-orange-400 to-orange-600',
+    blue: 'from-primary-400 to-primary-600',
+    green: 'from-success-400 to-success-600',
+    purple: 'from-accent-400 to-accent-600',
+    orange: 'from-warning-400 to-warning-600',
   };
 
   const renderAnimation = () => {
@@ -118,7 +118,7 @@ export function EnhancedLoadingAnimation({
 
     case 'progress':
       return (
-        <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
+        <div className="w-32 h-2 bg-neutral-200 rounded-full overflow-hidden">
           <div
             className={`h-full bg-gradient-to-r ${colorClasses[color]} transition-all duration-300 ease-out`}
             style={{ width: `${progress}%` }}
@@ -138,8 +138,8 @@ export function EnhancedLoadingAnimation({
   return (
     <div className="flex flex-col items-center space-y-3">
       {renderAnimation()}
-      {text && <p className="text-sm text-gray-600 animate-pulse">{text}</p>}
-      {showProgress && <div className="text-xs text-gray-500">{progress.toFixed(0)}%</div>}
+      {text && <p className="text-sm text-neutral-600 animate-pulse">{text}</p>}
+      {showProgress && <div className="text-xs text-neutral-500">{progress.toFixed(0)}%</div>}
     </div>
   );
 }
@@ -162,24 +162,24 @@ export function SmartLoadingTips({ currentStep, totalSteps }: { currentStep: num
   }, [currentStep]);
 
   return (
-    <Card className="mt-4 border-blue-100 bg-blue-50">
+    <Card className="mt-4 border-primary-100 bg-primary-50">
       <CardContent className="p-4">
         <div className="flex items-start space-x-3">
-          <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-            <span className="text-blue-600 text-sm font-medium">{currentStep + 1}</span>
+          <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <span className="text-primary-600 text-sm font-medium">{currentStep + 1}</span>
           </div>
           <div className="flex-1">
-            <p className="text-sm text-blue-800 leading-relaxed">
+            <p className="text-sm text-primary-800 leading-relaxed">
               {tips[currentTip] || '系统正在进行最后的准备工作...'}
             </p>
             <div className="mt-2 flex items-center space-x-2">
-              <div className="flex-1 h-1 bg-blue-200 rounded-full overflow-hidden">
+              <div className="flex-1 h-1 bg-primary-200 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-blue-500 transition-all duration-500 ease-out"
+                  className="h-full bg-primary-500 transition-all duration-500 ease-out"
                   style={{ width: `${((currentStep + 1) / totalSteps) * 100}%` }}
                 ></div>
               </div>
-              <span className="text-xs text-blue-600 font-medium">
+              <span className="text-xs text-primary-600 font-medium">
                 {currentStep + 1}/{totalSteps}
               </span>
             </div>
@@ -204,26 +204,26 @@ export function SystemStatusIndicator({
     initializing: {
       color: 'blue',
       icon: '🔄',
-      bgColor: 'bg-blue-50 border-blue-200',
-      textColor: 'text-blue-800',
+      bgColor: 'bg-primary-50 border-primary-200',
+      textColor: 'text-primary-800',
     },
     ready: {
       color: 'green',
       icon: '✅',
-      bgColor: 'bg-green-50 border-green-200',
-      textColor: 'text-green-800',
+      bgColor: 'bg-success-50 border-success-200',
+      textColor: 'text-success-800',
     },
     error: {
       color: 'red',
       icon: '❌',
-      bgColor: 'bg-red-50 border-red-200',
-      textColor: 'text-red-800',
+      bgColor: 'bg-danger-50 border-danger-200',
+      textColor: 'text-danger-800',
     },
     offline: {
       color: 'orange',
       icon: '📱',
-      bgColor: 'bg-orange-50 border-orange-200',
-      textColor: 'text-orange-800',
+      bgColor: 'bg-warning-50 border-warning-200',
+      textColor: 'text-warning-800',
     },
   };
 

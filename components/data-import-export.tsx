@@ -158,11 +158,11 @@ export function DataImportExport({ type, onImport, onExport }: ImportExportProps
           <EnhancedCard title={`导入${typeLabels[type]}`} description="支持Excel和CSV格式文件导入">
             <div className="space-y-4">
               {/* 文件选择 */}
-              <div className="border-2 border-dashed border-sky-200 rounded-lg p-6 text-center hover:border-sky-300 transition-colors">
-                <Upload className="w-12 h-12 text-sky-400 mx-auto mb-4" />
+              <div className="border-2 border-dashed border-primary-200 rounded-lg p-6 text-center hover:border-primary-300 transition-colors">
+                <Upload className="w-12 h-12 text-primary-400 mx-auto mb-4" />
                 <div className="space-y-2">
-                  <p className="text-lg font-medium text-slate-800">选择要导入的文件</p>
-                  <p className="text-sm text-slate-600">支持 .xlsx, .csv 格式，最大 10MB</p>
+                  <p className="text-lg font-medium text-neutral-800">选择要导入的文件</p>
+                  <p className="text-sm text-neutral-600">支持 .xlsx, .csv 格式，最大 10MB</p>
                   <Input
                     type="file"
                     accept=".xlsx,.csv"
@@ -173,12 +173,12 @@ export function DataImportExport({ type, onImport, onExport }: ImportExportProps
               </div>
 
               {selectedFile && (
-                <div className="flex items-center justify-between p-4 bg-sky-50 rounded-lg border border-sky-200">
+                <div className="flex items-center justify-between p-4 bg-primary-50 rounded-lg border border-primary-200">
                   <div className="flex items-center space-x-3">
-                    <FileSpreadsheet className="w-8 h-8 text-sky-500" />
+                    <FileSpreadsheet className="w-8 h-8 text-primary-500" />
                     <div>
-                      <p className="font-medium text-slate-800">{selectedFile.name}</p>
-                      <p className="text-sm text-slate-600">{(selectedFile.size / 1024 / 1024).toFixed(2)} MB</p>
+                      <p className="font-medium text-neutral-800">{selectedFile.name}</p>
+                      <p className="text-sm text-neutral-600">{(selectedFile.size / 1024 / 1024).toFixed(2)} MB</p>
                     </div>
                   </div>
                   <EnhancedButton onClick={handleImport} disabled={isImporting} icon={isImporting ? Clock : Upload}>
@@ -191,8 +191,8 @@ export function DataImportExport({ type, onImport, onExport }: ImportExportProps
               {isImporting && (
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-slate-700">导入进度</span>
-                    <span className="text-sm text-slate-600">{importProgress}%</span>
+                    <span className="text-sm font-medium text-neutral-700">导入进度</span>
+                    <span className="text-sm text-neutral-600">{importProgress}%</span>
                   </div>
                   <Progress value={importProgress} className="h-2" />
                 </div>
@@ -202,39 +202,39 @@ export function DataImportExport({ type, onImport, onExport }: ImportExportProps
               {importResults && (
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className="text-center p-4 bg-slate-50 rounded-lg">
-                      <Database className="w-8 h-8 text-slate-500 mx-auto mb-2" />
-                      <p className="text-2xl font-bold text-slate-800">{importResults.total}</p>
-                      <p className="text-sm text-slate-600">总记录数</p>
+                    <div className="text-center p-4 bg-neutral-50 rounded-lg">
+                      <Database className="w-8 h-8 text-neutral-500 mx-auto mb-2" />
+                      <p className="text-2xl font-bold text-neutral-800">{importResults.total}</p>
+                      <p className="text-sm text-neutral-600">总记录数</p>
                     </div>
-                    <div className="text-center p-4 bg-emerald-50 rounded-lg">
-                      <CheckCircle className="w-8 h-8 text-emerald-500 mx-auto mb-2" />
-                      <p className="text-2xl font-bold text-emerald-600">{importResults.success}</p>
-                      <p className="text-sm text-slate-600">成功导入</p>
+                    <div className="text-center p-4 bg-success-50 rounded-lg">
+                      <CheckCircle className="w-8 h-8 text-success-500 mx-auto mb-2" />
+                      <p className="text-2xl font-bold text-success-600">{importResults.success}</p>
+                      <p className="text-sm text-neutral-600">成功导入</p>
                     </div>
-                    <div className="text-center p-4 bg-red-50 rounded-lg">
-                      <AlertCircle className="w-8 h-8 text-red-500 mx-auto mb-2" />
-                      <p className="text-2xl font-bold text-red-600">{importResults.failed}</p>
-                      <p className="text-sm text-slate-600">导入失败</p>
+                    <div className="text-center p-4 bg-danger-50 rounded-lg">
+                      <AlertCircle className="w-8 h-8 text-danger-500 mx-auto mb-2" />
+                      <p className="text-2xl font-bold text-danger-600">{importResults.failed}</p>
+                      <p className="text-sm text-neutral-600">导入失败</p>
                     </div>
-                    <div className="text-center p-4 bg-yellow-50 rounded-lg">
-                      <AlertCircle className="w-8 h-8 text-yellow-500 mx-auto mb-2" />
-                      <p className="text-2xl font-bold text-yellow-600">{importResults.warnings}</p>
-                      <p className="text-sm text-slate-600">警告信息</p>
+                    <div className="text-center p-4 bg-warning-50 rounded-lg">
+                      <AlertCircle className="w-8 h-8 text-warning-500 mx-auto mb-2" />
+                      <p className="text-2xl font-bold text-warning-600">{importResults.warnings}</p>
+                      <p className="text-sm text-neutral-600">警告信息</p>
                     </div>
                   </div>
 
                   {importResults.errors.length > 0 && (
                     <div className="space-y-2">
-                      <h4 className="font-medium text-slate-800">错误详情</h4>
+                      <h4 className="font-medium text-neutral-800">错误详情</h4>
                       <div className="space-y-1 max-h-32 overflow-y-auto">
                         {importResults.errors.map((error: any, index: number) => (
                           <div
                             key={index}
-                            className="flex items-center space-x-2 text-sm p-2 bg-red-50 rounded border border-red-200"
+                            className="flex items-center space-x-2 text-sm p-2 bg-danger-50 rounded border border-danger-200"
                           >
                             <Badge variant="destructive">第{error.row}行</Badge>
-                            <span className="text-red-700">{error.message}</span>
+                            <span className="text-danger-700">{error.message}</span>
                           </div>
                         ))}
                       </div>
@@ -251,7 +251,7 @@ export function DataImportExport({ type, onImport, onExport }: ImportExportProps
             <div className="space-y-6">
               {/* 导出格式选择 */}
               <div className="space-y-3">
-                <h4 className="font-medium text-slate-800">导出格式</h4>
+                <h4 className="font-medium text-neutral-800">导出格式</h4>
                 <div className="grid grid-cols-2 gap-3">
                   {supportedFormats.map((format) => {
                     const Icon = format.icon;
@@ -260,18 +260,18 @@ export function DataImportExport({ type, onImport, onExport }: ImportExportProps
                         key={format.value}
                         className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
                           exportFormat === format.value
-                            ? 'border-sky-500 bg-sky-50'
-                            : 'border-slate-200 hover:border-sky-300'
+                            ? 'border-primary-500 bg-primary-50'
+                            : 'border-neutral-200 hover:border-primary-300'
                         }`}
                         onClick={() => setExportFormat(format.value)}
                       >
                         <div className="flex items-center space-x-3">
                           <Icon
-                            className={`w-8 h-8 ${exportFormat === format.value ? 'text-sky-500' : 'text-slate-400'}`}
+                            className={`w-8 h-8 ${exportFormat === format.value ? 'text-primary-500' : 'text-neutral-400'}`}
                           />
                           <div>
-                            <p className="font-medium text-slate-800">{format.label}</p>
-                            <p className="text-sm text-slate-600">
+                            <p className="font-medium text-neutral-800">{format.label}</p>
+                            <p className="text-sm text-neutral-600">
                               {format.value === 'excel' ? '包含格式和公式' : '纯文本格式'}
                             </p>
                           </div>
@@ -284,10 +284,10 @@ export function DataImportExport({ type, onImport, onExport }: ImportExportProps
 
               {/* 导出筛选 */}
               <div className="space-y-3">
-                <h4 className="font-medium text-slate-800">筛选条件</h4>
+                <h4 className="font-medium text-neutral-800">筛选条件</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-slate-700">时间范围</label>
+                    <label className="text-sm font-medium text-neutral-700">时间范围</label>
                     <Select>
                       <SelectTrigger>
                         <SelectValue placeholder="选择时间范围" />
@@ -305,7 +305,7 @@ export function DataImportExport({ type, onImport, onExport }: ImportExportProps
 
                   {type === 'customer' && (
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-slate-700">客户等级</label>
+                      <label className="text-sm font-medium text-neutral-700">客户等级</label>
                       <Select>
                         <SelectTrigger>
                           <SelectValue placeholder="选择客户等级" />
@@ -323,7 +323,7 @@ export function DataImportExport({ type, onImport, onExport }: ImportExportProps
 
                   {type === 'task' && (
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-slate-700">任务状态</label>
+                      <label className="text-sm font-medium text-neutral-700">任务状态</label>
                       <Select>
                         <SelectTrigger>
                           <SelectValue placeholder="选择任务状态" />
@@ -342,8 +342,8 @@ export function DataImportExport({ type, onImport, onExport }: ImportExportProps
               </div>
 
               {/* 导出按钮 */}
-              <div className="flex items-center justify-between pt-4 border-t border-slate-200">
-                <div className="flex items-center space-x-2 text-sm text-slate-600">
+              <div className="flex items-center justify-between pt-4 border-t border-neutral-200">
+                <div className="flex items-center space-x-2 text-sm text-neutral-600">
                   <Settings className="w-4 h-4" />
                   <span>预计导出约 1,247 条记录</span>
                 </div>
@@ -351,7 +351,7 @@ export function DataImportExport({ type, onImport, onExport }: ImportExportProps
                   onClick={handleExport}
                   disabled={isExporting}
                   icon={isExporting ? Clock : Download}
-                  className="bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white"
+                  className="bg-gradient-to-r from-primary-400 to-primary-500 hover:from-primary-500 hover:to-primary-600 text-white"
                 >
                   {isExporting ? '导出中...' : '开始导出'}
                 </EnhancedButton>
@@ -361,8 +361,8 @@ export function DataImportExport({ type, onImport, onExport }: ImportExportProps
               {isExporting && (
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-slate-700">导出进度</span>
-                    <span className="text-sm text-slate-600">{exportProgress}%</span>
+                    <span className="text-sm font-medium text-neutral-700">导出进度</span>
+                    <span className="text-sm text-neutral-600">{exportProgress}%</span>
                   </div>
                   <Progress value={exportProgress} className="h-2" />
                 </div>

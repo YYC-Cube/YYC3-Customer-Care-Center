@@ -268,13 +268,13 @@ export function FileTransferSystem() {
   const getStatusIcon = (status: FileTransfer['status']) => {
     switch (status) {
     case 'completed':
-      return <CheckCircle className="w-4 h-4 text-green-600" />;
+      return <CheckCircle className="w-4 h-4 text-success-600" />;
     case 'failed':
-      return <XCircle className="w-4 h-4 text-red-600" />;
+      return <XCircle className="w-4 h-4 text-danger-600" />;
     case 'paused':
-      return <Pause className="w-4 h-4 text-yellow-600" />;
+      return <Pause className="w-4 h-4 text-warning-600" />;
     default:
-      return <Clock className="w-4 h-4 text-blue-600" />;
+      return <Clock className="w-4 h-4 text-primary-600" />;
     }
   };
 
@@ -282,13 +282,13 @@ export function FileTransferSystem() {
   const getStatusColor = (status: FileTransfer['status']) => {
     switch (status) {
     case 'completed':
-      return 'text-green-600';
+      return 'text-success-600';
     case 'failed':
-      return 'text-red-600';
+      return 'text-danger-600';
     case 'paused':
-      return 'text-yellow-600';
+      return 'text-warning-600';
     default:
-      return 'text-blue-600';
+      return 'text-primary-600';
     }
   };
 
@@ -320,7 +320,7 @@ export function FileTransferSystem() {
           </Button>
           <Dialog open={isUploadDialogOpen} onOpenChange={setIsUploadDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white">
+              <Button className="bg-gradient-to-r from-primary-400 to-primary-500 hover:from-primary-500 hover:to-primary-600 text-white">
                 <Upload className="w-4 h-4 mr-2" />
                 上传文件
               </Button>
@@ -338,50 +338,50 @@ export function FileTransferSystem() {
 
       {/* 传输统计 */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">活跃传输</CardTitle>
-            <Upload className="h-4 w-4 text-blue-600" />
+            <Upload className="h-4 w-4 text-primary-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-2xl font-bold text-primary-600">
               {transfers.filter((t) => t.status === 'uploading' || t.status === 'downloading').length}
             </div>
             <p className="text-xs text-muted-foreground">正在进行的传输</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">已完成</CardTitle>
-            <CheckCircle className="h-4 w-4 text-green-600" />
+            <CheckCircle className="h-4 w-4 text-success-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-2xl font-bold text-success-600">
               {transfers.filter((t) => t.status === 'completed').length}
             </div>
             <p className="text-xs text-muted-foreground">成功传输的文件</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">共享文件</CardTitle>
-            <Share2 className="h-4 w-4 text-purple-600" />
+            <Share2 className="h-4 w-4 text-accent-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-purple-600">{sharedFiles.length}</div>
+            <div className="text-2xl font-bold text-accent-600">{sharedFiles.length}</div>
             <p className="text-xs text-muted-foreground">可访问的共享文件</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">传输速度</CardTitle>
-            <Download className="h-4 w-4 text-orange-600" />
+            <Download className="h-4 w-4 text-warning-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-600">
+            <div className="text-2xl font-bold text-warning-600">
               {formatSpeed(
                 transfers.reduce(
                   (sum, t) => sum + (t.status === 'uploading' || t.status === 'downloading' ? t.speed : 0),
@@ -396,15 +396,15 @@ export function FileTransferSystem() {
 
       {/* 拖拽上传区域 */}
       <Card
-        className="bg-white/80 backdrop-blur-sm border-2 border-dashed border-sky-300 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
+        className="bg-white/80 backdrop-blur-sm border-2 border-dashed border-primary-300 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >
         <CardContent className="p-8">
           <div className="text-center">
-            <Upload className="w-16 h-16 text-sky-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">拖拽文件到此处上传</h3>
-            <p className="text-gray-500 mb-4">或者点击选择文件</p>
+            <Upload className="w-16 h-16 text-primary-400 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-neutral-900 mb-2">拖拽文件到此处上传</h3>
+            <p className="text-neutral-500 mb-4">或者点击选择文件</p>
             <Button variant="outline" onClick={() => fileInputRef.current?.click()}>
               选择文件
             </Button>
@@ -428,12 +428,12 @@ export function FileTransferSystem() {
 
         <TabsContent value="transfers" className="space-y-6">
           {/* 搜索和筛选 */}
-          <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm">
+          <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm">
             <CardContent className="p-4">
               <div className="flex flex-col md:flex-row gap-4">
                 <div className="flex-1">
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-4 h-4" />
                     <Input
                       placeholder="搜索文件名..."
                       value={searchQuery}
@@ -465,7 +465,7 @@ export function FileTransferSystem() {
             {filteredTransfers.map((transfer) => (
               <Card
                 key={transfer.id}
-                className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
+                className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
               >
                 <CardContent className="p-6">
                   <div className="flex items-center space-x-4">
@@ -562,10 +562,10 @@ export function FileTransferSystem() {
 
         <TabsContent value="shared" className="space-y-6">
           {/* 搜索栏 */}
-          <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm">
+          <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm">
             <CardContent className="p-4">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-4 h-4" />
                 <Input
                   placeholder="搜索共享文件..."
                   value={searchQuery}
@@ -581,7 +581,7 @@ export function FileTransferSystem() {
             {filteredSharedFiles.map((file) => (
               <Card
                 key={file.id}
-                className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
+                className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
               >
                 <CardHeader>
                   <div className="flex items-center justify-between">
@@ -592,7 +592,7 @@ export function FileTransferSystem() {
                         <CardDescription>{formatFileSize(file.fileSize)}</CardDescription>
                       </div>
                     </div>
-                    <Badge className={file.isPublic ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}>
+                    <Badge className={file.isPublic ? 'bg-success-100 text-success-800' : 'bg-primary-100 text-primary-800'}>
                       {file.isPublic ? '公开' : '私有'}
                     </Badge>
                   </div>
@@ -618,7 +618,7 @@ export function FileTransferSystem() {
                     )}
 
                     {file.expiryTime && (
-                      <div className="text-xs text-orange-600">过期时间: {file.expiryTime.toLocaleString('zh-CN')}</div>
+                      <div className="text-xs text-warning-600">过期时间: {file.expiryTime.toLocaleString('zh-CN')}</div>
                     )}
 
                     <div className="flex space-x-2">
@@ -641,7 +641,7 @@ export function FileTransferSystem() {
         </TabsContent>
 
         <TabsContent value="settings" className="space-y-6">
-          <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm">
+          <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm">
             <CardHeader>
               <CardTitle>传输设置</CardTitle>
               <CardDescription>配置文件传输和共享选项</CardDescription>

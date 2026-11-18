@@ -67,7 +67,7 @@ function ChartContainer({
         data-slot="chart"
         data-chart={chartId}
         className={cn(
-          '[&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke=\'#ccc\']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-polar-grid_[stroke=\'#ccc\']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke=\'#ccc\']]:stroke-border flex aspect-video justify-center text-xs [&_.recharts-dot[stroke=\'#fff\']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke=\'#fff\']]:stroke-transparent [&_.recharts-surface]:outline-hidden',
+          '[&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke="#ccc"]]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-polar-grid_[stroke="#ccc"]]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke="#ccc"]]:stroke-border flex aspect-video justify-center text-xs [&_.recharts-dot[stroke="#fff"]]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke="#fff"]]:stroke-transparent [&_.recharts-surface]:outline-hidden',
           className,
         )}
         {...props}
@@ -80,6 +80,12 @@ function ChartContainer({
     </ChartContext.Provider>
   );
 }
+
+/**
+ * 仅允许合法 CSS 颜色值与变量引用，阻断 `;` `}` 等注入字符，
+ * 避免通过图表配置将任意 CSS 注入 <style>（XSS via CSS）。
+ */
+const SAFE_COLOR = /^(#[0-9a-fA-F]{3,8}|hsl\([^)]*\)|hsla\([^)]*\)|rgb\([^)]*\)|rgba\([^)]*\)|var\(--[\w-]+\))$/;
 
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   const colorConfig = Object.entries(config).filter(
@@ -102,7 +108,10 @@ ${colorConfig
         const color =
       itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
       itemConfig.color;
-        return color ? `  --color-${key}: ${color};` : null;
+        const safeKey = key.replace(/[^\w-]/g, '');
+        return color && SAFE_COLOR.test(color.trim())
+          ? `  --color-${safeKey}: ${color.trim()};`
+          : null;
       })
       .join('\n')}
 }

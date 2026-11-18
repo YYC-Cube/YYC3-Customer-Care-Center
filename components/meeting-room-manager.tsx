@@ -313,21 +313,21 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
     return (
       <div className="flex items-center justify-center h-96">
         <div className="text-center">
-          <Video className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-600 mb-2">会议室未找到</h3>
-          <p className="text-gray-500">请检查会议室链接是否正确</p>
+          <Video className="w-16 h-16 text-neutral-300 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-neutral-600 mb-2">会议室未找到</h3>
+          <p className="text-neutral-500">请检查会议室链接是否正确</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="h-screen bg-gray-900 text-white flex flex-col">
+    <div className="h-screen bg-neutral-900 text-white flex flex-col">
       {/* 顶部工具栏 */}
-      <div className="bg-gray-800 p-4 flex items-center justify-between">
+      <div className="bg-neutral-800 p-4 flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <h1 className="text-lg font-medium">{currentRoom.title}</h1>
-          <Badge variant="secondary" className="bg-green-600">
+          <Badge variant="secondary" className="bg-success-600">
             <Clock className="w-3 h-3 mr-1" />
             {formatDuration(currentRoom.startTime)}
           </Badge>
@@ -376,7 +376,7 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
                 }`}
               >
                 {currentRoom.participants.map((participant) => (
-                  <div key={participant.id} className="relative bg-gray-800 rounded-lg overflow-hidden">
+                  <div key={participant.id} className="relative bg-neutral-800 rounded-lg overflow-hidden">
                     {participant.isVideoOn ? (
                       <video
                         ref={participant.id === currentUserId ? videoRef : undefined}
@@ -385,7 +385,7 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-gray-700">
+                      <div className="w-full h-full flex items-center justify-center bg-neutral-700">
                         <Avatar className="w-16 h-16">
                           <AvatarImage
                             src={
@@ -410,10 +410,10 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
                           )}
                         </div>
                         <div className="flex items-center space-x-1">
-                          {participant.isMuted && <MicOff className="w-4 h-4 text-red-400" />}
-                          {!participant.isVideoOn && <VideoOff className="w-4 h-4 text-red-400" />}
-                          {participant.isHandRaised && <Hand className="w-4 h-4 text-yellow-400" />}
-                          {participant.isScreenSharing && <Monitor className="w-4 h-4 text-blue-400" />}
+                          {participant.isMuted && <MicOff className="w-4 h-4 text-danger-400" />}
+                          {!participant.isVideoOn && <VideoOff className="w-4 h-4 text-danger-400" />}
+                          {participant.isHandRaised && <Hand className="w-4 h-4 text-warning-400" />}
+                          {participant.isScreenSharing && <Monitor className="w-4 h-4 text-primary-400" />}
                         </div>
                       </div>
                     </div>
@@ -422,10 +422,10 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
                     <div
                       className={`absolute top-2 right-2 w-3 h-3 rounded-full ${
                         participant.status === 'connected'
-                          ? 'bg-green-500'
+                          ? 'bg-success-500'
                           : participant.status === 'connecting'
-                            ? 'bg-yellow-500 animate-pulse'
-                            : 'bg-red-500'
+                            ? 'bg-warning-500 animate-pulse'
+                            : 'bg-danger-500'
                       }`}
                     />
                   </div>
@@ -464,9 +464,9 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
 
         {/* 右侧面板 */}
         {(showParticipants || showChat) && (
-          <div className="w-80 bg-gray-800 border-l border-gray-700">
+          <div className="w-80 bg-neutral-800 border-l border-neutral-700">
             {/* 面板切换 */}
-            <div className="flex border-b border-gray-700">
+            <div className="flex border-b border-neutral-700">
               <Button
                 variant={showParticipants ? 'default' : 'ghost'}
                 className="flex-1 rounded-none"
@@ -501,7 +501,7 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
               <ScrollArea className="h-full p-4">
                 <div className="space-y-3">
                   {currentRoom.participants.map((participant) => (
-                    <div key={participant.id} className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700">
+                    <div key={participant.id} className="flex items-center space-x-3 p-2 rounded-lg hover:bg-neutral-700">
                       <div className="relative">
                         <Avatar className="w-8 h-8">
                           <AvatarImage
@@ -513,12 +513,12 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
                           <AvatarFallback className="text-sm">{participant.name.charAt(0)}</AvatarFallback>
                         </Avatar>
                         <div
-                          className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-gray-800 ${
+                          className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-neutral-800 ${
                             participant.status === 'connected'
-                              ? 'bg-green-500'
+                              ? 'bg-success-500'
                               : participant.status === 'connecting'
-                                ? 'bg-yellow-500'
-                                : 'bg-red-500'
+                                ? 'bg-warning-500'
+                                : 'bg-danger-500'
                           }`}
                         />
                       </div>
@@ -532,7 +532,7 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
                             </Badge>
                           )}
                         </div>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-xs text-neutral-400">
                           {new Date(participant.joinTime).toLocaleTimeString('zh-CN', {
                             hour: '2-digit',
                             minute: '2-digit',
@@ -543,16 +543,16 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
 
                       <div className="flex items-center space-x-1">
                         {participant.isMuted ? (
-                          <MicOff className="w-4 h-4 text-red-400" />
+                          <MicOff className="w-4 h-4 text-danger-400" />
                         ) : (
-                          <Mic className="w-4 h-4 text-green-400" />
+                          <Mic className="w-4 h-4 text-success-400" />
                         )}
                         {participant.isVideoOn ? (
-                          <Video className="w-4 h-4 text-green-400" />
+                          <Video className="w-4 h-4 text-success-400" />
                         ) : (
-                          <VideoOff className="w-4 h-4 text-red-400" />
+                          <VideoOff className="w-4 h-4 text-danger-400" />
                         )}
-                        {participant.isHandRaised && <Hand className="w-4 h-4 text-yellow-400" />}
+                        {participant.isHandRaised && <Hand className="w-4 h-4 text-warning-400" />}
                         <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
                           <MoreHorizontal className="w-3 h-3" />
                         </Button>
@@ -572,27 +572,27 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
                       <div key={message.id} className="space-y-1">
                         <div className="flex items-center space-x-2">
                           <span className="text-sm font-medium">{message.sender}</span>
-                          <span className="text-xs text-gray-400">
+                          <span className="text-xs text-neutral-400">
                             {message.timestamp.toLocaleTimeString('zh-CN', {
                               hour: '2-digit',
                               minute: '2-digit',
                             })}
                           </span>
                         </div>
-                        <p className="text-sm text-gray-300 break-words">{message.message}</p>
+                        <p className="text-sm text-neutral-300 break-words">{message.message}</p>
                       </div>
                     ))}
                   </div>
                 </ScrollArea>
 
-                <div className="p-4 border-t border-gray-700">
+                <div className="p-4 border-t border-neutral-700">
                   <div className="flex space-x-2">
                     <Input
                       placeholder="输入消息..."
                       value={chatInput}
                       onChange={(e) => setChatInput(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && sendChatMessage()}
-                      className="bg-gray-700 border-gray-600"
+                      className="bg-neutral-700 border-neutral-600"
                     />
                     <Button onClick={sendChatMessage} size="sm">
                       发送
@@ -606,7 +606,7 @@ export function MeetingRoomManager({ currentUserId, roomId }: MeetingRoomManager
       </div>
 
       {/* 底部控制栏 */}
-      <div className="bg-gray-800 p-4">
+      <div className="bg-neutral-800 p-4">
         <div className="flex items-center justify-between">
           {/* 左侧控制 */}
           <div className="flex items-center space-x-4">

@@ -1,5 +1,4 @@
 import * as Sentry from '@sentry/nextjs';
-import { BrowserTracing } from '@sentry/tracing';
 
 /**
  * @file sentry.ts
@@ -21,10 +20,7 @@ Sentry.init({
   replaysOnErrorSampleRate: parseFloat(process.env.NEXT_PUBLIC_SENTRY_REPLAY_ON_ERROR_SAMPLE_RATE || '1.0'),
   
   integrations: [
-    new BrowserTracing({
-      tracingOrigins: ['localhost', 'api.yyc3.com', /^\//],
-    }),
-    new Sentry.Replay({
+    Sentry.replayIntegration({
       maskAllText: true,
       blockAllMedia: true,
     }),

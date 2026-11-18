@@ -28,17 +28,17 @@ export default function AnalysisLoading() {
       {/* 统计卡片加载状态 */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { icon: BarChart3, color: 'bg-blue-100' },
-          { icon: TrendingUp, color: 'bg-green-100' },
-          { icon: Users, color: 'bg-purple-100' },
-          { icon: DollarSign, color: 'bg-orange-100' },
+          { icon: BarChart3, color: 'bg-primary-100' },
+          { icon: TrendingUp, color: 'bg-success-100' },
+          { icon: Users, color: 'bg-accent-100' },
+          { icon: DollarSign, color: 'bg-warning-100' },
         ].map((item, index) => (
-          <Card key={index} className="border-l-4 border-l-gray-200">
+          <Card key={index} className="border-l-4 border-l-neutral-200">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <Skeleton className="h-4 w-20" />
                 <div className={`w-8 h-8 rounded-lg ${item.color} flex items-center justify-center`}>
-                  <item.icon className="w-4 h-4 text-gray-400" />
+                  <item.icon className="w-4 h-4 text-neutral-400" />
                 </div>
               </div>
             </CardHeader>
@@ -52,10 +52,10 @@ export default function AnalysisLoading() {
 
       {/* 图表区域加载状态 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm">
           <CardHeader>
             <div className="flex items-center space-x-2">
-              <Activity className="w-5 h-5 text-gray-400" />
+              <Activity className="w-5 h-5 text-neutral-400" />
               <Skeleton className="h-5 w-32" />
             </div>
             <Skeleton className="h-4 w-48" />
@@ -63,9 +63,9 @@ export default function AnalysisLoading() {
           <CardContent>
             <div className="space-y-4">
               {/* 模拟图表加载 */}
-              <div className="h-64 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg flex items-center justify-center">
+              <div className="h-64 bg-gradient-to-br from-neutral-50 to-neutral-100 rounded-lg flex items-center justify-center">
                 <div className="text-center space-y-2">
-                  <BarChart3 className="w-12 h-12 text-gray-300 mx-auto animate-pulse" />
+                  <BarChart3 className="w-12 h-12 text-neutral-300 mx-auto animate-pulse" />
                   <Skeleton className="h-4 w-24 mx-auto" />
                 </div>
               </div>
@@ -83,10 +83,10 @@ export default function AnalysisLoading() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm">
           <CardHeader>
             <div className="flex items-center space-x-2">
-              <Target className="w-5 h-5 text-gray-400" />
+              <Target className="w-5 h-5 text-neutral-400" />
               <Skeleton className="h-5 w-32" />
             </div>
             <Skeleton className="h-4 w-48" />
@@ -94,8 +94,8 @@ export default function AnalysisLoading() {
           <CardContent>
             <div className="space-y-4">
               {/* 环形图加载 */}
-              <div className="h-64 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg flex items-center justify-center">
-                <div className="w-32 h-32 border-8 border-gray-200 border-t-gray-400 rounded-full animate-spin"></div>
+              <div className="h-64 bg-gradient-to-br from-neutral-50 to-neutral-100 rounded-lg flex items-center justify-center">
+                <div className="w-32 h-32 border-8 border-neutral-200 border-t-neutral-400 rounded-full animate-spin"></div>
               </div>
 
               {/* 数据列表加载 */}
@@ -116,7 +116,7 @@ export default function AnalysisLoading() {
       </div>
 
       {/* 数据表格加载状态 */}
-      <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm">
+      <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="space-y-2">
@@ -132,7 +132,7 @@ export default function AnalysisLoading() {
         <CardContent>
           <div className="space-y-4">
             {/* 表格头部 */}
-            <div className="grid grid-cols-5 gap-4 pb-2 border-b border-gray-200">
+            <div className="grid grid-cols-5 gap-4 pb-2 border-b border-neutral-200">
               {[1, 2, 3, 4, 5].map((i) => (
                 <Skeleton key={i} className="h-4 w-full" />
               ))}
@@ -165,13 +165,13 @@ export default function AnalysisLoading() {
 
       {/* 加载提示 */}
       <div className="fixed bottom-4 right-4">
-        <Card className="bg-white shadow-lg border border-blue-200">
+        <Card className="bg-white shadow-lg border border-primary-200">
           <CardContent className="p-4">
             <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+              <div className="w-6 h-6 border-2 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
               <div className="space-y-1">
-                <p className="text-sm font-medium text-blue-900">正在加载分析数据</p>
-                <p className="text-xs text-blue-600">请稍候，正在处理大量数据...</p>
+                <p className="text-sm font-medium text-primary-900">正在加载分析数据</p>
+                <p className="text-xs text-primary-600">请稍候，正在处理大量数据...</p>
               </div>
             </div>
           </CardContent>

@@ -155,8 +155,8 @@ export function TimeTracker({ taskId, taskName, onTimeUpdate }: TimeTrackerProps
         <div className="text-center space-y-6">
           {/* 时间显示 */}
           <div className="space-y-2">
-            <div className="text-6xl font-mono font-bold text-slate-800 tracking-wider">{formatTime(currentTime)}</div>
-            <div className="flex items-center justify-center space-x-2 text-sm text-slate-600">
+            <div className="text-6xl font-mono font-bold text-neutral-800 tracking-wider">{formatTime(currentTime)}</div>
+            <div className="flex items-center justify-center space-x-2 text-sm text-neutral-600">
               <Clock className="w-4 h-4" />
               <span>当前计时</span>
             </div>
@@ -168,7 +168,7 @@ export function TimeTracker({ taskId, taskName, onTimeUpdate }: TimeTrackerProps
               <EnhancedButton
                 onClick={startTimer}
                 icon={Play}
-                className="bg-gradient-to-r from-emerald-400 to-emerald-500 hover:from-emerald-500 hover:to-emerald-600 text-white px-8 py-3 text-lg"
+                className="bg-gradient-to-r from-success-400 to-success-500 hover:from-success-500 hover:to-success-600 text-white px-8 py-3 text-lg"
               >
                 开始计时
               </EnhancedButton>
@@ -177,14 +177,14 @@ export function TimeTracker({ taskId, taskName, onTimeUpdate }: TimeTrackerProps
                 <EnhancedButton
                   onClick={pauseTimer}
                   icon={Pause}
-                  className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white px-6 py-3"
+                  className="bg-gradient-to-r from-warning-400 to-warning-500 hover:from-warning-500 hover:to-warning-600 text-white px-6 py-3"
                 >
                   暂停
                 </EnhancedButton>
                 <EnhancedButton
                   onClick={stopTimer}
                   icon={Square}
-                  className="bg-gradient-to-r from-red-400 to-red-500 hover:from-red-500 hover:to-red-600 text-white px-6 py-3"
+                  className="bg-gradient-to-r from-danger-400 to-danger-500 hover:from-danger-500 hover:to-danger-600 text-white px-6 py-3"
                 >
                   停止
                 </EnhancedButton>
@@ -193,20 +193,20 @@ export function TimeTracker({ taskId, taskName, onTimeUpdate }: TimeTrackerProps
           </div>
 
           {/* 总时间统计 */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-sky-100">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-primary-100">
             <div className="text-center">
-              <div className="text-2xl font-bold text-slate-800">{formatTime(totalTime)}</div>
-              <div className="text-sm text-slate-600">总计时间</div>
+              <div className="text-2xl font-bold text-neutral-800">{formatTime(totalTime)}</div>
+              <div className="text-sm text-neutral-600">总计时间</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-slate-800">{timeEntries.length}</div>
-              <div className="text-sm text-slate-600">时间记录</div>
+              <div className="text-2xl font-bold text-neutral-800">{timeEntries.length}</div>
+              <div className="text-sm text-neutral-600">时间记录</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-slate-800">
+              <div className="text-2xl font-bold text-neutral-800">
                 {timeEntries.length > 0 ? formatTime(Math.floor(totalTime / timeEntries.length)) : '00:00:00'}
               </div>
-              <div className="text-sm text-slate-600">平均时长</div>
+              <div className="text-sm text-neutral-600">平均时长</div>
             </div>
           </div>
         </div>
@@ -218,10 +218,10 @@ export function TimeTracker({ taskId, taskName, onTimeUpdate }: TimeTrackerProps
           {/* 操作按钮 */}
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <Badge variant="outline" className="bg-sky-50 text-sky-600 border-sky-200">
+              <Badge variant="outline" className="bg-primary-50 text-primary-600 border-primary-200">
                 共 {timeEntries.length} 条记录
               </Badge>
-              <Badge variant="outline" className="bg-emerald-50 text-emerald-600 border-emerald-200">
+              <Badge variant="outline" className="bg-success-50 text-success-600 border-success-200">
                 总时长 {formatTime(totalTime)}
               </Badge>
             </div>
@@ -292,8 +292,8 @@ export function TimeTracker({ taskId, taskName, onTimeUpdate }: TimeTrackerProps
           {/* 记录列表 */}
           <div className="space-y-2 max-h-64 overflow-y-auto">
             {timeEntries.length === 0 ? (
-              <div className="text-center py-8 text-slate-500">
-                <Timer className="w-12 h-12 mx-auto mb-4 text-slate-300" />
+              <div className="text-center py-8 text-neutral-500">
+                <Timer className="w-12 h-12 mx-auto mb-4 text-neutral-300" />
                 <p>暂无时间记录</p>
                 <p className="text-sm">开始计时或手动添加记录</p>
               </div>
@@ -301,21 +301,21 @@ export function TimeTracker({ taskId, taskName, onTimeUpdate }: TimeTrackerProps
               timeEntries.map((entry) => (
                 <div
                   key={entry.id}
-                  className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200 hover:bg-slate-100 transition-colors"
+                  className="flex items-center justify-between p-3 bg-neutral-50 rounded-lg border border-neutral-200 hover:bg-neutral-100 transition-colors"
                 >
                   <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-sky-500 rounded-full"></div>
+                    <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
                     <div>
                       <div className="flex items-center space-x-2">
-                        <span className="font-medium text-slate-800">{formatTime(entry.duration)}</span>
+                        <span className="font-medium text-neutral-800">{formatTime(entry.duration)}</span>
                         <Badge variant="outline" className="text-xs">
                           {entry.category}
                         </Badge>
                       </div>
-                      <div className="text-sm text-slate-600">
+                      <div className="text-sm text-neutral-600">
                         {entry.startTime.toLocaleString()} - {entry.endTime?.toLocaleString()}
                       </div>
-                      {entry.description && <div className="text-sm text-slate-500 mt-1">{entry.description}</div>}
+                      {entry.description && <div className="text-sm text-neutral-500 mt-1">{entry.description}</div>}
                     </div>
                   </div>
 
@@ -324,7 +324,7 @@ export function TimeTracker({ taskId, taskName, onTimeUpdate }: TimeTrackerProps
                       variant="ghost"
                       size="sm"
                       onClick={() => deleteEntry(entry.id)}
-                      className="text-red-500 hover:text-red-600 hover:bg-red-50"
+                      className="text-danger-500 hover:text-danger-600 hover:bg-danger-50"
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>

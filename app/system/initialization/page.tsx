@@ -205,37 +205,37 @@ export default function SystemInitializationPage() {
     case 'active':
     case 'running':
     case 'configured':
-      return 'text-green-600 bg-green-100';
+      return 'text-success-600 bg-success-100';
     case 'error':
-      return 'text-red-600 bg-red-100';
+      return 'text-danger-600 bg-danger-100';
     default:
-      return 'text-yellow-600 bg-yellow-100';
+      return 'text-warning-600 bg-warning-100';
     }
   };
 
   const getStatusIcon = (status: InitStep['status']) => {
     switch (status) {
     case 'completed':
-      return <CheckCircle className="h-5 w-5 text-green-600" />;
+      return <CheckCircle className="h-5 w-5 text-success-600" />;
     case 'running':
-      return <Clock className="h-5 w-5 text-blue-600 animate-spin" />;
+      return <Clock className="h-5 w-5 text-primary-600 animate-spin" />;
     case 'error':
-      return <AlertCircle className="h-5 w-5 text-red-600" />;
+      return <AlertCircle className="h-5 w-5 text-danger-600" />;
     default:
-      return <Clock className="h-5 w-5 text-gray-400" />;
+      return <Clock className="h-5 w-5 text-neutral-400" />;
     }
   };
 
   return (
-    <div className="p-6 space-y-6 bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gradient-to-br from-neutral-50 to-primary-50 min-h-screen">
       {/* 页面标题 */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">系统初始化控制台</h1>
-          <p className="text-gray-600 mt-1">管理和监控系统初始化过程</p>
+          <h1 className="text-3xl font-bold text-neutral-900">系统初始化控制台</h1>
+          <p className="text-neutral-600 mt-1">管理和监控系统初始化过程</p>
         </div>
         <div className="flex space-x-3">
-          <Button onClick={simulateInitialization} disabled={isInitializing} className="bg-blue-600 hover:bg-blue-700">
+          <Button onClick={simulateInitialization} disabled={isInitializing} className="bg-primary-600 hover:bg-primary-700">
             <Play className="w-4 h-4 mr-2" />
             {isInitializing ? '初始化中...' : '开始初始化'}
           </Button>
@@ -252,12 +252,12 @@ export default function SystemInitializationPage() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">数据库</p>
+                <p className="text-sm font-medium text-neutral-600">数据库</p>
                 <Badge className={getStatusColor(systemStatus.database)}>
                   {systemStatus.database === 'connected' ? '已连接' : '未连接'}
                 </Badge>
               </div>
-              <Database className="h-8 w-8 text-blue-600" />
+              <Database className="h-8 w-8 text-primary-600" />
             </div>
           </CardContent>
         </Card>
@@ -266,12 +266,12 @@ export default function SystemInitializationPage() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">缓存系统</p>
+                <p className="text-sm font-medium text-neutral-600">缓存系统</p>
                 <Badge className={getStatusColor(systemStatus.cache)}>
                   {systemStatus.cache === 'active' ? '活跃' : '未激活'}
                 </Badge>
               </div>
-              <Zap className="h-8 w-8 text-yellow-600" />
+              <Zap className="h-8 w-8 text-warning-600" />
             </div>
           </CardContent>
         </Card>
@@ -280,12 +280,12 @@ export default function SystemInitializationPage() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">核心服务</p>
+                <p className="text-sm font-medium text-neutral-600">核心服务</p>
                 <Badge className={getStatusColor(systemStatus.services)}>
                   {systemStatus.services === 'running' ? '运行中' : '已停止'}
                 </Badge>
               </div>
-              <Settings className="h-8 w-8 text-green-600" />
+              <Settings className="h-8 w-8 text-success-600" />
             </div>
           </CardContent>
         </Card>
@@ -294,12 +294,12 @@ export default function SystemInitializationPage() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">权限系统</p>
+                <p className="text-sm font-medium text-neutral-600">权限系统</p>
                 <Badge className={getStatusColor(systemStatus.permissions)}>
                   {systemStatus.permissions === 'configured' ? '已配置' : '待配置'}
                 </Badge>
               </div>
-              <Shield className="h-8 w-8 text-purple-600" />
+              <Shield className="h-8 w-8 text-accent-600" />
             </div>
           </CardContent>
         </Card>
@@ -321,7 +321,7 @@ export default function SystemInitializationPage() {
                 <span>{Math.round(overallProgress)}%</span>
               </div>
               <Progress value={overallProgress} className="h-3" />
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-neutral-600">
                 当前步骤: {initSteps[currentStep]?.name} ({currentStep + 1}/{initSteps.length})
               </p>
             </div>
@@ -341,7 +341,7 @@ export default function SystemInitializationPage() {
         <TabsContent value="steps">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {initSteps.map((step, index) => (
-              <Card key={step.id} className={currentStep === index && isInitializing ? 'ring-2 ring-blue-500' : ''}>
+              <Card key={step.id} className={currentStep === index && isInitializing ? 'ring-2 ring-primary-500' : ''}>
                 <CardHeader>
                   <CardTitle className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
@@ -368,10 +368,10 @@ export default function SystemInitializationPage() {
                     </div>
                     <Progress value={step.progress} className="h-2" />
                     {step.logs.length > 0 && (
-                      <div className="bg-gray-50 rounded-lg p-3 max-h-32 overflow-y-auto">
-                        <p className="text-xs font-medium text-gray-600 mb-2">执行日志:</p>
+                      <div className="bg-neutral-50 rounded-lg p-3 max-h-32 overflow-y-auto">
+                        <p className="text-xs font-medium text-neutral-600 mb-2">执行日志:</p>
                         {step.logs.map((log, logIndex) => (
-                          <p key={logIndex} className="text-xs text-gray-700 font-mono">
+                          <p key={logIndex} className="text-xs text-neutral-700 font-mono">
                             {log}
                           </p>
                         ))}
@@ -397,10 +397,10 @@ export default function SystemInitializationPage() {
             <CardContent>
               <div className="bg-black rounded-lg p-4 h-96 overflow-y-auto font-mono text-sm">
                 {systemLogs.length === 0 ? (
-                  <p className="text-green-400">等待系统日志...</p>
+                  <p className="text-success-400">等待系统日志...</p>
                 ) : (
                   systemLogs.map((log, index) => (
-                    <p key={index} className="text-green-400 mb-1">
+                    <p key={index} className="text-success-400 mb-1">
                       {log}
                     </p>
                   ))
@@ -475,7 +475,7 @@ export default function SystemInitializationPage() {
         <Alert>
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>
-            点击"开始初始化"按钮来启动系统初始化过程。这将设置数据库、缓存、服务和权限系统。
+            点击「开始初始化」按钮来启动系统初始化过程。这将设置数据库、缓存、服务和权限系统。
           </AlertDescription>
         </Alert>
       )}

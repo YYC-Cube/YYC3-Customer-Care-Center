@@ -11,6 +11,7 @@
  */
 
 'use client';
+import { colorRamp } from '@/lib/design-tokens';
 
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -211,10 +212,10 @@ export function IntelligentReportGenerator() {
 
   // 报告类型分布
   const reportTypeData = [
-    { type: '仪表板', count: 12, color: '#3b82f6' },
-    { type: '图表', count: 8, color: '#10b981' },
-    { type: '文档', count: 6, color: '#f59e0b' },
-    { type: '表格', count: 4, color: '#8b5cf6' },
+    { type: '仪表板', count: 12, color: colorRamp.primary[500] },
+    { type: '图表', count: 8, color: colorRamp.success[500] },
+    { type: '文档', count: 6, color: colorRamp.warning[500] },
+    { type: '表格', count: 4, color: colorRamp.accent[500] },
   ];
 
   // 数据源使用频率
@@ -272,13 +273,13 @@ export function IntelligentReportGenerator() {
   const getStatusColor = (status: string) => {
     switch (status) {
     case 'completed':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'generating':
-      return 'bg-blue-100 text-blue-800';
+      return 'bg-primary-100 text-primary-800';
     case 'failed':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -349,7 +350,7 @@ export function IntelligentReportGenerator() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold flex items-center">
-            <FileText className="w-8 h-8 mr-3 text-blue-600" />
+            <FileText className="w-8 h-8 mr-3 text-primary-600" />
             智能报表生成器
           </h1>
           <p className="text-muted-foreground">自动化生成各类业务报表和分析报告</p>
@@ -485,30 +486,30 @@ export function IntelligentReportGenerator() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card>
           <CardContent className="p-6 text-center">
-            <FileText className="w-8 h-8 mx-auto mb-2 text-blue-600" />
+            <FileText className="w-8 h-8 mx-auto mb-2 text-primary-600" />
             <p className="text-2xl font-bold">{templates.length}</p>
-            <p className="text-sm text-gray-600">报表模板</p>
+            <p className="text-sm text-neutral-600">报表模板</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <Zap className="w-8 h-8 mx-auto mb-2 text-green-600" />
+            <Zap className="w-8 h-8 mx-auto mb-2 text-success-600" />
             <p className="text-2xl font-bold">{templates.filter((t) => t.isActive).length}</p>
-            <p className="text-sm text-gray-600">活跃模板</p>
+            <p className="text-sm text-neutral-600">活跃模板</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <BarChart3 className="w-8 h-8 mx-auto mb-2 text-purple-600" />
+            <BarChart3 className="w-8 h-8 mx-auto mb-2 text-accent-600" />
             <p className="text-2xl font-bold">{generatedReports.length}</p>
-            <p className="text-sm text-gray-600">生成报表</p>
+            <p className="text-sm text-neutral-600">生成报表</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <TrendingUp className="w-8 h-8 mx-auto mb-2 text-orange-600" />
+            <TrendingUp className="w-8 h-8 mx-auto mb-2 text-warning-600" />
             <p className="text-2xl font-bold">{generatedReports.filter((r) => r.status === 'completed').length}</p>
-            <p className="text-sm text-gray-600">已完成</p>
+            <p className="text-sm text-neutral-600">已完成</p>
           </CardContent>
         </Card>
       </div>
@@ -527,7 +528,7 @@ export function IntelligentReportGenerator() {
             <CardContent className="p-4">
               <div className="flex flex-wrap gap-4 items-center">
                 <div className="flex items-center space-x-2">
-                  <Search className="w-4 h-4 text-gray-500" />
+                  <Search className="w-4 h-4 text-neutral-500" />
                   <Input
                     placeholder="搜索模板..."
                     value={searchTerm}
@@ -536,7 +537,7 @@ export function IntelligentReportGenerator() {
                   />
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Filter className="w-4 h-4 text-gray-500" />
+                  <Filter className="w-4 h-4 text-neutral-500" />
                   <Select value={selectedCategory} onValueChange={setSelectedCategory}>
                     <SelectTrigger className="w-32">
                       <SelectValue />
@@ -560,13 +561,13 @@ export function IntelligentReportGenerator() {
               <Card
                 key={template.id}
                 className={`hover:shadow-lg transition-shadow ${
-                  template.isActive ? 'border-green-200 bg-green-50' : 'border-gray-200'
+                  template.isActive ? 'border-success-200 bg-success-50' : 'border-neutral-200'
                 }`}
               >
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="flex items-center space-x-2">
-                      <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
+                      <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center text-primary-600">
                         {getTypeIcon(template.type)}
                       </div>
                       <div>
@@ -576,7 +577,7 @@ export function IntelligentReportGenerator() {
                     </div>
                     <div className="flex items-center space-x-2">
                       <Badge
-                        className={template.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}
+                        className={template.isActive ? 'bg-success-100 text-success-800' : 'bg-neutral-100 text-neutral-800'}
                       >
                         {template.isActive ? '活跃' : '暂停'}
                       </Badge>
@@ -587,19 +588,19 @@ export function IntelligentReportGenerator() {
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
-                      <p className="text-gray-600">报表类型</p>
+                      <p className="text-neutral-600">报表类型</p>
                       <p className="font-medium">{getTypeLabel(template.type)}</p>
                     </div>
                     <div>
-                      <p className="text-gray-600">生成频率</p>
+                      <p className="text-neutral-600">生成频率</p>
                       <p className="font-medium">{getFrequencyLabel(template.frequency)}</p>
                     </div>
                     <div>
-                      <p className="text-gray-600">使用次数</p>
+                      <p className="text-neutral-600">使用次数</p>
                       <p className="font-medium">{template.usage}</p>
                     </div>
                     <div>
-                      <p className="text-gray-600">最后生成</p>
+                      <p className="text-neutral-600">最后生成</p>
                       <p className="font-medium">{template.lastGenerated?.toLocaleDateString('zh-CN') || '未生成'}</p>
                     </div>
                   </div>
@@ -662,12 +663,12 @@ export function IntelligentReportGenerator() {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <FileText className="w-6 h-6 text-blue-600" />
+                      <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                        <FileText className="w-6 h-6 text-primary-600" />
                       </div>
                       <div>
                         <h3 className="font-semibold">{report.name}</h3>
-                        <div className="flex items-center space-x-4 text-sm text-gray-600 mt-1">
+                        <div className="flex items-center space-x-4 text-sm text-neutral-600 mt-1">
                           <span className="flex items-center">
                             <Calendar className="w-4 h-4 mr-1" />
                             {report.generatedAt.toLocaleString('zh-CN')}
@@ -700,8 +701,8 @@ export function IntelligentReportGenerator() {
                         )}
                         {report.status === 'generating' && (
                           <div className="flex items-center space-x-2">
-                            <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
-                            <span className="text-sm text-gray-600">生成中...</span>
+                            <div className="w-4 h-4 border-2 border-primary-600 border-t-transparent rounded-full animate-spin" />
+                            <span className="text-sm text-neutral-600">生成中...</span>
                           </div>
                         )}
                       </div>
@@ -797,14 +798,14 @@ export function IntelligentReportGenerator() {
                   <div key={source.source} className="space-y-2">
                     <div className="flex justify-between items-center">
                       <span className="font-medium">{source.source}</span>
-                      <div className="flex items-center space-x-4 text-sm text-gray-600">
+                      <div className="flex items-center space-x-4 text-sm text-neutral-600">
                         <span>使用率: {source.usage}%</span>
                         <span>报表数: {source.reports}</span>
                       </div>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="w-full bg-neutral-200 rounded-full h-2">
                       <div
-                        className="bg-blue-600 h-2 rounded-full transition-all duration-500"
+                        className="bg-primary-600 h-2 rounded-full transition-all duration-500"
                         style={{ width: `${source.usage}%` }}
                       />
                     </div>

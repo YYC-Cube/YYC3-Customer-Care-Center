@@ -204,7 +204,7 @@ export function SyncStatusIndicator() {
   const getStatusInfo = () => {
     if (!isServiceReady) {
       return {
-        color: 'bg-gray-100 text-gray-800 border-gray-200',
+        color: 'bg-neutral-100 text-neutral-800 border-neutral-200',
         icon: Clock,
         text: '初始化中',
         description: '同步服务正在初始化',
@@ -213,7 +213,7 @@ export function SyncStatusIndicator() {
 
     if (!syncStatus.isOnline) {
       return {
-        color: 'bg-red-100 text-red-800 border-red-200',
+        color: 'bg-danger-100 text-danger-800 border-danger-200',
         icon: WifiOff,
         text: '离线',
         description: '网络连接不可用',
@@ -222,7 +222,7 @@ export function SyncStatusIndicator() {
 
     if (syncStatus.isSyncing) {
       return {
-        color: 'bg-blue-100 text-blue-800 border-blue-200',
+        color: 'bg-primary-100 text-primary-800 border-primary-200',
         icon: RefreshCw,
         text: '同步中',
         description: '正在同步数据',
@@ -231,7 +231,7 @@ export function SyncStatusIndicator() {
 
     if (syncStatus.pendingCount > 0) {
       return {
-        color: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+        color: 'bg-warning-100 text-warning-800 border-warning-200',
         icon: Clock,
         text: '待同步',
         description: `${syncStatus.pendingCount} 个操作待同步`,
@@ -239,7 +239,7 @@ export function SyncStatusIndicator() {
     }
 
     return {
-      color: 'bg-green-100 text-green-800 border-green-200',
+      color: 'bg-success-100 text-success-800 border-success-200',
       icon: CheckCircle,
       text: '已同步',
       description: '所有数据已同步',
@@ -255,7 +255,7 @@ export function SyncStatusIndicator() {
         <Button variant="ghost" size="sm" className="relative">
           <StatusIcon
             className={`w-4 h-4 mr-2 ${syncStatus.isSyncing ? 'animate-spin' : ''} ${
-              syncStatus.isOnline && isServiceReady ? 'text-green-500' : 'text-red-500'
+              syncStatus.isOnline && isServiceReady ? 'text-success-500' : 'text-danger-500'
             }`}
           />
           <span className="hidden sm:inline">{statusInfo.text}</span>
@@ -292,10 +292,10 @@ export function SyncStatusIndicator() {
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
-                    <Database className="w-5 h-5 text-blue-500" />
+                    <Database className="w-5 h-5 text-primary-500" />
                     <span className="font-medium">服务状态</span>
                   </div>
-                  <Badge className={isServiceReady ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}>
+                  <Badge className={isServiceReady ? 'bg-success-100 text-success-800' : 'bg-warning-100 text-warning-800'}>
                     {isServiceReady ? '就绪' : '初始化中'}
                   </Badge>
                 </div>
@@ -308,13 +308,13 @@ export function SyncStatusIndicator() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
                     {syncStatus.isOnline ? (
-                      <Wifi className="w-5 h-5 text-green-500" />
+                      <Wifi className="w-5 h-5 text-success-500" />
                     ) : (
-                      <WifiOff className="w-5 h-5 text-red-500" />
+                      <WifiOff className="w-5 h-5 text-danger-500" />
                     )}
                     <span className="font-medium">网络状态</span>
                   </div>
-                  <Badge className={syncStatus.isOnline ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}>
+                  <Badge className={syncStatus.isOnline ? 'bg-success-100 text-success-800' : 'bg-danger-100 text-danger-800'}>
                     {syncStatus.isOnline ? '在线' : '离线'}
                   </Badge>
                 </div>
@@ -327,13 +327,13 @@ export function SyncStatusIndicator() {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
-                      <Database className="w-5 h-5 text-blue-500" />
+                      <Database className="w-5 h-5 text-primary-500" />
                       <span className="font-medium">数据同步</span>
                     </div>
                     <Badge className={statusInfo.color}>{statusInfo.text}</Badge>
                   </div>
 
-                  <p className="text-sm text-gray-600">{statusInfo.description}</p>
+                  <p className="text-sm text-neutral-600">{statusInfo.description}</p>
 
                   {syncStatus.isSyncing && syncProgress > 0 && (
                     <div className="space-y-2">
@@ -346,7 +346,7 @@ export function SyncStatusIndicator() {
                   )}
 
                   {lastSyncTime && (
-                    <p className="text-xs text-gray-500">上次同步: {lastSyncTime.toLocaleString('zh-CN')}</p>
+                    <p className="text-xs text-neutral-500">上次同步: {lastSyncTime.toLocaleString('zh-CN')}</p>
                   )}
                 </div>
               </CardContent>
@@ -375,10 +375,10 @@ export function SyncStatusIndicator() {
               <Card>
                 <CardContent className="p-4">
                   <div className="flex items-center space-x-2">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <CheckCircle className="w-5 h-5 text-success-500" />
                     <div>
-                      <p className="text-2xl font-bold text-green-600">{syncStats.completedToday}</p>
-                      <p className="text-sm text-gray-600">今日完成</p>
+                      <p className="text-2xl font-bold text-success-600">{syncStats.completedToday}</p>
+                      <p className="text-sm text-neutral-600">今日完成</p>
                     </div>
                   </div>
                 </CardContent>
@@ -387,10 +387,10 @@ export function SyncStatusIndicator() {
               <Card>
                 <CardContent className="p-4">
                   <div className="flex items-center space-x-2">
-                    <AlertCircle className="w-5 h-5 text-red-500" />
+                    <AlertCircle className="w-5 h-5 text-danger-500" />
                     <div>
-                      <p className="text-2xl font-bold text-red-600">{syncStats.failedToday}</p>
-                      <p className="text-sm text-gray-600">今日失败</p>
+                      <p className="text-2xl font-bold text-danger-600">{syncStats.failedToday}</p>
+                      <p className="text-sm text-neutral-600">今日失败</p>
                     </div>
                   </div>
                 </CardContent>
@@ -403,12 +403,12 @@ export function SyncStatusIndicator() {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">平均同步时间</span>
-                    <span className="text-sm text-gray-600">{syncStats.averageSyncTime}ms</span>
+                    <span className="text-sm text-neutral-600">{syncStats.averageSyncTime}ms</span>
                   </div>
 
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">冲突率</span>
-                    <span className="text-sm text-gray-600">{(syncStats.conflictRate * 100).toFixed(1)}%</span>
+                    <span className="text-sm text-neutral-600">{(syncStats.conflictRate * 100).toFixed(1)}%</span>
                   </div>
 
                   <div className="flex items-center justify-between">
@@ -423,11 +423,11 @@ export function SyncStatusIndicator() {
             <Card>
               <CardContent className="p-4">
                 <div className="flex items-center space-x-2 mb-3">
-                  <TrendingUp className="w-5 h-5 text-blue-500" />
+                  <TrendingUp className="w-5 h-5 text-primary-500" />
                   <span className="font-medium">同步性能趋势</span>
                 </div>
-                <div className="h-32 bg-gray-50 rounded-lg flex items-center justify-center">
-                  <p className="text-gray-500 text-sm">性能图表占位符</p>
+                <div className="h-32 bg-neutral-50 rounded-lg flex items-center justify-center">
+                  <p className="text-neutral-500 text-sm">性能图表占位符</p>
                 </div>
               </CardContent>
             </Card>
@@ -438,24 +438,24 @@ export function SyncStatusIndicator() {
             <Card>
               <CardContent className="p-4">
                 <div className="flex items-center space-x-2 mb-3">
-                  <AlertTriangle className="w-5 h-5 text-yellow-500" />
+                  <AlertTriangle className="w-5 h-5 text-warning-500" />
                   <span className="font-medium">数据冲突管理</span>
                 </div>
 
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-sm">自动解决冲突</span>
-                    <Badge className="bg-green-100 text-green-800">85%</Badge>
+                    <Badge className="bg-success-100 text-success-800">85%</Badge>
                   </div>
 
                   <div className="flex items-center justify-between">
                     <span className="text-sm">需要手动处理</span>
-                    <Badge className="bg-yellow-100 text-yellow-800">15%</Badge>
+                    <Badge className="bg-warning-100 text-warning-800">15%</Badge>
                   </div>
 
                   <div className="flex items-center justify-between">
                     <span className="text-sm">冲突解决策略</span>
-                    <span className="text-sm text-gray-600">智能合并</span>
+                    <span className="text-sm text-neutral-600">智能合并</span>
                   </div>
                 </div>
               </CardContent>
@@ -466,20 +466,20 @@ export function SyncStatusIndicator() {
               <CardContent className="p-4">
                 <h4 className="font-medium mb-3">最近冲突记录</h4>
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                  <div className="flex items-center justify-between p-2 bg-neutral-50 rounded">
                     <div>
                       <p className="text-sm font-medium">客户信息更新冲突</p>
-                      <p className="text-xs text-gray-500">2分钟前 - 已自动解决</p>
+                      <p className="text-xs text-neutral-500">2分钟前 - 已自动解决</p>
                     </div>
-                    <Badge className="bg-green-100 text-green-800">已解决</Badge>
+                    <Badge className="bg-success-100 text-success-800">已解决</Badge>
                   </div>
 
-                  <div className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                  <div className="flex items-center justify-between p-2 bg-neutral-50 rounded">
                     <div>
                       <p className="text-sm font-medium">任务状态冲突</p>
-                      <p className="text-xs text-gray-500">15分钟前 - 客户端优先</p>
+                      <p className="text-xs text-neutral-500">15分钟前 - 客户端优先</p>
                     </div>
-                    <Badge className="bg-blue-100 text-blue-800">已处理</Badge>
+                    <Badge className="bg-primary-100 text-primary-800">已处理</Badge>
                   </div>
                 </div>
               </CardContent>
@@ -492,15 +492,15 @@ export function SyncStatusIndicator() {
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span>客户数据</span>
-                    <span className="text-gray-600">智能合并</span>
+                    <span className="text-neutral-600">智能合并</span>
                   </div>
                   <div className="flex justify-between">
                     <span>任务状态</span>
-                    <span className="text-gray-600">客户端优先</span>
+                    <span className="text-neutral-600">客户端优先</span>
                   </div>
                   <div className="flex justify-between">
                     <span>审批流程</span>
-                    <span className="text-gray-600">服务器优先</span>
+                    <span className="text-neutral-600">服务器优先</span>
                   </div>
                 </div>
               </CardContent>

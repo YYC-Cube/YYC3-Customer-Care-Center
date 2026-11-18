@@ -11,6 +11,7 @@
  */
 
 'use client';
+import { colorRamp } from '@/lib/design-tokens';
 
 import type React from 'react';
 
@@ -106,8 +107,8 @@ export function AvatarUpload({ currentAvatar, userName, onAvatarChange, size = '
     if (ctx) {
       // 背景渐变
       const gradient = ctx.createLinearGradient(0, 0, 200, 200);
-      gradient.addColorStop(0, '#667eea');
-      gradient.addColorStop(1, '#764ba2');
+      gradient.addColorStop(0, colorRamp.primary[500]);
+      gradient.addColorStop(1, colorRamp.accent[600]);
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, 200, 200);
 
@@ -141,7 +142,7 @@ export function AvatarUpload({ currentAvatar, userName, onAvatarChange, size = '
 
     return (
       <div
-        className={`${sizeClasses[size]} bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center`}
+        className={`${sizeClasses[size]} bg-gradient-to-br from-accent-400 to-accent-500 rounded-full flex items-center justify-center`}
       >
         <span className="text-white font-semibold text-sm">{userName.charAt(0).toUpperCase()}</span>
       </div>
@@ -161,7 +162,7 @@ export function AvatarUpload({ currentAvatar, userName, onAvatarChange, size = '
         <DialogContent className="sm:max-w-[400px]">
           <DialogHeader>
             <DialogTitle className="flex items-center">
-              <User className="w-5 h-5 mr-2 text-sky-600" />
+              <User className="w-5 h-5 mr-2 text-primary-600" />
               更换头像
             </DialogTitle>
           </DialogHeader>
@@ -174,15 +175,15 @@ export function AvatarUpload({ currentAvatar, userName, onAvatarChange, size = '
                   <img
                     src={previewAvatar || '/placeholder.svg'}
                     alt="头像预览"
-                    className="w-24 h-24 rounded-full object-cover border-4 border-gray-200"
+                    className="w-24 h-24 rounded-full object-cover border-4 border-neutral-200"
                   />
                 ) : (
-                  <div className="w-24 h-24 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center border-4 border-gray-200">
+                  <div className="w-24 h-24 bg-gradient-to-br from-accent-400 to-accent-500 rounded-full flex items-center justify-center border-4 border-neutral-200">
                     <span className="text-white font-semibold text-xl">{userName.charAt(0).toUpperCase()}</span>
                   </div>
                 )}
               </div>
-              <p className="text-sm text-gray-500 text-center">点击下方按钮更换头像</p>
+              <p className="text-sm text-neutral-500 text-center">点击下方按钮更换头像</p>
             </div>
 
             {/* 操作按钮 */}
@@ -204,7 +205,7 @@ export function AvatarUpload({ currentAvatar, userName, onAvatarChange, size = '
 
               <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileSelect} className="hidden" />
 
-              <p className="text-xs text-gray-500 text-center">支持 JPG、PNG、GIF 格式，文件大小不超过 5MB</p>
+              <p className="text-xs text-neutral-500 text-center">支持 JPG、PNG、GIF 格式，文件大小不超过 5MB</p>
             </div>
 
             {/* 操作按钮 */}
@@ -212,7 +213,7 @@ export function AvatarUpload({ currentAvatar, userName, onAvatarChange, size = '
               <Button
                 variant="outline"
                 onClick={handleReset}
-                className="text-red-600 hover:text-red-700 bg-transparent"
+                className="text-danger-600 hover:text-danger-700 bg-transparent"
               >
                 <RotateCcw className="w-4 h-4 mr-2" />
                 重置
@@ -223,7 +224,7 @@ export function AvatarUpload({ currentAvatar, userName, onAvatarChange, size = '
                   <X className="w-4 h-4 mr-2" />
                   取消
                 </Button>
-                <Button onClick={handleSave} className="bg-sky-600 hover:bg-sky-700" disabled={!previewAvatar}>
+                <Button onClick={handleSave} className="bg-primary-600 hover:bg-primary-700" disabled={!previewAvatar}>
                   <Save className="w-4 h-4 mr-2" />
                   保存
                 </Button>

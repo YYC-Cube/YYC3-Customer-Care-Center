@@ -87,8 +87,8 @@ export function ResponsiveCardLayout({
       {/* 页面标题 */}
       {(title || description) && (
         <div className="mb-8">
-          {title && <h1 className="text-3xl font-bold text-gray-900 mb-2">{title}</h1>}
-          {description && <p className="text-lg text-gray-600">{description}</p>}
+          {title && <h1 className="text-3xl font-bold text-neutral-900 mb-2">{title}</h1>}
+          {description && <p className="text-lg text-neutral-600">{description}</p>}
         </div>
       )}
 

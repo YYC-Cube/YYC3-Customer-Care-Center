@@ -196,15 +196,15 @@ export function DocumentVersionControl({ documentId, currentUserId }: DocumentVe
   const getStatusIcon = (status: DocumentVersion['status']) => {
     switch (status) {
     case 'draft':
-      return <Edit className="w-4 h-4 text-gray-500" />;
+      return <Edit className="w-4 h-4 text-neutral-500" />;
     case 'review':
-      return <Eye className="w-4 h-4 text-blue-500" />;
+      return <Eye className="w-4 h-4 text-primary-500" />;
     case 'approved':
-      return <CheckCircle className="w-4 h-4 text-green-500" />;
+      return <CheckCircle className="w-4 h-4 text-success-500" />;
     case 'published':
-      return <CheckCircle className="w-4 h-4 text-green-600" />;
+      return <CheckCircle className="w-4 h-4 text-success-600" />;
     default:
-      return <AlertCircle className="w-4 h-4 text-gray-500" />;
+      return <AlertCircle className="w-4 h-4 text-neutral-500" />;
     }
   };
 
@@ -226,30 +226,30 @@ export function DocumentVersionControl({ documentId, currentUserId }: DocumentVe
   const getStatusColor = (status: DocumentVersion['status']) => {
     switch (status) {
     case 'draft':
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     case 'review':
-      return 'bg-blue-100 text-blue-800';
+      return 'bg-primary-100 text-primary-800';
     case 'approved':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'published':
-      return 'bg-green-200 text-green-900';
+      return 'bg-success-200 text-success-900';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
   const getCommentTypeIcon = (type: DocumentComment['type']) => {
     switch (type) {
     case 'comment':
-      return <MessageSquare className="w-4 h-4 text-blue-500" />;
+      return <MessageSquare className="w-4 h-4 text-primary-500" />;
     case 'suggestion':
-      return <AlertCircle className="w-4 h-4 text-yellow-500" />;
+      return <AlertCircle className="w-4 h-4 text-warning-500" />;
     case 'approval':
-      return <CheckCircle className="w-4 h-4 text-green-500" />;
+      return <CheckCircle className="w-4 h-4 text-success-500" />;
     case 'rejection':
-      return <XCircle className="w-4 h-4 text-red-500" />;
+      return <XCircle className="w-4 h-4 text-danger-500" />;
     default:
-      return <MessageSquare className="w-4 h-4 text-gray-500" />;
+      return <MessageSquare className="w-4 h-4 text-neutral-500" />;
     }
   };
 
@@ -332,7 +332,7 @@ export function DocumentVersionControl({ documentId, currentUserId }: DocumentVe
           <div className="flex items-center justify-between">
             <div>
               <CardTitle className="flex items-center">
-                <GitBranch className="w-5 h-5 mr-2 text-blue-600" />
+                <GitBranch className="w-5 h-5 mr-2 text-primary-600" />
                 文档版本控制
               </CardTitle>
               <CardDescription>管理文档版本历史和协作评审</CardDescription>
@@ -393,8 +393,8 @@ export function DocumentVersionControl({ documentId, currentUserId }: DocumentVe
                     key={version.id}
                     className={`p-3 rounded-lg border cursor-pointer transition-all ${
                       selectedVersion?.id === version.id
-                        ? 'border-blue-200 bg-blue-50'
-                        : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                        ? 'border-primary-200 bg-primary-50'
+                        : 'border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50'
                     }`}
                     onClick={() => setSelectedVersion(version)}
                   >
@@ -403,7 +403,7 @@ export function DocumentVersionControl({ documentId, currentUserId }: DocumentVe
                         <Badge variant="outline" className="text-xs">
                           v{version.version}
                         </Badge>
-                        {version.isCurrentVersion && <Badge className="text-xs bg-green-600">当前</Badge>}
+                        {version.isCurrentVersion && <Badge className="text-xs bg-success-600">当前</Badge>}
                       </div>
                       <div className="flex items-center space-x-1">
                         {getStatusIcon(version.status)}
@@ -414,9 +414,9 @@ export function DocumentVersionControl({ documentId, currentUserId }: DocumentVe
                     </div>
 
                     <h4 className="font-medium text-sm mb-1 line-clamp-1">{version.title}</h4>
-                    <p className="text-xs text-gray-600 mb-2 line-clamp-2">{version.description}</p>
+                    <p className="text-xs text-neutral-600 mb-2 line-clamp-2">{version.description}</p>
 
-                    <div className="flex items-center justify-between text-xs text-gray-500">
+                    <div className="flex items-center justify-between text-xs text-neutral-500">
                       <div className="flex items-center space-x-1">
                         <Avatar className="w-4 h-4">
                           <AvatarImage
@@ -432,7 +432,7 @@ export function DocumentVersionControl({ documentId, currentUserId }: DocumentVe
                       <span>{formatTime(version.timestamp)}</span>
                     </div>
 
-                    {version.changes > 0 && <div className="mt-2 text-xs text-blue-600">+{version.changes} 处变更</div>}
+                    {version.changes > 0 && <div className="mt-2 text-xs text-primary-600">+{version.changes} 处变更</div>}
 
                     {version.tags.length > 0 && (
                       <div className="mt-2 flex flex-wrap gap-1">
@@ -447,7 +447,7 @@ export function DocumentVersionControl({ documentId, currentUserId }: DocumentVe
                     {/* 版本连接线 */}
                     {index < versions.length - 1 && (
                       <div className="flex justify-center mt-3">
-                        <div className="w-px h-4 bg-gray-300"></div>
+                        <div className="w-px h-4 bg-neutral-300"></div>
                       </div>
                     )}
                   </div>
@@ -463,7 +463,7 @@ export function DocumentVersionControl({ documentId, currentUserId }: DocumentVe
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle className="flex items-center">
-                  <FileText className="w-5 h-5 mr-2 text-blue-600" />
+                  <FileText className="w-5 h-5 mr-2 text-primary-600" />
                   {selectedVersion ? `版本 ${selectedVersion.version}` : '选择版本'}
                 </CardTitle>
                 {selectedVersion && <CardDescription>{selectedVersion.description}</CardDescription>}
@@ -501,26 +501,26 @@ export function DocumentVersionControl({ documentId, currentUserId }: DocumentVe
             <CardContent>
               {/* 版本信息 */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                <div className="text-center p-3 bg-gray-50 rounded-lg">
-                  <div className="text-lg font-semibold text-blue-600">{selectedVersion.version}</div>
-                  <div className="text-sm text-gray-600">版本号</div>
+                <div className="text-center p-3 bg-neutral-50 rounded-lg">
+                  <div className="text-lg font-semibold text-primary-600">{selectedVersion.version}</div>
+                  <div className="text-sm text-neutral-600">版本号</div>
                 </div>
-                <div className="text-center p-3 bg-gray-50 rounded-lg">
-                  <div className="text-lg font-semibold text-green-600">{selectedVersion.size}</div>
-                  <div className="text-sm text-gray-600">文件大小</div>
+                <div className="text-center p-3 bg-neutral-50 rounded-lg">
+                  <div className="text-lg font-semibold text-success-600">{selectedVersion.size}</div>
+                  <div className="text-sm text-neutral-600">文件大小</div>
                 </div>
-                <div className="text-center p-3 bg-gray-50 rounded-lg">
-                  <div className="text-lg font-semibold text-purple-600">{selectedVersion.changes}</div>
-                  <div className="text-sm text-gray-600">变更数量</div>
+                <div className="text-center p-3 bg-neutral-50 rounded-lg">
+                  <div className="text-lg font-semibold text-accent-600">{selectedVersion.changes}</div>
+                  <div className="text-sm text-neutral-600">变更数量</div>
                 </div>
-                <div className="text-center p-3 bg-gray-50 rounded-lg">
-                  <div className="text-lg font-semibold text-orange-600">{selectedVersion.comments.length}</div>
-                  <div className="text-sm text-gray-600">评论数量</div>
+                <div className="text-center p-3 bg-neutral-50 rounded-lg">
+                  <div className="text-lg font-semibold text-warning-600">{selectedVersion.comments.length}</div>
+                  <div className="text-sm text-neutral-600">评论数量</div>
                 </div>
               </div>
 
               {/* 作者信息 */}
-              <div className="flex items-center space-x-3 mb-6 p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center space-x-3 mb-6 p-4 bg-neutral-50 rounded-lg">
                 <Avatar className="w-10 h-10">
                   <AvatarImage
                     src={
@@ -537,7 +537,7 @@ export function DocumentVersionControl({ documentId, currentUserId }: DocumentVe
                       {getStatusText(selectedVersion.status)}
                     </Badge>
                   </div>
-                  <div className="text-sm text-gray-600 flex items-center space-x-4">
+                  <div className="text-sm text-neutral-600 flex items-center space-x-4">
                     <span className="flex items-center">
                       <Clock className="w-4 h-4 mr-1" />
                       {selectedVersion.timestamp.toLocaleString('zh-CN')}
@@ -580,7 +580,7 @@ export function DocumentVersionControl({ documentId, currentUserId }: DocumentVe
                   {/* 评论列表 */}
                   <div className="space-y-4 mb-4">
                     {selectedVersion.comments.map((comment) => (
-                      <div key={comment.id} className="flex space-x-3 p-3 bg-gray-50 rounded-lg">
+                      <div key={comment.id} className="flex space-x-3 p-3 bg-neutral-50 rounded-lg">
                         <Avatar className="w-8 h-8">
                           <AvatarImage
                             src={
@@ -594,14 +594,14 @@ export function DocumentVersionControl({ documentId, currentUserId }: DocumentVe
                           <div className="flex items-center space-x-2 mb-1">
                             <span className="font-medium text-sm">{comment.author}</span>
                             {getCommentTypeIcon(comment.type)}
-                            <span className="text-xs text-gray-500">{formatTime(comment.timestamp)}</span>
+                            <span className="text-xs text-neutral-500">{formatTime(comment.timestamp)}</span>
                             {comment.resolved && (
                               <Badge variant="secondary" className="text-xs">
                                 已解决
                               </Badge>
                             )}
                           </div>
-                          <p className="text-sm text-gray-700">{comment.content}</p>
+                          <p className="text-sm text-neutral-700">{comment.content}</p>
                         </div>
                       </div>
                     ))}
@@ -641,7 +641,7 @@ export function DocumentVersionControl({ documentId, currentUserId }: DocumentVe
                 </h4>
                 <div className="flex items-center space-x-4">
                   <div className="flex-1">
-                    <label className="text-sm text-gray-600">比较版本</label>
+                    <label className="text-sm text-neutral-600">比较版本</label>
                     <select
                       className="w-full mt-1 p-2 border rounded-md"
                       value={compareVersion?.id || ''}
@@ -667,12 +667,12 @@ export function DocumentVersionControl({ documentId, currentUserId }: DocumentVe
                 </div>
 
                 {compareVersion && (
-                  <div className="mt-4 p-4 bg-blue-50 rounded-lg">
+                  <div className="mt-4 p-4 bg-primary-50 rounded-lg">
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-medium">
                         v{compareVersion.version} → v{selectedVersion.version}
                       </span>
-                      <span className="text-sm text-blue-600">
+                      <span className="text-sm text-primary-600">
                         {Math.abs(selectedVersion.changes - compareVersion.changes)} 处差异
                       </span>
                     </div>
@@ -683,9 +683,9 @@ export function DocumentVersionControl({ documentId, currentUserId }: DocumentVe
           ) : (
             <CardContent className="flex items-center justify-center h-96">
               <div className="text-center">
-                <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-600 mb-2">选择版本查看详情</h3>
-                <p className="text-gray-500">从左侧版本列表中选择一个版本</p>
+                <FileText className="w-16 h-16 text-neutral-300 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-neutral-600 mb-2">选择版本查看详情</h3>
+                <p className="text-neutral-500">从左侧版本列表中选择一个版本</p>
               </div>
             </CardContent>
           )}

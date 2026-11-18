@@ -114,16 +114,16 @@ export function PWAInstallPrompt() {
 
   return (
     <div className="fixed bottom-4 left-4 right-4 z-50 md:left-auto md:right-4 md:w-96">
-      <Card className="bg-white/95 backdrop-blur-sm border border-sky-200 shadow-lg">
+      <Card className="bg-white/95 backdrop-blur-sm border border-primary-200 shadow-lg">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-sky-400 to-blue-500 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-gradient-to-r from-primary-400 to-primary-500 rounded-lg flex items-center justify-center">
                 <img src="/yyc3-pwa-icon.png" alt="ZUOYOU" className="w-5 h-5 object-contain" />
               </div>
               <div>
-                <CardTitle className="text-sm font-semibold text-slate-800">安装应用</CardTitle>
-                <CardDescription className="text-xs text-slate-600">获得更好的使用体验</CardDescription>
+                <CardTitle className="text-sm font-semibold text-neutral-800">安装应用</CardTitle>
+                <CardDescription className="text-xs text-neutral-600">获得更好的使用体验</CardDescription>
               </div>
             </div>
             <Button variant="ghost" size="sm" onClick={handleDismiss} className="h-6 w-6 p-0">
@@ -133,7 +133,7 @@ export function PWAInstallPrompt() {
         </CardHeader>
         <CardContent className="pt-0">
           <div className="space-y-3">
-            <div className="flex items-center space-x-4 text-xs text-slate-600">
+            <div className="flex items-center space-x-4 text-xs text-neutral-600">
               <div className="flex items-center space-x-1">
                 <Smartphone className="w-3 h-3" />
                 <span>离线访问</span>
@@ -151,7 +151,7 @@ export function PWAInstallPrompt() {
             <div className="flex space-x-2">
               <Button
                 onClick={handleInstallClick}
-                className="flex-1 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white text-sm h-8"
+                className="flex-1 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white text-sm h-8"
               >
                 <Download className="w-3 h-3 mr-1" />
                 立即安装

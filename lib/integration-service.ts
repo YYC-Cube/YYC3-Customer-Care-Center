@@ -48,13 +48,14 @@ class IntegrationService {
   async configureWeChatWork(config: IntegrationConfig): Promise<boolean> {
     try {
       // 验证企业微信配置
-      const response = await fetch('https://qyapi.weixin.qq.com/cgi-bin/gettoken', {
-        method: 'GET',
-        params: {
-          corpid: config.appId,
-          corpsecret: config.appSecret,
-        },
+      const query = new URLSearchParams({
+        corpid: config.appId,
+        corpsecret: config.appSecret,
       });
+      const response = await fetch(
+        `https://qyapi.weixin.qq.com/cgi-bin/gettoken?${query.toString()}`,
+        { method: 'GET' },
+      );
 
       if (response.ok) {
         this.configs.set('wechat-work', config);

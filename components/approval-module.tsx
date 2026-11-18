@@ -21,24 +21,24 @@ import { FileText, Clock, CheckCircle, XCircle, User, Calendar } from 'lucide-re
 
 export function ApprovalModule() {
   return (
-    <div className="p-6 space-y-6 bg-gradient-to-br from-blue-50 via-sky-50 to-cyan-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gradient-to-br from-primary-50 via-primary-50 to-primary-50 min-h-screen">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-            <FileText className="w-8 h-8 mr-3 text-blue-600" />
+          <h1 className="text-3xl font-bold text-neutral-900 flex items-center">
+            <FileText className="w-8 h-8 mr-3 text-primary-600" />
             审批流程管理
           </h1>
-          <p className="text-gray-600 mt-2">高效的审批流程和工作流管理</p>
+          <p className="text-neutral-600 mt-2">高效的审批流程和工作流管理</p>
         </div>
         <div className="flex space-x-2">
           <Button
             variant="outline"
-            className="border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+            className="border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
           >
             <FileText className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             发起申请
           </Button>
-          <Button className="bg-gradient-to-r from-blue-500 to-sky-600 hover:from-blue-600 hover:to-sky-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+          <Button className="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
             <Clock className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             流程设计
           </Button>
@@ -47,56 +47,56 @@ export function ApprovalModule() {
 
       {/* 审批概览卡片 */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">待审批</CardTitle>
-            <Clock className="h-4 w-4 text-blue-600" />
+            <Clock className="h-4 w-4 text-primary-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-700">89</div>
-            <div className="flex items-center text-xs text-blue-600">
+            <div className="text-2xl font-bold text-primary-700">89</div>
+            <div className="flex items-center text-xs text-primary-600">
               <Clock className="w-3 h-3 mr-1" />
               <span>需要处理</span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">已通过</CardTitle>
-            <CheckCircle className="h-4 w-4 text-blue-600" />
+            <CheckCircle className="h-4 w-4 text-primary-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-700">234</div>
-            <div className="flex items-center text-xs text-green-600">
+            <div className="text-2xl font-bold text-primary-700">234</div>
+            <div className="flex items-center text-xs text-success-600">
               <CheckCircle className="w-3 h-3 mr-1" />
               <span>本月通过</span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">已拒绝</CardTitle>
-            <XCircle className="h-4 w-4 text-blue-600" />
+            <XCircle className="h-4 w-4 text-primary-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-700">12</div>
-            <div className="flex items-center text-xs text-red-600">
+            <div className="text-2xl font-bold text-primary-700">12</div>
+            <div className="flex items-center text-xs text-danger-600">
               <XCircle className="w-3 h-3 mr-1" />
               <span>需要修改</span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">平均时长</CardTitle>
-            <Calendar className="h-4 w-4 text-blue-600" />
+            <Calendar className="h-4 w-4 text-primary-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-700">2.3天</div>
-            <div className="flex items-center text-xs text-blue-600">
+            <div className="text-2xl font-bold text-primary-700">2.3天</div>
+            <div className="flex items-center text-xs text-primary-600">
               <Calendar className="w-3 h-3 mr-1" />
               <span>处理效率</span>
             </div>
@@ -105,9 +105,9 @@ export function ApprovalModule() {
       </div>
 
       {/* 审批管理详情 */}
-      <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center text-blue-700">
+          <CardTitle className="flex items-center text-primary-700">
             <FileText className="w-5 h-5 mr-2" />
             审批管理详情
           </CardTitle>
@@ -124,12 +124,12 @@ export function ApprovalModule() {
 
             <TabsContent value="pending" className="space-y-4">
               <div className="flex justify-between items-center">
-                <Input placeholder="搜索审批事项..." className="max-w-sm border-l-4 border-l-blue-500" />
+                <Input placeholder="搜索审批事项..." className="max-w-sm border-l-4 border-l-primary-500" />
                 <div className="flex space-x-2">
-                  <Button variant="outline" size="sm" className="border-l-4 border-l-blue-500 bg-transparent">
+                  <Button variant="outline" size="sm" className="border-l-4 border-l-primary-500 bg-transparent">
                     筛选
                   </Button>
-                  <Button variant="outline" size="sm" className="border-l-4 border-l-blue-500 bg-transparent">
+                  <Button variant="outline" size="sm" className="border-l-4 border-l-primary-500 bg-transparent">
                     批量处理
                   </Button>
                 </div>
@@ -172,7 +172,7 @@ export function ApprovalModule() {
                 ].map((item, index) => (
                   <Card
                     key={index}
-                    className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200"
+                    className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200"
                   >
                     <CardContent className="p-4">
                       <div className="flex justify-between items-start">
@@ -203,11 +203,11 @@ export function ApprovalModule() {
                           </div>
                         </div>
                         <div className="text-right">
-                          <div className="text-lg font-bold text-blue-600 mb-2">{item.amount}</div>
+                          <div className="text-lg font-bold text-primary-600 mb-2">{item.amount}</div>
                           <div className="flex space-x-2">
                             <Button
                               size="sm"
-                              className="bg-green-600 hover:bg-green-700 transition-all duration-300 hover:scale-105"
+                              className="bg-success-600 hover:bg-success-700 transition-all duration-300 hover:scale-105"
                             >
                               <CheckCircle className="w-3 h-3 mr-1" />
                               通过
@@ -215,7 +215,7 @@ export function ApprovalModule() {
                             <Button
                               size="sm"
                               variant="outline"
-                              className="text-red-600 border-red-600 hover:bg-red-50 transition-all duration-300 hover:scale-105 bg-transparent"
+                              className="text-danger-600 border-danger-600 hover:bg-danger-50 transition-all duration-300 hover:scale-105 bg-transparent"
                             >
                               <XCircle className="w-3 h-3 mr-1" />
                               拒绝
@@ -259,12 +259,12 @@ export function ApprovalModule() {
                 ].map((item, index) => (
                   <Card
                     key={index}
-                    className="border-l-4 border-l-green-500 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200"
+                    className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200"
                   >
                     <CardContent className="p-4">
                       <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-3">
-                          <CheckCircle className="w-5 h-5 text-green-600" />
+                          <CheckCircle className="w-5 h-5 text-success-600" />
                           <div>
                             <h3 className="font-medium">{item.title}</h3>
                             <div className="space-y-1 text-sm text-muted-foreground">
@@ -280,7 +280,7 @@ export function ApprovalModule() {
                           </div>
                         </div>
                         <div className="text-right">
-                          <div className="text-lg font-bold text-green-600 mb-1">{item.amount}</div>
+                          <div className="text-lg font-bold text-success-600 mb-1">{item.amount}</div>
                           <div className="text-xs text-muted-foreground">
                             <div>{item.approveTime}</div>
                             <div>耗时: {item.duration}</div>
@@ -315,12 +315,12 @@ export function ApprovalModule() {
                 ].map((item, index) => (
                   <Card
                     key={index}
-                    className="border-l-4 border-l-red-500 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200"
+                    className="border-l-4 border-l-danger-500 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200"
                   >
                     <CardContent className="p-4">
                       <div className="flex justify-between items-start">
                         <div className="flex items-center space-x-3">
-                          <XCircle className="w-5 h-5 text-red-600" />
+                          <XCircle className="w-5 h-5 text-danger-600" />
                           <div className="flex-1">
                             <h3 className="font-medium">{item.title}</h3>
                             <div className="space-y-1 text-sm text-muted-foreground">
@@ -332,17 +332,17 @@ export function ApprovalModule() {
                                 <User className="w-3 h-3 mr-1" />
                                 拒绝人: {item.rejector}
                               </div>
-                              <div className="text-red-600 text-xs mt-2">拒绝原因: {item.reason}</div>
+                              <div className="text-danger-600 text-xs mt-2">拒绝原因: {item.reason}</div>
                             </div>
                           </div>
                         </div>
                         <div className="text-right">
-                          <div className="text-lg font-bold text-red-600 mb-1">{item.amount}</div>
+                          <div className="text-lg font-bold text-danger-600 mb-1">{item.amount}</div>
                           <div className="text-xs text-muted-foreground mb-2">{item.rejectTime}</div>
                           <Button
                             size="sm"
                             variant="outline"
-                            className="border-l-4 border-l-red-500 transition-all duration-300 hover:scale-105 bg-transparent"
+                            className="border-l-4 border-l-danger-500 transition-all duration-300 hover:scale-105 bg-transparent"
                           >
                             重新申请
                           </Button>
@@ -388,10 +388,10 @@ export function ApprovalModule() {
                 ].map((workflow, index) => (
                   <Card
                     key={index}
-                    className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200"
+                    className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200"
                   >
                     <CardHeader>
-                      <CardTitle className="text-base text-blue-700">{workflow.name}</CardTitle>
+                      <CardTitle className="text-base text-primary-700">{workflow.name}</CardTitle>
                       <CardDescription>{workflow.description}</CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -422,14 +422,14 @@ export function ApprovalModule() {
                           <Button
                             size="sm"
                             variant="outline"
-                            className="border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 bg-transparent"
+                            className="border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 bg-transparent"
                           >
                             编辑流程
                           </Button>
                           <Button
                             size="sm"
                             variant="outline"
-                            className="border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 bg-transparent"
+                            className="border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 bg-transparent"
                           >
                             查看详情
                           </Button>

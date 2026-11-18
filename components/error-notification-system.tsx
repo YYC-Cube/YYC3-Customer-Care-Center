@@ -83,15 +83,15 @@ export function ErrorNotificationSystem({ notifications, onDismiss, onClearAll }
   const getNotificationColor = (type: ErrorNotification['type']) => {
     switch (type) {
     case 'error':
-      return 'border-red-200 bg-red-50 text-red-800';
+      return 'border-danger-200 bg-danger-50 text-danger-800';
     case 'warning':
-      return 'border-yellow-200 bg-yellow-50 text-yellow-800';
+      return 'border-warning-200 bg-warning-50 text-warning-800';
     case 'info':
-      return 'border-blue-200 bg-blue-50 text-blue-800';
+      return 'border-primary-200 bg-primary-50 text-primary-800';
     case 'success':
-      return 'border-green-200 bg-green-50 text-green-800';
+      return 'border-success-200 bg-success-50 text-success-800';
     default:
-      return 'border-gray-200 bg-gray-50 text-gray-800';
+      return 'border-neutral-200 bg-neutral-50 text-neutral-800';
     }
   };
 
@@ -99,15 +99,15 @@ export function ErrorNotificationSystem({ notifications, onDismiss, onClearAll }
   const getIconColor = (type: ErrorNotification['type']) => {
     switch (type) {
     case 'error':
-      return 'text-red-500';
+      return 'text-danger-500';
     case 'warning':
-      return 'text-yellow-500';
+      return 'text-warning-500';
     case 'info':
-      return 'text-blue-500';
+      return 'text-primary-500';
     case 'success':
-      return 'text-green-500';
+      return 'text-success-500';
     default:
-      return 'text-gray-500';
+      return 'text-neutral-500';
     }
   };
 
@@ -218,9 +218,9 @@ export function ErrorNotificationSystem({ notifications, onDismiss, onClearAll }
 
         {/* 更多通知提示 */}
         {notifications.length > 3 && (
-          <Card className="border-gray-200 bg-gray-50">
+          <Card className="border-neutral-200 bg-neutral-50">
             <CardContent className="p-3 text-center">
-              <p className="text-xs text-gray-600">还有 {notifications.length - 3} 个通知</p>
+              <p className="text-xs text-neutral-600">还有 {notifications.length - 3} 个通知</p>
               <Button size="sm" variant="ghost" onClick={onClearAll} className="mt-1 h-6 text-xs">
                 清除所有
               </Button>
@@ -244,10 +244,10 @@ export function ErrorNotificationSystem({ notifications, onDismiss, onClearAll }
                   variant="outline"
                   className={
                     selectedNotification.type === 'error'
-                      ? 'border-red-200 text-red-700'
+                      ? 'border-danger-200 text-danger-700'
                       : selectedNotification.type === 'warning'
-                        ? 'border-yellow-200 text-yellow-700'
-                        : 'border-blue-200 text-blue-700'
+                        ? 'border-warning-200 text-warning-700'
+                        : 'border-primary-200 text-primary-700'
                   }
                 >
                   {selectedNotification.type === 'error'
@@ -267,7 +267,7 @@ export function ErrorNotificationSystem({ notifications, onDismiss, onClearAll }
               <Card>
                 <CardContent className="p-4">
                   <h4 className="font-medium mb-2">错误描述</h4>
-                  <p className="text-sm text-gray-700">{selectedNotification.message}</p>
+                  <p className="text-sm text-neutral-700">{selectedNotification.message}</p>
                 </CardContent>
               </Card>
 
@@ -282,7 +282,7 @@ export function ErrorNotificationSystem({ notifications, onDismiss, onClearAll }
                         复制
                       </Button>
                     </div>
-                    <pre className="text-xs bg-gray-100 p-3 rounded overflow-x-auto">
+                    <pre className="text-xs bg-neutral-100 p-3 rounded overflow-x-auto">
                       {selectedNotification.details}
                     </pre>
                   </CardContent>
@@ -290,13 +290,13 @@ export function ErrorNotificationSystem({ notifications, onDismiss, onClearAll }
               )}
 
               {/* 解决方案 */}
-              <Card className="border-blue-200 bg-blue-50">
+              <Card className="border-primary-200 bg-primary-50">
                 <CardContent className="p-4">
                   <div className="flex items-center space-x-2 mb-2">
-                    <Info className="w-4 h-4 text-blue-600" />
-                    <h4 className="font-medium text-blue-900">建议解决方案</h4>
+                    <Info className="w-4 h-4 text-primary-600" />
+                    <h4 className="font-medium text-primary-900">建议解决方案</h4>
                   </div>
-                  <p className="text-sm text-blue-800">{getErrorSolution(selectedNotification)}</p>
+                  <p className="text-sm text-primary-800">{getErrorSolution(selectedNotification)}</p>
                 </CardContent>
               </Card>
 

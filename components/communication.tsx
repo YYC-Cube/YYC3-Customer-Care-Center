@@ -307,13 +307,13 @@ export function Communication() {
   const getStatusColor = (status: OnlineUser['status']) => {
     switch (status) {
     case 'online':
-      return 'bg-green-500';
+      return 'bg-success-500';
     case 'away':
-      return 'bg-yellow-500';
+      return 'bg-warning-500';
     case 'busy':
-      return 'bg-red-500';
+      return 'bg-danger-500';
     default:
-      return 'bg-gray-400';
+      return 'bg-neutral-400';
     }
   };
 
@@ -358,15 +358,15 @@ export function Communication() {
   }, [currentMessages]);
 
   return (
-    <div className="p-6 space-y-6 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gradient-to-br from-neutral-50 via-primary-50 to-primary-50 min-h-screen">
       {/* 页面标题 */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-slate-800 flex items-center">
-            <MessageSquare className="w-8 h-8 mr-3 text-blue-600" />
+          <h1 className="text-3xl font-bold text-neutral-800 flex items-center">
+            <MessageSquare className="w-8 h-8 mr-3 text-primary-600" />
             沟通协作
           </h1>
-          <p className="text-slate-600 mt-1">团队协作，高效沟通</p>
+          <p className="text-neutral-600 mt-1">团队协作，高效沟通</p>
         </div>
         <div className="flex items-center space-x-3">
           <Button variant="outline" size="sm">
@@ -377,7 +377,7 @@ export function Communication() {
             <Plus className="w-4 h-4 mr-2" />
             创建群组
           </Button>
-          <Button className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700">
+          <Button className="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700">
             <Users className="w-4 h-4 mr-2" />
             邀请成员
           </Button>
@@ -389,12 +389,12 @@ export function Communication() {
         <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <MessageSquare className="w-5 h-5 mr-2 text-blue-600" />
+              <MessageSquare className="w-5 h-5 mr-2 text-primary-600" />
               未读消息
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-2xl font-bold text-primary-600">
               {chatRooms.reduce((sum, room) => sum + room.unreadCount, 0)}
             </div>
             <p className="text-sm text-muted-foreground">需要处理的消息</p>
@@ -404,12 +404,12 @@ export function Communication() {
         <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Users className="w-5 h-5 mr-2 text-green-600" />
+              <Users className="w-5 h-5 mr-2 text-success-600" />
               在线用户
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-2xl font-bold text-success-600">
               {onlineUsers.filter((user) => user.status === 'online').length}
             </div>
             <p className="text-sm text-muted-foreground">当前在线人数</p>
@@ -419,12 +419,12 @@ export function Communication() {
         <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <MessageSquare className="w-5 h-5 mr-2 text-purple-600" />
+              <MessageSquare className="w-5 h-5 mr-2 text-accent-600" />
               活跃群组
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-purple-600">
+            <div className="text-2xl font-bold text-accent-600">
               {chatRooms.filter((room) => room.type === 'group').length}
             </div>
             <p className="text-sm text-muted-foreground">参与的群组数量</p>
@@ -434,12 +434,12 @@ export function Communication() {
         <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Clock className="w-5 h-5 mr-2 text-orange-600" />
+              <Clock className="w-5 h-5 mr-2 text-warning-600" />
               今日消息
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-600">156</div>
+            <div className="text-2xl font-bold text-warning-600">156</div>
             <p className="text-sm text-muted-foreground">今天发送的消息</p>
           </CardContent>
         </Card>
@@ -452,7 +452,7 @@ export function Communication() {
           <CardHeader className="pb-3">
             <CardTitle className="text-base">消息列表</CardTitle>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-4 h-4" />
               <Input
                 placeholder="搜索聊天..."
                 value={searchQuery}
@@ -467,8 +467,8 @@ export function Communication() {
                 {filteredChatRooms.map((room) => (
                   <div
                     key={room.id}
-                    className={`p-3 rounded-lg cursor-pointer transition-colors hover:bg-slate-50 ${
-                      activeChat === room.id ? 'bg-blue-50 border-l-4 border-blue-500' : ''
+                    className={`p-3 rounded-lg cursor-pointer transition-colors hover:bg-neutral-50 ${
+                      activeChat === room.id ? 'bg-primary-50 border-l-4 border-primary-500' : ''
                     }`}
                     onClick={() => setActiveChat(room.id)}
                   >
@@ -476,23 +476,23 @@ export function Communication() {
                       <div className="relative">
                         <Avatar className="w-10 h-10">
                           <AvatarImage src={room.avatar || '/placeholder.svg'} />
-                          <AvatarFallback className="bg-gradient-to-br from-blue-400 to-purple-500 text-white">
+                          <AvatarFallback className="bg-gradient-to-br from-primary-400 to-accent-500 text-white">
                             {room.name.charAt(0)}
                           </AvatarFallback>
                         </Avatar>
                         {room.isOnline && (
-                          <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                          <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-success-500 rounded-full border-2 border-white"></div>
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between">
-                          <h4 className="font-medium text-slate-800 truncate">{room.name}</h4>
-                          <span className="text-xs text-slate-500">{formatTime(room.lastMessageTime)}</span>
+                          <h4 className="font-medium text-neutral-800 truncate">{room.name}</h4>
+                          <span className="text-xs text-neutral-500">{formatTime(room.lastMessageTime)}</span>
                         </div>
                         <div className="flex items-center justify-between">
-                          <p className="text-sm text-slate-600 truncate">{room.lastMessage}</p>
+                          <p className="text-sm text-neutral-600 truncate">{room.lastMessage}</p>
                           {room.unreadCount > 0 && (
-                            <Badge className="bg-red-500 text-white text-xs min-w-[20px] h-5 flex items-center justify-center">
+                            <Badge className="bg-danger-500 text-white text-xs min-w-[20px] h-5 flex items-center justify-center">
                               {room.unreadCount}
                             </Badge>
                           )}
@@ -515,13 +515,13 @@ export function Communication() {
                   <div className="flex items-center space-x-3">
                     <Avatar className="w-10 h-10">
                       <AvatarImage src={currentChat?.avatar || '/placeholder.svg'} />
-                      <AvatarFallback className="bg-gradient-to-br from-blue-400 to-purple-500 text-white">
+                      <AvatarFallback className="bg-gradient-to-br from-primary-400 to-accent-500 text-white">
                         {currentChat?.name.charAt(0)}
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <h3 className="font-medium text-slate-800">{currentChat?.name}</h3>
-                      <p className="text-sm text-slate-600">
+                      <h3 className="font-medium text-neutral-800">{currentChat?.name}</h3>
+                      <p className="text-sm text-neutral-600">
                         {currentChat?.type === 'group'
                           ? `${currentChat.members.length} 名成员`
                           : currentChat?.isOnline
@@ -554,8 +554,8 @@ export function Communication() {
                         <div
                           className={`max-w-[70%] ${
                             msg.senderId === 'user1'
-                              ? 'bg-blue-500 text-white rounded-l-lg rounded-tr-lg'
-                              : 'bg-slate-100 text-slate-800 rounded-r-lg rounded-tl-lg'
+                              ? 'bg-primary-500 text-white rounded-l-lg rounded-tr-lg'
+                              : 'bg-neutral-100 text-neutral-800 rounded-r-lg rounded-tl-lg'
                           } p-3`}
                         >
                           {msg.senderId !== 'user1' && (
@@ -565,7 +565,7 @@ export function Communication() {
                           <div className="flex items-center justify-end mt-1 space-x-1">
                             <span className="text-xs opacity-70">{formatTime(msg.timestamp)}</span>
                             {msg.senderId === 'user1' && (
-                              <CheckCheck className={`w-3 h-3 ${msg.isRead ? 'text-blue-200' : 'text-white'}`} />
+                              <CheckCheck className={`w-3 h-3 ${msg.isRead ? 'text-primary-200' : 'text-white'}`} />
                             )}
                           </div>
                         </div>
@@ -585,7 +585,7 @@ export function Communication() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className={isRecording ? 'text-red-500' : ''}
+                      className={isRecording ? 'text-danger-500' : ''}
                       onClick={() => setIsRecording(!isRecording)}
                     >
                       <Mic className="w-4 h-4" />
@@ -607,8 +607,8 @@ export function Communication() {
           ) : (
             <CardContent className="flex items-center justify-center h-full">
               <div className="text-center">
-                <MessageSquare className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-                <p className="text-slate-500">选择一个聊天开始对话</p>
+                <MessageSquare className="w-16 h-16 text-neutral-300 mx-auto mb-4" />
+                <p className="text-neutral-500">选择一个聊天开始对话</p>
               </div>
             </CardContent>
           )}
@@ -626,11 +626,11 @@ export function Communication() {
               <ScrollArea className="h-[500px]">
                 <div className="space-y-3 p-4">
                   {onlineUsers.map((user) => (
-                    <div key={user.id} className="flex items-center space-x-3 p-2 rounded-lg hover:bg-slate-50">
+                    <div key={user.id} className="flex items-center space-x-3 p-2 rounded-lg hover:bg-neutral-50">
                       <div className="relative">
                         <Avatar className="w-8 h-8">
                           <AvatarImage src={user.avatar || '/placeholder.svg'} />
-                          <AvatarFallback className="bg-gradient-to-br from-green-400 to-blue-500 text-white text-sm">
+                          <AvatarFallback className="bg-gradient-to-br from-success-400 to-primary-500 text-white text-sm">
                             {user.name.charAt(0)}
                           </AvatarFallback>
                         </Avatar>
@@ -641,9 +641,9 @@ export function Communication() {
                         ></div>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-medium text-slate-800 text-sm truncate">{user.name}</h4>
-                        <p className="text-xs text-slate-600 truncate">{user.department}</p>
-                        <p className="text-xs text-slate-500">{getStatusText(user.status)}</p>
+                        <h4 className="font-medium text-neutral-800 text-sm truncate">{user.name}</h4>
+                        <p className="text-xs text-neutral-600 truncate">{user.department}</p>
+                        <p className="text-xs text-neutral-500">{getStatusText(user.status)}</p>
                       </div>
                     </div>
                   ))}
@@ -655,9 +655,9 @@ export function Communication() {
               <ScrollArea className="h-[500px]">
                 <div className="space-y-4 p-4">
                   {announcements.map((announcement) => (
-                    <div key={announcement.id} className="p-3 rounded-lg border border-slate-200 hover:bg-slate-50">
+                    <div key={announcement.id} className="p-3 rounded-lg border border-neutral-200 hover:bg-neutral-50">
                       <div className="flex items-start justify-between mb-2">
-                        <h4 className="font-medium text-slate-800 text-sm">{announcement.title}</h4>
+                        <h4 className="font-medium text-neutral-800 text-sm">{announcement.title}</h4>
                         <Badge
                           variant={
                             announcement.priority === 'high'
@@ -675,8 +675,8 @@ export function Communication() {
                               : '一般'}
                         </Badge>
                       </div>
-                      <p className="text-xs text-slate-600 mb-2">{announcement.content}</p>
-                      <div className="flex items-center justify-between text-xs text-slate-500">
+                      <p className="text-xs text-neutral-600 mb-2">{announcement.content}</p>
+                      <div className="flex items-center justify-between text-xs text-neutral-500">
                         <span>{announcement.author}</span>
                         <span>{formatTime(announcement.timestamp)}</span>
                       </div>
@@ -694,14 +694,14 @@ export function Communication() {
         <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Video className="w-5 h-5 mr-2 text-blue-600" />
+              <Video className="w-5 h-5 mr-2 text-primary-600" />
               视频会议
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-slate-600 mb-4">快速发起或加入视频会议</p>
+            <p className="text-sm text-neutral-600 mb-4">快速发起或加入视频会议</p>
             <div className="space-y-2">
-              <Button className="w-full bg-gradient-to-r from-blue-500 to-indigo-600">
+              <Button className="w-full bg-gradient-to-r from-primary-500 to-primary-600">
                 <Video className="w-4 h-4 mr-2" />
                 发起会议
               </Button>
@@ -716,14 +716,14 @@ export function Communication() {
         <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <FileText className="w-5 h-5 mr-2 text-green-600" />
+              <FileText className="w-5 h-5 mr-2 text-success-600" />
               文档协作
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-slate-600 mb-4">创建和协作编辑文档</p>
+            <p className="text-sm text-neutral-600 mb-4">创建和协作编辑文档</p>
             <div className="space-y-2">
-              <Button className="w-full bg-gradient-to-r from-green-500 to-emerald-600">
+              <Button className="w-full bg-gradient-to-r from-success-500 to-success-600">
                 <Plus className="w-4 h-4 mr-2" />
                 新建文档
               </Button>
@@ -738,14 +738,14 @@ export function Communication() {
         <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Users className="w-5 h-5 mr-2 text-purple-600" />
+              <Users className="w-5 h-5 mr-2 text-accent-600" />
               团队管理
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-slate-600 mb-4">管理团队成员和权限</p>
+            <p className="text-sm text-neutral-600 mb-4">管理团队成员和权限</p>
             <div className="space-y-2">
-              <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-600">
+              <Button className="w-full bg-gradient-to-r from-accent-500 to-accent-600">
                 <Plus className="w-4 h-4 mr-2" />
                 邀请成员
               </Button>

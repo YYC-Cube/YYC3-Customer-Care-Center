@@ -206,30 +206,30 @@ export function SecurityAuditDashboard() {
   const getRiskLevelColor = (level: string) => {
     switch (level) {
     case 'low':
-      return 'text-green-600 bg-green-100';
+      return 'text-success-600 bg-success-100';
     case 'medium':
-      return 'text-yellow-600 bg-yellow-100';
+      return 'text-warning-600 bg-warning-100';
     case 'high':
-      return 'text-orange-600 bg-orange-100';
+      return 'text-warning-600 bg-warning-100';
     case 'critical':
-      return 'text-red-600 bg-red-100';
+      return 'text-danger-600 bg-danger-100';
     default:
-      return 'text-gray-600 bg-gray-100';
+      return 'text-neutral-600 bg-neutral-100';
     }
   };
 
   const getSeverityIcon = (severity: string) => {
     switch (severity) {
     case 'low':
-      return <CheckCircle className="h-4 w-4 text-green-500" />;
+      return <CheckCircle className="h-4 w-4 text-success-500" />;
     case 'medium':
-      return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
+      return <AlertTriangle className="h-4 w-4 text-warning-500" />;
     case 'high':
-      return <AlertTriangle className="h-4 w-4 text-orange-500" />;
+      return <AlertTriangle className="h-4 w-4 text-warning-500" />;
     case 'critical':
-      return <XCircle className="h-4 w-4 text-red-500" />;
+      return <XCircle className="h-4 w-4 text-danger-500" />;
     default:
-      return <Eye className="h-4 w-4 text-gray-500" />;
+      return <Eye className="h-4 w-4 text-neutral-500" />;
     }
   };
 
@@ -246,7 +246,7 @@ export function SecurityAuditDashboard() {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500"></div>
         <span className="ml-3">加载安全数据中...</span>
       </div>
     );
@@ -257,35 +257,35 @@ export function SecurityAuditDashboard() {
       {/* 页面标题 */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">安全审计中心</h1>
-          <p className="text-gray-600">实时监控系统安全状态和访问行为</p>
+          <h1 className="text-3xl font-bold text-neutral-900">安全审计中心</h1>
+          <p className="text-neutral-600">实时监控系统安全状态和访问行为</p>
         </div>
         <div className="flex space-x-2">
           <Button
             variant="outline"
             onClick={() => setSelectedTimeRange('1h')}
-            className={selectedTimeRange === '1h' ? 'bg-blue-50 border-blue-300' : ''}
+            className={selectedTimeRange === '1h' ? 'bg-primary-50 border-primary-300' : ''}
           >
             1小时
           </Button>
           <Button
             variant="outline"
             onClick={() => setSelectedTimeRange('24h')}
-            className={selectedTimeRange === '24h' ? 'bg-blue-50 border-blue-300' : ''}
+            className={selectedTimeRange === '24h' ? 'bg-primary-50 border-primary-300' : ''}
           >
             24小时
           </Button>
           <Button
             variant="outline"
             onClick={() => setSelectedTimeRange('7d')}
-            className={selectedTimeRange === '7d' ? 'bg-blue-50 border-blue-300' : ''}
+            className={selectedTimeRange === '7d' ? 'bg-primary-50 border-primary-300' : ''}
           >
             7天
           </Button>
           <Button
             variant="outline"
             onClick={() => setSelectedTimeRange('30d')}
-            className={selectedTimeRange === '30d' ? 'bg-blue-50 border-blue-300' : ''}
+            className={selectedTimeRange === '30d' ? 'bg-primary-50 border-primary-300' : ''}
           >
             30天
           </Button>
@@ -303,11 +303,11 @@ export function SecurityAuditDashboard() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">安全评分</p>
-                  <p className="text-3xl font-bold text-gray-900">{metrics.securityScore.toFixed(0)}</p>
+                  <p className="text-sm font-medium text-neutral-600">安全评分</p>
+                  <p className="text-3xl font-bold text-neutral-900">{metrics.securityScore.toFixed(0)}</p>
                 </div>
                 <div className="flex flex-col items-end">
-                  <Shield className="h-8 w-8 text-blue-500" />
+                  <Shield className="h-8 w-8 text-primary-500" />
                   <Badge className={`mt-2 ${getRiskLevelColor(metrics.riskLevel)}`}>
                     {metrics.riskLevel.toUpperCase()}
                   </Badge>
@@ -321,14 +321,14 @@ export function SecurityAuditDashboard() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">总事件数</p>
-                  <p className="text-3xl font-bold text-gray-900">{metrics.totalEvents}</p>
+                  <p className="text-sm font-medium text-neutral-600">总事件数</p>
+                  <p className="text-3xl font-bold text-neutral-900">{metrics.totalEvents}</p>
                 </div>
-                <Activity className="h-8 w-8 text-green-500" />
+                <Activity className="h-8 w-8 text-success-500" />
               </div>
               <div className="flex items-center mt-4 text-sm">
-                <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
-                <span className="text-green-600">+12% 较上期</span>
+                <TrendingUp className="h-4 w-4 text-success-500 mr-1" />
+                <span className="text-success-600">+12% 较上期</span>
               </div>
             </CardContent>
           </Card>
@@ -337,15 +337,15 @@ export function SecurityAuditDashboard() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">访问成功率</p>
-                  <p className="text-3xl font-bold text-gray-900">
+                  <p className="text-sm font-medium text-neutral-600">访问成功率</p>
+                  <p className="text-3xl font-bold text-neutral-900">
                     {metrics.totalEvents > 0 ? ((metrics.successfulAccess / metrics.totalEvents) * 100).toFixed(1) : 0}%
                   </p>
                 </div>
-                <CheckCircle className="h-8 w-8 text-green-500" />
+                <CheckCircle className="h-8 w-8 text-success-500" />
               </div>
               <div className="flex items-center mt-4 text-sm">
-                <span className="text-gray-600">
+                <span className="text-neutral-600">
                   成功: {metrics.successfulAccess} | 失败: {metrics.deniedAccess}
                 </span>
               </div>
@@ -356,13 +356,13 @@ export function SecurityAuditDashboard() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">活跃用户</p>
-                  <p className="text-3xl font-bold text-gray-900">{metrics.activeUsers}</p>
+                  <p className="text-sm font-medium text-neutral-600">活跃用户</p>
+                  <p className="text-3xl font-bold text-neutral-900">{metrics.activeUsers}</p>
                 </div>
-                <Users className="h-8 w-8 text-purple-500" />
+                <Users className="h-8 w-8 text-accent-500" />
               </div>
               <div className="flex items-center mt-4 text-sm">
-                <span className="text-gray-600">可疑活动: {metrics.suspiciousActivity}</span>
+                <span className="text-neutral-600">可疑活动: {metrics.suspiciousActivity}</span>
               </div>
             </CardContent>
           </Card>
@@ -374,7 +374,7 @@ export function SecurityAuditDashboard() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
-              <AlertTriangle className="h-5 w-5 text-orange-500" />
+              <AlertTriangle className="h-5 w-5 text-warning-500" />
               <span>安全警报</span>
               <Badge variant="destructive">{alerts.filter((a) => !a.resolved).length}</Badge>
             </CardTitle>
@@ -387,12 +387,12 @@ export function SecurityAuditDashboard() {
                   key={alert.id}
                   className={`border-l-4 ${
                     alert.severity === 'critical'
-                      ? 'border-l-red-500 bg-red-50'
+                      ? 'border-l-danger-500 bg-danger-50'
                       : alert.severity === 'high'
-                        ? 'border-l-orange-500 bg-orange-50'
+                        ? 'border-l-warning-500 bg-warning-50'
                         : alert.severity === 'medium'
-                          ? 'border-l-yellow-500 bg-yellow-50'
-                          : 'border-l-blue-500 bg-blue-50'
+                          ? 'border-l-warning-500 bg-warning-50'
+                          : 'border-l-primary-500 bg-primary-50'
                   }`}
                 >
                   <div className="flex items-start justify-between">
@@ -400,8 +400,8 @@ export function SecurityAuditDashboard() {
                       {getSeverityIcon(alert.severity)}
                       <div>
                         <h4 className="font-medium">{alert.title}</h4>
-                        <p className="text-sm text-gray-600 mt-1">{alert.description}</p>
-                        <div className="flex items-center space-x-4 mt-2 text-xs text-gray-500">
+                        <p className="text-sm text-neutral-600 mt-1">{alert.description}</p>
+                        <div className="flex items-center space-x-4 mt-2 text-xs text-neutral-500">
                           <span className="flex items-center">
                             <Clock className="h-3 w-3 mr-1" />
                             {alert.timestamp.toLocaleString('zh-CN')}
@@ -450,15 +450,15 @@ export function SecurityAuditDashboard() {
             <CardContent>
               <div className="space-y-4">
                 {auditLogs.slice(0, 20).map((log, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
+                  <div key={index} className="flex items-center justify-between p-4 border rounded-lg hover:bg-neutral-50">
                     <div className="flex items-center space-x-4">
                       <div className="flex-shrink-0">
                         {log.type === 'permission_granted' ? (
-                          <CheckCircle className="h-5 w-5 text-green-500" />
+                          <CheckCircle className="h-5 w-5 text-success-500" />
                         ) : log.type === 'permission_denied' ? (
-                          <XCircle className="h-5 w-5 text-red-500" />
+                          <XCircle className="h-5 w-5 text-danger-500" />
                         ) : (
-                          <AlertTriangle className="h-5 w-5 text-yellow-500" />
+                          <AlertTriangle className="h-5 w-5 text-warning-500" />
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
@@ -468,7 +468,7 @@ export function SecurityAuditDashboard() {
                             {log.resource}.{log.action}
                           </Badge>
                         </div>
-                        <div className="flex items-center space-x-4 mt-1 text-sm text-gray-500">
+                        <div className="flex items-center space-x-4 mt-1 text-sm text-neutral-500">
                           <span className="flex items-center">
                             <Users className="h-3 w-3 mr-1" />
                             {log.userId}
@@ -510,7 +510,7 @@ export function SecurityAuditDashboard() {
               <CardDescription>各用户的访问行为分析</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="text-center py-8 text-gray-500">
+              <div className="text-center py-8 text-neutral-500">
                 <Users className="h-12 w-12 mx-auto mb-4 opacity-50" />
                 <p>用户活动分析功能开发中...</p>
               </div>
@@ -525,7 +525,7 @@ export function SecurityAuditDashboard() {
               <CardDescription>各资源的访问频率和权限使用情况</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="text-center py-8 text-gray-500">
+              <div className="text-center py-8 text-neutral-500">
                 <Lock className="h-12 w-12 mx-auto mb-4 opacity-50" />
                 <p>资源访问分析功能开发中...</p>
               </div>
@@ -540,7 +540,7 @@ export function SecurityAuditDashboard() {
               <CardDescription>安全事件的时间趋势和模式分析</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="text-center py-8 text-gray-500">
+              <div className="text-center py-8 text-neutral-500">
                 <TrendingUp className="h-12 w-12 mx-auto mb-4 opacity-50" />
                 <p>趋势分析功能开发中...</p>
               </div>

@@ -60,17 +60,51 @@ YYC³ Customer Care Center（YYC3-CCC）项目是一个基于「五高五标五�
 
 ### 3. 技术栈
 
-- Next.js 14.2.25
-- React 19
-- TypeScript 5
-- Tailwind CSS 4.1.9
+> 版本以 `package.json` 为准（2026-11-18 对齐）。
+
+- Next.js 16.4.6（Turbopack）
+- React 19.3.1
+- TypeScript 5.9.3
+- Tailwind CSS 3.4.19
 - shadcn/ui + Radix UI
-- Framer Motion 12.23.12
-- @splinetool/react-spline 4.1.0
-- @tsparticles/react 3.0.0
-- Vercel (部署平台)
+- Framer Motion 12.43.0
+- Recharts 2.15.4
+- Vitest 4.0.18
 
 ### 4. 通用组件封装文档
+
+#### 4.1 封装规则
+
+1. **单一令牌源**：封装层不得内置色值/尺寸常量，一律引用
+   [`lib/design-tokens.ts`](../../lib/design-tokens.ts)（详见
+   [055-设计令牌开发者规范](./055-YYC3-CCC-详细设计-设计令牌开发者规范.md)）。
+2. **API 最小化**：只暴露业务需要的 `variant` / `size` / `state`，其余透传原生属性。
+3. **可访问性**：图标按钮必须带 `aria-label`；受控面板需 `role="dialog"` + `aria-modal`。
+4. **组合优先**：先组合既有 `components/ui/*`，不允许重复实现按钮、卡片、弹窗原语。
+5. **客户端边界**：`'use client'` 必须是模块首条语句，任何 import 不得前置。
+
+#### 4.2 已封装的通用组件
+
+| 组件 | 导出 | 关键约定 |
+| ---- | ---- | ---- |
+| `ui/button.tsx` | `Button` | 6 变体 × 4 尺寸；`hover/active/disabled` 取令牌 |
+| `ui/enhanced-button.tsx` | `EnhancedButton` | `icon` + `loading`；loading 时自动禁用 |
+| `ui/card.tsx` | `Card` 系列 | 圆角 12px、`shadow.sm`、内边距 24px |
+| `ui/enhanced-card.tsx` | `EnhancedCard` | `default/glass/gradient` 三变体 |
+| `ui/sheet.tsx` | `Sheet` 系列 | 触发器常驻渲染，可见性由 `SheetContent` 按 `open` 控制 |
+| `layout/adaptive-sidebar.tsx` | `AdaptiveSidebar` 系列 | 宽度 224/56px（与主侧栏同源） |
+| `layout/responsive-layout.tsx` | `ResponsiveLayout` / `useLayoutContext` / `useOptionalLayoutContext` | 布局状态唯一来源 |
+
+#### 4.3 布局状态机约定
+
+侧边栏/抽屉的开关状态统一由 `ResponsiveLayoutProvider` 托管：
+
+```tsx
+const layout = useOptionalLayoutContext(); // 无 Provider 时返回 undefined
+const isOpen = layout ? layout.sidebarOpen : localOpen;
+```
+
+禁止在业务组件内另建 `isMenuOpen` 独立状态机（如需脱离 Provider 使用，必须提供本地退化分支）。
 
 ---
 

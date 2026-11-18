@@ -214,17 +214,17 @@ export function MultiFactorAuth() {
     if (!method.isVerified) {
       return <Badge variant="destructive">未验证</Badge>;
     }
-    return <Badge className="bg-green-100 text-green-800">已启用</Badge>;
+    return <Badge className="bg-success-100 text-success-800">已启用</Badge>;
   };
 
   const getEventStatusIcon = (status: SecurityEvent['status']) => {
     switch (status) {
     case 'success':
-      return <CheckCircle className="w-4 h-4 text-green-600" />;
+      return <CheckCircle className="w-4 h-4 text-success-600" />;
     case 'failed':
-      return <XCircle className="w-4 h-4 text-red-600" />;
+      return <XCircle className="w-4 h-4 text-danger-600" />;
     case 'blocked':
-      return <Shield className="w-4 h-4 text-orange-600" />;
+      return <Shield className="w-4 h-4 text-warning-600" />;
     }
   };
 
@@ -262,7 +262,7 @@ export function MultiFactorAuth() {
           </Button>
           <Dialog open={isSetupDialogOpen} onOpenChange={setIsSetupDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white">
+              <Button className="bg-gradient-to-r from-primary-400 to-primary-500 hover:from-primary-500 hover:to-primary-600 text-white">
                 <Shield className="w-4 h-4 mr-2" />
                 设置MFA
               </Button>
@@ -284,18 +284,18 @@ export function MultiFactorAuth() {
 
       {/* 安全状态概览 */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">MFA状态</CardTitle>
-            <Shield className="h-4 w-4 text-green-600" />
+            <Shield className="h-4 w-4 text-success-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">已启用</div>
+            <div className="text-2xl font-bold text-success-600">已启用</div>
             <p className="text-xs text-muted-foreground">{mfaMethods.filter((m) => m.isEnabled).length} 种方式已配置</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">受信任设备</CardTitle>
             <Lock className="h-4 w-4 text-muted-foreground" />
@@ -306,23 +306,23 @@ export function MultiFactorAuth() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">安全事件</CardTitle>
-            <AlertTriangle className="h-4 w-4 text-orange-600" />
+            <AlertTriangle className="h-4 w-4 text-warning-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-600">
+            <div className="text-2xl font-bold text-warning-600">
               {securityEvents.filter((e) => e.status === 'blocked').length}
             </div>
             <p className="text-xs text-muted-foreground">今日被阻止的尝试</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">最后验证</CardTitle>
-            <CheckCircle className="h-4 w-4 text-green-600" />
+            <CheckCircle className="h-4 w-4 text-success-600" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">30分钟前</div>
@@ -342,7 +342,7 @@ export function MultiFactorAuth() {
         <TabsContent value="methods" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {mfaMethods.map((method) => (
-              <Card key={method.id} className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm">
+              <Card key={method.id} className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm">
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
@@ -397,7 +397,7 @@ export function MultiFactorAuth() {
         </TabsContent>
 
         <TabsContent value="devices" className="space-y-6">
-          <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm">
+          <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm">
             <CardHeader>
               <CardTitle>受信任设备管理</CardTitle>
               <CardDescription>管理已授权访问的设备</CardDescription>
@@ -407,11 +407,11 @@ export function MultiFactorAuth() {
                 {trustedDevices.map((device) => (
                   <div key={device.id} className="flex items-center justify-between p-4 border rounded-lg">
                     <div className="flex items-center space-x-4">
-                      <div className="p-2 bg-blue-100 rounded-lg">
+                      <div className="p-2 bg-primary-100 rounded-lg">
                         {device.type === 'desktop' ? (
-                          <Settings className="w-5 h-5 text-blue-600" />
+                          <Settings className="w-5 h-5 text-primary-600" />
                         ) : (
-                          <Smartphone className="w-5 h-5 text-blue-600" />
+                          <Smartphone className="w-5 h-5 text-primary-600" />
                         )}
                       </div>
                       <div>
@@ -425,7 +425,7 @@ export function MultiFactorAuth() {
                       </div>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <Badge className={device.isTrusted ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}>
+                      <Badge className={device.isTrusted ? 'bg-success-100 text-success-800' : 'bg-neutral-100 text-neutral-800'}>
                         {device.isTrusted ? '已信任' : '未信任'}
                       </Badge>
                       <Button variant="outline" size="sm" onClick={() => removeTrustedDevice(device.id)}>
@@ -440,7 +440,7 @@ export function MultiFactorAuth() {
         </TabsContent>
 
         <TabsContent value="events" className="space-y-6">
-          <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm">
+          <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm">
             <CardHeader>
               <CardTitle>安全事件日志</CardTitle>
               <CardDescription>查看最近的安全相关活动</CardDescription>
@@ -463,10 +463,10 @@ export function MultiFactorAuth() {
                     <Badge
                       className={
                         event.status === 'success'
-                          ? 'bg-green-100 text-green-800'
+                          ? 'bg-success-100 text-success-800'
                           : event.status === 'failed'
-                            ? 'bg-red-100 text-red-800'
-                            : 'bg-orange-100 text-orange-800'
+                            ? 'bg-danger-100 text-danger-800'
+                            : 'bg-warning-100 text-warning-800'
                       }
                     >
                       {event.status === 'success' ? '成功' : event.status === 'failed' ? '失败' : '已阻止'}
@@ -480,7 +480,7 @@ export function MultiFactorAuth() {
 
         <TabsContent value="settings" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm">
+            <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm">
               <CardHeader>
                 <CardTitle>安全策略</CardTitle>
                 <CardDescription>配置安全相关设置</CardDescription>
@@ -520,7 +520,7 @@ export function MultiFactorAuth() {
               </CardContent>
             </Card>
 
-            <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm">
+            <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm">
               <CardHeader>
                 <CardTitle>会话管理</CardTitle>
                 <CardDescription>管理活动会话和超时设置</CardDescription>
@@ -598,8 +598,8 @@ function MFASetupDialog({
         <div className="space-y-4">
           <h3 className="font-medium">设置身份验证器</h3>
           <div className="text-center space-y-4">
-            <div className="w-48 h-48 bg-gray-100 rounded-lg mx-auto flex items-center justify-center">
-              <QrCode className="w-24 h-24 text-gray-400" />
+            <div className="w-48 h-48 bg-neutral-100 rounded-lg mx-auto flex items-center justify-center">
+              <QrCode className="w-24 h-24 text-neutral-400" />
             </div>
             <p className="text-sm text-muted-foreground">使用身份验证器应用扫描二维码</p>
             <div className="space-y-2">

@@ -79,8 +79,8 @@ export default function LayoutSettingsPage() {
         <div className="space-y-8">
           {/* 页面标题 */}
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">布局设置</h1>
-            <p className="text-lg text-gray-600">自定义系统的响应式布局和显示效果</p>
+            <h1 className="text-3xl font-bold text-neutral-900 mb-2">布局设置</h1>
+            <p className="text-lg text-neutral-600">自定义系统的响应式布局和显示效果</p>
           </div>
 
           {/* 当前设备信息 */}
@@ -98,25 +98,25 @@ export default function LayoutSettingsPage() {
                   gap: { xs: 16, md: 20 },
                 }}
               >
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <div className="text-2xl font-bold text-blue-600">{screenSize.toUpperCase()}</div>
-                  <div className="text-sm text-gray-500">屏幕尺寸</div>
+                <div className="text-center p-4 bg-neutral-50 rounded-lg">
+                  <div className="text-2xl font-bold text-primary-600">{screenSize.toUpperCase()}</div>
+                  <div className="text-sm text-neutral-500">屏幕尺寸</div>
                 </div>
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <div className="text-2xl font-bold text-green-600">
+                <div className="text-center p-4 bg-neutral-50 rounded-lg">
+                  <div className="text-2xl font-bold text-success-600">
                     {windowSize.width}×{windowSize.height}
                   </div>
-                  <div className="text-sm text-gray-500">分辨率</div>
+                  <div className="text-sm text-neutral-500">分辨率</div>
                 </div>
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <div className="text-2xl font-bold text-purple-600">{orientation}</div>
-                  <div className="text-sm text-gray-500">方向</div>
+                <div className="text-center p-4 bg-neutral-50 rounded-lg">
+                  <div className="text-2xl font-bold text-accent-600">{orientation}</div>
+                  <div className="text-sm text-neutral-500">方向</div>
                 </div>
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <div className="text-2xl font-bold text-orange-600">
+                <div className="text-center p-4 bg-neutral-50 rounded-lg">
+                  <div className="text-2xl font-bold text-warning-600">
                     {isMobile ? '移动' : isTablet ? '平板' : '桌面'}
                   </div>
-                  <div className="text-sm text-gray-500">设备类型</div>
+                  <div className="text-sm text-neutral-500">设备类型</div>
                 </div>
               </ResponsiveGrid>
             </CardContent>
@@ -181,7 +181,7 @@ export default function LayoutSettingsPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="font-medium">自动收缩</div>
-                      <div className="text-sm text-gray-500">无操作时自动收缩</div>
+                      <div className="text-sm text-neutral-500">无操作时自动收缩</div>
                     </div>
                     <Switch
                       checked={tempConfig.sidebar.autoCollapse}
@@ -216,7 +216,7 @@ export default function LayoutSettingsPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="font-medium">悬停展开</div>
-                      <div className="text-sm text-gray-500">鼠标悬停时展开</div>
+                      <div className="text-sm text-neutral-500">鼠标悬停时展开</div>
                     </div>
                     <Switch
                       checked={tempConfig.sidebar.hoverExpand}
@@ -262,7 +262,7 @@ export default function LayoutSettingsPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="font-medium">居中对齐</div>
-                      <div className="text-sm text-gray-500">内容区域居中显示</div>
+                      <div className="text-sm text-neutral-500">内容区域居中显示</div>
                     </div>
                     <Switch
                       checked={tempConfig.content.centered}

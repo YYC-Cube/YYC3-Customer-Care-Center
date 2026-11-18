@@ -158,7 +158,7 @@ export function TaskTemplates({ onUseTemplate }: TaskTemplatesProps) {
     );
   };
 
-  const useTemplate = (template: TaskTemplate) => {
+  const applyTemplate = (template: TaskTemplate) => {
     // 增加使用次数
     setTemplates((prev) => prev.map((t) => (t.id === template.id ? { ...t, usageCount: t.usageCount + 1 } : t)));
 
@@ -172,13 +172,13 @@ export function TaskTemplates({ onUseTemplate }: TaskTemplatesProps) {
   const getPriorityColor = (priority: string) => {
     switch (priority) {
     case '高':
-      return 'border-red-200 text-red-700 bg-red-50';
+      return 'border-danger-200 text-danger-700 bg-danger-50';
     case '中':
-      return 'border-yellow-200 text-yellow-700 bg-yellow-50';
+      return 'border-warning-200 text-warning-700 bg-warning-50';
     case '低':
-      return 'border-green-200 text-green-700 bg-green-50';
+      return 'border-success-200 text-success-700 bg-success-50';
     default:
-      return 'border-slate-200 text-slate-700 bg-slate-50';
+      return 'border-neutral-200 text-neutral-700 bg-neutral-50';
     }
   };
 
@@ -292,22 +292,22 @@ export function TaskTemplates({ onUseTemplate }: TaskTemplatesProps) {
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center space-x-2 mb-2">
-                    <h3 className="font-semibold text-slate-800 text-lg">{template.name}</h3>
+                    <h3 className="font-semibold text-neutral-800 text-lg">{template.name}</h3>
                     <Badge variant="outline" className={getPriorityColor(template.priority)}>
                       {template.priority}
                     </Badge>
-                    <Badge variant="outline" className="bg-sky-50 text-sky-600 border-sky-200">
+                    <Badge variant="outline" className="bg-primary-50 text-primary-600 border-primary-200">
                       {template.category}
                     </Badge>
                   </div>
-                  <p className="text-sm text-slate-600 mb-3">{template.description}</p>
+                  <p className="text-sm text-neutral-600 mb-3">{template.description}</p>
                 </div>
 
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => toggleStar(template.id)}
-                  className={template.isStarred ? 'text-yellow-500' : 'text-slate-400'}
+                  className={template.isStarred ? 'text-warning-500' : 'text-neutral-400'}
                 >
                   <Star className={`w-4 h-4 ${template.isStarred ? 'fill-current' : ''}`} />
                 </Button>
@@ -315,16 +315,16 @@ export function TaskTemplates({ onUseTemplate }: TaskTemplatesProps) {
 
               {/* 模板信息 */}
               <div className="grid grid-cols-3 gap-4 text-sm">
-                <div className="flex items-center space-x-2 text-slate-600">
-                  <Clock className="w-4 h-4 text-sky-500" />
+                <div className="flex items-center space-x-2 text-neutral-600">
+                  <Clock className="w-4 h-4 text-primary-500" />
                   <span>{template.estimatedHours}小时</span>
                 </div>
-                <div className="flex items-center space-x-2 text-slate-600">
-                  <CheckSquare className="w-4 h-4 text-sky-500" />
+                <div className="flex items-center space-x-2 text-neutral-600">
+                  <CheckSquare className="w-4 h-4 text-primary-500" />
                   <span>{template.subtasks.length}个子任务</span>
                 </div>
-                <div className="flex items-center space-x-2 text-slate-600">
-                  <Copy className="w-4 h-4 text-sky-500" />
+                <div className="flex items-center space-x-2 text-neutral-600">
+                  <Copy className="w-4 h-4 text-primary-500" />
                   <span>使用{template.usageCount}次</span>
                 </div>
               </div>
@@ -332,7 +332,7 @@ export function TaskTemplates({ onUseTemplate }: TaskTemplatesProps) {
               {/* 标签 */}
               <div className="flex flex-wrap gap-2">
                 {template.tags.map((tag) => (
-                  <Badge key={tag} variant="outline" className="text-xs bg-slate-50 text-slate-600 border-slate-200">
+                  <Badge key={tag} variant="outline" className="text-xs bg-neutral-50 text-neutral-600 border-neutral-200">
                     <Tag className="w-3 h-3 mr-1" />
                     {tag}
                   </Badge>
@@ -341,25 +341,25 @@ export function TaskTemplates({ onUseTemplate }: TaskTemplatesProps) {
 
               {/* 子任务预览 */}
               <div className="space-y-2">
-                <h4 className="text-sm font-medium text-slate-700">子任务预览</h4>
+                <h4 className="text-sm font-medium text-neutral-700">子任务预览</h4>
                 <div className="space-y-1 max-h-24 overflow-y-auto">
                   {template.subtasks.slice(0, 3).map((subtask, index) => (
-                    <div key={index} className="flex items-center space-x-2 text-sm text-slate-600">
-                      <div className="w-1.5 h-1.5 bg-sky-400 rounded-full"></div>
+                    <div key={index} className="flex items-center space-x-2 text-sm text-neutral-600">
+                      <div className="w-1.5 h-1.5 bg-primary-400 rounded-full"></div>
                       <span>{subtask}</span>
                     </div>
                   ))}
                   {template.subtasks.length > 3 && (
-                    <div className="text-xs text-slate-500 pl-4">还有 {template.subtasks.length - 3} 个子任务...</div>
+                    <div className="text-xs text-neutral-500 pl-4">还有 {template.subtasks.length - 3} 个子任务...</div>
                   )}
                 </div>
               </div>
 
               {/* 操作按钮 */}
-              <div className="flex items-center justify-between pt-4 border-t border-sky-100">
-                <div className="text-xs text-slate-500">创建于 {template.createdAt.toLocaleDateString()}</div>
+              <div className="flex items-center justify-between pt-4 border-t border-primary-100">
+                <div className="text-xs text-neutral-500">创建于 {template.createdAt.toLocaleDateString()}</div>
                 <div className="flex items-center space-x-2">
-                  <EnhancedButton variant="secondary" size="sm" icon={Copy} onClick={() => useTemplate(template)}>
+                  <EnhancedButton variant="secondary" size="sm" icon={Copy} onClick={() => applyTemplate(template)}>
                     使用模板
                   </EnhancedButton>
                   <Button variant="ghost" size="sm" onClick={() => setEditingTemplate(template)}>
@@ -369,7 +369,7 @@ export function TaskTemplates({ onUseTemplate }: TaskTemplatesProps) {
                     variant="ghost"
                     size="sm"
                     onClick={() => deleteTemplate(template.id)}
-                    className="text-red-500 hover:text-red-600 hover:bg-red-50"
+                    className="text-danger-500 hover:text-danger-600 hover:bg-danger-50"
                   >
                     <Trash2 className="w-4 h-4" />
                   </Button>
@@ -382,9 +382,9 @@ export function TaskTemplates({ onUseTemplate }: TaskTemplatesProps) {
 
       {filteredTemplates.length === 0 && (
         <div className="text-center py-12">
-          <FileTemplate className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-slate-600 mb-2">暂无匹配的模板</h3>
-          <p className="text-slate-500 mb-4">尝试调整搜索条件或创建新的任务模板</p>
+          <FileTemplate className="w-16 h-16 text-neutral-300 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-neutral-600 mb-2">暂无匹配的模板</h3>
+          <p className="text-neutral-500 mb-4">尝试调整搜索条件或创建新的任务模板</p>
           <EnhancedButton icon={Plus} onClick={() => setShowCreateDialog(true)}>
             创建第一个模板
           </EnhancedButton>

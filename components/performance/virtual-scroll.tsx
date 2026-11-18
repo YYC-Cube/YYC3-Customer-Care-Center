@@ -47,12 +47,13 @@ export function VirtualScroll<T>({
       return (
         <List
           ref={listRef}
+          width="100%"
           height={containerHeight}
           itemCount={items.length}
           itemSize={itemHeight}
           overscanCount={overscan}
           className={className}
-          onScroll={({ scrollTop }) => onScroll?.(scrollTop)}
+          onScroll={({ scrollOffset }) => onScroll?.(scrollOffset)}
           itemData={items}
         >
           {({ index, style, data }) => renderItem({ index, style, data: data[index] })}
@@ -68,12 +69,13 @@ export function VirtualScroll<T>({
       return (
         <VariableSizeList
           ref={listRef}
+          width="100%"
           height={containerHeight}
           itemCount={items.length}
           itemSize={itemHeight}
           overscanCount={overscan}
           className={className}
-          onScroll={({ scrollTop }) => onScroll?.(scrollTop)}
+          onScroll={({ scrollOffset }) => onScroll?.(scrollOffset)}
           itemData={items}
           estimatedItemSize={estimatedItemSize}
         >
@@ -202,19 +204,19 @@ export function VirtualCustomerList() {
 
   const renderCustomerItem = useCallback(
     ({ index, style, data }: { index: number; style: React.CSSProperties; data: any }) => (
-      <div style={style} className="flex items-center justify-between p-4 border-b border-gray-200 hover:bg-gray-50">
+      <div style={style} className="flex items-center justify-between p-4 border-b border-neutral-200 hover:bg-neutral-50">
         <div className="flex items-center space-x-4">
-          <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-medium">
+          <div className="w-10 h-10 bg-primary-500 rounded-full flex items-center justify-center text-white font-medium">
             {data.name.charAt(0)}
           </div>
           <div>
-            <h3 className="font-medium text-gray-900">{data.name}</h3>
-            <p className="text-sm text-gray-500">{data.company}</p>
+            <h3 className="font-medium text-neutral-900">{data.name}</h3>
+            <p className="text-sm text-neutral-500">{data.company}</p>
           </div>
         </div>
         <div className="text-right">
-          <p className="font-medium text-gray-900">¥{data.value.toLocaleString()}</p>
-          <p className="text-sm text-gray-500">{data.status}</p>
+          <p className="font-medium text-neutral-900">¥{data.value.toLocaleString()}</p>
+          <p className="text-sm text-neutral-500">{data.status}</p>
         </div>
       </div>
     ),
@@ -225,8 +227,8 @@ export function VirtualCustomerList() {
     return (
       <div className="flex items-center justify-center h-96">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-500">加载客户数据中...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto mb-4"></div>
+          <p className="text-neutral-500">加载客户数据中...</p>
         </div>
       </div>
     );
@@ -234,16 +236,16 @@ export function VirtualCustomerList() {
 
   return (
     <div className="bg-white rounded-lg shadow">
-      <div className="p-4 border-b border-gray-200">
-        <h2 className="text-lg font-medium text-gray-900">客户列表 ({customers.length.toLocaleString()} 条记录)</h2>
-        <p className="text-sm text-gray-500">使用虚拟滚动优化大数据渲染性能</p>
+      <div className="p-4 border-b border-neutral-200">
+        <h2 className="text-lg font-medium text-neutral-900">客户列表 ({customers.length.toLocaleString()} 条记录)</h2>
+        <p className="text-sm text-neutral-500">使用虚拟滚动优化大数据渲染性能</p>
       </div>
       <VirtualScroll
         items={customers}
         itemHeight={80}
         containerHeight={600}
         renderItem={renderCustomerItem}
-        className="border-t border-gray-200"
+        className="border-t border-neutral-200"
       />
     </div>
   );

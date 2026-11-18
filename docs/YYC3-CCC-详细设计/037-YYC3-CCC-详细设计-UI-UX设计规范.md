@@ -60,17 +60,61 @@ YYC³ Customer Care Center（YYC3-CCC）项目是一个基于「五高五标五�
 
 ### 3. 技术栈
 
-- Next.js 14.2.25
-- React 19
-- TypeScript 5
-- Tailwind CSS 4.1.9
-- shadcn/ui + Radix UI
-- Framer Motion 12.23.12
-- @splinetool/react-spline 4.1.0
-- @tsparticles/react 3.0.0
-- Vercel (部署平台)
+> 版本以 `package.json` 为准（2026-11-18 对齐）。
+
+- Next.js 16.4.6（Turbopack 默认构建，Proxy 取代 Middleware）
+- React 19.3.1 / React DOM 19.3.1
+- TypeScript 5.9.3
+- Tailwind CSS 3.4.19 + tailwindcss-animate 1.0.7
+- shadcn/ui + Radix UI（React 19 兼容版本）
+- Framer Motion 12.43.0
+- Recharts 2.15.4 / lucide-react 0.577.0
+- Sentry 11.14.0
+- ESLint 9.39.5（flat config）+ Vitest 4.0.18
 
 ### 4. UI-UX设计规范
+
+#### 4.1 权威基准（强制）
+
+本项目的色值、字体、圆角、阴影、间距、描边、动效与组件参数，**唯一基准**为
+[`lib/design-tokens.ts`](../../lib/design-tokens.ts)，使用方式见
+[055-设计令牌开发者规范](./055-YYC3-CCC-详细设计-设计令牌开发者规范.md)。
+
+任何与本文件描述冲突的实现，以 `lib/design-tokens.ts` 为准。
+
+#### 4.2 颜色
+
+| 分类 | 令牌 | HEX |
+| ---- | ---- | ---- |
+| 品牌主色 | `color.brand.primary` | `#0EA5E9`（hover `#0284C7` / active `#0369A1`） |
+| 品牌次色 | `color.brand.secondary` | `#3B82F6` |
+| 成功 | `color.semantic.success` | `#10B981` |
+| 警告 | `color.semantic.warning` | `#F59E0B` |
+| 危险 | `color.semantic.danger` | `#EF4444` |
+| 表面 | `color.surface` | `#FFFFFF` / 前景 `#0F172A` / 描边 `#E2E8F0` |
+
+功能色阶共 6 条（neutral / primary / success / warning / danger / accent），每档 50–950。
+调色板旧族名（`gray`/`blue`/`green`/`red` 等）仅作为兼容别名存在，**禁止新增使用**。
+
+#### 4.3 排版
+
+`Inter` 字族；层级为 display `700/36/44`、h1 `700/30/36`、h2 `600/24/32`、
+h3 `600/20/28`、h4 `600/16/24`、body `400/14/22`、caption `400/12/16`。
+
+#### 4.4 形状与层次
+
+圆角 `6/8/12/16/24px`；阴影四级（`shadow.sm/md/lg/xl`，基色 `rgba(15,23,42)`）；
+描边 `1px #E2E8F0`，焦点环 `3px #0EA5E9`；间距按 4px 栅格。
+
+#### 4.5 交互状态
+
+所有可交互元素必须覆盖 `hover / active / focus-visible / disabled / loading`，
+数据区域必须覆盖 `empty / error`。危险色与成功色禁止互相替代。
+
+#### 4.6 审核结论
+
+见 [YYC³ 全域UI深度一致性审核报告](../YYC3-CCC-审核报告/YYC3-全域UI深度一致性审核报告.md)：
+96 项审核全部合规（100%）。
 
 ---
 

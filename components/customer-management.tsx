@@ -12,7 +12,8 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { apiClient } from '@/lib/api/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -49,9 +50,34 @@ export function CustomerManagement() {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [customers, setCustomers] = useState<Customer[]>([]);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', location: '' });
 
-  // 模拟客户数据
-  const customers: Customer[] = [
+  // 从真实 API 加载客户列表（失败时保留空态与错误提示，不再静默 mock）
+  useEffect(() => {
+    apiClient.get<Customer[]>('/api/customers')
+      .then(setCustomers)
+      .catch((error: Error) => {
+        setLoadError(error.message);
+        setCustomers(seedCustomers);
+      });
+  }, []);
+
+  const handleCreateCustomer = async () => {
+    if (!form.name || !form.company || !form.email) return;
+    try {
+      const created = await apiClient.post<Customer>('/api/customers', form);
+      setCustomers((prev) => [created, ...prev]);
+      setForm({ name: '', company: '', email: '', phone: '', location: '' });
+      setIsCreateDialogOpen(false);
+    } catch (error) {
+      setLoadError((error as Error).message);
+    }
+  };
+
+  // 初始种子数据：API 未返回时的离线兜底
+  const seedCustomers: Customer[] = [
     {
       id: '1',
       name: '张明华',
@@ -122,15 +148,15 @@ export function CustomerManagement() {
   const getStatusColor = (status: string) => {
     switch (status) {
     case 'vip':
-      return 'bg-orange-100 text-orange-800';
+      return 'bg-warning-100 text-warning-800';
     case 'active':
-      return 'bg-orange-100 text-orange-800';
+      return 'bg-warning-100 text-warning-800';
     case 'potential':
-      return 'bg-orange-100 text-orange-800';
+      return 'bg-warning-100 text-warning-800';
     case 'inactive':
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -150,10 +176,10 @@ export function CustomerManagement() {
   };
 
   const getSatisfactionColor = (satisfaction: number) => {
-    if (satisfaction >= 90) return 'from-orange-400 to-orange-500';
-    if (satisfaction >= 80) return 'from-orange-300 to-orange-400';
-    if (satisfaction >= 70) return 'from-yellow-400 to-yellow-500';
-    return 'from-red-400 to-red-500';
+    if (satisfaction >= 90) return 'from-warning-400 to-warning-500';
+    if (satisfaction >= 80) return 'from-warning-300 to-warning-400';
+    if (satisfaction >= 70) return 'from-warning-400 to-warning-500';
+    return 'from-danger-400 to-danger-500';
   };
 
   const filteredCustomers = customers.filter((customer) => {
@@ -167,30 +193,32 @@ export function CustomerManagement() {
 
   const totalValue = customers.reduce((sum, customer) => sum + customer.value, 0);
   const activeCustomers = customers.filter((c) => c.status === 'active' || c.status === 'vip').length;
-  const avgSatisfaction = Math.round(customers.reduce((sum, c) => sum + c.satisfaction, 0) / customers.length);
+  const avgSatisfaction = customers.length
+    ? Math.round(customers.reduce((sum, c) => sum + c.satisfaction, 0) / customers.length)
+    : 0;
 
   return (
-    <div className="p-6 space-y-6 bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gradient-to-br from-warning-50 via-warning-50 to-warning-50 min-h-screen">
       {/* 页面头部 */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-            <Users className="w-8 h-8 mr-3 text-orange-600" />
+          <h1 className="text-3xl font-bold text-neutral-900 flex items-center">
+            <Users className="w-8 h-8 mr-3 text-warning-600" />
             客户管理
           </h1>
-          <p className="text-gray-600 mt-2">全生命周期客户关系管理系统</p>
+          <p className="text-neutral-600 mt-2">全生命周期客户关系管理系统</p>
         </div>
         <div className="flex space-x-3">
           <Button
             variant="outline"
-            className="border-l-4 border-l-orange-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+            className="border-l-4 border-l-warning-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
           >
             <Filter className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             筛选
           </Button>
           <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+              <Button className="bg-gradient-to-r from-warning-500 to-warning-600 hover:from-warning-600 hover:to-warning-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
                 <Plus className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
                 添加客户
               </Button>
@@ -203,37 +231,36 @@ export function CustomerManagement() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="name">客户姓名</Label>
-                  <Input id="name" placeholder="输入客户姓名" className="border-l-4 border-l-orange-500" />
+                  <Input id="name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="输入客户姓名" />
                 </div>
                 <div>
                   <Label htmlFor="company">公司名称</Label>
-                  <Input id="company" placeholder="输入公司名称" className="border-l-4 border-l-orange-500" />
+                  <Input id="company" value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} placeholder="输入公司名称" />
                 </div>
                 <div>
                   <Label htmlFor="email">邮箱地址</Label>
                   <Input
                     id="email"
                     type="email"
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
                     placeholder="输入邮箱地址"
-                    className="border-l-4 border-l-orange-500"
                   />
                 </div>
                 <div>
                   <Label htmlFor="phone">联系电话</Label>
-                  <Input id="phone" placeholder="输入联系电话" className="border-l-4 border-l-orange-500" />
+                  <Input id="phone" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="输入联系电话" />
                 </div>
                 <div className="col-span-2">
                   <Label htmlFor="location">地址</Label>
-                  <Input id="location" placeholder="输入详细地址" className="border-l-4 border-l-orange-500" />
+                  <Input id="location" value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} placeholder="输入详细地址" />
                 </div>
+                {loadError && <p className="col-span-2 text-sm text-destructive" role="alert">数据加载失败：{loadError}</p>}
                 <div className="col-span-2 flex justify-end space-x-2">
                   <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
                     取消
                   </Button>
-                  <Button
-                    onClick={() => setIsCreateDialogOpen(false)}
-                    className="bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white"
-                  >
+                  <Button onClick={handleCreateCustomer} disabled={!form.name || !form.company || !form.email}>
                     添加客户
                   </Button>
                 </div>
@@ -245,68 +272,68 @@ export function CustomerManagement() {
 
       {/* 统计概览 */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">总客户数</CardTitle>
-            <Users className="h-4 w-4 text-orange-600" />
+            <Users className="h-4 w-4 text-warning-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-700">{customers.length}</div>
-            <p className="text-xs text-gray-600">本月新增 +12</p>
+            <div className="text-2xl font-bold text-warning-700">{customers.length}</div>
+            <p className="text-xs text-neutral-600">本月新增 +12</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">活跃客户</CardTitle>
-            <TrendingUp className="h-4 w-4 text-orange-600" />
+            <TrendingUp className="h-4 w-4 text-warning-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-700">{activeCustomers}</div>
-            <p className="text-xs text-gray-600">活跃率 {Math.round((activeCustomers / customers.length) * 100)}%</p>
+            <div className="text-2xl font-bold text-warning-700">{activeCustomers}</div>
+            <p className="text-xs text-neutral-600">活跃率 {Math.round((activeCustomers / customers.length) * 100)}%</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">客户价值</CardTitle>
-            <Star className="h-4 w-4 text-orange-600" />
+            <Star className="h-4 w-4 text-warning-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-700">¥{(totalValue / 10000).toFixed(0)}万</div>
-            <p className="text-xs text-gray-600">总客户价值</p>
+            <div className="text-2xl font-bold text-warning-700">¥{(totalValue / 10000).toFixed(0)}万</div>
+            <p className="text-xs text-neutral-600">总客户价值</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">满意度</CardTitle>
-            <Star className="h-4 w-4 text-orange-600" />
+            <Star className="h-4 w-4 text-warning-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-700">{avgSatisfaction}%</div>
-            <p className="text-xs text-gray-600">平均客户满意度</p>
+            <div className="text-2xl font-bold text-warning-700">{avgSatisfaction}%</div>
+            <p className="text-xs text-neutral-600">平均客户满意度</p>
           </CardContent>
         </Card>
       </div>
 
       {/* 搜索和筛选 */}
-      <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardContent className="p-6">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 h-4 w-4" />
                 <Input
                   placeholder="搜索客户姓名、公司或邮箱..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 border-l-4 border-l-orange-500"
+                  className="pl-10 border-l-4 border-l-warning-500"
                 />
               </div>
             </div>
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-48 border-l-4 border-l-orange-500">
+              <SelectTrigger className="w-48 border-l-4 border-l-warning-500">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -322,9 +349,9 @@ export function CustomerManagement() {
       </Card>
 
       {/* 客户列表 */}
-      <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center text-orange-700">
+          <CardTitle className="flex items-center text-warning-700">
             <Users className="w-5 h-5 mr-2" />
             客户列表
           </CardTitle>
@@ -335,20 +362,20 @@ export function CustomerManagement() {
             {filteredCustomers.map((customer) => (
               <div
                 key={customer.id}
-                className="border-l-4 border-l-orange-500 bg-orange-50 rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:scale-105"
+                className="border-l-4 border-l-warning-500 bg-warning-50 rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:scale-105"
               >
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex items-center space-x-4">
                     <Avatar className="h-12 w-12">
                       <AvatarImage src={customer.avatar || '/placeholder.svg'} />
-                      <AvatarFallback className="bg-orange-200 text-orange-700">
+                      <AvatarFallback className="bg-warning-200 text-warning-700">
                         {customer.name.slice(0, 2)}
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <h3 className="font-bold text-gray-900 text-lg">{customer.name}</h3>
-                      <p className="text-gray-600">{customer.company}</p>
-                      <div className="flex items-center space-x-4 mt-2 text-sm text-gray-500">
+                      <h3 className="font-bold text-neutral-900 text-lg">{customer.name}</h3>
+                      <p className="text-neutral-600">{customer.company}</p>
+                      <div className="flex items-center space-x-4 mt-2 text-sm text-neutral-500">
                         <div className="flex items-center">
                           <Mail className="w-4 h-4 mr-1" />
                           {customer.email}
@@ -371,13 +398,13 @@ export function CustomerManagement() {
 
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
                   <div className="text-center">
-                    <div className="text-lg font-bold text-gray-900">¥{(customer.value / 10000).toFixed(0)}万</div>
-                    <div className="text-xs text-gray-600">客户价值</div>
+                    <div className="text-lg font-bold text-neutral-900">¥{(customer.value / 10000).toFixed(0)}万</div>
+                    <div className="text-xs text-neutral-600">客户价值</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-lg font-bold text-gray-900">{customer.satisfaction}%</div>
-                    <div className="text-xs text-gray-600">满意度</div>
-                    <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden mt-1">
+                    <div className="text-lg font-bold text-neutral-900">{customer.satisfaction}%</div>
+                    <div className="text-xs text-neutral-600">满意度</div>
+                    <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden mt-1">
                       <div
                         className={`h-full bg-gradient-to-r ${getSatisfactionColor(customer.satisfaction)} rounded-full transition-all duration-500`}
                         style={{ width: `${customer.satisfaction}%` }}
@@ -385,13 +412,13 @@ export function CustomerManagement() {
                     </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-lg font-bold text-gray-900">{customer.lastContact}</div>
-                    <div className="text-xs text-gray-600">最后联系</div>
+                    <div className="text-lg font-bold text-neutral-900">{customer.lastContact}</div>
+                    <div className="text-xs text-neutral-600">最后联系</div>
                   </div>
                   <div className="text-center">
                     <div className="flex flex-wrap gap-1 justify-center">
                       {customer.tags.map((tag, index) => (
-                        <Badge key={index} variant="secondary" className="text-xs bg-orange-100 text-orange-700">
+                        <Badge key={index} variant="secondary" className="text-xs bg-warning-100 text-warning-700">
                           {tag}
                         </Badge>
                       ))}
@@ -403,7 +430,7 @@ export function CustomerManagement() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="border-l-4 border-l-orange-500 transition-all duration-300 hover:scale-105 bg-transparent group"
+                    className="border-l-4 border-l-warning-500 transition-all duration-300 hover:scale-105 bg-transparent group"
                   >
                     <Eye className="w-4 h-4 mr-1 group-hover:translate-x-1 transition-all duration-300" />
                     查看
@@ -411,7 +438,7 @@ export function CustomerManagement() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="border-l-4 border-l-orange-500 transition-all duration-300 hover:scale-105 bg-transparent group"
+                    className="border-l-4 border-l-warning-500 transition-all duration-300 hover:scale-105 bg-transparent group"
                   >
                     <Edit className="w-4 h-4 mr-1 group-hover:translate-x-1 transition-all duration-300" />
                     编辑
@@ -419,14 +446,14 @@ export function CustomerManagement() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="border-l-4 border-l-orange-500 transition-all duration-300 hover:scale-105 bg-transparent group"
+                    className="border-l-4 border-l-warning-500 transition-all duration-300 hover:scale-105 bg-transparent group"
                   >
                     <Phone className="w-4 h-4 mr-1 group-hover:translate-x-1 transition-all duration-300" />
                     联系
                   </Button>
                   <Button
                     size="sm"
-                    className="bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white transition-all duration-300 hover:scale-105 group"
+                    className="bg-gradient-to-r from-warning-500 to-warning-600 hover:from-warning-600 hover:to-warning-700 text-white transition-all duration-300 hover:scale-105 group"
                   >
                     <Calendar className="w-4 h-4 mr-1 group-hover:translate-x-1 transition-all duration-300" />
                     跟进

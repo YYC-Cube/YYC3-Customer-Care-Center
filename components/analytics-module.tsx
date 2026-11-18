@@ -29,12 +29,12 @@ export function AnalyticsModule() {
         <div className="flex space-x-2">
           <Button
             variant="outline"
-            className="bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white border-0"
+            className="bg-gradient-to-r from-primary-400 to-primary-500 hover:from-primary-500 hover:to-primary-600 text-white border-0"
           >
             <BarChart3 className="w-4 h-4 mr-2" />
             创建报表
           </Button>
-          <Button className="bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white">
+          <Button className="bg-gradient-to-r from-primary-400 to-primary-500 hover:from-primary-500 hover:to-primary-600 text-white">
             <Eye className="w-4 h-4 mr-2" />
             实时监控
           </Button>
@@ -43,56 +43,56 @@ export function AnalyticsModule() {
 
       {/* 数据分析概览卡片 */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">数据源</CardTitle>
             <Database className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">12</div>
-            <div className="flex items-center text-xs text-blue-600">
+            <div className="flex items-center text-xs text-primary-600">
               <Database className="w-3 h-3 mr-1" />
               <span>已连接数据源</span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">活跃报表</CardTitle>
             <BarChart3 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">28</div>
-            <div className="flex items-center text-xs text-green-600">
+            <div className="flex items-center text-xs text-success-600">
               <Activity className="w-3 h-3 mr-1" />
               <span>实时更新</span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">数据量</CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">2.4M</div>
-            <div className="flex items-center text-xs text-purple-600">
+            <div className="flex items-center text-xs text-accent-600">
               <TrendingUp className="w-3 h-3 mr-1" />
               <span>记录数量</span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+        <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">查询性能</CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">1.2s</div>
-            <div className="flex items-center text-xs text-green-600">
+            <div className="flex items-center text-xs text-success-600">
               <Activity className="w-3 h-3 mr-1" />
               <span>平均响应时间</span>
             </div>
@@ -101,7 +101,7 @@ export function AnalyticsModule() {
       </div>
 
       {/* 数据分析详情 */}
-      <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+      <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
         <CardHeader>
           <CardTitle>数据分析详情</CardTitle>
           <CardDescription>全面的商业智能分析和数据洞察</CardDescription>
@@ -117,7 +117,7 @@ export function AnalyticsModule() {
 
             <TabsContent value="dashboard" className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+                <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
                   <CardHeader>
                     <CardTitle className="text-base">销售趋势分析</CardTitle>
                   </CardHeader>
@@ -125,43 +125,43 @@ export function AnalyticsModule() {
                     <div className="space-y-4">
                       <div className="flex justify-between items-center">
                         <span className="text-sm">本月销售额</span>
-                        <span className="text-lg font-bold text-blue-600">¥2,456,789</span>
+                        <span className="text-lg font-bold text-primary-600">¥2,456,789</span>
                       </div>
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
                           <span>第1周</span>
                           <span>¥456,123</span>
                         </div>
-                        <div className="w-full h-2 bg-sky-100 rounded-full overflow-hidden">
-                          <div className="w-1/5 h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full"></div>
+                        <div className="w-full h-2 bg-primary-100 rounded-full overflow-hidden">
+                          <div className="w-1/5 h-full bg-gradient-to-r from-primary-400 to-primary-500 rounded-full"></div>
                         </div>
                         <div className="flex justify-between text-sm">
                           <span>第2周</span>
                           <span>¥678,234</span>
                         </div>
-                        <div className="w-full h-2 bg-sky-100 rounded-full overflow-hidden">
-                          <div className="w-1/4 h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full"></div>
+                        <div className="w-full h-2 bg-primary-100 rounded-full overflow-hidden">
+                          <div className="w-1/4 h-full bg-gradient-to-r from-primary-400 to-primary-500 rounded-full"></div>
                         </div>
                         <div className="flex justify-between text-sm">
                           <span>第3周</span>
                           <span>¥789,345</span>
                         </div>
-                        <div className="w-full h-2 bg-sky-100 rounded-full overflow-hidden">
-                          <div className="w-1/3 h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full"></div>
+                        <div className="w-full h-2 bg-primary-100 rounded-full overflow-hidden">
+                          <div className="w-1/3 h-full bg-gradient-to-r from-primary-400 to-primary-500 rounded-full"></div>
                         </div>
                         <div className="flex justify-between text-sm">
                           <span>第4周</span>
                           <span>¥533,087</span>
                         </div>
-                        <div className="w-full h-2 bg-sky-100 rounded-full overflow-hidden">
-                          <div className="w-1/5 h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full"></div>
+                        <div className="w-full h-2 bg-primary-100 rounded-full overflow-hidden">
+                          <div className="w-1/5 h-full bg-gradient-to-r from-primary-400 to-primary-500 rounded-full"></div>
                         </div>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+                <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
                   <CardHeader>
                     <CardTitle className="text-base">客户分布分析</CardTitle>
                   </CardHeader>
@@ -170,8 +170,8 @@ export function AnalyticsModule() {
                       <div className="flex justify-between items-center">
                         <span className="text-sm">企业客户</span>
                         <div className="flex items-center space-x-2">
-                          <div className="w-20 h-2 bg-sky-100 rounded-full overflow-hidden">
-                            <div className="w-3/5 h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full"></div>
+                          <div className="w-20 h-2 bg-primary-100 rounded-full overflow-hidden">
+                            <div className="w-3/5 h-full bg-gradient-to-r from-primary-400 to-primary-500 rounded-full"></div>
                           </div>
                           <span className="text-sm font-medium">748</span>
                         </div>
@@ -179,22 +179,22 @@ export function AnalyticsModule() {
                       <div className="flex justify-between items-center">
                         <span className="text-sm">个人客户</span>
                         <div className="flex items-center space-x-2">
-                          <div className="w-20 h-2 bg-sky-100 rounded-full overflow-hidden">
-                            <div className="w-2/5 h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full"></div>
+                          <div className="w-20 h-2 bg-primary-100 rounded-full overflow-hidden">
+                            <div className="w-2/5 h-full bg-gradient-to-r from-success-400 to-success-500 rounded-full"></div>
                           </div>
                           <span className="text-sm font-medium">499</span>
                         </div>
                       </div>
-                      <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-                        <p className="text-sm font-medium text-blue-800">客户增长趋势</p>
-                        <p className="text-xs text-blue-600">企业客户增长率 +15.2%</p>
-                        <p className="text-xs text-blue-600">个人客户增长率 +8.7%</p>
+                      <div className="mt-4 p-3 bg-primary-50 rounded-lg">
+                        <p className="text-sm font-medium text-primary-800">客户增长趋势</p>
+                        <p className="text-xs text-primary-600">企业客户增长率 +15.2%</p>
+                        <p className="text-xs text-primary-600">个人客户增长率 +8.7%</p>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+                <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
                   <CardHeader>
                     <CardTitle className="text-base">产品性能分析</CardTitle>
                   </CardHeader>
@@ -211,9 +211,9 @@ export function AnalyticsModule() {
                             <span>{product.name}</span>
                             <span className="font-medium">{product.revenue}</span>
                           </div>
-                          <div className="w-full h-2 bg-sky-100 rounded-full overflow-hidden">
+                          <div className="w-full h-2 bg-primary-100 rounded-full overflow-hidden">
                             <div 
-                              className="h-full bg-gradient-to-r from-purple-400 to-purple-500 rounded-full"
+                              className="h-full bg-gradient-to-r from-accent-400 to-accent-500 rounded-full"
                               style={{ width: `${product.sales}%` }}
                             ></div>
                           </div>
@@ -223,7 +223,7 @@ export function AnalyticsModule() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+                <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
                   <CardHeader>
                     <CardTitle className="text-base">地区业绩分析</CardTitle>
                   </CardHeader>
@@ -240,11 +240,11 @@ export function AnalyticsModule() {
                           <div className="flex-1">
                             <div className="flex justify-between text-sm mb-1">
                               <span>{region.region}</span>
-                              <span className="text-green-600">{region.growth}</span>
+                              <span className="text-success-600">{region.growth}</span>
                             </div>
-                            <div className="w-full h-2 bg-sky-100 rounded-full overflow-hidden">
+                            <div className="w-full h-2 bg-primary-100 rounded-full overflow-hidden">
                               <div 
-                                className="h-full bg-gradient-to-r from-green-400 to-green-500 rounded-full"
+                                className="h-full bg-gradient-to-r from-success-400 to-success-500 rounded-full"
                                 style={{ width: `${region.performance}%` }}
                               ></div>
                             </div>
@@ -289,7 +289,7 @@ export function AnalyticsModule() {
                     type: '运营分析',
                   },
                 ].map((report, index) => (
-                  <Card key={index} className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+                  <Card key={index} className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
                     <CardContent className="p-4">
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
@@ -315,29 +315,29 @@ export function AnalyticsModule() {
 
             <TabsContent value="insights" className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+                <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
                   <CardHeader>
                     <CardTitle>业务洞察</CardTitle>
                     <CardDescription>基于数据分析的业务建议</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      <div className="p-3 bg-blue-50 rounded-lg">
-                        <h3 className="font-medium text-blue-800">销售机会</h3>
-                        <p className="text-sm text-blue-600">产品A在华东地区有15%的增长潜力</p>
+                      <div className="p-3 bg-primary-50 rounded-lg">
+                        <h3 className="font-medium text-primary-800">销售机会</h3>
+                        <p className="text-sm text-primary-600">产品A在华东地区有15%的增长潜力</p>
                       </div>
-                      <div className="p-3 bg-green-50 rounded-lg">
-                        <h3 className="font-medium text-green-800">客户留存</h3>
-                        <p className="text-sm text-green-600">企业客户留存率高于行业平均水平12%</p>
+                      <div className="p-3 bg-success-50 rounded-lg">
+                        <h3 className="font-medium text-success-800">客户留存</h3>
+                        <p className="text-sm text-success-600">企业客户留存率高于行业平均水平12%</p>
                       </div>
-                      <div className="p-3 bg-purple-50 rounded-lg">
-                        <h3 className="font-medium text-purple-800">市场趋势</h3>
-                        <p className="text-sm text-purple-600">Q3季度预计销售额增长8.5%</p>
+                      <div className="p-3 bg-accent-50 rounded-lg">
+                        <h3 className="font-medium text-accent-800">市场趋势</h3>
+                        <p className="text-sm text-accent-600">Q3季度预计销售额增长8.5%</p>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
-                <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+                <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
                   <CardHeader>
                     <CardTitle>竞争分析</CardTitle>
                     <CardDescription>市场竞争格局和策略建议</CardDescription>
@@ -348,22 +348,22 @@ export function AnalyticsModule() {
                         <span className="text-sm">市场份额</span>
                         <span className="text-sm font-medium">28%</span>
                       </div>
-                      <div className="w-full h-2 bg-sky-100 rounded-full overflow-hidden">
-                        <div className="w-2/7 h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full"></div>
+                      <div className="w-full h-2 bg-primary-100 rounded-full overflow-hidden">
+                        <div className="w-2/7 h-full bg-gradient-to-r from-primary-400 to-primary-500 rounded-full"></div>
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-sm">竞争对手A</span>
                         <span className="text-sm font-medium">32%</span>
                       </div>
-                      <div className="w-full h-2 bg-sky-100 rounded-full overflow-hidden">
-                        <div className="w-1/3 h-full bg-gradient-to-r from-red-400 to-red-500 rounded-full"></div>
+                      <div className="w-full h-2 bg-primary-100 rounded-full overflow-hidden">
+                        <div className="w-1/3 h-full bg-gradient-to-r from-danger-400 to-danger-500 rounded-full"></div>
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-sm">竞争对手B</span>
                         <span className="text-sm font-medium">20%</span>
                       </div>
-                      <div className="w-full h-2 bg-sky-100 rounded-full overflow-hidden">
-                        <div className="w-1/5 h-full bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full"></div>
+                      <div className="w-full h-2 bg-primary-100 rounded-full overflow-hidden">
+                        <div className="w-1/5 h-full bg-gradient-to-r from-warning-400 to-warning-500 rounded-full"></div>
                       </div>
                     </div>
                   </CardContent>
@@ -372,7 +372,7 @@ export function AnalyticsModule() {
             </TabsContent>
 
             <TabsContent value="predictions" className="space-y-4">
-              <Card className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+              <Card className="bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
                 <CardHeader>
                   <CardTitle>预测分析</CardTitle>
                   <CardDescription>基于历史数据的智能预测</CardDescription>
@@ -380,45 +380,45 @@ export function AnalyticsModule() {
                 <CardContent>
                   <div className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      <div className="p-4 bg-gradient-to-br from-blue-50 to-sky-50 rounded-xl border border-blue-100">
-                        <h3 className="font-medium text-blue-800 mb-2">销售预测</h3>
-                        <div className="text-2xl font-bold text-blue-600">¥2.8M</div>
-                        <p className="text-sm text-blue-600">下月预计销售额</p>
+                      <div className="p-4 bg-gradient-to-br from-primary-50 to-primary-50 rounded-xl border border-primary-100">
+                        <h3 className="font-medium text-primary-800 mb-2">销售预测</h3>
+                        <div className="text-2xl font-bold text-primary-600">¥2.8M</div>
+                        <p className="text-sm text-primary-600">下月预计销售额</p>
                       </div>
-                      <div className="p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border border-green-100">
-                        <h3 className="font-medium text-green-800 mb-2">客户增长</h3>
-                        <div className="text-2xl font-bold text-green-600">+12.5%</div>
-                        <p className="text-sm text-green-600">下月预计增长率</p>
+                      <div className="p-4 bg-gradient-to-br from-success-50 to-success-50 rounded-xl border border-success-100">
+                        <h3 className="font-medium text-success-800 mb-2">客户增长</h3>
+                        <div className="text-2xl font-bold text-success-600">+12.5%</div>
+                        <p className="text-sm text-success-600">下月预计增长率</p>
                       </div>
-                      <div className="p-4 bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl border border-purple-100">
-                        <h3 className="font-medium text-purple-800 mb-2">收入预测</h3>
-                        <div className="text-2xl font-bold text-purple-600">¥1.2M</div>
-                        <p className="text-sm text-purple-600">下月预计净利润</p>
+                      <div className="p-4 bg-gradient-to-br from-accent-50 to-accent-50 rounded-xl border border-accent-100">
+                        <h3 className="font-medium text-accent-800 mb-2">收入预测</h3>
+                        <div className="text-2xl font-bold text-accent-600">¥1.2M</div>
+                        <p className="text-sm text-accent-600">下月预计净利润</p>
                       </div>
                     </div>
-                    <div className="p-4 bg-white rounded-xl border border-sky-200">
+                    <div className="p-4 bg-white rounded-xl border border-primary-200">
                       <h3 className="font-medium mb-3">预测模型准确度</h3>
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
                           <span>销售预测</span>
                           <span className="font-medium">92%</span>
                         </div>
-                        <div className="w-full h-2 bg-sky-100 rounded-full overflow-hidden">
-                          <div className="w-23/25 h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full"></div>
+                        <div className="w-full h-2 bg-primary-100 rounded-full overflow-hidden">
+                          <div className="w-23/25 h-full bg-gradient-to-r from-primary-400 to-primary-500 rounded-full"></div>
                         </div>
                         <div className="flex justify-between text-sm">
                           <span>客户增长</span>
                           <span className="font-medium">88%</span>
                         </div>
-                        <div className="w-full h-2 bg-sky-100 rounded-full overflow-hidden">
-                          <div className="w-11/12 h-full bg-gradient-to-r from-green-400 to-green-500 rounded-full"></div>
+                        <div className="w-full h-2 bg-primary-100 rounded-full overflow-hidden">
+                          <div className="w-11/12 h-full bg-gradient-to-r from-success-400 to-success-500 rounded-full"></div>
                         </div>
                         <div className="flex justify-between text-sm">
                           <span>收入预测</span>
                           <span className="font-medium">85%</span>
                         </div>
-                        <div className="w-full h-2 bg-sky-100 rounded-full overflow-hidden">
-                          <div className="w-17/20 h-full bg-gradient-to-r from-purple-400 to-purple-500 rounded-full"></div>
+                        <div className="w-full h-2 bg-primary-100 rounded-full overflow-hidden">
+                          <div className="w-17/20 h-full bg-gradient-to-r from-accent-400 to-accent-500 rounded-full"></div>
                         </div>
                       </div>
                     </div>

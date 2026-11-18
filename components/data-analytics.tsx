@@ -11,6 +11,7 @@
  */
 
 'use client';
+import { colorRamp } from '@/lib/design-tokens';
 
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -57,10 +58,10 @@ export function DataAnalytics() {
 
   // 产品销售分布
   const productData = [
-    { name: '产品A', value: 35, color: '#10b981' },
-    { name: '产品B', value: 28, color: '#059669' },
-    { name: '产品C', value: 22, color: '#047857' },
-    { name: '产品D', value: 15, color: '#065f46' },
+    { name: '产品A', value: 35, color: colorRamp.success[500] },
+    { name: '产品B', value: 28, color: colorRamp.success[600] },
+    { name: '产品C', value: 22, color: colorRamp.success[700] },
+    { name: '产品D', value: 15, color: colorRamp.success[800] },
   ];
 
   // 地区销售数据
@@ -108,19 +109,19 @@ export function DataAnalytics() {
   ];
 
   return (
-    <div className="p-6 space-y-6 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gradient-to-br from-success-50 via-success-50 to-success-50 min-h-screen">
       {/* 页面头部 */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-            <BarChart3 className="w-8 h-8 mr-3 text-green-600" />
+          <h1 className="text-3xl font-bold text-neutral-900 flex items-center">
+            <BarChart3 className="w-8 h-8 mr-3 text-success-600" />
             数据分析中心
           </h1>
-          <p className="text-gray-600 mt-2">全面的数据分析和商业智能洞察</p>
+          <p className="text-neutral-600 mt-2">全面的数据分析和商业智能洞察</p>
         </div>
         <div className="flex space-x-3">
           <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
-            <SelectTrigger className="w-32 border-l-4 border-l-green-500">
+            <SelectTrigger className="w-32 border-l-4 border-l-success-500">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -132,12 +133,12 @@ export function DataAnalytics() {
           </Select>
           <Button
             variant="outline"
-            className="border-l-4 border-l-green-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+            className="border-l-4 border-l-success-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
           >
             <Filter className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             筛选
           </Button>
-          <Button className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+          <Button className="bg-gradient-to-r from-success-500 to-success-600 hover:from-success-600 hover:to-success-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
             <Download className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             导出报告
           </Button>
@@ -149,15 +150,15 @@ export function DataAnalytics() {
         {kpiMetrics.map((metric, index) => (
           <Card
             key={index}
-            className="border-l-4 border-l-green-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
           >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">{metric.title}</CardTitle>
-              <metric.icon className="h-4 w-4 text-green-600" />
+              <metric.icon className="h-4 w-4 text-success-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-700">{metric.value}</div>
-              <p className={`text-xs ${metric.trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
+              <div className="text-2xl font-bold text-success-700">{metric.value}</div>
+              <p className={`text-xs ${metric.trend === 'up' ? 'text-success-600' : 'text-danger-600'}`}>
                 {metric.change} 较上期
               </p>
             </CardContent>
@@ -168,9 +169,9 @@ export function DataAnalytics() {
       {/* 主要图表 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* 销售趋势 */}
-        <Card className="border-l-4 border-l-green-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader>
-            <CardTitle className="flex items-center text-green-700">
+            <CardTitle className="flex items-center text-success-700">
               <TrendingUp className="w-5 h-5 mr-2" />
               销售趋势分析
             </CardTitle>
@@ -186,7 +187,7 @@ export function DataAnalytics() {
                 <Area
                   type="monotone"
                   dataKey="sales"
-                  stroke="#10b981"
+                  stroke={colorRamp.success[500]}
                   fill="url(#greenGradient)"
                   strokeWidth={2}
                   name="实际销售"
@@ -194,7 +195,7 @@ export function DataAnalytics() {
                 <Area
                   type="monotone"
                   dataKey="target"
-                  stroke="#059669"
+                  stroke={colorRamp.success[600]}
                   fill="transparent"
                   strokeDasharray="5 5"
                   strokeWidth={2}
@@ -202,8 +203,8 @@ export function DataAnalytics() {
                 />
                 <defs>
                   <linearGradient id="greenGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#10b981" stopOpacity={0.1} />
+                    <stop offset="5%" stopColor={colorRamp.success[500]} stopOpacity={0.8} />
+                    <stop offset="95%" stopColor={colorRamp.success[500]} stopOpacity={0.1} />
                   </linearGradient>
                 </defs>
               </AreaChart>
@@ -212,9 +213,9 @@ export function DataAnalytics() {
         </Card>
 
         {/* 产品销售分布 */}
-        <Card className="border-l-4 border-l-green-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader>
-            <CardTitle className="flex items-center text-green-700">
+            <CardTitle className="flex items-center text-success-700">
               <PieChart className="w-5 h-5 mr-2" />
               产品销售分布
             </CardTitle>
@@ -228,7 +229,7 @@ export function DataAnalytics() {
                   cx="50%"
                   cy="50%"
                   outerRadius={100}
-                  fill="#8884d8"
+                  fill={colorRamp.accent[500]}
                   dataKey="value"
                   label={({ name, value }) => `${name}: ${value}%`}
                 >
@@ -246,9 +247,9 @@ export function DataAnalytics() {
       {/* 客户分析和地区销售 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* 客户分析 */}
-        <Card className="border-l-4 border-l-green-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader>
-            <CardTitle className="flex items-center text-green-700">
+            <CardTitle className="flex items-center text-success-700">
               <Users className="w-5 h-5 mr-2" />
               客户分析
             </CardTitle>
@@ -257,25 +258,25 @@ export function DataAnalytics() {
           <CardContent>
             <div className="space-y-4">
               {customerData.map((segment, index) => (
-                <div key={index} className="border-l-4 border-l-green-500 bg-green-50 rounded-lg p-4">
+                <div key={index} className="border-l-4 border-l-success-500 bg-success-50 rounded-lg p-4">
                   <div className="flex justify-between items-center mb-2">
-                    <h4 className="font-medium text-gray-900">{segment.segment}</h4>
-                    <Badge className="bg-green-100 text-green-700">{segment.count}人</Badge>
+                    <h4 className="font-medium text-neutral-900">{segment.segment}</h4>
+                    <Badge className="bg-success-100 text-success-700">{segment.count}人</Badge>
                   </div>
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
-                      <span className="text-gray-600">收入贡献: </span>
+                      <span className="text-neutral-600">收入贡献: </span>
                       <span className="font-medium">¥{(segment.revenue / 10000).toFixed(0)}万</span>
                     </div>
                     <div>
-                      <span className="text-gray-600">满意度: </span>
+                      <span className="text-neutral-600">满意度: </span>
                       <span className="font-medium">{segment.satisfaction}%</span>
                     </div>
                   </div>
                   <div className="mt-2">
-                    <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-gradient-to-r from-green-400 to-green-500 rounded-full transition-all duration-500"
+                        className="h-full bg-gradient-to-r from-success-400 to-success-500 rounded-full transition-all duration-500"
                         style={{ width: `${segment.satisfaction}%` }}
                       ></div>
                     </div>
@@ -287,9 +288,9 @@ export function DataAnalytics() {
         </Card>
 
         {/* 地区销售 */}
-        <Card className="border-l-4 border-l-green-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader>
-            <CardTitle className="flex items-center text-green-700">
+            <CardTitle className="flex items-center text-success-700">
               <BarChart3 className="w-5 h-5 mr-2" />
               地区销售分析
             </CardTitle>
@@ -302,7 +303,7 @@ export function DataAnalytics() {
                 <XAxis dataKey="region" />
                 <YAxis />
                 <Tooltip formatter={(value) => [`¥${((value as number) / 10000).toFixed(0)}万`, '']} />
-                <Bar dataKey="sales" fill="#10b981" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="sales" fill={colorRamp.success[500]} radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
@@ -310,9 +311,9 @@ export function DataAnalytics() {
       </div>
 
       {/* 详细数据表格 */}
-      <Card className="border-l-4 border-l-green-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center text-green-700">
+          <CardTitle className="flex items-center text-success-700">
             <Activity className="w-5 h-5 mr-2" />
             详细数据分析
           </CardTitle>
@@ -322,24 +323,24 @@ export function DataAnalytics() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-green-200">
-                  <th className="text-left p-3 font-medium text-gray-700">指标</th>
-                  <th className="text-left p-3 font-medium text-gray-700">当前值</th>
-                  <th className="text-left p-3 font-medium text-gray-700">目标值</th>
-                  <th className="text-left p-3 font-medium text-gray-700">完成率</th>
-                  <th className="text-left p-3 font-medium text-gray-700">趋势</th>
+                <tr className="border-b border-success-200">
+                  <th className="text-left p-3 font-medium text-neutral-700">指标</th>
+                  <th className="text-left p-3 font-medium text-neutral-700">当前值</th>
+                  <th className="text-left p-3 font-medium text-neutral-700">目标值</th>
+                  <th className="text-left p-3 font-medium text-neutral-700">完成率</th>
+                  <th className="text-left p-3 font-medium text-neutral-700">趋势</th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b border-green-100 hover:bg-green-50">
+                <tr className="border-b border-success-100 hover:bg-success-50">
                   <td className="p-3">月度销售额</td>
                   <td className="p-3 font-medium">¥350万</td>
                   <td className="p-3">¥400万</td>
                   <td className="p-3">
                     <div className="flex items-center space-x-2">
-                      <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <div className="w-16 h-2 bg-neutral-200 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-green-400 to-green-500 rounded-full"
+                          className="h-full bg-gradient-to-r from-success-400 to-success-500 rounded-full"
                           style={{ width: '87.5%' }}
                         ></div>
                       </div>
@@ -347,18 +348,18 @@ export function DataAnalytics() {
                     </div>
                   </td>
                   <td className="p-3">
-                    <Badge className="bg-green-100 text-green-700">↗ +12.5%</Badge>
+                    <Badge className="bg-success-100 text-success-700">↗ +12.5%</Badge>
                   </td>
                 </tr>
-                <tr className="border-b border-green-100 hover:bg-green-50">
+                <tr className="border-b border-success-100 hover:bg-success-50">
                   <td className="p-3">客户获取</td>
                   <td className="p-3 font-medium">156人</td>
                   <td className="p-3">180人</td>
                   <td className="p-3">
                     <div className="flex items-center space-x-2">
-                      <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <div className="w-16 h-2 bg-neutral-200 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-green-400 to-green-500 rounded-full"
+                          className="h-full bg-gradient-to-r from-success-400 to-success-500 rounded-full"
                           style={{ width: '86.7%' }}
                         ></div>
                       </div>
@@ -366,18 +367,18 @@ export function DataAnalytics() {
                     </div>
                   </td>
                   <td className="p-3">
-                    <Badge className="bg-green-100 text-green-700">↗ +8.2%</Badge>
+                    <Badge className="bg-success-100 text-success-700">↗ +8.2%</Badge>
                   </td>
                 </tr>
-                <tr className="border-b border-green-100 hover:bg-green-50">
+                <tr className="border-b border-success-100 hover:bg-success-50">
                   <td className="p-3">客户满意度</td>
                   <td className="p-3 font-medium">87.3%</td>
                   <td className="p-3">90%</td>
                   <td className="p-3">
                     <div className="flex items-center space-x-2">
-                      <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <div className="w-16 h-2 bg-neutral-200 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-green-400 to-green-500 rounded-full"
+                          className="h-full bg-gradient-to-r from-success-400 to-success-500 rounded-full"
                           style={{ width: '97%' }}
                         ></div>
                       </div>
@@ -385,7 +386,7 @@ export function DataAnalytics() {
                     </div>
                   </td>
                   <td className="p-3">
-                    <Badge className="bg-red-100 text-red-700">↘ -2.1%</Badge>
+                    <Badge className="bg-danger-100 text-danger-700">↘ -2.1%</Badge>
                   </td>
                 </tr>
               </tbody>

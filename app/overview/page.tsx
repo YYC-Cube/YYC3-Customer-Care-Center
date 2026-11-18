@@ -161,12 +161,12 @@ export default function OverviewPage() {
 
   const getColorClasses = (color: string) => {
     const colors = {
-      emerald: 'border-l-emerald-500 bg-emerald-50 hover:bg-emerald-100',
-      orange: 'border-l-orange-500 bg-orange-50 hover:bg-orange-100',
-      blue: 'border-l-blue-500 bg-blue-50 hover:bg-blue-100',
-      purple: 'border-l-purple-500 bg-purple-50 hover:bg-purple-100',
-      rose: 'border-l-rose-500 bg-rose-50 hover:bg-rose-100',
-      green: 'border-l-green-500 bg-green-50 hover:bg-green-100',
+      emerald: 'border-l-success-500 bg-success-50 hover:bg-success-100',
+      orange: 'border-l-warning-500 bg-warning-50 hover:bg-warning-100',
+      blue: 'border-l-primary-500 bg-primary-50 hover:bg-primary-100',
+      purple: 'border-l-accent-500 bg-accent-50 hover:bg-accent-100',
+      rose: 'border-l-danger-500 bg-danger-50 hover:bg-danger-100',
+      green: 'border-l-success-500 bg-success-50 hover:bg-success-100',
     };
     return colors[color as keyof typeof colors] || colors.blue;
   };
@@ -174,40 +174,40 @@ export default function OverviewPage() {
   const getStatusBadge = (status: string) => {
     switch (status) {
     case 'new':
-      return <Badge className="bg-purple-100 text-purple-700">NEW</Badge>;
+      return <Badge className="bg-accent-100 text-accent-700">NEW</Badge>;
     case 'active':
-      return <Badge className="bg-green-100 text-green-700">运行中</Badge>;
+      return <Badge className="bg-success-100 text-success-700">运行中</Badge>;
     case 'beta':
-      return <Badge className="bg-blue-100 text-blue-700">测试版</Badge>;
+      return <Badge className="bg-primary-100 text-primary-700">测试版</Badge>;
     default:
-      return <Badge className="bg-gray-100 text-gray-700">未知</Badge>;
+      return <Badge className="bg-neutral-100 text-neutral-700">未知</Badge>;
     }
   };
 
   const getUsageColor = (usage: number) => {
-    if (usage >= 80) return 'from-emerald-400 to-emerald-500';
-    if (usage >= 60) return 'from-blue-400 to-blue-500';
-    if (usage >= 40) return 'from-yellow-400 to-yellow-500';
-    return 'from-red-400 to-red-500';
+    if (usage >= 80) return 'from-success-400 to-success-500';
+    if (usage >= 60) return 'from-primary-400 to-primary-500';
+    if (usage >= 40) return 'from-warning-400 to-warning-500';
+    return 'from-danger-400 to-danger-500';
   };
 
   return (
-    <div className="p-6 space-y-6 bg-gradient-to-br from-green-50 via-blue-50 to-indigo-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gradient-to-br from-success-50 via-primary-50 to-primary-50 min-h-screen">
       {/* 页面头部 */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-            <Home className="w-8 h-8 mr-3 text-green-600" />
+          <h1 className="text-3xl font-bold text-neutral-900 flex items-center">
+            <Home className="w-8 h-8 mr-3 text-success-600" />
             应用总览
           </h1>
-          <p className="text-gray-600 mt-2">企业管理系统功能模块总览</p>
+          <p className="text-neutral-600 mt-2">企业管理系统功能模块总览</p>
         </div>
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
-            <div className="h-3 w-3 bg-green-500 rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium text-gray-700">系统运行正常</span>
+            <div className="h-3 w-3 bg-success-500 rounded-full animate-pulse"></div>
+            <span className="text-sm font-medium text-neutral-700">系统运行正常</span>
           </div>
-          <Badge className="bg-green-100 text-green-700">
+          <Badge className="bg-success-100 text-success-700">
             <Activity className="w-3 h-3 mr-1" />
             {applicationModules.filter((m) => m.status === 'active').length} 个模块运行中
           </Badge>
@@ -216,61 +216,61 @@ export default function OverviewPage() {
 
       {/* 系统统计 */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="border-l-4 border-l-green-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">总模块数</CardTitle>
-            <Home className="h-4 w-4 text-green-600" />
+            <Home className="h-4 w-4 text-success-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-700">{applicationModules.length}</div>
-            <p className="text-xs text-gray-600">功能模块总数</p>
+            <div className="text-2xl font-bold text-success-700">{applicationModules.length}</div>
+            <p className="text-xs text-neutral-600">功能模块总数</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">运行中</CardTitle>
-            <Activity className="h-4 w-4 text-emerald-600" />
+            <Activity className="h-4 w-4 text-success-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-700">
+            <div className="text-2xl font-bold text-success-700">
               {applicationModules.filter((m) => m.status === 'active').length}
             </div>
-            <p className="text-xs text-gray-600">正常运行模块</p>
+            <p className="text-xs text-neutral-600">正常运行模块</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-purple-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-accent-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">新功能</CardTitle>
-            <Star className="h-4 w-4 text-purple-600" />
+            <Star className="h-4 w-4 text-accent-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-purple-700">
+            <div className="text-2xl font-bold text-accent-700">
               {applicationModules.filter((m) => m.status === 'new').length}
             </div>
-            <p className="text-xs text-gray-600">新增功能模块</p>
+            <p className="text-xs text-neutral-600">新增功能模块</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">平均使用率</CardTitle>
-            <TrendingUp className="h-4 w-4 text-blue-600" />
+            <TrendingUp className="h-4 w-4 text-primary-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-700">
+            <div className="text-2xl font-bold text-primary-700">
               {Math.round(applicationModules.reduce((acc, m) => acc + m.usage, 0) / applicationModules.length)}%
             </div>
-            <p className="text-xs text-gray-600">系统整体使用率</p>
+            <p className="text-xs text-neutral-600">系统整体使用率</p>
           </CardContent>
         </Card>
       </div>
 
       {/* 应用模块网格 */}
-      <Card className="border-l-4 border-l-green-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center text-green-700">
+          <CardTitle className="flex items-center text-success-700">
             <Zap className="w-5 h-5 mr-2" />
             功能模块
           </CardTitle>
@@ -286,18 +286,18 @@ export default function OverviewPage() {
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex items-center space-x-3">
                       <div className={'p-2 rounded-lg bg-white shadow-sm'}>
-                        <module.icon className="w-6 h-6 text-gray-700" />
+                        <module.icon className="w-6 h-6 text-neutral-700" />
                       </div>
                       <div>
-                        <h3 className="font-bold text-gray-900">{module.title}</h3>
-                        <p className="text-sm text-gray-600 mt-1">{module.description}</p>
+                        <h3 className="font-bold text-neutral-900">{module.title}</h3>
+                        <p className="text-sm text-neutral-600 mt-1">{module.description}</p>
                       </div>
                     </div>
                     {getStatusBadge(module.status)}
                   </div>
 
                   <div className="mb-4">
-                    <div className="text-sm font-medium text-gray-700 mb-2">核心功能</div>
+                    <div className="text-sm font-medium text-neutral-700 mb-2">核心功能</div>
                     <div className="flex flex-wrap gap-1">
                       {module.features.map((feature, featureIndex) => (
                         <Badge key={featureIndex} variant="secondary" className="text-xs">
@@ -309,10 +309,10 @@ export default function OverviewPage() {
 
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">使用率</span>
+                      <span className="text-neutral-600">使用率</span>
                       <span className="font-medium">{module.usage}%</span>
                     </div>
-                    <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden">
                       <div
                         className={`h-full bg-gradient-to-r ${getUsageColor(module.usage)} rounded-full transition-all duration-500`}
                         style={{ width: `${module.usage}%` }}
@@ -324,7 +324,7 @@ export default function OverviewPage() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="text-gray-600 hover:text-gray-900 transition-all duration-300 hover:scale-105"
+                      className="text-neutral-600 hover:text-neutral-900 transition-all duration-300 hover:scale-105"
                     >
                       进入模块 →
                     </Button>
@@ -337,9 +337,9 @@ export default function OverviewPage() {
       </Card>
 
       {/* 快速操作 */}
-      <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center text-blue-700">
+          <CardTitle className="flex items-center text-primary-700">
             <Zap className="w-5 h-5 mr-2" />
             快速操作
           </CardTitle>
@@ -350,7 +350,7 @@ export default function OverviewPage() {
             <Link href="/customers">
               <Button
                 variant="outline"
-                className="w-full h-16 border-l-4 border-l-orange-500 transition-all duration-300 hover:shadow-lg hover:scale-105 bg-transparent"
+                className="w-full h-16 border-l-4 border-l-warning-500 transition-all duration-300 hover:shadow-lg hover:scale-105 bg-transparent"
               >
                 <div className="text-center">
                   <Users className="w-5 h-5 mx-auto mb-1" />
@@ -361,7 +361,7 @@ export default function OverviewPage() {
             <Link href="/tasks">
               <Button
                 variant="outline"
-                className="w-full h-16 border-l-4 border-l-orange-500 transition-all duration-300 hover:shadow-lg hover:scale-105 bg-transparent"
+                className="w-full h-16 border-l-4 border-l-warning-500 transition-all duration-300 hover:shadow-lg hover:scale-105 bg-transparent"
               >
                 <div className="text-center">
                   <CheckSquare className="w-5 h-5 mx-auto mb-1" />
@@ -372,7 +372,7 @@ export default function OverviewPage() {
             <Link href="/ai/customer-data">
               <Button
                 variant="outline"
-                className="w-full h-16 border-l-4 border-l-purple-500 transition-all duration-300 hover:shadow-lg hover:scale-105 bg-transparent"
+                className="w-full h-16 border-l-4 border-l-accent-500 transition-all duration-300 hover:shadow-lg hover:scale-105 bg-transparent"
               >
                 <div className="text-center">
                   <Brain className="w-5 h-5 mx-auto mb-1" />
@@ -383,7 +383,7 @@ export default function OverviewPage() {
             <Link href="/analytics">
               <Button
                 variant="outline"
-                className="w-full h-16 border-l-4 border-l-purple-500 transition-all duration-300 hover:shadow-lg hover:scale-105 bg-transparent"
+                className="w-full h-16 border-l-4 border-l-accent-500 transition-all duration-300 hover:shadow-lg hover:scale-105 bg-transparent"
               >
                 <div className="text-center">
                   <BarChart3 className="w-5 h-5 mx-auto mb-1" />

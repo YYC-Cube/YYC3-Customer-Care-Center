@@ -19,15 +19,15 @@ import { BarChart3, TrendingUp, Users, DollarSign, Target, Activity, ArrowUpRigh
 
 export function DashboardContent() {
   return (
-    <div className="px-6 pb-6 space-y-6 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 min-h-screen">
+    <div className="px-6 pb-6 space-y-6 bg-gradient-to-br from-success-50 via-success-50 to-success-50 min-h-screen">
       {/* 欢迎区域 */}
       <div className="flex justify-between items-center pt-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-            <BarChart3 className="w-8 h-8 mr-3 text-emerald-600" />
+          <h1 className="text-3xl font-bold text-neutral-900 flex items-center">
+            <BarChart3 className="w-8 h-8 mr-3 text-success-600" />
             欢迎回来！
           </h1>
-          <p className="text-gray-600 mt-2">
+          <p className="text-neutral-600 mt-2">
             今天是{' '}
             {new Date().toLocaleDateString('zh-CN', {
               year: 'numeric',
@@ -41,12 +41,12 @@ export function DashboardContent() {
           <Button
             variant="outline"
             size="sm"
-            className="border-l-4 border-l-emerald-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+            className="border-l-4 border-l-success-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
           >
             <Activity className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             实时数据
           </Button>
-          <Button className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+          <Button className="bg-gradient-to-r from-success-500 to-success-600 hover:from-success-600 hover:to-success-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
             <BarChart3 className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             查看报表
           </Button>
@@ -55,56 +55,56 @@ export function DashboardContent() {
 
       {/* 核心KPI卡片 */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">总销售额</CardTitle>
-            <DollarSign className="h-4 w-4 text-emerald-600" />
+            <CardTitle className="text-sm font-medium text-neutral-600">总销售额</CardTitle>
+            <DollarSign className="h-4 w-4 text-success-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-700">¥2,847,392</div>
-            <div className="flex items-center text-xs text-emerald-600 mt-1">
+            <div className="text-2xl font-bold text-success-700">¥2,847,392</div>
+            <div className="flex items-center text-xs text-success-600 mt-1">
               <ArrowUpRight className="w-3 h-3 mr-1" />
               <span>+12.5% 较上月</span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">活跃客户</CardTitle>
-            <Users className="h-4 w-4 text-emerald-600" />
+            <CardTitle className="text-sm font-medium text-neutral-600">活跃客户</CardTitle>
+            <Users className="h-4 w-4 text-success-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-700">1,247</div>
-            <div className="flex items-center text-xs text-emerald-600 mt-1">
+            <div className="text-2xl font-bold text-success-700">1,247</div>
+            <div className="flex items-center text-xs text-success-600 mt-1">
               <ArrowUpRight className="w-3 h-3 mr-1" />
               <span>+8.2% 较上月</span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">待办任务</CardTitle>
-            <CheckCircle className="h-4 w-4 text-emerald-600" />
+            <CardTitle className="text-sm font-medium text-neutral-600">待办任务</CardTitle>
+            <CheckCircle className="h-4 w-4 text-success-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-700">23</div>
-            <div className="flex items-center text-xs text-orange-600 mt-1">
+            <div className="text-2xl font-bold text-success-700">23</div>
+            <div className="flex items-center text-xs text-warning-600 mt-1">
               <ArrowDownRight className="w-3 h-3 mr-1" />
               <span>-5.1% 较上周</span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">转化率</CardTitle>
-            <Target className="h-4 w-4 text-emerald-600" />
+            <CardTitle className="text-sm font-medium text-neutral-600">转化率</CardTitle>
+            <Target className="h-4 w-4 text-success-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-700">12.4%</div>
-            <div className="flex items-center text-xs text-emerald-600 mt-1">
+            <div className="text-2xl font-bold text-success-700">12.4%</div>
+            <div className="flex items-center text-xs text-success-600 mt-1">
               <ArrowUpRight className="w-3 h-3 mr-1" />
               <span>+2.1% 较上月</span>
             </div>
@@ -115,10 +115,10 @@ export function DashboardContent() {
       {/* 主要内容区域 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* 销售趋势 */}
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-emerald-700">
-              <TrendingUp className="w-5 h-5 text-emerald-600" />
+            <CardTitle className="flex items-center space-x-2 text-success-700">
+              <TrendingUp className="w-5 h-5 text-success-600" />
               <span>销售趋势分析</span>
             </CardTitle>
             <CardDescription>过去6个月的销售数据趋势</CardDescription>
@@ -127,25 +127,25 @@ export function DashboardContent() {
             <div className="space-y-4">
               <div className="flex justify-between items-center">
                 <span className="text-sm font-medium">本月销售目标</span>
-                <span className="text-sm text-gray-600">¥3,000,000</span>
+                <span className="text-sm text-neutral-600">¥3,000,000</span>
               </div>
-              <div className="w-full h-4 bg-emerald-100 rounded-full overflow-hidden">
-                <div className="w-4/5 h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full transition-all duration-500"></div>
+              <div className="w-full h-4 bg-success-100 rounded-full overflow-hidden">
+                <div className="w-4/5 h-full bg-gradient-to-r from-success-400 to-success-500 rounded-full transition-all duration-500"></div>
               </div>
-              <div className="text-xs text-gray-600">完成度: 94.9% (¥2,847,392)</div>
+              <div className="text-xs text-neutral-600">完成度: 94.9% (¥2,847,392)</div>
 
-              <div className="h-32 bg-emerald-50 rounded-lg flex items-center justify-center mt-4">
-                <p className="text-emerald-600 font-medium">销售趋势图表区域</p>
+              <div className="h-32 bg-success-50 rounded-lg flex items-center justify-center mt-4">
+                <p className="text-success-600 font-medium">销售趋势图表区域</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
         {/* 客户活动 */}
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-emerald-700">
-              <Users className="w-5 h-5 text-emerald-600" />
+            <CardTitle className="flex items-center space-x-2 text-success-700">
+              <Users className="w-5 h-5 text-success-600" />
               <span>客户活动统计</span>
             </CardTitle>
             <CardDescription>客户行为和活跃度分析</CardDescription>
@@ -154,16 +154,16 @@ export function DashboardContent() {
             <div className="space-y-4">
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
-                  <div className="text-2xl font-bold text-emerald-600">247</div>
-                  <div className="text-xs text-gray-600">新增客户</div>
+                  <div className="text-2xl font-bold text-success-600">247</div>
+                  <div className="text-xs text-neutral-600">新增客户</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-emerald-600">85%</div>
-                  <div className="text-xs text-gray-600">活跃度</div>
+                  <div className="text-2xl font-bold text-success-600">85%</div>
+                  <div className="text-xs text-neutral-600">活跃度</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-emerald-600">4.2</div>
-                  <div className="text-xs text-gray-600">满意度</div>
+                  <div className="text-2xl font-bold text-success-600">4.2</div>
+                  <div className="text-xs text-neutral-600">满意度</div>
                 </div>
               </div>
 
@@ -173,9 +173,9 @@ export function DashboardContent() {
                     <span>客户留存率</span>
                     <span>73%</span>
                   </div>
-                  <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full transition-all duration-500"
+                      className="h-full bg-gradient-to-r from-success-400 to-success-500 rounded-full transition-all duration-500"
                       style={{ width: '73%' }}
                     ></div>
                   </div>
@@ -185,9 +185,9 @@ export function DashboardContent() {
                     <span>重复购买率</span>
                     <span>68%</span>
                   </div>
-                  <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full transition-all duration-500"
+                      className="h-full bg-gradient-to-r from-success-400 to-success-500 rounded-full transition-all duration-500"
                       style={{ width: '68%' }}
                     ></div>
                   </div>
@@ -197,9 +197,9 @@ export function DashboardContent() {
                     <span>推荐率</span>
                     <span>82%</span>
                   </div>
-                  <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full transition-all duration-500"
+                      className="h-full bg-gradient-to-r from-success-400 to-success-500 rounded-full transition-all duration-500"
                       style={{ width: '82%' }}
                     ></div>
                   </div>
@@ -213,45 +213,45 @@ export function DashboardContent() {
       {/* 快速操作和最近活动 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* 快速操作 */}
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader>
-            <CardTitle className="text-emerald-700">快速操作</CardTitle>
+            <CardTitle className="text-success-700">快速操作</CardTitle>
             <CardDescription>常用功能快速入口</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 gap-3">
               <Button
                 variant="outline"
-                className="h-16 flex flex-col items-center justify-center space-y-2 border-l-4 border-l-emerald-500 hover:bg-emerald-50 hover:border-emerald-300 hover:scale-105 transition-all duration-300 group bg-transparent"
+                className="h-16 flex flex-col items-center justify-center space-y-2 border-l-4 border-l-success-500 hover:bg-success-50 hover:border-success-300 hover:scale-105 transition-all duration-300 group bg-transparent"
               >
-                <BarChart3 className="w-6 h-6 text-emerald-600 group-hover:scale-110 transition-transform duration-300" />
+                <BarChart3 className="w-6 h-6 text-success-600 group-hover:scale-110 transition-transform duration-300" />
                 <span className="text-sm font-medium group-hover:translate-x-1 transition-all duration-300">
                   数据分析
                 </span>
               </Button>
               <Button
                 variant="outline"
-                className="h-16 flex flex-col items-center justify-center space-y-2 border-l-4 border-l-emerald-500 hover:bg-emerald-50 hover:border-emerald-300 hover:scale-105 transition-all duration-300 group bg-transparent"
+                className="h-16 flex flex-col items-center justify-center space-y-2 border-l-4 border-l-success-500 hover:bg-success-50 hover:border-success-300 hover:scale-105 transition-all duration-300 group bg-transparent"
               >
-                <FileText className="w-6 h-6 text-emerald-600 group-hover:scale-110 transition-transform duration-300" />
+                <FileText className="w-6 h-6 text-success-600 group-hover:scale-110 transition-transform duration-300" />
                 <span className="text-sm font-medium group-hover:translate-x-1 transition-all duration-300">
                   报表中心
                 </span>
               </Button>
               <Button
                 variant="outline"
-                className="h-16 flex flex-col items-center justify-center space-y-2 border-l-4 border-l-emerald-500 hover:bg-emerald-50 hover:border-emerald-300 hover:scale-105 transition-all duration-300 group bg-transparent"
+                className="h-16 flex flex-col items-center justify-center space-y-2 border-l-4 border-l-success-500 hover:bg-success-50 hover:border-success-300 hover:scale-105 transition-all duration-300 group bg-transparent"
               >
-                <Target className="w-6 h-6 text-emerald-600 group-hover:scale-110 transition-transform duration-300" />
+                <Target className="w-6 h-6 text-success-600 group-hover:scale-110 transition-transform duration-300" />
                 <span className="text-sm font-medium group-hover:translate-x-1 transition-all duration-300">
                   KPI监控
                 </span>
               </Button>
               <Button
                 variant="outline"
-                className="h-16 flex flex-col items-center justify-center space-y-2 border-l-4 border-l-emerald-500 hover:bg-emerald-50 hover:border-emerald-300 hover:scale-105 transition-all duration-300 group bg-transparent"
+                className="h-16 flex flex-col items-center justify-center space-y-2 border-l-4 border-l-success-500 hover:bg-success-50 hover:border-success-300 hover:scale-105 transition-all duration-300 group bg-transparent"
               >
-                <Users className="w-6 h-6 text-emerald-600 group-hover:scale-110 transition-transform duration-300" />
+                <Users className="w-6 h-6 text-success-600 group-hover:scale-110 transition-transform duration-300" />
                 <span className="text-sm font-medium group-hover:translate-x-1 transition-all duration-300">
                   客户管理
                 </span>
@@ -261,9 +261,9 @@ export function DashboardContent() {
         </Card>
 
         {/* 最近活动 */}
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader>
-            <CardTitle className="text-emerald-700">最近活动</CardTitle>
+            <CardTitle className="text-success-700">最近活动</CardTitle>
             <CardDescription>系统最新动态和更新</CardDescription>
           </CardHeader>
           <CardContent>
@@ -300,35 +300,35 @@ export function DashboardContent() {
               ].map((activity, index) => (
                 <div
                   key={index}
-                  className="flex items-start space-x-3 p-3 bg-emerald-50 rounded-lg hover:bg-emerald-100 transition-all duration-300 hover:scale-105"
+                  className="flex items-start space-x-3 p-3 bg-success-50 rounded-lg hover:bg-success-100 transition-all duration-300 hover:scale-105"
                 >
                   <div
                     className={`w-8 h-8 rounded-full flex items-center justify-center ${
                       activity.type === 'success'
-                        ? 'bg-emerald-100'
+                        ? 'bg-success-100'
                         : activity.type === 'info'
-                          ? 'bg-blue-100'
+                          ? 'bg-primary-100'
                           : activity.type === 'warning'
-                            ? 'bg-orange-100'
-                            : 'bg-gray-100'
+                            ? 'bg-warning-100'
+                            : 'bg-neutral-100'
                     }`}
                   >
                     <activity.icon
                       className={`w-4 h-4 ${
                         activity.type === 'success'
-                          ? 'text-emerald-600'
+                          ? 'text-success-600'
                           : activity.type === 'info'
-                            ? 'text-blue-600'
+                            ? 'text-primary-600'
                             : activity.type === 'warning'
-                              ? 'text-orange-600'
-                              : 'text-gray-600'
+                              ? 'text-warning-600'
+                              : 'text-neutral-600'
                       }`}
                     />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-medium text-gray-900">{activity.title}</h4>
-                    <p className="text-sm text-gray-600">{activity.description}</p>
-                    <p className="text-xs text-gray-500 mt-1">{activity.time}</p>
+                    <h4 className="font-medium text-neutral-900">{activity.title}</h4>
+                    <p className="text-sm text-neutral-600">{activity.description}</p>
+                    <p className="text-xs text-neutral-500 mt-1">{activity.time}</p>
                   </div>
                 </div>
               ))}

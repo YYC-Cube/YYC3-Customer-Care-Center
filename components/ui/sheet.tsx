@@ -24,27 +24,24 @@ export function Sheet({
   onOpenChange?: (open: boolean) => void;
   children: ReactNode;
 }) {
+  // 触发器必须始终渲染：可见性由 SheetContent 自身按 open 控制
+  return <SheetContext.Provider value={{ open, onOpenChange }}>{children}</SheetContext.Provider>;
+}
+
+export function SheetTrigger({ children }: { children: ReactNode; asChild?: boolean }) {
+  const { onOpenChange } = useContext(SheetContext);
   return (
-    <SheetContext.Provider value={{ open, onOpenChange }}>
-      {open ? (
-        <div className="fixed inset-0 z-50" onClick={() => onOpenChange?.(false)}>
-          <div className="absolute inset-0 bg-black/60" />
-          {children}
-        </div>
-      ) : null}
-    </SheetContext.Provider>
+    <span className="contents" onClick={() => onOpenChange?.(true)}>
+      {children}
+    </span>
   );
 }
 
-export function SheetTrigger({ children }: { children: ReactNode }) {
-  return <>{children}</>;
-}
-
 const sideCls: Record<string, string> = {
-  left: 'left-0 top-0 h-full w-80 border-r',
-  right: 'right-0 top-0 h-full w-80 border-l',
-  top: 'left-0 top-0 h-80 w-full border-b',
-  bottom: 'left-0 bottom-0 w-full border-t',
+  left: 'left-0 top-0 h-full w-80 border-r border-border',
+  right: 'right-0 top-0 h-full w-80 border-l border-border',
+  top: 'left-0 top-0 h-80 w-full border-b border-border',
+  bottom: 'left-0 bottom-0 w-full border-t border-border',
 };
 
 export function SheetContent({
@@ -56,22 +53,33 @@ export function SheetContent({
   className?: string;
   children: ReactNode;
 }) {
-  const { onOpenChange } = useContext(SheetContext);
+  const { open, onOpenChange } = useContext(SheetContext);
+  if (!open) return null;
+
   return (
-    <div
-      role="dialog"
-      className={`fixed z-50 bg-white p-6 shadow-lg ${sideCls[side] || sideCls.right} ${className}`}
-      onClick={(e) => e.stopPropagation()}
-    >
-      <button
-        type="button"
-        aria-label="Close"
-        className="absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100"
+    <div className="fixed inset-0 z-50">
+      {/* 遮罩：点击关闭 */}
+      <div
+        className="absolute inset-0 bg-overlay backdrop-blur-sm"
         onClick={() => onOpenChange?.(false)}
+        aria-hidden="true"
+      />
+      <div
+        role="dialog"
+        aria-modal="true"
+        className={`absolute z-10 bg-card text-card-foreground p-6 shadow-xl ${sideCls[side] || sideCls.right} ${className}`}
+        onClick={(e) => e.stopPropagation()}
       >
-        <X className="h-4 w-4" />
-      </button>
-      {children}
+        <button
+          type="button"
+          aria-label="Close"
+          className="absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100"
+          onClick={() => onOpenChange?.(false)}
+        >
+          <X className="h-4 w-4" />
+        </button>
+        {children}
+      </div>
     </div>
   );
 }
@@ -85,19 +93,25 @@ export function SheetTitle({ className = '', children }: { className?: string; c
 }
 
 export function SheetDescription({ className = '', children }: { className?: string; children: ReactNode }) {
-  return <p className={`text-sm text-gray-500 ${className}`}>{children}</p>;
+  return <p className={`text-sm text-neutral-500 ${className}`}>{children}</p>;
 }
 
-export function SheetClose({ className = '', children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+export function SheetClose({
+  className = '',
+  children,
+  onClick,
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   const { onOpenChange } = useContext(SheetContext);
   return (
     <button
       type="button"
-      className={`rounded-md border px-3 py-1.5 text-sm ${className}`}
-      onClick={() => {
-        props.onClick?.();
+      className={`rounded-md border border-border px-3 py-1.5 text-sm ${className}`}
+      onClick={(event) => {
+        onClick?.(event);
         onOpenChange?.(false);
       }}
+      {...props}
     >
       {children}
     </button>

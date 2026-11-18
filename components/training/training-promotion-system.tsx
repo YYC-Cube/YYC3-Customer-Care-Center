@@ -11,6 +11,7 @@
  */
 
 'use client';
+import { colorRamp } from '@/lib/design-tokens';
 
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -270,11 +271,11 @@ export function TrainingPromotionSystem() {
 
   // 活动类型分布
   const campaignTypeData = [
-    { type: '技能挑战', count: 8, color: '#3b82f6' },
-    { type: '认证考试', count: 5, color: '#10b981' },
-    { type: '学习打卡', count: 12, color: '#f59e0b' },
-    { type: '社区活动', count: 6, color: '#8b5cf6' },
-    { type: '课程推广', count: 9, color: '#ef4444' },
+    { type: '技能挑战', count: 8, color: colorRamp.primary[500] },
+    { type: '认证考试', count: 5, color: colorRamp.success[500] },
+    { type: '学习打卡', count: 12, color: colorRamp.warning[500] },
+    { type: '社区活动', count: 6, color: colorRamp.accent[500] },
+    { type: '课程推广', count: 9, color: colorRamp.danger[500] },
   ];
 
   // 参与度分析
@@ -289,15 +290,15 @@ export function TrainingPromotionSystem() {
   const getStatusColor = (status: string) => {
     switch (status) {
     case 'active':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'draft':
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     case 'paused':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-warning-100 text-warning-800';
     case 'completed':
-      return 'bg-blue-100 text-blue-800';
+      return 'bg-primary-100 text-primary-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -421,7 +422,7 @@ export function TrainingPromotionSystem() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold flex items-center">
-            <Megaphone className="w-8 h-8 mr-3 text-orange-600" />
+            <Megaphone className="w-8 h-8 mr-3 text-warning-600" />
             培训推广系统
           </h1>
           <p className="text-muted-foreground">创建和管理培训推广活动，提升学习参与度</p>
@@ -442,41 +443,41 @@ export function TrainingPromotionSystem() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
         <Card>
           <CardContent className="p-6 text-center">
-            <Megaphone className="w-8 h-8 mx-auto mb-2 text-orange-600" />
+            <Megaphone className="w-8 h-8 mx-auto mb-2 text-warning-600" />
             <p className="text-2xl font-bold">{campaigns.length}</p>
-            <p className="text-sm text-gray-600">总活动数</p>
+            <p className="text-sm text-neutral-600">总活动数</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <Zap className="w-8 h-8 mx-auto mb-2 text-green-600" />
+            <Zap className="w-8 h-8 mx-auto mb-2 text-success-600" />
             <p className="text-2xl font-bold">{campaigns.filter((c) => c.status === 'active').length}</p>
-            <p className="text-sm text-gray-600">进行中</p>
+            <p className="text-sm text-neutral-600">进行中</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <Users className="w-8 h-8 mx-auto mb-2 text-blue-600" />
+            <Users className="w-8 h-8 mx-auto mb-2 text-primary-600" />
             <p className="text-2xl font-bold">{participants.length}</p>
-            <p className="text-sm text-gray-600">总参与人数</p>
+            <p className="text-sm text-neutral-600">总参与人数</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <Trophy className="w-8 h-8 mx-auto mb-2 text-purple-600" />
+            <Trophy className="w-8 h-8 mx-auto mb-2 text-accent-600" />
             <p className="text-2xl font-bold">{participants.filter((p) => p.completed).length}</p>
-            <p className="text-sm text-gray-600">完成人数</p>
+            <p className="text-sm text-neutral-600">完成人数</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <Star className="w-8 h-8 mx-auto mb-2 text-yellow-600" />
+            <Star className="w-8 h-8 mx-auto mb-2 text-warning-600" />
             <p className="text-2xl font-bold">
               {campaigns.length > 0
                 ? (campaigns.reduce((sum, c) => sum + c.metrics.satisfaction, 0) / campaigns.length).toFixed(1)
                 : '0'}
             </p>
-            <p className="text-sm text-gray-600">平均满意度</p>
+            <p className="text-sm text-neutral-600">平均满意度</p>
           </CardContent>
         </Card>
       </div>
@@ -496,7 +497,7 @@ export function TrainingPromotionSystem() {
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="flex items-center space-x-2">
-                      <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center text-orange-600">
+                      <div className="w-8 h-8 bg-warning-100 rounded-full flex items-center justify-center text-warning-600">
                         {getTypeIcon(campaign.type)}
                       </div>
                       <div>
@@ -511,19 +512,19 @@ export function TrainingPromotionSystem() {
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
-                      <p className="text-gray-600">开始时间</p>
+                      <p className="text-neutral-600">开始时间</p>
                       <p className="font-medium">{campaign.startDate.toLocaleDateString('zh-CN')}</p>
                     </div>
                     <div>
-                      <p className="text-gray-600">结束时间</p>
+                      <p className="text-neutral-600">结束时间</p>
                       <p className="font-medium">{campaign.endDate.toLocaleDateString('zh-CN')}</p>
                     </div>
                     <div>
-                      <p className="text-gray-600">参与人数</p>
+                      <p className="text-neutral-600">参与人数</p>
                       <p className="font-medium">{campaign.metrics.participants}</p>
                     </div>
                     <div>
-                      <p className="text-gray-600">完成率</p>
+                      <p className="text-neutral-600">完成率</p>
                       <p className="font-medium">{campaign.metrics.completionRate.toFixed(1)}%</p>
                     </div>
                   </div>
@@ -562,7 +563,7 @@ export function TrainingPromotionSystem() {
                       {campaign.rewards.map((reward) => (
                         <div
                           key={reward.id}
-                          className="flex items-center space-x-1 text-xs bg-gray-100 px-2 py-1 rounded"
+                          className="flex items-center space-x-1 text-xs bg-neutral-100 px-2 py-1 rounded"
                         >
                           {getRewardIcon(reward.type)}
                           <span>{reward.name}</span>
@@ -718,8 +719,8 @@ export function TrainingPromotionSystem() {
                         </Avatar>
                         <div>
                           <h3 className="font-semibold">{participant.userName}</h3>
-                          <p className="text-sm text-gray-600">{campaign?.title}</p>
-                          <div className="flex items-center space-x-4 text-sm text-gray-500 mt-1">
+                          <p className="text-sm text-neutral-600">{campaign?.title}</p>
+                          <div className="flex items-center space-x-4 text-sm text-neutral-500 mt-1">
                             <span className="flex items-center">
                               <Calendar className="w-4 h-4 mr-1" />
                               {participant.joinedAt.toLocaleDateString('zh-CN')}
@@ -734,19 +735,19 @@ export function TrainingPromotionSystem() {
                       <div className="flex items-center space-x-4">
                         <div className="text-right">
                           <Progress value={participant.progress} className="w-24 h-2" />
-                          <p className="text-xs text-gray-500 mt-1">{participant.progress}% 完成</p>
+                          <p className="text-xs text-neutral-500 mt-1">{participant.progress}% 完成</p>
                         </div>
                         <div className="flex space-x-1">
                           {participant.rewards.map((rewardId, index) => (
                             <div
                               key={index}
-                              className="w-6 h-6 bg-yellow-100 rounded-full flex items-center justify-center"
+                              className="w-6 h-6 bg-warning-100 rounded-full flex items-center justify-center"
                             >
-                              <Trophy className="w-3 h-3 text-yellow-600" />
+                              <Trophy className="w-3 h-3 text-warning-600" />
                             </div>
                           ))}
                         </div>
-                        {participant.completed && <Badge className="bg-green-100 text-green-800">已完成</Badge>}
+                        {participant.completed && <Badge className="bg-success-100 text-success-800">已完成</Badge>}
                       </div>
                     </div>
                   </CardContent>

@@ -11,6 +11,7 @@
  */
 
 'use client';
+import { colorRamp } from '@/lib/design-tokens';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
@@ -37,10 +38,10 @@ const expenseData = [
 
 // 预算执行情况
 const budgetData = [
-  { name: '人力成本', value: 85, color: '#10b981' },
-  { name: '运营费用', value: 92, color: '#3b82f6' },
-  { name: '市场推广', value: 78, color: '#f59e0b' },
-  { name: '技术投入', value: 95, color: '#8b5cf6' },
+  { name: '人力成本', value: 85, color: colorRamp.success[500] },
+  { name: '运营费用', value: 92, color: colorRamp.primary[500] },
+  { name: '市场推广', value: 78, color: colorRamp.warning[500] },
+  { name: '技术投入', value: 95, color: colorRamp.accent[500] },
 ];
 
 export function FinanceChart() {
@@ -72,9 +73,9 @@ export function FinanceChart() {
           >
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={financeTrendData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                <XAxis dataKey="month" stroke="#64748b" />
-                <YAxis stroke="#64748b" />
+                <CartesianGrid strokeDasharray="3 3" stroke={colorRamp.neutral[200]} />
+                <XAxis dataKey="month" stroke={colorRamp.neutral[500]} />
+                <YAxis stroke={colorRamp.neutral[500]} />
                 <ChartTooltip content={<ChartTooltipContent />} />
                 <Line
                   type="monotone"
@@ -122,9 +123,9 @@ export function FinanceChart() {
             >
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={expenseData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                  <XAxis dataKey="category" stroke="#64748b" />
-                  <YAxis stroke="#64748b" />
+                  <CartesianGrid strokeDasharray="3 3" stroke={colorRamp.neutral[200]} />
+                  <XAxis dataKey="category" stroke={colorRamp.neutral[500]} />
+                  <YAxis stroke={colorRamp.neutral[500]} />
                   <ChartTooltip content={<ChartTooltipContent />} />
                   <Bar dataKey="amount" fill="var(--color-amount)" radius={[4, 4, 0, 0]} />
                 </BarChart>
@@ -144,10 +145,10 @@ export function FinanceChart() {
               {budgetData.map((item, index) => (
                 <div key={index} className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-slate-600">{item.name}</span>
+                    <span className="text-neutral-600">{item.name}</span>
                     <span className="font-medium">{item.value}%</span>
                   </div>
-                  <div className="w-full bg-slate-200 rounded-full h-2">
+                  <div className="w-full bg-neutral-200 rounded-full h-2">
                     <div
                       className="h-2 rounded-full transition-all duration-300"
                       style={{

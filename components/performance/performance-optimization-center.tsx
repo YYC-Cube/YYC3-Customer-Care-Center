@@ -240,15 +240,15 @@ export function PerformanceOptimizationCenter() {
   const getStatusColor = (status: string) => {
     switch (status) {
     case 'excellent':
-      return 'text-green-600 bg-green-100';
+      return 'text-success-600 bg-success-100';
     case 'good':
-      return 'text-blue-600 bg-blue-100';
+      return 'text-primary-600 bg-primary-100';
     case 'warning':
-      return 'text-yellow-600 bg-yellow-100';
+      return 'text-warning-600 bg-warning-100';
     case 'critical':
-      return 'text-red-600 bg-red-100';
+      return 'text-danger-600 bg-danger-100';
     default:
-      return 'text-gray-600 bg-gray-100';
+      return 'text-neutral-600 bg-neutral-100';
     }
   };
 
@@ -270,11 +270,11 @@ export function PerformanceOptimizationCenter() {
   const getTrendIcon = (trend: string) => {
     switch (trend) {
     case 'up':
-      return <TrendingUp className="w-4 h-4 text-red-600" />;
+      return <TrendingUp className="w-4 h-4 text-danger-600" />;
     case 'down':
-      return <TrendingDown className="w-4 h-4 text-green-600" />;
+      return <TrendingDown className="w-4 h-4 text-success-600" />;
     default:
-      return <div className="w-4 h-4 bg-gray-400 rounded-full" />;
+      return <div className="w-4 h-4 bg-neutral-400 rounded-full" />;
     }
   };
 
@@ -343,7 +343,7 @@ export function PerformanceOptimizationCenter() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold flex items-center">
-            <Zap className="w-8 h-8 mr-3 text-yellow-600" />
+            <Zap className="w-8 h-8 mr-3 text-warning-600" />
             性能优化中心
           </h1>
           <p className="text-muted-foreground">智能分析和优化系统性能表现</p>
@@ -370,11 +370,11 @@ export function PerformanceOptimizationCenter() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">性能评分</p>
-                <p className="text-3xl font-bold text-green-600">{getOverallScore()}</p>
+                <p className="text-sm text-neutral-600">性能评分</p>
+                <p className="text-3xl font-bold text-success-600">{getOverallScore()}</p>
               </div>
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                <Gauge className="w-6 h-6 text-green-600" />
+              <div className="w-12 h-12 bg-success-100 rounded-full flex items-center justify-center">
+                <Gauge className="w-6 h-6 text-success-600" />
               </div>
             </div>
             <Progress value={getOverallScore()} className="mt-4 h-2" />
@@ -385,16 +385,16 @@ export function PerformanceOptimizationCenter() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">优化建议</p>
-                <p className="text-3xl font-bold text-blue-600">
+                <p className="text-sm text-neutral-600">优化建议</p>
+                <p className="text-3xl font-bold text-primary-600">
                   {optimizationRules.filter((r) => !r.enabled && r.impact === 'high').length}
                 </p>
               </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                <Target className="w-6 h-6 text-blue-600" />
+              <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                <Target className="w-6 h-6 text-primary-600" />
               </div>
             </div>
-            <p className="text-sm text-gray-600 mt-2">高影响优化项</p>
+            <p className="text-sm text-neutral-600 mt-2">高影响优化项</p>
           </CardContent>
         </Card>
 
@@ -402,16 +402,16 @@ export function PerformanceOptimizationCenter() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">已启用规则</p>
-                <p className="text-3xl font-bold text-purple-600">
+                <p className="text-sm text-neutral-600">已启用规则</p>
+                <p className="text-3xl font-bold text-accent-600">
                   {optimizationRules.filter((r) => r.enabled).length}
                 </p>
               </div>
-              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                <Optimize className="w-6 h-6 text-purple-600" />
+              <div className="w-12 h-12 bg-accent-100 rounded-full flex items-center justify-center">
+                <Optimize className="w-6 h-6 text-accent-600" />
               </div>
             </div>
-            <p className="text-sm text-gray-600 mt-2">共 {optimizationRules.length} 个规则</p>
+            <p className="text-sm text-neutral-600 mt-2">共 {optimizationRules.length} 个规则</p>
           </CardContent>
         </Card>
 
@@ -419,8 +419,8 @@ export function PerformanceOptimizationCenter() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">预期提升</p>
-                <p className="text-3xl font-bold text-orange-600">
+                <p className="text-sm text-neutral-600">预期提升</p>
+                <p className="text-3xl font-bold text-warning-600">
                   {Math.round(
                     optimizationRules.filter((r) => r.enabled).reduce((sum, r) => sum + r.estimatedGain, 0) /
                       optimizationRules.filter((r) => r.enabled).length,
@@ -428,11 +428,11 @@ export function PerformanceOptimizationCenter() {
                   %
                 </p>
               </div>
-              <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
-                <TrendingUp className="w-6 h-6 text-orange-600" />
+              <div className="w-12 h-12 bg-warning-100 rounded-full flex items-center justify-center">
+                <TrendingUp className="w-6 h-6 text-warning-600" />
               </div>
             </div>
-            <p className="text-sm text-gray-600 mt-2">平均性能提升</p>
+            <p className="text-sm text-neutral-600 mt-2">平均性能提升</p>
           </CardContent>
         </Card>
       </div>
@@ -476,13 +476,13 @@ export function PerformanceOptimizationCenter() {
                       {getTrendIcon(metric.trend)}
                     </div>
                     <div className="space-y-2">
-                      <div className="flex justify-between text-sm text-gray-600">
+                      <div className="flex justify-between text-sm text-neutral-600">
                         <span>目标值</span>
                         <span>
                           {metric.target} {metric.unit}
                         </span>
                       </div>
-                      <div className="flex justify-between text-sm text-gray-600">
+                      <div className="flex justify-between text-sm text-neutral-600">
                         <span>影响程度</span>
                         <Badge variant="outline" className="text-xs">
                           {metric.impact === 'high' ? '高' : metric.impact === 'medium' ? '中' : '低'}
@@ -503,19 +503,19 @@ export function PerformanceOptimizationCenter() {
         <TabsContent value="optimization" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {optimizationRules.map((rule) => (
-              <Card key={rule.id} className={rule.enabled ? 'border-green-200 bg-green-50' : ''}>
+              <Card key={rule.id} className={rule.enabled ? 'border-success-200 bg-success-50' : ''}>
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <div
                         className={`w-8 h-8 rounded-full flex items-center justify-center ${
                           rule.category === 'frontend'
-                            ? 'bg-blue-100 text-blue-600'
+                            ? 'bg-primary-100 text-primary-600'
                             : rule.category === 'backend'
-                              ? 'bg-green-100 text-green-600'
+                              ? 'bg-success-100 text-success-600'
                               : rule.category === 'database'
-                                ? 'bg-purple-100 text-purple-600'
-                                : 'bg-orange-100 text-orange-600'
+                                ? 'bg-accent-100 text-accent-600'
+                                : 'bg-warning-100 text-warning-600'
                         }`}
                       >
                         {getCategoryIcon(rule.category)}
@@ -541,38 +541,38 @@ export function PerformanceOptimizationCenter() {
                   <div className="space-y-4">
                     <div className="grid grid-cols-3 gap-4 text-sm">
                       <div>
-                        <p className="text-gray-600">影响程度</p>
+                        <p className="text-neutral-600">影响程度</p>
                         <Badge
                           variant="outline"
                           className={
                             rule.impact === 'high'
-                              ? 'border-red-200 text-red-800'
+                              ? 'border-danger-200 text-danger-800'
                               : rule.impact === 'medium'
-                                ? 'border-yellow-200 text-yellow-800'
-                                : 'border-green-200 text-green-800'
+                                ? 'border-warning-200 text-warning-800'
+                                : 'border-success-200 text-success-800'
                           }
                         >
                           {rule.impact === 'high' ? '高' : rule.impact === 'medium' ? '中' : '低'}
                         </Badge>
                       </div>
                       <div>
-                        <p className="text-gray-600">复杂度</p>
+                        <p className="text-neutral-600">复杂度</p>
                         <Badge
                           variant="outline"
                           className={
                             rule.complexity === 'hard'
-                              ? 'border-red-200 text-red-800'
+                              ? 'border-danger-200 text-danger-800'
                               : rule.complexity === 'medium'
-                                ? 'border-yellow-200 text-yellow-800'
-                                : 'border-green-200 text-green-800'
+                                ? 'border-warning-200 text-warning-800'
+                                : 'border-success-200 text-success-800'
                           }
                         >
                           {rule.complexity === 'hard' ? '困难' : rule.complexity === 'medium' ? '中等' : '简单'}
                         </Badge>
                       </div>
                       <div>
-                        <p className="text-gray-600">预期提升</p>
-                        <p className="font-bold text-green-600">{rule.estimatedGain}%</p>
+                        <p className="text-neutral-600">预期提升</p>
+                        <p className="font-bold text-success-600">{rule.estimatedGain}%</p>
                       </div>
                     </div>
                     <Progress value={rule.estimatedGain} className="h-2" />
@@ -690,10 +690,10 @@ export function PerformanceOptimizationCenter() {
                     <div className="flex justify-between items-center">
                       <span className="font-medium">{resource.category}</span>
                       <div className="flex items-center space-x-4 text-sm">
-                        <span className="text-gray-600">
+                        <span className="text-neutral-600">
                           {resource.size}KB → {resource.optimized}KB
                         </span>
-                        <Badge className="bg-green-100 text-green-800">
+                        <Badge className="bg-success-100 text-success-800">
                           -{Math.round(((resource.size - resource.optimized) / resource.size) * 100)}%
                         </Badge>
                       </div>
@@ -702,7 +702,7 @@ export function PerformanceOptimizationCenter() {
                       <Progress value={resource.percentage} className="h-3" />
                       <Progress
                         value={(resource.optimized / resource.size) * resource.percentage}
-                        className="h-3 absolute top-0 bg-green-200"
+                        className="h-3 absolute top-0 bg-success-200"
                       />
                     </div>
                   </div>
@@ -719,21 +719,21 @@ export function PerformanceOptimizationCenter() {
               <CardContent>
                 <div className="space-y-3">
                   {[
-                    { name: 'HTML', time: 120, color: 'bg-blue-500' },
-                    { name: 'CSS', time: 80, color: 'bg-green-500' },
-                    { name: 'JavaScript', time: 200, color: 'bg-yellow-500' },
-                    { name: '图片', time: 150, color: 'bg-purple-500' },
-                    { name: '字体', time: 60, color: 'bg-pink-500' },
+                    { name: 'HTML', time: 120, color: 'bg-primary-500' },
+                    { name: 'CSS', time: 80, color: 'bg-success-500' },
+                    { name: 'JavaScript', time: 200, color: 'bg-warning-500' },
+                    { name: '图片', time: 150, color: 'bg-accent-500' },
+                    { name: '字体', time: 60, color: 'bg-accent-500' },
                   ].map((item, index) => (
                     <div key={item.name} className="flex items-center space-x-3">
                       <span className="w-20 text-sm">{item.name}</span>
-                      <div className="flex-1 bg-gray-200 rounded-full h-4 relative">
+                      <div className="flex-1 bg-neutral-200 rounded-full h-4 relative">
                         <div
                           className={`${item.color} h-4 rounded-full transition-all duration-500`}
                           style={{ width: `${(item.time / 200) * 100}%` }}
                         />
                       </div>
-                      <span className="text-sm text-gray-600">{item.time}ms</span>
+                      <span className="text-sm text-neutral-600">{item.time}ms</span>
                     </div>
                   ))}
                 </div>
@@ -755,7 +755,7 @@ export function PerformanceOptimizationCenter() {
                     <div key={cache.type} className="space-y-2">
                       <div className="flex justify-between">
                         <span className="text-sm font-medium">{cache.type}</span>
-                        <span className="text-sm text-gray-600">{cache.rate}%</span>
+                        <span className="text-sm text-neutral-600">{cache.rate}%</span>
                       </div>
                       <Progress value={cache.rate} className="h-2" />
                     </div>
@@ -777,7 +777,7 @@ export function PerformanceOptimizationCenter() {
                 <div className="flex items-center justify-between">
                   <div>
                     <h4 className="font-medium">自动优化</h4>
-                    <p className="text-sm text-gray-600">启用后系统将自动应用优化建议</p>
+                    <p className="text-sm text-neutral-600">启用后系统将自动应用优化建议</p>
                   </div>
                   <Switch checked={autoOptimization} onCheckedChange={setAutoOptimization} />
                 </div>
@@ -785,7 +785,7 @@ export function PerformanceOptimizationCenter() {
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="font-medium">优化级别</span>
-                    <span className="text-sm text-gray-600">
+                    <span className="text-sm text-neutral-600">
                       {optimizationLevel[0] === 1 ? '保守' : optimizationLevel[0] === 2 ? '平衡' : '激进'}
                     </span>
                   </div>
@@ -797,7 +797,7 @@ export function PerformanceOptimizationCenter() {
                     step={1}
                     className="w-full"
                   />
-                  <div className="flex justify-between text-xs text-gray-500">
+                  <div className="flex justify-between text-xs text-neutral-500">
                     <span>保守</span>
                     <span>平衡</span>
                     <span>激进</span>

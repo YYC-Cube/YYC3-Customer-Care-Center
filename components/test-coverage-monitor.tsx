@@ -90,26 +90,26 @@ export function TestCoverageMonitor() {
   const getStatusColor = (status: CoverageData['status']) => {
     switch (status) {
     case 'excellent':
-      return 'text-green-600 bg-green-50 border-green-200';
+      return 'text-success-600 bg-success-50 border-success-200';
     case 'good':
-      return 'text-blue-600 bg-blue-50 border-blue-200';
+      return 'text-primary-600 bg-primary-50 border-primary-200';
     case 'needs-improvement':
-      return 'text-yellow-600 bg-yellow-50 border-yellow-200';
+      return 'text-warning-600 bg-warning-50 border-warning-200';
     case 'poor':
-      return 'text-red-600 bg-red-50 border-red-200';
+      return 'text-danger-600 bg-danger-50 border-danger-200';
     }
   };
 
   const getStatusIcon = (status: CoverageData['status']) => {
     switch (status) {
     case 'excellent':
-      return <CheckCircle className="w-4 h-4 text-green-500" />;
+      return <CheckCircle className="w-4 h-4 text-success-500" />;
     case 'good':
-      return <Target className="w-4 h-4 text-blue-500" />;
+      return <Target className="w-4 h-4 text-primary-500" />;
     case 'needs-improvement':
-      return <AlertTriangle className="w-4 h-4 text-yellow-500" />;
+      return <AlertTriangle className="w-4 h-4 text-warning-500" />;
     case 'poor':
-      return <XCircle className="w-4 h-4 text-red-500" />;
+      return <XCircle className="w-4 h-4 text-danger-500" />;
     }
   };
 
@@ -139,10 +139,10 @@ export function TestCoverageMonitor() {
         <div className="mb-6">
           <div className="flex justify-between items-center mb-2">
             <span className="text-lg font-semibold">总体覆盖率</span>
-            <span className="text-2xl font-bold text-blue-600">{overallCoverage.toFixed(1)}%</span>
+            <span className="text-2xl font-bold text-primary-600">{overallCoverage.toFixed(1)}%</span>
           </div>
           <Progress value={overallCoverage} className="h-3" />
-          <p className="text-sm text-gray-600 mt-1">
+          <p className="text-sm text-neutral-600 mt-1">
             {overallCoverage >= 90
               ? '覆盖率优秀，测试质量很高'
               : overallCoverage >= 80
@@ -155,7 +155,7 @@ export function TestCoverageMonitor() {
 
         {/* 分类覆盖率 */}
         <div className="space-y-4">
-          <h4 className="font-semibold text-gray-900">分类覆盖详情</h4>
+          <h4 className="font-semibold text-neutral-900">分类覆盖详情</h4>
           {coverageData.map((item, index) => (
             <div key={index} className={`p-3 rounded-lg border ${getStatusColor(item.status)}`}>
               <div className="flex items-center justify-between mb-2">
@@ -174,7 +174,7 @@ export function TestCoverageMonitor() {
                 <span className="text-sm">
                   {item.covered}/{item.total} 项已测试
                 </span>
-                <span className="text-xs text-gray-600">还需 {item.total - item.covered} 项</span>
+                <span className="text-xs text-neutral-600">还需 {item.total - item.covered} 项</span>
               </div>
               <Progress value={item.percentage} className="h-2" />
             </div>
@@ -182,9 +182,9 @@ export function TestCoverageMonitor() {
         </div>
 
         {/* 改进建议 */}
-        <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-          <h4 className="font-semibold text-blue-900 mb-2">改进建议</h4>
-          <ul className="text-sm text-blue-800 space-y-1">
+        <div className="mt-6 p-4 bg-primary-50 rounded-lg border border-primary-200">
+          <h4 className="font-semibold text-primary-900 mb-2">改进建议</h4>
+          <ul className="text-sm text-primary-800 space-y-1">
             {coverageData
               .filter((item) => item.status === 'poor' || item.status === 'needs-improvement')
               .map((item, index) => (

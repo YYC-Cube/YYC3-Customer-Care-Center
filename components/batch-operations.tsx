@@ -116,7 +116,7 @@ export function BatchOperations({
     <>
       {selectedItems.length > 0 && (
         <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
-          <div className="bg-white rounded-2xl shadow-2xl border border-sky-200 p-4 min-w-96">
+          <div className="bg-white rounded-2xl shadow-2xl border border-primary-200 p-4 min-w-96">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-2">
@@ -127,11 +127,11 @@ export function BatchOperations({
                     }}
                     onCheckedChange={(checked) => onSelectAll(!!checked)}
                   />
-                  <span className="text-sm font-medium text-slate-700">
+                  <span className="text-sm font-medium text-neutral-700">
                     已选择 {selectedItems.length} 个{itemTypeLabels[itemType]}
                   </span>
                   {selectedItems.length === totalItems && (
-                    <Badge variant="outline" className="bg-sky-50 text-sky-600 border-sky-200">
+                    <Badge variant="outline" className="bg-primary-50 text-primary-600 border-primary-200">
                       全选
                     </Badge>
                   )}
@@ -156,7 +156,7 @@ export function BatchOperations({
                           key={action.id}
                           onClick={() => handleBatchAction(action.id)}
                           className={`cursor-pointer ${
-                            action.variant === 'destructive' ? 'text-red-600 focus:text-red-600 focus:bg-red-50' : ''
+                            action.variant === 'destructive' ? 'text-danger-600 focus:text-danger-600 focus:bg-danger-50' : ''
                           }`}
                         >
                           <Icon className="mr-2 h-4 w-4" />
@@ -171,7 +171,7 @@ export function BatchOperations({
                   variant="ghost"
                   size="sm"
                   onClick={onClearSelection}
-                  className="text-slate-500 hover:text-slate-700"
+                  className="text-neutral-500 hover:text-neutral-700"
                 >
                   取消选择
                 </Button>
@@ -192,7 +192,7 @@ export function BatchOperations({
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>取消</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmDelete} className="bg-red-600 hover:bg-red-700 focus:ring-red-600">
+            <AlertDialogAction onClick={confirmDelete} className="bg-danger-600 hover:bg-danger-700 focus:ring-danger-600">
               确认删除
             </AlertDialogAction>
           </AlertDialogFooter>

@@ -81,7 +81,7 @@ export function LanguageSwitcher({ variant = 'button', showLabel = true, classNa
                 <span className="text-lg">{getLanguageFlag(lang as SupportedLanguage)}</span>
                 <span>{name}</span>
               </div>
-              {language === lang && <Check className="h-4 w-4 text-blue-600" />}
+              {language === lang && <Check className="h-4 w-4 text-primary-600" />}
             </DropdownMenuItem>
           ))}
         </DropdownMenuContent>
@@ -109,7 +109,7 @@ export function LanguageSwitcher({ variant = 'button', showLabel = true, classNa
                 <span className="text-lg">{getLanguageFlag(lang as SupportedLanguage)}</span>
                 <span>{name}</span>
               </div>
-              {language === lang && <Check className="h-4 w-4 text-blue-600" />}
+              {language === lang && <Check className="h-4 w-4 text-primary-600" />}
             </DropdownMenuItem>
           ))}
         </DropdownMenuContent>
@@ -131,7 +131,7 @@ export function LanguageSwitcher({ variant = 'button', showLabel = true, classNa
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
-        <div className="px-3 py-2 text-sm font-medium text-gray-700 border-b">{t('settings.language')}</div>
+        <div className="px-3 py-2 text-sm font-medium text-neutral-700 border-b">{t('settings.language')}</div>
         {Object.entries(SUPPORTED_LANGUAGES).map(([lang, name]) => (
           <DropdownMenuItem
             key={lang}
@@ -142,11 +142,11 @@ export function LanguageSwitcher({ variant = 'button', showLabel = true, classNa
               <span className="text-xl">{getLanguageFlag(lang as SupportedLanguage)}</span>
               <div>
                 <div className="font-medium">{name}</div>
-                <div className="text-xs text-gray-500">{lang}</div>
+                <div className="text-xs text-neutral-500">{lang}</div>
               </div>
             </div>
             {language === lang && (
-              <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+              <Badge variant="secondary" className="bg-primary-100 text-primary-800">
                 <Check className="h-3 w-3 mr-1" />
                 {t('common.select')}
               </Badge>
@@ -179,12 +179,9 @@ interface TranslationProps {
 export function Translation({ k, params, fallback }: TranslationProps) {
   const { t } = useTranslation();
 
-  try {
-    return <>{t(k, params)}</>;
-  } catch (error) {
-    console.warn(`Translation missing for key: ${k}`);
-    return <>{fallback || k}</>;
-  }
+  const translated = t(k, params);
+  if (!translated) console.warn(`Translation missing for key: ${k}`);
+  return <>{translated || fallback || k}</>;
 }
 
 // Higher-order component for translation

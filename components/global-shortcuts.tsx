@@ -253,7 +253,7 @@ export function GlobalShortcuts({ onNavigate, onAction }: GlobalShortcutsProps) 
           <div className="space-y-6">
             {Object.entries(groupedShortcuts()).map(([category, shortcuts]) => (
               <div key={category}>
-                <h3 className="font-semibold text-slate-800 mb-3 flex items-center space-x-2">
+                <h3 className="font-semibold text-neutral-800 mb-3 flex items-center space-x-2">
                   {category === '导航' && <Home className="w-4 h-4" />}
                   {category === '功能' && <Zap className="w-4 h-4" />}
                   {category === '系统' && <Settings className="w-4 h-4" />}
@@ -263,11 +263,11 @@ export function GlobalShortcuts({ onNavigate, onAction }: GlobalShortcutsProps) 
                   {shortcuts.map((shortcut) => (
                     <div
                       key={shortcut.id}
-                      className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200"
+                      className="flex items-center justify-between p-3 bg-neutral-50 rounded-lg border border-neutral-200"
                     >
                       <div className="flex items-center space-x-3">
                         {shortcut.icon}
-                        <span className="text-sm text-slate-700">{shortcut.description}</span>
+                        <span className="text-sm text-neutral-700">{shortcut.description}</span>
                       </div>
                       <Badge variant="outline" className="font-mono text-xs">
                         {shortcut.key}
@@ -292,7 +292,7 @@ export function GlobalShortcuts({ onNavigate, onAction }: GlobalShortcutsProps) 
             <Button
               variant="outline"
               size="sm"
-              className="bg-white shadow-lg border-sky-200 text-sky-600 hover:bg-sky-50"
+              className="bg-white shadow-lg border-primary-200 text-primary-600 hover:bg-primary-50"
               onClick={() => setShowShortcutsDialog(true)}
             >
               <Keyboard className="w-4 h-4 mr-2" />

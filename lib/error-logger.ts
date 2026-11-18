@@ -1,4 +1,6 @@
 // 错误日志记录系统
+import { colorRamp } from '@/lib/design-tokens';
+
 interface ErrorLog {
   id: string
   timestamp: number
@@ -59,7 +61,7 @@ class ErrorLogger {
             'Resource Load Error',
             `Failed to load: ${(event.target as any)?.src || (event.target as any)?.href}`,
             {
-              element: event.target?.tagName,
+              element: (event.target as Element | null)?.tagName,
               source: (event.target as any)?.src || (event.target as any)?.href,
             },
           );
@@ -201,10 +203,10 @@ class ErrorLogger {
   // 获取控制台样式
   private getConsoleStyle(level: ErrorLog['level']): string {
     const styles = {
-      error: 'color: #dc2626; font-weight: bold;',
-      warning: 'color: #d97706; font-weight: bold;',
-      info: 'color: #2563eb; font-weight: bold;',
-      debug: 'color: #6b7280; font-weight: normal;',
+      error: `color: ${colorRamp.danger[600]}; font-weight: bold;`,
+      warning: `color: ${colorRamp.warning[600]}; font-weight: bold;`,
+      info: `color: ${colorRamp.primary[600]}; font-weight: bold;`,
+      debug: `color: ${colorRamp.neutral[500]}; font-weight: normal;`,
     };
     return styles[level];
   }
@@ -261,8 +263,9 @@ class ErrorLogger {
       if (filter.category) {
         filteredLogs = filteredLogs.filter((log) => log.category === filter.category);
       }
-      if (filter.since) {
-        filteredLogs = filteredLogs.filter((log) => log.timestamp >= filter.since);
+      const since = filter.since;
+      if (since) {
+        filteredLogs = filteredLogs.filter((log) => log.timestamp >= since);
       }
       if (filter.limit) {
         filteredLogs = filteredLogs.slice(0, filter.limit);

@@ -17,6 +17,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { useOptionalLayoutContext } from '@/components/layout/responsive-layout';
 import { MobileNotificationCenter } from './mobile-notification-center';
 import {
   LayoutDashboard,
@@ -60,14 +61,21 @@ const navigationItems = [
 ];
 
 const quickActions = [
-  { id: 'new-task', label: '新建任务', icon: Plus, color: 'bg-blue-500' },
-  { id: 'new-customer', label: '添加客户', icon: Users, color: 'bg-green-500' },
-  { id: 'new-approval', label: '发起审批', icon: FileCheck, color: 'bg-orange-500' },
-  { id: 'new-meeting', label: '创建会议', icon: MessageSquare, color: 'bg-purple-500' },
+  { id: 'new-task', label: '新建任务', icon: Plus, color: 'bg-primary-500' },
+  { id: 'new-customer', label: '添加客户', icon: Users, color: 'bg-success-500' },
+  { id: 'new-approval', label: '发起审批', icon: FileCheck, color: 'bg-warning-500' },
+  { id: 'new-meeting', label: '创建会议', icon: MessageSquare, color: 'bg-accent-500' },
 ];
 
 export function MobileLayout({ children, activeModule = 'dashboard', setActiveModule }: MobileLayoutProps) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // 菜单开关统一由布局上下文托管；未包裹 Provider 时退化为本地状态
+  const layout = useOptionalLayoutContext();
+  const [localMenuOpen, setLocalMenuOpen] = useState(false);
+  const isMenuOpen = layout ? layout.sidebarOpen : localMenuOpen;
+  const setIsMenuOpen = (open: boolean) => {
+    if (layout) layout.setSidebarOpen(open);
+    else setLocalMenuOpen(open);
+  };
   const [isOnline, setIsOnline] = useState(true);
   const [batteryLevel, setBatteryLevel] = useState(100);
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -111,16 +119,16 @@ export function MobileLayout({ children, activeModule = 'dashboard', setActiveMo
   const activeModuleInfo = getActiveModuleInfo();
 
   return (
-    <div ref={layoutRef} className="min-h-screen bg-gradient-to-br from-sky-50 to-blue-50 flex flex-col">
+    <div ref={layoutRef} className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-50 flex flex-col">
       {/* 状态栏 */}
-      <div className="bg-slate-900 text-white px-4 py-1 flex justify-between items-center text-xs">
+      <div className="bg-neutral-900 text-white px-4 py-1 flex justify-between items-center text-xs">
         <div className="flex items-center space-x-2">
           <span>{currentTime.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}</span>
-          {!isOnline && <span className="text-red-400">离线</span>}
+          {!isOnline && <span className="text-danger-400">离线</span>}
         </div>
         <div className="flex items-center space-x-1">
           <Signal className="w-3 h-3" />
-          <Wifi className={`w-3 h-3 ${isOnline ? 'text-white' : 'text-red-400'}`} />
+          <Wifi className={`w-3 h-3 ${isOnline ? 'text-white' : 'text-danger-400'}`} />
           <div className="flex items-center space-x-1">
             <Battery className="w-3 h-3" />
             <span>{batteryLevel}%</span>
@@ -129,15 +137,21 @@ export function MobileLayout({ children, activeModule = 'dashboard', setActiveMo
       </div>
 
       {/* 顶部导航栏 */}
-      <header className="bg-white border-b border-sky-200 shadow-sm px-4 py-3 flex items-center justify-between sticky top-0 z-40">
+      <header className="bg-white border-b border-primary-200 shadow-sm px-4 py-3 flex items-center justify-between sticky top-0 z-40">
         <div className="flex items-center space-x-3">
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="sm" className="p-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="p-2"
+                onClick={() => setIsMenuOpen(true)}
+                aria-label="打开导航菜单"
+              >
                 <Menu className="w-5 h-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-80 p-0 bg-white">
+            <SheetContent side="left" className="w-80 p-0">
               <MobileMenu
                 activeModule={activeModule}
                 setActiveModule={(module) => {
@@ -150,10 +164,10 @@ export function MobileLayout({ children, activeModule = 'dashboard', setActiveMo
           </Sheet>
 
           <div className="flex items-center space-x-2">
-            <activeModuleInfo.icon className="w-5 h-5 text-sky-600" />
-            <h1 className="text-lg font-semibold text-slate-800">{activeModuleInfo.label}</h1>
+            <activeModuleInfo.icon className="w-5 h-5 text-primary-600" />
+            <h1 className="text-lg font-semibold text-neutral-800">{activeModuleInfo.label}</h1>
             {activeModuleInfo.badge && (
-              <Badge className="bg-red-500 text-white text-xs">{activeModuleInfo.badge}</Badge>
+              <Badge className="bg-danger-500 text-white text-xs">{activeModuleInfo.badge}</Badge>
             )}
           </div>
         </div>
@@ -172,7 +186,7 @@ export function MobileLayout({ children, activeModule = 'dashboard', setActiveMo
       </main>
 
       {/* 底部导航栏 */}
-      <nav className="bg-white border-t border-sky-200 shadow-lg px-4 py-2 flex justify-around items-center fixed bottom-0 left-0 right-0 z-40">
+      <nav className="bg-white border-t border-primary-200 shadow-lg px-4 py-2 flex justify-around items-center fixed bottom-0 left-0 right-0 z-40">
         {[
           { id: 'dashboard', icon: Home, label: '首页' },
           { id: 'tasks', icon: CheckSquare, label: '任务' },
@@ -189,14 +203,14 @@ export function MobileLayout({ children, activeModule = 'dashboard', setActiveMo
               variant="ghost"
               size="sm"
               className={`flex flex-col items-center space-y-1 p-2 min-w-0 ${
-                isActive ? 'text-sky-600' : 'text-slate-500'
+                isActive ? 'text-primary-600' : 'text-neutral-500'
               }`}
               onClick={() => setActiveModule?.(item.id)}
             >
               <div className="relative">
                 <Icon className="w-5 h-5" />
                 {moduleInfo?.badge && (
-                  <Badge className="absolute -top-2 -right-2 w-4 h-4 p-0 flex items-center justify-center bg-red-500 text-white text-xs">
+                  <Badge className="absolute -top-2 -right-2 w-4 h-4 p-0 flex items-center justify-center bg-danger-500 text-white text-xs">
                     {moduleInfo.badge === '新' ? '!' : moduleInfo.badge}
                   </Badge>
                 )}
@@ -208,7 +222,7 @@ export function MobileLayout({ children, activeModule = 'dashboard', setActiveMo
 
         {/* 快速操作按钮 */}
         <Button
-          className="bg-gradient-to-r from-sky-500 to-blue-600 text-white rounded-full w-12 h-12 p-0 shadow-lg"
+          className="bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-full w-12 h-12 p-0 shadow-lg"
           onClick={() => setShowQuickActions(!showQuickActions)}
         >
           <Plus className={`w-6 h-6 transition-transform ${showQuickActions ? 'rotate-45' : ''}`} />
@@ -217,10 +231,10 @@ export function MobileLayout({ children, activeModule = 'dashboard', setActiveMo
 
       {/* 快速操作面板 */}
       {showQuickActions && (
-        <div className="fixed inset-0 bg-black/20 z-50 flex items-end justify-center pb-24">
-          <div className="bg-white rounded-t-3xl p-6 w-full max-w-md mx-4 shadow-2xl">
+        <div className="fixed inset-0 bg-overlay z-50 flex items-end justify-center pb-24">
+          <div className="bg-card text-card-foreground rounded-t-3xl p-6 w-full max-w-md mx-4 shadow-xl">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-semibold text-slate-800">快速操作</h3>
+              <h3 className="text-lg font-semibold text-neutral-800">快速操作</h3>
               <Button variant="ghost" size="sm" onClick={() => setShowQuickActions(false)} className="p-1">
                 <X className="w-5 h-5" />
               </Button>
@@ -233,7 +247,7 @@ export function MobileLayout({ children, activeModule = 'dashboard', setActiveMo
                   <Button
                     key={action.id}
                     variant="outline"
-                    className="flex flex-col items-center space-y-2 p-4 h-auto border-2 hover:border-sky-300"
+                    className="flex flex-col items-center space-y-2 p-4 h-auto border-2 hover:border-primary-300"
                     onClick={() => {
                       setShowQuickActions(false);
                       // 处理快速操作
@@ -268,13 +282,13 @@ function MobileMenu({
   return (
     <div className="flex flex-col h-full">
       {/* 菜单头部 */}
-      <div className="p-6 border-b border-sky-200 bg-gradient-to-r from-sky-50 to-blue-50">
+      <div className="p-6 border-b border-primary-200 bg-gradient-to-r from-primary-50 to-primary-50">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
             <img src="/yyc3-pwa-icon.png" alt="言语云" className="w-10 h-10 object-contain" />
             <div>
-              <h2 className="text-lg font-bold text-slate-800">言语云</h2>
-              <p className="text-xs text-slate-500">企业管理系统</p>
+              <h2 className="text-lg font-bold text-neutral-800">言语云</h2>
+              <p className="text-xs text-neutral-500">企业管理系统</p>
             </div>
           </div>
           <Button variant="ghost" size="sm" onClick={onClose} className="p-1">
@@ -284,14 +298,14 @@ function MobileMenu({
 
         {/* 用户信息 */}
         <div className="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-400 to-primary-500 flex items-center justify-center">
             <User className="w-5 h-5 text-white" />
           </div>
           <div className="flex-1">
-            <p className="text-sm font-medium text-slate-700">管理员</p>
-            <p className="text-xs text-slate-500">admin@yanyu.cloud</p>
+            <p className="text-sm font-medium text-neutral-700">管理员</p>
+            <p className="text-xs text-neutral-500">admin@yanyu.cloud</p>
           </div>
-          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+          <div className="w-2 h-2 bg-success-500 rounded-full"></div>
         </div>
       </div>
 
@@ -307,8 +321,8 @@ function MobileMenu({
               variant={isActive ? 'default' : 'ghost'}
               className={`w-full justify-start h-12 transition-all duration-200 ${
                 isActive
-                  ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-md'
-                  : 'text-slate-600 hover:text-sky-700 hover:bg-sky-50'
+                  ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-md'
+                  : 'text-neutral-600 hover:text-primary-700 hover:bg-primary-50'
               }`}
               onClick={() => setActiveModule(item.id)}
             >
@@ -320,7 +334,7 @@ function MobileMenu({
                   className={`ml-2 ${
                     isActive
                       ? 'bg-white/20 text-white border-white/30'
-                      : 'bg-gradient-to-r from-orange-400 to-red-500 text-white'
+                      : 'bg-gradient-to-r from-warning-400 to-danger-500 text-white'
                   } text-xs px-2 py-0.5`}
                 >
                   {item.badge}
@@ -333,15 +347,15 @@ function MobileMenu({
       </nav>
 
       {/* 菜单底部 */}
-      <div className="p-4 border-t border-sky-200 space-y-2">
-        <Button variant="ghost" className="w-full justify-start h-10 text-slate-600 hover:text-sky-700 hover:bg-sky-50">
+      <div className="p-4 border-t border-primary-200 space-y-2">
+        <Button variant="ghost" className="w-full justify-start h-10 text-neutral-600 hover:text-primary-700 hover:bg-primary-50">
           <Settings className="w-4 h-4 mr-3" />
           系统设置
         </Button>
 
         <div className="pt-2 text-center">
-          <p className="text-xs text-slate-400">版本 v2.1.0</p>
-          <p className="text-xs text-slate-400">© 2024 言语云</p>
+          <p className="text-xs text-neutral-400">版本 v2.1.0</p>
+          <p className="text-xs text-neutral-400">© 2024 言语云</p>
         </div>
       </div>
     </div>

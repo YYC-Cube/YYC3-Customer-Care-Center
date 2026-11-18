@@ -468,11 +468,11 @@ export function SystemAnalysisReport() {
                     </div>
                   )}
 
-                  {analysis.gaps && (
+                  {'gaps' in analysis && analysis.gaps.length > 0 && (
                     <div>
                       <h4 className="text-sm font-medium text-red-700 mb-2">缺失项</h4>
                       <ul className="text-xs text-gray-600 space-y-1">
-                        {analysis.gaps.map((gap, idx) => (
+                        {analysis.gaps.map((gap: string, idx: number) => (
                           <li key={idx} className="flex items-center space-x-1">
                             <XCircle className="w-3 h-3 text-red-500" />
                             <span>{gap}</span>

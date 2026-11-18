@@ -118,15 +118,15 @@ export function TaskManagement() {
   const getStatusColor = (status: string) => {
     switch (status) {
     case 'todo':
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     case 'in-progress':
-      return 'bg-orange-100 text-orange-800';
+      return 'bg-warning-100 text-warning-800';
     case 'completed':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'cancelled':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -148,15 +148,15 @@ export function TaskManagement() {
   const getPriorityColor = (priority: string) => {
     switch (priority) {
     case 'low':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'medium':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-warning-100 text-warning-800';
     case 'high':
-      return 'bg-orange-100 text-orange-800';
+      return 'bg-warning-100 text-warning-800';
     case 'urgent':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -176,10 +176,10 @@ export function TaskManagement() {
   };
 
   const getProgressColor = (progress: number) => {
-    if (progress >= 80) return 'from-orange-400 to-orange-500';
-    if (progress >= 60) return 'from-orange-300 to-orange-400';
-    if (progress >= 40) return 'from-yellow-400 to-yellow-500';
-    return 'from-red-400 to-red-500';
+    if (progress >= 80) return 'from-warning-400 to-warning-500';
+    if (progress >= 60) return 'from-warning-300 to-warning-400';
+    if (progress >= 40) return 'from-warning-400 to-warning-500';
+    return 'from-danger-400 to-danger-500';
   };
 
   const filteredTasks = tasks.filter((task) => {
@@ -198,27 +198,27 @@ export function TaskManagement() {
   const urgentTasks = tasks.filter((t) => t.priority === 'urgent').length;
 
   return (
-    <div className="p-6 space-y-6 bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gradient-to-br from-warning-50 via-warning-50 to-warning-50 min-h-screen">
       {/* 页面头部 */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-            <CheckSquare className="w-8 h-8 mr-3 text-orange-600" />
+          <h1 className="text-3xl font-bold text-neutral-900 flex items-center">
+            <CheckSquare className="w-8 h-8 mr-3 text-warning-600" />
             任务管理
           </h1>
-          <p className="text-gray-600 mt-2">智能任务分配和进度跟踪系统</p>
+          <p className="text-neutral-600 mt-2">智能任务分配和进度跟踪系统</p>
         </div>
         <div className="flex space-x-3">
           <Button
             variant="outline"
-            className="border-l-4 border-l-orange-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+            className="border-l-4 border-l-warning-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
           >
             <Filter className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             筛选
           </Button>
           <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+              <Button className="bg-gradient-to-r from-warning-500 to-warning-600 hover:from-warning-600 hover:to-warning-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
                 <Plus className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
                 创建任务
               </Button>
@@ -231,21 +231,21 @@ export function TaskManagement() {
               <div className="space-y-4">
                 <div>
                   <Label htmlFor="title">任务标题</Label>
-                  <Input id="title" placeholder="输入任务标题" className="border-l-4 border-l-orange-500" />
+                  <Input id="title" placeholder="输入任务标题" className="border-l-4 border-l-warning-500" />
                 </div>
                 <div>
                   <Label htmlFor="description">任务描述</Label>
                   <Textarea
                     id="description"
                     placeholder="详细描述任务内容"
-                    className="border-l-4 border-l-orange-500"
+                    className="border-l-4 border-l-warning-500"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="assignee">负责人</Label>
                     <Select>
-                      <SelectTrigger className="border-l-4 border-l-orange-500">
+                      <SelectTrigger className="border-l-4 border-l-warning-500">
                         <SelectValue placeholder="选择负责人" />
                       </SelectTrigger>
                       <SelectContent>
@@ -258,7 +258,7 @@ export function TaskManagement() {
                   <div>
                     <Label htmlFor="priority">优先级</Label>
                     <Select>
-                      <SelectTrigger className="border-l-4 border-l-orange-500">
+                      <SelectTrigger className="border-l-4 border-l-warning-500">
                         <SelectValue placeholder="选择优先级" />
                       </SelectTrigger>
                       <SelectContent>
@@ -272,7 +272,7 @@ export function TaskManagement() {
                 </div>
                 <div>
                   <Label htmlFor="dueDate">截止日期</Label>
-                  <Input id="dueDate" type="date" className="border-l-4 border-l-orange-500" />
+                  <Input id="dueDate" type="date" className="border-l-4 border-l-warning-500" />
                 </div>
                 <div className="flex justify-end space-x-2">
                   <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
@@ -280,7 +280,7 @@ export function TaskManagement() {
                   </Button>
                   <Button
                     onClick={() => setIsCreateDialogOpen(false)}
-                    className="bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white"
+                    className="bg-gradient-to-r from-warning-500 to-warning-600 hover:from-warning-600 hover:to-warning-700 text-white"
                   >
                     创建任务
                   </Button>
@@ -293,68 +293,68 @@ export function TaskManagement() {
 
       {/* 统计概览 */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">总任务数</CardTitle>
-            <CheckSquare className="h-4 w-4 text-orange-600" />
+            <CheckSquare className="h-4 w-4 text-warning-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-700">{totalTasks}</div>
-            <p className="text-xs text-gray-600">本月新增 +8</p>
+            <div className="text-2xl font-bold text-warning-700">{totalTasks}</div>
+            <p className="text-xs text-neutral-600">本月新增 +8</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">已完成</CardTitle>
-            <CheckCircle className="h-4 w-4 text-orange-600" />
+            <CheckCircle className="h-4 w-4 text-warning-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-700">{completedTasks}</div>
-            <p className="text-xs text-gray-600">完成率 {Math.round((completedTasks / totalTasks) * 100)}%</p>
+            <div className="text-2xl font-bold text-warning-700">{completedTasks}</div>
+            <p className="text-xs text-neutral-600">完成率 {Math.round((completedTasks / totalTasks) * 100)}%</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">进行中</CardTitle>
-            <Play className="h-4 w-4 text-orange-600" />
+            <Play className="h-4 w-4 text-warning-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-700">{inProgressTasks}</div>
-            <p className="text-xs text-gray-600">正在执行的任务</p>
+            <div className="text-2xl font-bold text-warning-700">{inProgressTasks}</div>
+            <p className="text-xs text-neutral-600">正在执行的任务</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">紧急任务</CardTitle>
-            <AlertTriangle className="h-4 w-4 text-orange-600" />
+            <AlertTriangle className="h-4 w-4 text-warning-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-700">{urgentTasks}</div>
-            <p className="text-xs text-gray-600">需要立即处理</p>
+            <div className="text-2xl font-bold text-warning-700">{urgentTasks}</div>
+            <p className="text-xs text-neutral-600">需要立即处理</p>
           </CardContent>
         </Card>
       </div>
 
       {/* 搜索和筛选 */}
-      <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardContent className="p-6">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 h-4 w-4" />
                 <Input
                   placeholder="搜索任务标题、描述或负责人..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 border-l-4 border-l-orange-500"
+                  className="pl-10 border-l-4 border-l-warning-500"
                 />
               </div>
             </div>
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-48 border-l-4 border-l-orange-500">
+              <SelectTrigger className="w-48 border-l-4 border-l-warning-500">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -366,7 +366,7 @@ export function TaskManagement() {
               </SelectContent>
             </Select>
             <Select value={priorityFilter} onValueChange={setPriorityFilter}>
-              <SelectTrigger className="w-48 border-l-4 border-l-orange-500">
+              <SelectTrigger className="w-48 border-l-4 border-l-warning-500">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -382,9 +382,9 @@ export function TaskManagement() {
       </Card>
 
       {/* 任务列表 */}
-      <Card className="border-l-4 border-l-orange-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-warning-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center text-orange-700">
+          <CardTitle className="flex items-center text-warning-700">
             <CheckSquare className="w-5 h-5 mr-2" />
             任务列表
           </CardTitle>
@@ -395,13 +395,13 @@ export function TaskManagement() {
             {filteredTasks.map((task) => (
               <div
                 key={task.id}
-                className="border-l-4 border-l-orange-500 bg-orange-50 rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:scale-105"
+                className="border-l-4 border-l-warning-500 bg-warning-50 rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:scale-105"
               >
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex-1">
-                    <h3 className="font-bold text-gray-900 text-lg">{task.title}</h3>
-                    <p className="text-gray-600 mt-1">{task.description}</p>
-                    <div className="flex items-center space-x-4 mt-3 text-sm text-gray-500">
+                    <h3 className="font-bold text-neutral-900 text-lg">{task.title}</h3>
+                    <p className="text-neutral-600 mt-1">{task.description}</p>
+                    <div className="flex items-center space-x-4 mt-3 text-sm text-neutral-500">
                       <div className="flex items-center">
                         <User className="w-4 h-4 mr-1" />
                         {task.assignee}
@@ -425,10 +425,10 @@ export function TaskManagement() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">进度</span>
+                      <span className="text-neutral-600">进度</span>
                       <span className="font-medium">{task.progress}%</span>
                     </div>
-                    <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden">
                       <div
                         className={`h-full bg-gradient-to-r ${getProgressColor(task.progress)} rounded-full transition-all duration-500`}
                         style={{ width: `${task.progress}%` }}
@@ -438,14 +438,14 @@ export function TaskManagement() {
                   <div className="flex items-center justify-center">
                     <Avatar className="h-10 w-10">
                       <AvatarImage src={task.assigneeAvatar || '/placeholder.svg'} />
-                      <AvatarFallback className="bg-orange-200 text-orange-700">
+                      <AvatarFallback className="bg-warning-200 text-warning-700">
                         {task.assignee.slice(0, 2)}
                       </AvatarFallback>
                     </Avatar>
                   </div>
                   <div className="flex flex-wrap gap-1">
                     {task.tags.map((tag, index) => (
-                      <Badge key={index} variant="secondary" className="text-xs bg-orange-100 text-orange-700">
+                      <Badge key={index} variant="secondary" className="text-xs bg-warning-100 text-warning-700">
                         {tag}
                       </Badge>
                     ))}
@@ -456,7 +456,7 @@ export function TaskManagement() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="border-l-4 border-l-orange-500 transition-all duration-300 hover:scale-105 bg-transparent group"
+                    className="border-l-4 border-l-warning-500 transition-all duration-300 hover:scale-105 bg-transparent group"
                   >
                     <Play className="w-4 h-4 mr-1 group-hover:translate-x-1 transition-all duration-300" />
                     开始
@@ -464,14 +464,14 @@ export function TaskManagement() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="border-l-4 border-l-orange-500 transition-all duration-300 hover:scale-105 bg-transparent group"
+                    className="border-l-4 border-l-warning-500 transition-all duration-300 hover:scale-105 bg-transparent group"
                   >
                     <Pause className="w-4 h-4 mr-1 group-hover:translate-x-1 transition-all duration-300" />
                     暂停
                   </Button>
                   <Button
                     size="sm"
-                    className="bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white transition-all duration-300 hover:scale-105 group"
+                    className="bg-gradient-to-r from-warning-500 to-warning-600 hover:from-warning-600 hover:to-warning-700 text-white transition-all duration-300 hover:scale-105 group"
                   >
                     <CheckCircle className="w-4 h-4 mr-1 group-hover:translate-x-1 transition-all duration-300" />
                     完成

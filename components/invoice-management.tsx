@@ -146,11 +146,11 @@ export function InvoiceManagement() {
 
   const getStatusBadge = (status: Invoice['status']) => {
     const statusConfig = {
-      draft: { label: '草稿', className: 'bg-gray-100 text-gray-800' },
-      sent: { label: '已发送', className: 'bg-emerald-100 text-emerald-800' },
-      paid: { label: '已付款', className: 'bg-green-100 text-green-800' },
-      overdue: { label: '逾期', className: 'bg-red-100 text-red-800' },
-      cancelled: { label: '已取消', className: 'bg-gray-100 text-gray-800' },
+      draft: { label: '草稿', className: 'bg-neutral-100 text-neutral-800' },
+      sent: { label: '已发送', className: 'bg-success-100 text-success-800' },
+      paid: { label: '已付款', className: 'bg-success-100 text-success-800' },
+      overdue: { label: '逾期', className: 'bg-danger-100 text-danger-800' },
+      cancelled: { label: '已取消', className: 'bg-neutral-100 text-neutral-800' },
     };
 
     const config = statusConfig[status];
@@ -160,13 +160,13 @@ export function InvoiceManagement() {
   const getStatusIcon = (status: Invoice['status']) => {
     switch (status) {
     case 'paid':
-      return <CheckCircle className="w-4 h-4 text-green-600" />;
+      return <CheckCircle className="w-4 h-4 text-success-600" />;
     case 'sent':
-      return <Clock className="w-4 h-4 text-emerald-600" />;
+      return <Clock className="w-4 h-4 text-success-600" />;
     case 'overdue':
-      return <AlertCircle className="w-4 h-4 text-red-600" />;
+      return <AlertCircle className="w-4 h-4 text-danger-600" />;
     default:
-      return <FileText className="w-4 h-4 text-gray-600" />;
+      return <FileText className="w-4 h-4 text-neutral-600" />;
     }
   };
 
@@ -188,26 +188,26 @@ export function InvoiceManagement() {
   };
 
   return (
-    <div className="p-6 space-y-6 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gradient-to-br from-success-50 via-success-50 to-success-50 min-h-screen">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-            <FileText className="w-8 h-8 mr-3 text-emerald-600" />
+          <h1 className="text-3xl font-bold text-neutral-900 flex items-center">
+            <FileText className="w-8 h-8 mr-3 text-success-600" />
             发票管理
           </h1>
-          <p className="text-gray-600 mt-2">管理企业发票的创建、发送和跟踪</p>
+          <p className="text-neutral-600 mt-2">管理企业发票的创建、发送和跟踪</p>
         </div>
         <div className="flex space-x-2">
           <Button
             variant="outline"
-            className="border-l-4 border-l-emerald-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+            className="border-l-4 border-l-success-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
           >
             <Download className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             导出数据
           </Button>
           <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+              <Button className="bg-gradient-to-r from-success-500 to-success-600 hover:from-success-600 hover:to-success-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
                 <Plus className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
                 创建发票
               </Button>
@@ -225,82 +225,82 @@ export function InvoiceManagement() {
 
       {/* 统计卡片 */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">发票总数</CardTitle>
-            <FileText className="h-4 w-4 text-emerald-600" />
+            <FileText className="h-4 w-4 text-success-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-700">{totalStats.total}</div>
-            <p className="text-xs text-gray-600">本月新增 +12</p>
+            <div className="text-2xl font-bold text-success-700">{totalStats.total}</div>
+            <p className="text-xs text-neutral-600">本月新增 +12</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">已付款</CardTitle>
-            <CheckCircle className="h-4 w-4 text-green-600" />
+            <CheckCircle className="h-4 w-4 text-success-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">{totalStats.paid}</div>
-            <p className="text-xs text-gray-600">付款率 {Math.round((totalStats.paid / totalStats.total) * 100)}%</p>
+            <div className="text-2xl font-bold text-success-600">{totalStats.paid}</div>
+            <p className="text-xs text-neutral-600">付款率 {Math.round((totalStats.paid / totalStats.total) * 100)}%</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">待付款</CardTitle>
-            <Clock className="h-4 w-4 text-emerald-600" />
+            <Clock className="h-4 w-4 text-success-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-600">{totalStats.pending}</div>
-            <p className="text-xs text-gray-600">平均账期 30天</p>
+            <div className="text-2xl font-bold text-success-600">{totalStats.pending}</div>
+            <p className="text-xs text-neutral-600">平均账期 30天</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">逾期发票</CardTitle>
-            <AlertCircle className="h-4 w-4 text-red-600" />
+            <AlertCircle className="h-4 w-4 text-danger-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-red-600">{totalStats.overdue}</div>
-            <p className="text-xs text-gray-600">需要跟进催收</p>
+            <div className="text-2xl font-bold text-danger-600">{totalStats.overdue}</div>
+            <p className="text-xs text-neutral-600">需要跟进催收</p>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">应收金额</CardTitle>
-            <DollarSign className="h-4 w-4 text-emerald-600" />
+            <DollarSign className="h-4 w-4 text-success-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-700">
+            <div className="text-2xl font-bold text-success-700">
               ¥{(totalStats.totalAmount - totalStats.paidAmount).toLocaleString()}
             </div>
-            <p className="text-xs text-gray-600">已收 ¥{totalStats.paidAmount.toLocaleString()}</p>
+            <p className="text-xs text-neutral-600">已收 ¥{totalStats.paidAmount.toLocaleString()}</p>
           </CardContent>
         </Card>
       </div>
 
       {/* 搜索和筛选 */}
-      <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardContent className="p-4">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-4 h-4" />
                 <Input
                   placeholder="搜索发票号或客户名称..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 border-l-4 border-l-emerald-500"
+                  className="pl-10 border-l-4 border-l-success-500"
                 />
               </div>
             </div>
             <div className="flex gap-2">
               <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger className="w-32 border-l-4 border-l-emerald-500">
+                <SelectTrigger className="w-32 border-l-4 border-l-success-500">
                   <Filter className="w-4 h-4 mr-2" />
                   <SelectValue />
                 </SelectTrigger>
@@ -319,9 +319,9 @@ export function InvoiceManagement() {
       </Card>
 
       {/* 发票列表 */}
-      <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
-          <CardTitle className="text-emerald-700">发票列表</CardTitle>
+          <CardTitle className="text-success-700">发票列表</CardTitle>
           <CardDescription>管理所有发票记录</CardDescription>
         </CardHeader>
         <CardContent>
@@ -440,7 +440,7 @@ function CreateInvoiceForm({ onClose }: { onClose: () => void }) {
             value={formData.customerName}
             onChange={(e) => setFormData((prev) => ({ ...prev, customerName: e.target.value }))}
             placeholder="输入客户名称"
-            className="border-l-4 border-l-emerald-500"
+            className="border-l-4 border-l-success-500"
           />
         </div>
         <div className="space-y-2">
@@ -451,7 +451,7 @@ function CreateInvoiceForm({ onClose }: { onClose: () => void }) {
             value={formData.customerEmail}
             onChange={(e) => setFormData((prev) => ({ ...prev, customerEmail: e.target.value }))}
             placeholder="输入客户邮箱"
-            className="border-l-4 border-l-emerald-500"
+            className="border-l-4 border-l-success-500"
           />
         </div>
         <div className="space-y-2">
@@ -461,7 +461,7 @@ function CreateInvoiceForm({ onClose }: { onClose: () => void }) {
             type="date"
             value={formData.issueDate}
             onChange={(e) => setFormData((prev) => ({ ...prev, issueDate: e.target.value }))}
-            className="border-l-4 border-l-emerald-500"
+            className="border-l-4 border-l-success-500"
           />
         </div>
         <div className="space-y-2">
@@ -471,7 +471,7 @@ function CreateInvoiceForm({ onClose }: { onClose: () => void }) {
             type="date"
             value={formData.dueDate}
             onChange={(e) => setFormData((prev) => ({ ...prev, dueDate: e.target.value }))}
-            className="border-l-4 border-l-emerald-500"
+            className="border-l-4 border-l-success-500"
           />
         </div>
       </div>
@@ -483,7 +483,7 @@ function CreateInvoiceForm({ onClose }: { onClose: () => void }) {
             onClick={addItem}
             variant="outline"
             size="sm"
-            className="border-l-4 border-l-emerald-500 transition-all duration-300 hover:scale-105 group bg-transparent"
+            className="border-l-4 border-l-success-500 transition-all duration-300 hover:scale-105 group bg-transparent"
           >
             <Plus className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             添加项目
@@ -491,7 +491,7 @@ function CreateInvoiceForm({ onClose }: { onClose: () => void }) {
         </div>
 
         {formData.items.map((item, index) => (
-          <Card key={index} className="p-4 border-l-4 border-l-emerald-500">
+          <Card key={index} className="p-4 border-l-4 border-l-success-500">
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
               <div className="md:col-span-2">
                 <Label>项目描述</Label>
@@ -500,7 +500,7 @@ function CreateInvoiceForm({ onClose }: { onClose: () => void }) {
                   onChange={(e) => updateItem(index, 'description', e.target.value)}
                   placeholder="输入项目描述"
                   rows={2}
-                  className="border-l-4 border-l-emerald-500"
+                  className="border-l-4 border-l-success-500"
                 />
               </div>
               <div>
@@ -510,7 +510,7 @@ function CreateInvoiceForm({ onClose }: { onClose: () => void }) {
                   value={item.quantity}
                   onChange={(e) => updateItem(index, 'quantity', Number.parseInt(e.target.value) || 0)}
                   min="1"
-                  className="border-l-4 border-l-emerald-500"
+                  className="border-l-4 border-l-success-500"
                 />
               </div>
               <div>
@@ -521,7 +521,7 @@ function CreateInvoiceForm({ onClose }: { onClose: () => void }) {
                   onChange={(e) => updateItem(index, 'unitPrice', Number.parseFloat(e.target.value) || 0)}
                   min="0"
                   step="0.01"
-                  className="border-l-4 border-l-emerald-500"
+                  className="border-l-4 border-l-success-500"
                 />
               </div>
               <div className="flex items-end">
@@ -545,7 +545,7 @@ function CreateInvoiceForm({ onClose }: { onClose: () => void }) {
         ))}
       </div>
 
-      <Card className="p-4 bg-emerald-50 border-l-4 border-l-emerald-500">
+      <Card className="p-4 bg-success-50 border-l-4 border-l-success-500">
         <div className="space-y-2">
           <div className="flex justify-between">
             <span>小计:</span>
@@ -569,7 +569,7 @@ function CreateInvoiceForm({ onClose }: { onClose: () => void }) {
         <Button onClick={onClose}>保存草稿</Button>
         <Button
           onClick={onClose}
-          className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white"
+          className="bg-gradient-to-r from-success-500 to-success-600 hover:from-success-600 hover:to-success-700 text-white"
         >
           创建并发送
         </Button>
@@ -602,12 +602,12 @@ function InvoiceDetail({ invoice }: { invoice: Invoice }) {
               <Badge
                 className={
                   invoice.status === 'paid'
-                    ? 'bg-green-100 text-green-800'
+                    ? 'bg-success-100 text-success-800'
                     : invoice.status === 'sent'
-                      ? 'bg-emerald-100 text-emerald-800'
+                      ? 'bg-success-100 text-success-800'
                       : invoice.status === 'overdue'
-                        ? 'bg-red-100 text-red-800'
-                        : 'bg-gray-100 text-gray-800'
+                        ? 'bg-danger-100 text-danger-800'
+                        : 'bg-neutral-100 text-neutral-800'
                 }
               >
                 {invoice.status === 'paid'
@@ -663,7 +663,7 @@ function InvoiceDetail({ invoice }: { invoice: Invoice }) {
         </Table>
       </div>
 
-      <Card className="p-4 bg-emerald-50 border-l-4 border-l-emerald-500">
+      <Card className="p-4 bg-success-50 border-l-4 border-l-success-500">
         <div className="space-y-2">
           <div className="flex justify-between">
             <span>小计:</span>
@@ -683,19 +683,19 @@ function InvoiceDetail({ invoice }: { invoice: Invoice }) {
       <div className="flex justify-end space-x-2">
         <Button
           variant="outline"
-          className="border-l-4 border-l-emerald-500 transition-all duration-300 hover:scale-105 group bg-transparent"
+          className="border-l-4 border-l-success-500 transition-all duration-300 hover:scale-105 group bg-transparent"
         >
           <Download className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
           下载PDF
         </Button>
         <Button
           variant="outline"
-          className="border-l-4 border-l-emerald-500 transition-all duration-300 hover:scale-105 group bg-transparent"
+          className="border-l-4 border-l-success-500 transition-all duration-300 hover:scale-105 group bg-transparent"
         >
           <Printer className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
           打印
         </Button>
-        <Button className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white transition-all duration-300 hover:scale-105 group">
+        <Button className="bg-gradient-to-r from-success-500 to-success-600 hover:from-success-600 hover:to-success-700 text-white transition-all duration-300 hover:scale-105 group">
           <Send className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
           发送邮件
         </Button>

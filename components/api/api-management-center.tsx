@@ -11,6 +11,7 @@
  */
 
 'use client';
+import { colorRamp } from '@/lib/design-tokens';
 
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -93,7 +94,7 @@ interface Integration {
 }
 
 export function APIManagementCenter() {
-  const [endpoints] = useState<APIEndpoint[]>([
+  const [endpoints, setEndpoints] = useState<APIEndpoint[]>([
     {
       id: 'api_1',
       name: '获取客户列表',
@@ -229,18 +230,18 @@ export function APIManagementCenter() {
     switch (status) {
     case 'active':
     case 'connected':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'inactive':
     case 'disconnected':
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     case 'deprecated':
     case 'error':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     case 'revoked':
     case 'expired':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-warning-100 text-warning-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -248,17 +249,17 @@ export function APIManagementCenter() {
   const getMethodColor = (method: string) => {
     switch (method) {
     case 'GET':
-      return 'bg-blue-100 text-blue-800';
+      return 'bg-primary-100 text-primary-800';
     case 'POST':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'PUT':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-warning-100 text-warning-800';
     case 'DELETE':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     case 'PATCH':
-      return 'bg-purple-100 text-purple-800';
+      return 'bg-accent-100 text-accent-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -288,7 +289,7 @@ export function APIManagementCenter() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold flex items-center">
-            <Globe className="w-8 h-8 mr-3 text-blue-600" />
+            <Globe className="w-8 h-8 mr-3 text-primary-600" />
             API管理中心
           </h1>
           <p className="text-muted-foreground">统一管理API接口、密钥和第三方集成</p>
@@ -300,7 +301,7 @@ export function APIManagementCenter() {
           </Button>
           <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white">
+              <Button className="bg-gradient-to-r from-primary-500 to-accent-600 hover:from-primary-600 hover:to-accent-700 text-white">
                 <Plus className="w-4 h-4 mr-2" />
                 新建API
               </Button>
@@ -310,7 +311,10 @@ export function APIManagementCenter() {
                 <DialogTitle>创建新API接口</DialogTitle>
                 <DialogDescription>配置新的API接口信息</DialogDescription>
               </DialogHeader>
-              <CreateAPIForm onClose={() => setIsCreateDialogOpen(false)} />
+              <CreateAPIForm
+                onClose={() => setIsCreateDialogOpen(false)}
+                onCreated={(endpoint) => setEndpoints((prev) => [endpoint, ...prev])}
+              />
             </DialogContent>
           </Dialog>
         </div>
@@ -321,7 +325,7 @@ export function APIManagementCenter() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Globe className="w-5 h-5 mr-2 text-blue-600" />
+              <Globe className="w-5 h-5 mr-2 text-primary-600" />
               总API数量
             </CardTitle>
           </CardHeader>
@@ -334,7 +338,7 @@ export function APIManagementCenter() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Activity className="w-5 h-5 mr-2 text-green-600" />
+              <Activity className="w-5 h-5 mr-2 text-success-600" />
               今日请求
             </CardTitle>
           </CardHeader>
@@ -349,12 +353,12 @@ export function APIManagementCenter() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <CheckCircle className="w-5 h-5 mr-2 text-green-600" />
+              <CheckCircle className="w-5 h-5 mr-2 text-success-600" />
               平均成功率
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-green-600">
+            <div className="text-3xl font-bold text-success-600">
               {(endpoints.reduce((sum, api) => sum + api.successRate, 0) / endpoints.length).toFixed(1)}%
             </div>
             <p className="text-sm text-muted-foreground">成功率</p>
@@ -364,7 +368,7 @@ export function APIManagementCenter() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Clock className="w-5 h-5 mr-2 text-yellow-600" />
+              <Clock className="w-5 h-5 mr-2 text-warning-600" />
               平均响应时间
             </CardTitle>
           </CardHeader>
@@ -379,7 +383,7 @@ export function APIManagementCenter() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center">
-              <Key className="w-5 h-5 mr-2 text-purple-600" />
+              <Key className="w-5 h-5 mr-2 text-accent-600" />
               活跃密钥
             </CardTitle>
           </CardHeader>
@@ -445,7 +449,7 @@ export function APIManagementCenter() {
                         <Badge className={getMethodColor(endpoint.method)}>{endpoint.method}</Badge>
                       </TableCell>
                       <TableCell>
-                        <code className="text-sm bg-gray-100 px-2 py-1 rounded">{endpoint.url}</code>
+                        <code className="text-sm bg-neutral-100 px-2 py-1 rounded">{endpoint.url}</code>
                       </TableCell>
                       <TableCell>
                         <Badge className={getStatusColor(endpoint.status)}>
@@ -522,7 +526,7 @@ export function APIManagementCenter() {
                     <div>
                       <Label>API密钥</Label>
                       <div className="flex items-center space-x-2 mt-1">
-                        <code className="flex-1 bg-gray-100 px-3 py-2 rounded text-sm">{key.key}</code>
+                        <code className="flex-1 bg-neutral-100 px-3 py-2 rounded text-sm">{key.key}</code>
                         <Button variant="outline" size="sm">
                           复制
                         </Button>
@@ -658,7 +662,7 @@ export function APIManagementCenter() {
                     <XAxis dataKey="hour" />
                     <YAxis />
                     <Tooltip />
-                    <Line type="monotone" dataKey="requests" stroke="#3b82f6" strokeWidth={2} />
+                    <Line type="monotone" dataKey="requests" stroke={colorRamp.primary[500]} strokeWidth={2} />
                   </LineChart>
                 </ResponsiveContainer>
               </CardContent>
@@ -677,7 +681,7 @@ export function APIManagementCenter() {
                     <XAxis dataKey="hour" />
                     <YAxis />
                     <Tooltip />
-                    <Bar dataKey="responseTime" fill="#10b981" />
+                    <Bar dataKey="responseTime" fill={colorRamp.success[500]} />
                   </BarChart>
                 </ResponsiveContainer>
               </CardContent>
@@ -694,17 +698,17 @@ export function APIManagementCenter() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="space-y-2">
                   <p className="text-sm text-muted-foreground">总错误数</p>
-                  <p className="text-3xl font-bold text-red-600">
+                  <p className="text-3xl font-bold text-danger-600">
                     {performanceData.reduce((sum, data) => sum + data.errors, 0)}
                   </p>
                 </div>
                 <div className="space-y-2">
                   <p className="text-sm text-muted-foreground">错误率</p>
-                  <p className="text-3xl font-bold text-yellow-600">2.3%</p>
+                  <p className="text-3xl font-bold text-warning-600">2.3%</p>
                 </div>
                 <div className="space-y-2">
                   <p className="text-sm text-muted-foreground">平均MTTR</p>
-                  <p className="text-3xl font-bold text-blue-600">15分钟</p>
+                  <p className="text-3xl font-bold text-primary-600">15分钟</p>
                 </div>
               </div>
             </CardContent>
@@ -715,7 +719,9 @@ export function APIManagementCenter() {
   );
 }
 
-function CreateAPIForm({ onClose }: { onClose: () => void }) {
+function CreateAPIForm({ onClose, onCreated }: { onClose: () => void; onCreated?: (endpoint: APIEndpoint) => void }) {
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     url: '',
@@ -725,6 +731,26 @@ function CreateAPIForm({ onClose }: { onClose: () => void }) {
     authentication: 'api-key',
     rateLimit: '1000',
   });
+
+  const handleSubmit = async () => {
+    setSubmitting(true);
+    setError(null);
+    try {
+      const response = await fetch('/api/endpoints', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const payload = await response.json();
+      if (!response.ok || payload.code !== 0) throw new Error(payload.message || '创建失败');
+      onCreated?.(payload.data as APIEndpoint);
+      onClose();
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <div className="space-y-4">
@@ -800,11 +826,14 @@ function CreateAPIForm({ onClose }: { onClose: () => void }) {
         />
       </div>
 
+      {error && <p className="text-sm text-destructive" role="alert">{error}</p>}
       <div className="flex justify-end space-x-2">
         <Button variant="outline" onClick={onClose}>
           取消
         </Button>
-        <Button onClick={onClose}>创建接口</Button>
+        <Button onClick={handleSubmit} disabled={submitting || !formData.name || !formData.url}>
+          {submitting ? '创建中…' : '创建接口'}
+        </Button>
       </div>
     </div>
   );

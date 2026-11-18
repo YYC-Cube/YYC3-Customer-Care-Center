@@ -76,13 +76,13 @@ export default function ApprovalPage() {
   const getStatusColor = (status: string) => {
     switch (status) {
     case 'pending':
-      return 'bg-blue-100 text-blue-800';
+      return 'bg-primary-100 text-primary-800';
     case 'approved':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'rejected':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -102,26 +102,26 @@ export default function ApprovalPage() {
   const getStatusIcon = (status: string) => {
     switch (status) {
     case 'pending':
-      return <Clock className="w-4 h-4 text-blue-600" />;
+      return <Clock className="w-4 h-4 text-primary-600" />;
     case 'approved':
-      return <CheckCircle className="w-4 h-4 text-green-600" />;
+      return <CheckCircle className="w-4 h-4 text-success-600" />;
     case 'rejected':
-      return <XCircle className="w-4 h-4 text-red-600" />;
+      return <XCircle className="w-4 h-4 text-danger-600" />;
     default:
-      return <AlertTriangle className="w-4 h-4 text-gray-600" />;
+      return <AlertTriangle className="w-4 h-4 text-neutral-600" />;
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
     case 'urgent':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     case 'high':
-      return 'bg-orange-100 text-orange-800';
+      return 'bg-warning-100 text-warning-800';
     case 'normal':
-      return 'bg-blue-100 text-blue-800';
+      return 'bg-primary-100 text-primary-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -145,25 +145,25 @@ export default function ApprovalPage() {
 
   return (
     <ResponsiveLayout showSidebar={true} showHeader={true}>
-      <div className="px-6 pb-6 space-y-6 bg-gradient-to-br from-blue-50 via-sky-50 to-cyan-50 min-h-screen">
+      <div className="px-6 pb-6 space-y-6 bg-gradient-to-br from-primary-50 via-primary-50 to-primary-50 min-h-screen">
         {/* 页面头部 */}
         <div className="flex justify-between items-center pt-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-              <FileCheck className="w-8 h-8 mr-3 text-blue-600" />
+            <h1 className="text-3xl font-bold text-neutral-900 flex items-center">
+              <FileCheck className="w-8 h-8 mr-3 text-primary-600" />
               审批管理
             </h1>
-            <p className="text-gray-600 mt-2">企业流程审批和管理系统</p>
+            <p className="text-neutral-600 mt-2">企业流程审批和管理系统</p>
           </div>
           <div className="flex space-x-3">
             <Button
               variant="outline"
-              className="border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+              className="border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
             >
               <Filter className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
               筛选
             </Button>
-            <Button className="bg-gradient-to-r from-blue-500 to-sky-600 hover:from-blue-600 hover:to-sky-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+            <Button className="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
               <Plus className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
               发起申请
             </Button>
@@ -172,66 +172,66 @@ export default function ApprovalPage() {
 
         {/* 统计概览 */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">总申请数</CardTitle>
-              <FileCheck className="h-4 w-4 text-blue-600" />
+              <FileCheck className="h-4 w-4 text-primary-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-blue-700">{totalApprovals}</div>
-              <p className="text-xs text-gray-600">本月新增 +15</p>
+              <div className="text-2xl font-bold text-primary-700">{totalApprovals}</div>
+              <p className="text-xs text-neutral-600">本月新增 +15</p>
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">待审批</CardTitle>
-              <Clock className="h-4 w-4 text-blue-600" />
+              <Clock className="h-4 w-4 text-primary-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-blue-700">{pendingApprovals}</div>
-              <p className="text-xs text-gray-600">需要处理的申请</p>
+              <div className="text-2xl font-bold text-primary-700">{pendingApprovals}</div>
+              <p className="text-xs text-neutral-600">需要处理的申请</p>
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">已通过</CardTitle>
-              <CheckCircle className="h-4 w-4 text-green-600" />
+              <CheckCircle className="h-4 w-4 text-success-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-700">{approvedApprovals}</div>
-              <p className="text-xs text-gray-600">通过率 {Math.round((approvedApprovals / totalApprovals) * 100)}%</p>
+              <div className="text-2xl font-bold text-success-700">{approvedApprovals}</div>
+              <p className="text-xs text-neutral-600">通过率 {Math.round((approvedApprovals / totalApprovals) * 100)}%</p>
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">已拒绝</CardTitle>
-              <XCircle className="h-4 w-4 text-red-600" />
+              <XCircle className="h-4 w-4 text-danger-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-red-700">{rejectedApprovals}</div>
-              <p className="text-xs text-gray-600">拒绝率 {Math.round((rejectedApprovals / totalApprovals) * 100)}%</p>
+              <div className="text-2xl font-bold text-danger-700">{rejectedApprovals}</div>
+              <p className="text-xs text-neutral-600">拒绝率 {Math.round((rejectedApprovals / totalApprovals) * 100)}%</p>
             </CardContent>
           </Card>
         </div>
 
         {/* 搜索和筛选 */}
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
           <CardContent className="p-6">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 h-4 w-4" />
                   <Input
                     placeholder="搜索申请标题、申请人或部门..."
-                    className="pl-10 border-l-4 border-l-blue-500"
+                    className="pl-10 border-l-4 border-l-primary-500"
                   />
                 </div>
               </div>
               <Select>
-                <SelectTrigger className="w-48 border-l-4 border-l-blue-500">
+                <SelectTrigger className="w-48 border-l-4 border-l-primary-500">
                   <SelectValue placeholder="全部状态" />
                 </SelectTrigger>
                 <SelectContent>
@@ -242,7 +242,7 @@ export default function ApprovalPage() {
                 </SelectContent>
               </Select>
               <Select>
-                <SelectTrigger className="w-48 border-l-4 border-l-blue-500">
+                <SelectTrigger className="w-48 border-l-4 border-l-primary-500">
                   <SelectValue placeholder="全部类型" />
                 </SelectTrigger>
                 <SelectContent>
@@ -258,9 +258,9 @@ export default function ApprovalPage() {
         </Card>
 
         {/* 审批列表 */}
-        <Card className="border-l-4 border-l-blue-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+        <Card className="border-l-4 border-l-primary-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader>
-            <CardTitle className="flex items-center text-blue-700">
+            <CardTitle className="flex items-center text-primary-700">
               <FileCheck className="w-5 h-5 mr-2" />
               审批列表
             </CardTitle>
@@ -271,20 +271,20 @@ export default function ApprovalPage() {
               {approvals.map((approval) => (
                 <div
                   key={approval.id}
-                  className="border-l-4 border-l-blue-500 bg-blue-50 rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:scale-105"
+                  className="border-l-4 border-l-primary-500 bg-primary-50 rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:scale-105"
                 >
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex items-center space-x-4">
                       <Avatar className="h-12 w-12">
                         <AvatarImage src="/placeholder.svg" />
-                        <AvatarFallback className="bg-blue-200 text-blue-700">
+                        <AvatarFallback className="bg-primary-200 text-primary-700">
                           {approval.applicant.slice(0, 2)}
                         </AvatarFallback>
                       </Avatar>
                       <div>
-                        <h3 className="font-bold text-gray-900 text-lg">{approval.title}</h3>
-                        <p className="text-gray-600">{approval.description}</p>
-                        <div className="flex items-center space-x-4 mt-2 text-sm text-gray-500">
+                        <h3 className="font-bold text-neutral-900 text-lg">{approval.title}</h3>
+                        <p className="text-neutral-600">{approval.description}</p>
+                        <div className="flex items-center space-x-4 mt-2 text-sm text-neutral-500">
                           <div className="flex items-center">
                             <User className="w-4 h-4 mr-1" />
                             {approval.applicant} - {approval.department}
@@ -313,7 +313,7 @@ export default function ApprovalPage() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="border-l-4 border-l-blue-500 transition-all duration-300 hover:scale-105 bg-transparent group"
+                      className="border-l-4 border-l-primary-500 transition-all duration-300 hover:scale-105 bg-transparent group"
                     >
                       <Eye className="w-4 h-4 mr-1 group-hover:translate-x-1 transition-all duration-300" />
                       查看详情
@@ -323,7 +323,7 @@ export default function ApprovalPage() {
                         <Button
                           variant="outline"
                           size="sm"
-                          className="border-l-4 border-l-green-500 transition-all duration-300 hover:scale-105 bg-transparent group"
+                          className="border-l-4 border-l-success-500 transition-all duration-300 hover:scale-105 bg-transparent group"
                         >
                           <ThumbsUp className="w-4 h-4 mr-1 group-hover:translate-x-1 transition-all duration-300" />
                           通过
@@ -331,7 +331,7 @@ export default function ApprovalPage() {
                         <Button
                           variant="outline"
                           size="sm"
-                          className="border-l-4 border-l-red-500 transition-all duration-300 hover:scale-105 bg-transparent group"
+                          className="border-l-4 border-l-danger-500 transition-all duration-300 hover:scale-105 bg-transparent group"
                         >
                           <ThumbsDown className="w-4 h-4 mr-1 group-hover:translate-x-1 transition-all duration-300" />
                           拒绝

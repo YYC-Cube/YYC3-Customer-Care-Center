@@ -11,6 +11,7 @@
  */
 
 'use client';
+import { color } from '@/lib/design-tokens';
 
 import { useState, useRef, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -69,7 +70,11 @@ const VerificationStatus = {
 // 电子签名服务类
 class ElectronicSignatureService {
   // 生成签名哈希
-  static generateSignatureHash(signatureData, timestamp, userId) {
+  static generateSignatureHash(
+    signatureData: string,
+    timestamp: string,
+    userId: string,
+  ): string {
     const data = `${signatureData}-${timestamp}-${userId}`;
     // 简化的哈希生成（实际应用中应使用加密库）
     return btoa(data)
@@ -78,7 +83,12 @@ class ElectronicSignatureService {
   }
 
   // 验证签名完整性
-  static verifySignature(signature) {
+  static verifySignature(signature: {
+    hash: string;
+    timestamp: string;
+    userId: string;
+    data: string;
+  }): boolean {
     const { hash, timestamp, userId, data } = signature;
     const expectedHash = this.generateSignatureHash(data, timestamp, userId);
     return hash === expectedHash;
@@ -106,7 +116,12 @@ class ElectronicSignatureService {
   }
 
   // 创建签名记录
-  static createSignatureRecord(signatureData, type, userId, documentId) {
+  static createSignatureRecord(
+    signatureData: string,
+    type: string,
+    userId: string,
+    documentId: string,
+  ) {
     const timestamp = new Date().toISOString();
     const deviceInfo = this.getDeviceInfo();
     const hash = this.generateSignatureHash(signatureData, timestamp, userId);
@@ -140,7 +155,7 @@ class ElectronicSignatureService {
   }
 
   // 评估签名质量
-  static assessSignatureQuality(data, type) {
+  static assessSignatureQuality(data: string, type: string): string {
     switch (type) {
     case SignatureTypes.HANDWRITTEN:
       return data.length > 100 ? 'high' : data.length > 50 ? 'medium' : 'low';
@@ -154,9 +169,31 @@ class ElectronicSignatureService {
   }
 }
 
+/** 签名记录（由服务层返回值推导，避免重复声明） */
+type SignatureRecord = ReturnType<typeof ElectronicSignatureService.createSignatureRecord>;
+
+// ===== 画板类型 =====
+type CanvasPoint = { x: number; y: number };
+type CanvasEvent = React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>;
+
+/** 从鼠标/触摸事件解析画布坐标 */
+function resolveCanvasPoint(event: CanvasEvent, canvas: HTMLCanvasElement): CanvasPoint {
+  const rect = canvas.getBoundingClientRect();
+  const touch = 'touches' in event ? event.touches[0] : undefined;
+  const clientX = touch ? touch.clientX : (event as React.MouseEvent<HTMLCanvasElement>).clientX;
+  const clientY = touch ? touch.clientY : (event as React.MouseEvent<HTMLCanvasElement>).clientY;
+  return { x: clientX - rect.left, y: clientY - rect.top };
+}
+
 // 手写签名画板组件
-function SignaturePad({ onSignatureChange, disabled = false }) {
-  const canvasRef = useRef(null);
+function SignaturePad({
+  onSignatureChange,
+  disabled = false,
+}: {
+  onSignatureChange: (data: string) => void;
+  disabled?: boolean;
+}) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [signatureData, setSignatureData] = useState('');
 
@@ -165,7 +202,9 @@ function SignaturePad({ onSignatureChange, disabled = false }) {
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
-    ctx.strokeStyle = '#000000';
+    if (!ctx) return;
+
+    ctx.strokeStyle = color.media.ink;
     ctx.lineWidth = 2;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
@@ -177,30 +216,29 @@ function SignaturePad({ onSignatureChange, disabled = false }) {
     ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
   }, []);
 
-  const startDrawing = (e) => {
+  const startDrawing = (e: CanvasEvent) => {
     if (disabled) return;
-    setIsDrawing(true);
     const canvas = canvasRef.current;
-    const rect = canvas.getBoundingClientRect();
+    if (!canvas) return;
+
+    setIsDrawing(true);
     const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-    const x = (e.clientX || e.touches?.[0]?.clientX) - rect.left;
-    const y = (e.clientY || e.touches?.[0]?.clientY) - rect.top;
-
+    const { x, y } = resolveCanvasPoint(e, canvas);
     ctx.beginPath();
     ctx.moveTo(x, y);
   };
 
-  const draw = (e) => {
+  const draw = (e: CanvasEvent) => {
     if (!isDrawing || disabled) return;
-
     const canvas = canvasRef.current;
-    const rect = canvas.getBoundingClientRect();
+    if (!canvas) return;
+
     const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-    const x = (e.clientX || e.touches?.[0]?.clientX) - rect.left;
-    const y = (e.clientY || e.touches?.[0]?.clientY) - rect.top;
-
+    const { x, y } = resolveCanvasPoint(e, canvas);
     ctx.lineTo(x, y);
     ctx.stroke();
   };
@@ -210,6 +248,8 @@ function SignaturePad({ onSignatureChange, disabled = false }) {
     setIsDrawing(false);
 
     const canvas = canvasRef.current;
+    if (!canvas) return;
+
     const dataURL = canvas.toDataURL();
     setSignatureData(dataURL);
     onSignatureChange(dataURL);
@@ -217,7 +257,10 @@ function SignaturePad({ onSignatureChange, disabled = false }) {
 
   const clearSignature = () => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     setSignatureData('');
     onSignatureChange('');
@@ -225,7 +268,7 @@ function SignaturePad({ onSignatureChange, disabled = false }) {
 
   return (
     <div className="space-y-4">
-      <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 bg-gray-50">
+      <div className="border-2 border-dashed border-neutral-300 rounded-lg p-4 bg-neutral-50">
         <canvas
           ref={canvasRef}
           className="w-full h-48 bg-white rounded border cursor-crosshair touch-none"
@@ -241,7 +284,7 @@ function SignaturePad({ onSignatureChange, disabled = false }) {
       </div>
 
       <div className="flex justify-between items-center">
-        <p className="text-sm text-gray-600">请在上方区域签名</p>
+        <p className="text-sm text-neutral-600">请在上方区域签名</p>
         <Button variant="outline" size="sm" onClick={clearSignature} disabled={disabled}>
           <RotateCcw className="w-4 h-4 mr-2" />
           清除
@@ -252,17 +295,25 @@ function SignaturePad({ onSignatureChange, disabled = false }) {
 }
 
 // 移动端优化的签名组件
-function MobileSignaturePad({ onSignatureChange, disabled = false }) {
-  const canvasRef = useRef(null);
+function MobileSignaturePad({
+  onSignatureChange,
+  disabled = false,
+}: {
+  onSignatureChange: (data: string) => void;
+  disabled?: boolean;
+}) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isDrawing, setIsDrawing] = useState(false);
-  const [lastPoint, setLastPoint] = useState(null);
+  const [lastPoint, setLastPoint] = useState<CanvasPoint | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
-    ctx.strokeStyle = '#000000';
+    if (!ctx) return;
+
+    ctx.strokeStyle = color.media.ink;
     ctx.lineWidth = 3; // 移动端使用更粗的线条
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
@@ -272,17 +323,27 @@ function MobileSignaturePad({ onSignatureChange, disabled = false }) {
     canvas.height = canvas.offsetHeight * 2;
     ctx.scale(2, 2);
 
-    // 禁用默认的���摸行为
-    canvas.addEventListener('touchstart', (e) => e.preventDefault());
-    canvas.addEventListener('touchmove', (e) => e.preventDefault());
-    canvas.addEventListener('touchend', (e) => e.preventDefault());
+    // 禁用默认的触摸行为
+    const prevent = (e: TouchEvent) => e.preventDefault();
+    canvas.addEventListener('touchstart', prevent, { passive: false });
+    canvas.addEventListener('touchmove', prevent, { passive: false });
+    canvas.addEventListener('touchend', prevent, { passive: false });
+
+    return () => {
+      canvas.removeEventListener('touchstart', prevent);
+      canvas.removeEventListener('touchmove', prevent);
+      canvas.removeEventListener('touchend', prevent);
+    };
   }, []);
 
-  const getEventPos = (e) => {
+  const getEventPos = (e: CanvasEvent): CanvasPoint | null => {
     const canvas = canvasRef.current;
+    if (!canvas) return null;
+
     const rect = canvas.getBoundingClientRect();
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    const touch = 'touches' in e ? e.touches[0] : undefined;
+    const clientX = touch ? touch.clientX : (e as React.MouseEvent<HTMLCanvasElement>).clientX;
+    const clientY = touch ? touch.clientY : (e as React.MouseEvent<HTMLCanvasElement>).clientY;
 
     return {
       x: ((clientX - rect.left) * (canvas.width / rect.width)) / 2,
@@ -290,25 +351,30 @@ function MobileSignaturePad({ onSignatureChange, disabled = false }) {
     };
   };
 
-  const startDrawing = (e) => {
+  const startDrawing = (e: CanvasEvent) => {
     if (disabled) return;
     e.preventDefault();
     setIsDrawing(true);
 
     const pos = getEventPos(e);
+    if (!pos) return;
     setLastPoint(pos);
 
-    const ctx = canvasRef.current.getContext('2d');
+    const ctx = canvasRef.current?.getContext('2d');
+    if (!ctx) return;
     ctx.beginPath();
     ctx.moveTo(pos.x, pos.y);
   };
 
-  const draw = (e) => {
+  const draw = (e: CanvasEvent) => {
     if (!isDrawing || disabled) return;
     e.preventDefault();
 
     const pos = getEventPos(e);
-    const ctx = canvasRef.current.getContext('2d');
+    if (!pos) return;
+
+    const ctx = canvasRef.current?.getContext('2d');
+    if (!ctx) return;
 
     if (lastPoint) {
       ctx.beginPath();
@@ -320,27 +386,30 @@ function MobileSignaturePad({ onSignatureChange, disabled = false }) {
     setLastPoint(pos);
   };
 
-  const stopDrawing = (e) => {
+  const stopDrawing = (e: CanvasEvent) => {
     if (!isDrawing) return;
     e.preventDefault();
     setIsDrawing(false);
     setLastPoint(null);
 
     const canvas = canvasRef.current;
-    const dataURL = canvas.toDataURL();
-    onSignatureChange(dataURL);
+    if (!canvas) return;
+    onSignatureChange(canvas.toDataURL());
   };
 
   const clearSignature = () => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     onSignatureChange('');
   };
 
   return (
     <div className="space-y-4">
-      <div className="border-2 border-dashed border-gray-300 rounded-lg p-2 bg-gray-50">
+      <div className="border-2 border-dashed border-neutral-300 rounded-lg p-2 bg-neutral-50">
         <canvas
           ref={canvasRef}
           className="w-full h-64 bg-white rounded border touch-none"
@@ -356,7 +425,7 @@ function MobileSignaturePad({ onSignatureChange, disabled = false }) {
       </div>
 
       <div className="flex justify-between items-center">
-        <p className="text-sm text-gray-600">请用手指在上方区域签名</p>
+        <p className="text-sm text-neutral-600">请用手指在上方区域签名</p>
         <Button variant="outline" size="sm" onClick={clearSignature} disabled={disabled}>
           <RotateCcw className="w-4 h-4 mr-2" />
           清除
@@ -367,35 +436,46 @@ function MobileSignaturePad({ onSignatureChange, disabled = false }) {
 }
 
 // 主要的电子签名组件
-export function ElectronicSignature({ documentId, onSignatureComplete, onClose, isMobile = false }) {
+export function ElectronicSignature({
+  documentId,
+  onSignatureComplete,
+  onClose,
+  isMobile = false,
+}: {
+  documentId: string;
+  onSignatureComplete?: (record: SignatureRecord) => void;
+  onClose?: () => void;
+  isMobile?: boolean;
+}) {
   const [activeTab, setActiveTab] = useState('handwritten');
   const [signatureData, setSignatureData] = useState('');
   const [typedSignature, setTypedSignature] = useState('');
-  const [uploadedFile, setUploadedFile] = useState(null);
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [signatureRecords, setSignatureRecords] = useState([]);
+  const [signatureRecords, setSignatureRecords] = useState<SignatureRecord[]>([]);
   const [selectedFont, setSelectedFont] = useState('cursive');
 
   const deviceInfo = ElectronicSignatureService.getDeviceInfo();
 
   // 处理手写签名
-  const handleHandwrittenSignature = (data) => {
+  const handleHandwrittenSignature = (data: string) => {
     setSignatureData(data);
   };
 
   // 处理文字签名
-  const handleTypedSignature = (text) => {
+  const handleTypedSignature = (text: string) => {
     setTypedSignature(text);
     // 生成文字签名的数据URL
     const canvas = document.createElement('canvas');
     canvas.width = 400;
     canvas.height = 100;
     const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-    ctx.fillStyle = '#ffffff';
+    ctx.fillStyle = color.media.paper;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = '#000000';
+    ctx.fillStyle = color.media.ink;
     ctx.font = `40px ${selectedFont}`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
@@ -405,13 +485,14 @@ export function ElectronicSignature({ documentId, onSignatureComplete, onClose, 
   };
 
   // 处理文件上传
-  const handleFileUpload = (event) => {
-    const file = event.target.files[0];
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
     if (file && file.type.startsWith('image/')) {
       setUploadedFile(file);
       const reader = new FileReader();
       reader.onload = (e) => {
-        setSignatureData(e.target.result);
+        const result = e.target?.result;
+        if (typeof result === 'string') setSignatureData(result);
       };
       reader.readAsDataURL(file);
     }
@@ -478,12 +559,12 @@ export function ElectronicSignature({ documentId, onSignatureComplete, onClose, 
         </DialogHeader>
 
         {/* 设备信息提示 */}
-        <Alert className="bg-blue-50 border-blue-200">
+        <Alert className="bg-primary-50 border-primary-200">
           <Shield className="w-4 h-4" />
           <AlertDescription>
             <div className="flex items-center justify-between">
               <span>安全签名环境已启用</span>
-              <div className="flex items-center space-x-2 text-xs text-blue-600">
+              <div className="flex items-center space-x-2 text-xs text-primary-600">
                 {deviceInfo.type === 'desktop' && <Monitor className="w-3 h-3" />}
                 {deviceInfo.type === 'mobile' && <Smartphone className="w-3 h-3" />}
                 {deviceInfo.type === 'tablet' && <Tablet className="w-3 h-3" />}
@@ -571,8 +652,8 @@ export function ElectronicSignature({ documentId, onSignatureComplete, onClose, 
                 </div>
 
                 {typedSignature && (
-                  <div className="border rounded-lg p-4 bg-gray-50">
-                    <p className="text-sm text-gray-600 mb-2">签名预览：</p>
+                  <div className="border rounded-lg p-4 bg-neutral-50">
+                    <p className="text-sm text-neutral-600 mb-2">签名预览：</p>
                     <div
                       className="text-4xl text-center py-4 bg-white border rounded"
                       style={{ fontFamily: selectedFont }}
@@ -602,12 +683,12 @@ export function ElectronicSignature({ documentId, onSignatureComplete, onClose, 
                         onChange={handleFileUpload}
                         disabled={isProcessing}
                       />
-                      <p className="text-sm text-gray-600 mt-1">支持 JPG、PNG 格式，建议尺寸 400x200 像素</p>
+                      <p className="text-sm text-neutral-600 mt-1">支持 JPG、PNG 格式，建议尺寸 400x200 像素</p>
                     </div>
 
                     {uploadedFile && (
-                      <div className="border rounded-lg p-4 bg-gray-50">
-                        <p className="text-sm text-gray-600 mb-2">上传的签名：</p>
+                      <div className="border rounded-lg p-4 bg-neutral-50">
+                        <p className="text-sm text-neutral-600 mb-2">上传的签名：</p>
                         <div className="bg-white border rounded p-4 text-center">
                           <img
                             src={signatureData || '/placeholder.svg'}
@@ -627,7 +708,7 @@ export function ElectronicSignature({ documentId, onSignatureComplete, onClose, 
                     <CardTitle className="text-lg">生物识别签名</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <Alert className="bg-yellow-50 border-yellow-200">
+                    <Alert className="bg-warning-50 border-warning-200">
                       <Fingerprint className="w-4 h-4" />
                       <AlertDescription>
                         生物识别功能需要支持的硬件设备。请确保您的设备支持指纹识别或面部识别功能。
@@ -635,8 +716,8 @@ export function ElectronicSignature({ documentId, onSignatureComplete, onClose, 
                     </Alert>
 
                     <div className="text-center py-8">
-                      <Fingerprint className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                      <p className="text-gray-600">生物识别功能开发中...</p>
+                      <Fingerprint className="w-16 h-16 text-neutral-400 mx-auto mb-4" />
+                      <p className="text-neutral-600">生物识别功能开发中...</p>
                       <Button variant="outline" className="mt-4" disabled>
                         启用生物识别
                       </Button>
@@ -650,10 +731,10 @@ export function ElectronicSignature({ documentId, onSignatureComplete, onClose, 
 
         {/* 签名预览 */}
         {signatureData && (
-          <Card className="bg-green-50 border-green-200">
+          <Card className="bg-success-50 border-success-200">
             <CardHeader>
               <CardTitle className="text-lg flex items-center space-x-2">
-                <CheckCircle className="w-5 h-5 text-green-600" />
+                <CheckCircle className="w-5 h-5 text-success-600" />
                 <span>签名预览</span>
               </CardTitle>
             </CardHeader>
@@ -664,7 +745,7 @@ export function ElectronicSignature({ documentId, onSignatureComplete, onClose, 
 
               <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
                 <div>
-                  <span className="text-gray-600">签名类型：</span>
+                  <span className="text-neutral-600">签名类型：</span>
                   <span className="font-medium">
                     {activeTab === 'handwritten'
                       ? '手写签名'
@@ -676,7 +757,7 @@ export function ElectronicSignature({ documentId, onSignatureComplete, onClose, 
                   </span>
                 </div>
                 <div>
-                  <span className="text-gray-600">设备类型：</span>
+                  <span className="text-neutral-600">设备类型：</span>
                   <span className="font-medium">
                     {deviceInfo.type === 'desktop' ? '桌面端' : deviceInfo.type === 'mobile' ? '移动端' : '平板端'}
                   </span>
@@ -711,7 +792,7 @@ export function ElectronicSignature({ documentId, onSignatureComplete, onClose, 
             <Button
               onClick={handleCompleteSignature}
               disabled={!signatureData || isProcessing}
-              className="bg-green-600 hover:bg-green-700"
+              className="bg-success-600 hover:bg-success-700"
             >
               {isProcessing ? (
                 <>
@@ -733,7 +814,13 @@ export function ElectronicSignature({ documentId, onSignatureComplete, onClose, 
 }
 
 // 签名记录查看组件
-export function SignatureRecordViewer({ signatures, onClose }) {
+export function SignatureRecordViewer({
+  signatures,
+  onClose,
+}: {
+  signatures: SignatureRecord[];
+  onClose: () => void;
+}) {
   return (
     <Dialog open={true} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
@@ -747,11 +834,11 @@ export function SignatureRecordViewer({ signatures, onClose }) {
 
         <div className="space-y-4">
           {signatures.map((signature, index) => (
-            <Card key={signature.id} className="border-l-4 border-l-green-400">
+            <Card key={signature.id} className="border-l-4 border-l-success-400">
               <CardContent className="p-4">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-4">
-                    <div className="w-24 h-12 border rounded bg-gray-50 flex items-center justify-center overflow-hidden">
+                    <div className="w-24 h-12 border rounded bg-neutral-50 flex items-center justify-center overflow-hidden">
                       <img
                         src={signature.data || '/placeholder.svg'}
                         alt="签名"
@@ -761,7 +848,7 @@ export function SignatureRecordViewer({ signatures, onClose }) {
 
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2">
-                        <Badge className="bg-green-100 text-green-800">
+                        <Badge className="bg-success-100 text-success-800">
                           <CheckCircle className="w-3 h-3 mr-1" />
                           已验证
                         </Badge>
@@ -776,7 +863,7 @@ export function SignatureRecordViewer({ signatures, onClose }) {
                         </Badge>
                       </div>
 
-                      <div className="text-sm text-gray-600 space-y-1">
+                      <div className="text-sm text-neutral-600 space-y-1">
                         <div className="flex items-center space-x-2">
                           <User className="w-3 h-3" />
                           <span>签名人：{signature.userId}</span>
@@ -802,7 +889,7 @@ export function SignatureRecordViewer({ signatures, onClose }) {
                     </div>
                   </div>
 
-                  <div className="text-right text-sm text-gray-500">
+                  <div className="text-right text-sm text-neutral-500">
                     <div>签名ID：{signature.id}</div>
                     <div>哈希：{signature.hash.substring(0, 8)}...</div>
                     <div>质量：{signature.metadata.quality}</div>
@@ -814,8 +901,8 @@ export function SignatureRecordViewer({ signatures, onClose }) {
 
           {signatures.length === 0 && (
             <div className="text-center py-8">
-              <PenTool className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-500">暂无签名记录</p>
+              <PenTool className="w-12 h-12 text-neutral-300 mx-auto mb-4" />
+              <p className="text-neutral-500">暂无签名记录</p>
             </div>
           )}
         </div>

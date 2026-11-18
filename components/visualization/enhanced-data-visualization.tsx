@@ -11,6 +11,7 @@
  */
 
 'use client';
+import { colorRamp } from '@/lib/design-tokens';
 
 import { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -120,7 +121,7 @@ export function EnhancedDataVisualization() {
       xAxis: 'date',
       yAxis: ['revenue', 'orders'],
       filters: {},
-      colors: ['#3b82f6', '#10b981'],
+      colors: [colorRamp.primary[500], colorRamp.success[500]],
     },
     {
       id: 'region_distribution',
@@ -130,7 +131,7 @@ export function EnhancedDataVisualization() {
       xAxis: 'region',
       yAxis: ['revenue'],
       filters: {},
-      colors: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444'],
+      colors: [colorRamp.primary[500], colorRamp.success[500], colorRamp.warning[500], colorRamp.danger[500]],
     },
   ]);
 
@@ -210,7 +211,7 @@ export function EnhancedDataVisualization() {
 
   // 渲染图表
   const renderChart = (chartConfig: ChartConfig) => {
-    const data = visualizationData[chartConfig.id] || [];
+    const data: VisualizationData[] = visualizationData[chartConfig.id] ?? [];
 
     const chartProps = {
       config: chartConfig.yAxis.reduce((acc, field, index) => {
@@ -268,21 +269,18 @@ export function EnhancedDataVisualization() {
       );
 
     case 'pie':
-      const pieData = data.reduce(
-        (acc, item) => {
-          const existing = acc.find((a) => a.name === item[chartConfig.xAxis]);
-          if (existing) {
-            existing.value += item[chartConfig.yAxis[0]];
-          } else {
-            acc.push({
-              name: item[chartConfig.xAxis],
-              value: item[chartConfig.yAxis[0]],
-            });
-          }
-          return acc;
-        },
-          [] as { name: string; value: number }[],
-      );
+      const pieData = data.reduce<{ name: string; value: number }[]>((acc, item) => {
+        const existing = acc.find((a) => a.name === item[chartConfig.xAxis]);
+        if (existing) {
+          existing.value += item[chartConfig.yAxis[0]];
+        } else {
+          acc.push({
+            name: item[chartConfig.xAxis],
+            value: item[chartConfig.yAxis[0]],
+          });
+        }
+        return acc;
+      }, []);
 
       return (
         <ResponsiveContainer width="100%" height={300}>
@@ -325,20 +323,20 @@ export function EnhancedDataVisualization() {
       );
 
     default:
-      return <div className="h-[300px] flex items-center justify-center text-gray-500">暂不支持此图表类型</div>;
+      return <div className="h-[300px] flex items-center justify-center text-neutral-500">暂不支持此图表类型</div>;
     }
   };
 
   const getDataSourceStatusColor = (status: string) => {
     switch (status) {
     case 'connected':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'disconnected':
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     case 'error':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -351,7 +349,7 @@ export function EnhancedDataVisualization() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold flex items-center">
-            <BarChart3 className="w-8 h-8 mr-3 text-blue-600" />
+            <BarChart3 className="w-8 h-8 mr-3 text-primary-600" />
             增强数据可视化
           </h1>
           <p className="text-muted-foreground">高性能数据可视化和智能分析平台</p>
@@ -384,9 +382,9 @@ export function EnhancedDataVisualization() {
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <CardTitle className="flex items-center">
-                      {chart.type === 'line' && <LineChartIcon className="w-5 h-5 mr-2 text-blue-600" />}
-                      {chart.type === 'bar' && <BarChart3 className="w-5 h-5 mr-2 text-green-600" />}
-                      {chart.type === 'pie' && <PieChartIcon className="w-5 h-5 mr-2 text-purple-600" />}
+                      {chart.type === 'line' && <LineChartIcon className="w-5 h-5 mr-2 text-primary-600" />}
+                      {chart.type === 'bar' && <BarChart3 className="w-5 h-5 mr-2 text-success-600" />}
+                      {chart.type === 'pie' && <PieChartIcon className="w-5 h-5 mr-2 text-accent-600" />}
                       {chart.title}
                     </CardTitle>
                     <div className="flex space-x-2">
@@ -405,7 +403,7 @@ export function EnhancedDataVisualization() {
                 <CardContent>
                   {isLoading && selectedChart === chart.id ? (
                     <div className="h-[300px] flex items-center justify-center">
-                      <RefreshCw className="w-8 h-8 animate-spin text-blue-600" />
+                      <RefreshCw className="w-8 h-8 animate-spin text-primary-600" />
                     </div>
                   ) : (
                     renderChart(chart)
@@ -419,40 +417,40 @@ export function EnhancedDataVisualization() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Zap className="w-5 h-5 mr-2 text-yellow-600" />
+                <Zap className="w-5 h-5 mr-2 text-warning-600" />
                 实时数据指标
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div className="text-center p-4 bg-blue-50 rounded-lg">
-                  <p className="text-2xl font-bold text-blue-600">2,847,392</p>
-                  <p className="text-sm text-gray-600">总销售额</p>
-                  <p className="text-xs text-green-600 flex items-center justify-center mt-1">
+                <div className="text-center p-4 bg-primary-50 rounded-lg">
+                  <p className="text-2xl font-bold text-primary-600">2,847,392</p>
+                  <p className="text-sm text-neutral-600">总销售额</p>
+                  <p className="text-xs text-success-600 flex items-center justify-center mt-1">
                     <TrendingUp className="w-3 h-3 mr-1" />
                     +12.5%
                   </p>
                 </div>
-                <div className="text-center p-4 bg-green-50 rounded-lg">
-                  <p className="text-2xl font-bold text-green-600">1,234</p>
-                  <p className="text-sm text-gray-600">活跃用户</p>
-                  <p className="text-xs text-green-600 flex items-center justify-center mt-1">
+                <div className="text-center p-4 bg-success-50 rounded-lg">
+                  <p className="text-2xl font-bold text-success-600">1,234</p>
+                  <p className="text-sm text-neutral-600">活跃用户</p>
+                  <p className="text-xs text-success-600 flex items-center justify-center mt-1">
                     <TrendingUp className="w-3 h-3 mr-1" />
                     +8.3%
                   </p>
                 </div>
-                <div className="text-center p-4 bg-purple-50 rounded-lg">
-                  <p className="text-2xl font-bold text-purple-600">567</p>
-                  <p className="text-sm text-gray-600">新订单</p>
-                  <p className="text-xs text-green-600 flex items-center justify-center mt-1">
+                <div className="text-center p-4 bg-accent-50 rounded-lg">
+                  <p className="text-2xl font-bold text-accent-600">567</p>
+                  <p className="text-sm text-neutral-600">新订单</p>
+                  <p className="text-xs text-success-600 flex items-center justify-center mt-1">
                     <TrendingUp className="w-3 h-3 mr-1" />
                     +15.7%
                   </p>
                 </div>
-                <div className="text-center p-4 bg-orange-50 rounded-lg">
-                  <p className="text-2xl font-bold text-orange-600">89.2%</p>
-                  <p className="text-sm text-gray-600">系统性能</p>
-                  <p className="text-xs text-green-600 flex items-center justify-center mt-1">
+                <div className="text-center p-4 bg-warning-50 rounded-lg">
+                  <p className="text-2xl font-bold text-warning-600">89.2%</p>
+                  <p className="text-sm text-neutral-600">系统性能</p>
+                  <p className="text-xs text-success-600 flex items-center justify-center mt-1">
                     <TrendingUp className="w-3 h-3 mr-1" />
                     +2.1%
                   </p>
@@ -480,10 +478,10 @@ export function EnhancedDataVisualization() {
                       <div
                         className={`w-8 h-8 rounded-full flex items-center justify-center ${
                           ds.type === 'api'
-                            ? 'bg-blue-100 text-blue-600'
+                            ? 'bg-primary-100 text-primary-600'
                             : ds.type === 'database'
-                              ? 'bg-green-100 text-green-600'
-                              : 'bg-purple-100 text-purple-600'
+                              ? 'bg-success-100 text-success-600'
+                              : 'bg-accent-100 text-accent-600'
                         }`}
                       >
                         {ds.type === 'api' ? (
@@ -496,7 +494,7 @@ export function EnhancedDataVisualization() {
                       </div>
                       <div>
                         <CardTitle className="text-lg">{ds.name}</CardTitle>
-                        <p className="text-sm text-gray-500">{ds.url || '内部数据源'}</p>
+                        <p className="text-sm text-neutral-500">{ds.url || '内部数据源'}</p>
                       </div>
                     </div>
                     <span
@@ -508,21 +506,21 @@ export function EnhancedDataVisualization() {
                 </CardHeader>
                 <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <p className="text-sm text-gray-500">记录数量</p>
+                    <p className="text-sm text-neutral-500">记录数量</p>
                     <p className="font-semibold">{ds.recordCount.toLocaleString()}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">最后更新</p>
+                    <p className="text-sm text-neutral-500">最后更新</p>
                     <p className="font-semibold">{formatDate(ds.lastUpdate)}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">数据源类型</p>
+                    <p className="text-sm text-neutral-500">数据源类型</p>
                     <p className="font-semibold">
                       {ds.type === 'api' ? 'API' : ds.type === 'database' ? '数据库' : '实时数据'}
                     </p>
                   </div>
                 </CardContent>
-                <div className="p-4 border-t border-gray-100 flex justify-end">
+                <div className="p-4 border-t border-neutral-100 flex justify-end">
                   <Button variant="outline" size="sm" className="mr-2 bg-transparent">
                     测试连接
                   </Button>
@@ -558,11 +556,11 @@ export function EnhancedDataVisualization() {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-medium">X轴字段</label>
-                      <p className="text-sm text-gray-600">{chart.xAxis}</p>
+                      <p className="text-sm text-neutral-600">{chart.xAxis}</p>
                     </div>
                     <div>
                       <label className="text-sm font-medium">Y轴字段</label>
-                      <p className="text-sm text-gray-600">{chart.yAxis.join(', ')}</p>
+                      <p className="text-sm text-neutral-600">{chart.yAxis.join(', ')}</p>
                     </div>
                   </div>
                   <div className="flex justify-end space-x-2">
@@ -585,23 +583,23 @@ export function EnhancedDataVisualization() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center">
-                <TrendingUp className="w-5 h-5 mr-2 text-green-600" />
+                <TrendingUp className="w-5 h-5 mr-2 text-success-600" />
                 渲染性能监控
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="text-center p-4 bg-green-50 rounded-lg">
-                  <p className="text-2xl font-bold text-green-600">45ms</p>
-                  <p className="text-sm text-gray-600">平均渲染时间</p>
+                <div className="text-center p-4 bg-success-50 rounded-lg">
+                  <p className="text-2xl font-bold text-success-600">45ms</p>
+                  <p className="text-sm text-neutral-600">平均渲染时间</p>
                 </div>
-                <div className="text-center p-4 bg-blue-50 rounded-lg">
-                  <p className="text-2xl font-bold text-blue-600">98.5%</p>
-                  <p className="text-sm text-gray-600">缓存命中率</p>
+                <div className="text-center p-4 bg-primary-50 rounded-lg">
+                  <p className="text-2xl font-bold text-primary-600">98.5%</p>
+                  <p className="text-sm text-neutral-600">缓存命中率</p>
                 </div>
-                <div className="text-center p-4 bg-purple-50 rounded-lg">
-                  <p className="text-2xl font-bold text-purple-600">2.3MB</p>
-                  <p className="text-sm text-gray-600">内存使用</p>
+                <div className="text-center p-4 bg-accent-50 rounded-lg">
+                  <p className="text-2xl font-bold text-accent-600">2.3MB</p>
+                  <p className="text-sm text-neutral-600">内存使用</p>
                 </div>
               </div>
             </CardContent>

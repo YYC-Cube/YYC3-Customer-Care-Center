@@ -235,13 +235,13 @@ export function EnhancedPredictionEngine() {
   const getModelStatusColor = (status: PredictionModel['status']) => {
     switch (status) {
     case 'active':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'training':
-      return 'bg-blue-100 text-blue-800';
+      return 'bg-primary-100 text-primary-800';
     case 'outdated':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-warning-100 text-warning-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -249,13 +249,13 @@ export function EnhancedPredictionEngine() {
   const getImpactColor = (impact: string) => {
     switch (impact) {
     case 'high':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     case 'medium':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-warning-100 text-warning-800';
     case 'low':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -263,11 +263,11 @@ export function EnhancedPredictionEngine() {
   const getTrendIcon = (trend: string) => {
     switch (trend) {
     case 'up':
-      return <TrendingUp className="w-4 h-4 text-green-600" />;
+      return <TrendingUp className="w-4 h-4 text-success-600" />;
     case 'down':
-      return <TrendingUp className="w-4 h-4 text-red-600 rotate-180" />;
+      return <TrendingUp className="w-4 h-4 text-danger-600 rotate-180" />;
     default:
-      return <BarChart3 className="w-4 h-4 text-gray-600" />;
+      return <BarChart3 className="w-4 h-4 text-neutral-600" />;
     }
   };
 
@@ -275,15 +275,15 @@ export function EnhancedPredictionEngine() {
   const getCategoryIcon = (category: string) => {
     switch (category) {
     case 'optimization':
-      return <Zap className="w-5 h-5 text-blue-600" />;
+      return <Zap className="w-5 h-5 text-primary-600" />;
     case 'risk':
-      return <AlertTriangle className="w-5 h-5 text-red-600" />;
+      return <AlertTriangle className="w-5 h-5 text-danger-600" />;
     case 'opportunity':
-      return <Target className="w-5 h-5 text-green-600" />;
+      return <Target className="w-5 h-5 text-success-600" />;
     case 'efficiency':
-      return <Clock className="w-5 h-5 text-purple-600" />;
+      return <Clock className="w-5 h-5 text-accent-600" />;
     default:
-      return <Lightbulb className="w-5 h-5 text-gray-600" />;
+      return <Lightbulb className="w-5 h-5 text-neutral-600" />;
     }
   };
 
@@ -297,7 +297,7 @@ export function EnhancedPredictionEngine() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold flex items-center">
-            <Brain className="w-8 h-8 mr-3 text-purple-600" />
+            <Brain className="w-8 h-8 mr-3 text-accent-600" />
             AI智能预测引擎
           </h1>
           <p className="text-muted-foreground">基于机器学习的业务预测和智能推荐系统</p>
@@ -337,7 +337,7 @@ export function EnhancedPredictionEngine() {
             <Card>
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center">
-                  <Brain className="w-5 h-5 mr-2 text-purple-600" />
+                  <Brain className="w-5 h-5 mr-2 text-accent-600" />
                   活跃预测
                 </CardTitle>
               </CardHeader>
@@ -350,12 +350,12 @@ export function EnhancedPredictionEngine() {
             <Card>
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center">
-                  <Target className="w-5 h-5 mr-2 text-green-600" />
+                  <Target className="w-5 h-5 mr-2 text-success-600" />
                   平均准确率
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-green-600">
+                <div className="text-3xl font-bold text-success-600">
                   {(models.reduce((acc, model) => acc + model.accuracy, 0) / models.length).toFixed(1)}%
                 </div>
                 <p className="text-sm text-muted-foreground">模型准确率</p>
@@ -365,12 +365,12 @@ export function EnhancedPredictionEngine() {
             <Card>
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center">
-                  <AlertTriangle className="w-5 h-5 mr-2 text-red-600" />
+                  <AlertTriangle className="w-5 h-5 mr-2 text-danger-600" />
                   高风险预警
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-red-600">
+                <div className="text-3xl font-bold text-danger-600">
                   {predictions.filter((p) => p.impact === 'high' && p.trend === 'down').length}
                 </div>
                 <p className="text-sm text-muted-foreground">需要关注</p>
@@ -380,12 +380,12 @@ export function EnhancedPredictionEngine() {
             <Card>
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center">
-                  <TrendingUp className="w-5 h-5 mr-2 text-blue-600" />
+                  <TrendingUp className="w-5 h-5 mr-2 text-primary-600" />
                   增长机会
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-blue-600">
+                <div className="text-3xl font-bold text-primary-600">
                   {predictions.filter((p) => p.impact === 'high' && p.trend === 'up').length}
                 </div>
                 <p className="text-sm text-muted-foreground">个机会</p>
@@ -443,7 +443,7 @@ export function EnhancedPredictionEngine() {
                       <ul className="space-y-1">
                         {prediction.recommendations.map((rec, index) => (
                           <li key={index} className="text-sm flex items-start space-x-2">
-                            <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                            <CheckCircle className="w-4 h-4 text-success-600 mt-0.5 flex-shrink-0" />
                             <span>{rec}</span>
                           </li>
                         ))}
@@ -526,10 +526,10 @@ export function EnhancedPredictionEngine() {
                         <Badge
                           className={
                             recommendation.priority === 'high'
-                              ? 'bg-red-100 text-red-800'
+                              ? 'bg-danger-100 text-danger-800'
                               : recommendation.priority === 'medium'
-                                ? 'bg-yellow-100 text-yellow-800'
-                                : 'bg-green-100 text-green-800'
+                                ? 'bg-warning-100 text-warning-800'
+                                : 'bg-success-100 text-success-800'
                           }
                         >
                           {recommendation.priority === 'high'
@@ -567,7 +567,7 @@ export function EnhancedPredictionEngine() {
                         </div>
                         <div>
                           <p className="text-sm text-muted-foreground">投资回报率</p>
-                          <div className="text-lg font-bold text-green-600">{recommendation.roi}%</div>
+                          <div className="text-lg font-bold text-success-600">{recommendation.roi}%</div>
                         </div>
                       </div>
 
@@ -577,7 +577,7 @@ export function EnhancedPredictionEngine() {
                         <ol className="space-y-1">
                           {recommendation.actions.map((action, index) => (
                             <li key={index} className="text-sm flex items-start space-x-2">
-                              <span className="w-5 h-5 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0 mt-0.5">
+                              <span className="w-5 h-5 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0 mt-0.5">
                                 {index + 1}
                               </span>
                               <span>{action}</span>
@@ -699,7 +699,7 @@ export function EnhancedPredictionEngine() {
                     return (
                       <div
                         key={i}
-                        className="bg-blue-500 rounded-t flex-1 min-w-0"
+                        className="bg-primary-500 rounded-t flex-1 min-w-0"
                         style={{ height: `${accuracy}%` }}
                         title={`第${i + 1}天: ${accuracy.toFixed(1)}%`}
                       />
@@ -746,21 +746,21 @@ export function EnhancedPredictionEngine() {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <p className="text-sm text-muted-foreground">节省成本</p>
-                      <p className="text-2xl font-bold text-green-600">¥156万</p>
+                      <p className="text-2xl font-bold text-success-600">¥156万</p>
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">增加收入</p>
-                      <p className="text-2xl font-bold text-blue-600">¥234万</p>
+                      <p className="text-2xl font-bold text-primary-600">¥234万</p>
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <p className="text-sm text-muted-foreground">风险规避</p>
-                      <p className="text-2xl font-bold text-purple-600">¥89万</p>
+                      <p className="text-2xl font-bold text-accent-600">¥89万</p>
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">效率提升</p>
-                      <p className="text-2xl font-bold text-orange-600">35%</p>
+                      <p className="text-2xl font-bold text-warning-600">35%</p>
                     </div>
                   </div>
                 </div>
@@ -776,17 +776,17 @@ export function EnhancedPredictionEngine() {
               <CardContent>
                 <div className="space-y-4">
                   {[
-                    { name: '数据完整性', value: 98.5, color: 'bg-green-500' },
-                    { name: '数据准确性', value: 96.2, color: 'bg-blue-500' },
-                    { name: '数据时效性', value: 94.8, color: 'bg-purple-500' },
-                    { name: '数据一致性', value: 97.1, color: 'bg-orange-500' },
+                    { name: '数据完整性', value: 98.5, color: 'bg-success-500' },
+                    { name: '数据准确性', value: 96.2, color: 'bg-primary-500' },
+                    { name: '数据时效性', value: 94.8, color: 'bg-accent-500' },
+                    { name: '数据一致性', value: 97.1, color: 'bg-warning-500' },
                   ].map((metric) => (
                     <div key={metric.name} className="space-y-2">
                       <div className="flex justify-between text-sm">
                         <span>{metric.name}</span>
                         <span className="font-medium">{metric.value}%</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="w-full bg-neutral-200 rounded-full h-2">
                         <div className={`${metric.color} h-2 rounded-full`} style={{ width: `${metric.value}%` }} />
                       </div>
                     </div>
@@ -814,7 +814,7 @@ export function EnhancedPredictionEngine() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="p-4 border rounded-lg">
                     <h4 className="font-medium mb-2 flex items-center">
-                      <Users className="w-4 h-4 mr-2 text-blue-600" />
+                      <Users className="w-4 h-4 mr-2 text-primary-600" />
                       客户行为模式
                     </h4>
                     <p className="text-sm text-muted-foreground">
@@ -824,7 +824,7 @@ export function EnhancedPredictionEngine() {
 
                   <div className="p-4 border rounded-lg">
                     <h4 className="font-medium mb-2 flex items-center">
-                      <DollarSign className="w-4 h-4 mr-2 text-green-600" />
+                      <DollarSign className="w-4 h-4 mr-2 text-success-600" />
                       收入优化机会
                     </h4>
                     <p className="text-sm text-muted-foreground">
@@ -834,7 +834,7 @@ export function EnhancedPredictionEngine() {
 
                   <div className="p-4 border rounded-lg">
                     <h4 className="font-medium mb-2 flex items-center">
-                      <AlertTriangle className="w-4 h-4 mr-2 text-red-600" />
+                      <AlertTriangle className="w-4 h-4 mr-2 text-danger-600" />
                       潜在风险点
                     </h4>
                     <p className="text-sm text-muted-foreground">
@@ -854,7 +854,7 @@ export function EnhancedPredictionEngine() {
                       '加强数据收集，提高预测模型的准确性',
                     ].map((action, index) => (
                       <li key={index} className="text-sm flex items-start space-x-2">
-                        <span className="w-5 h-5 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0 mt-0.5">
+                        <span className="w-5 h-5 bg-accent-100 text-accent-600 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0 mt-0.5">
                           {index + 1}
                         </span>
                         <span>{action}</span>

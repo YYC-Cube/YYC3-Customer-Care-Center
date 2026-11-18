@@ -11,6 +11,7 @@
  */
 
 'use client';
+import { colorRamp } from '@/lib/design-tokens';
 
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -70,11 +71,11 @@ export function FinanceModule() {
   ];
 
   const expenseData = [
-    { category: '人力成本', amount: 1200000, percentage: 35, color: '#10b981' },
-    { category: '运营费用', amount: 800000, percentage: 23, color: '#3b82f6' },
-    { category: '市场推广', amount: 600000, percentage: 17, color: '#f59e0b' },
-    { category: '技术投入', amount: 500000, percentage: 15, color: '#8b5cf6' },
-    { category: '其他费用', amount: 350000, percentage: 10, color: '#ef4444' },
+    { category: '人力成本', amount: 1200000, percentage: 35, color: colorRamp.success[500] },
+    { category: '运营费用', amount: 800000, percentage: 23, color: colorRamp.primary[500] },
+    { category: '市场推广', amount: 600000, percentage: 17, color: colorRamp.warning[500] },
+    { category: '技术投入', amount: 500000, percentage: 15, color: colorRamp.accent[500] },
+    { category: '其他费用', amount: 350000, percentage: 10, color: colorRamp.danger[500] },
   ];
 
   const cashFlowData = [
@@ -173,22 +174,22 @@ export function FinanceModule() {
 
   const getTransactionIcon = (type: string) => {
     return type === 'income' ? (
-      <TrendingUp className="w-4 h-4 text-green-600" />
+      <TrendingUp className="w-4 h-4 text-success-600" />
     ) : (
-      <TrendingDown className="w-4 h-4 text-red-600" />
+      <TrendingDown className="w-4 h-4 text-danger-600" />
     );
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
     case 'completed':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-100 text-success-800';
     case 'pending':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-warning-100 text-warning-800';
     case 'failed':
-      return 'bg-red-100 text-red-800';
+      return 'bg-danger-100 text-danger-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-neutral-100 text-neutral-800';
     }
   };
 
@@ -206,19 +207,19 @@ export function FinanceModule() {
   };
 
   return (
-    <div className="p-6 space-y-6 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gradient-to-br from-success-50 via-success-50 to-success-50 min-h-screen">
       {/* 页面头部 */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-            <DollarSign className="w-8 h-8 mr-3 text-emerald-600" />
+          <h1 className="text-3xl font-bold text-neutral-900 flex items-center">
+            <DollarSign className="w-8 h-8 mr-3 text-success-600" />
             财务管理
           </h1>
-          <p className="text-gray-600 mt-2">全面的财务数据分析和资金管理系统</p>
+          <p className="text-neutral-600 mt-2">全面的财务数据分析和资金管理系统</p>
         </div>
         <div className="flex space-x-3">
           <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
-            <SelectTrigger className="w-32 border-l-4 border-l-emerald-500">
+            <SelectTrigger className="w-32 border-l-4 border-l-success-500">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -230,21 +231,21 @@ export function FinanceModule() {
           </Select>
           <Button
             variant="outline"
-            className="border-l-4 border-l-emerald-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+            className="border-l-4 border-l-success-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
           >
             <Filter className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             筛选
           </Button>
           <Button
             variant="outline"
-            className="border-l-4 border-l-emerald-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
+            className="border-l-4 border-l-success-500 transition-all duration-300 hover:scale-105 hover:shadow-xl bg-transparent group"
           >
             <Download className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
             导出
           </Button>
           <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
+              <Button className="bg-gradient-to-r from-success-500 to-success-600 hover:from-success-600 hover:to-success-700 text-white transition-all duration-300 hover:shadow-xl hover:scale-105 group">
                 <Plus className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-all duration-300" />
                 新增交易
               </Button>
@@ -303,7 +304,7 @@ export function FinanceModule() {
                   </Button>
                   <Button
                     onClick={() => setIsCreateDialogOpen(false)}
-                    className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white"
+                    className="bg-gradient-to-r from-success-500 to-success-600 hover:from-success-600 hover:to-success-700 text-white"
                   >
                     保存交易
                   </Button>
@@ -319,28 +320,28 @@ export function FinanceModule() {
         {kpiMetrics.map((metric, index) => (
           <Card
             key={index}
-            className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
           >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">{metric.title}</CardTitle>
-              <metric.icon className="h-4 w-4 text-emerald-600" />
+              <metric.icon className="h-4 w-4 text-success-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-emerald-700">{metric.value}</div>
+              <div className="text-2xl font-bold text-success-700">{metric.value}</div>
               <div className="flex items-center justify-between mt-2">
-                <p className={`text-xs ${metric.trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
+                <p className={`text-xs ${metric.trend === 'up' ? 'text-success-600' : 'text-danger-600'}`}>
                   {metric.change} 较上期
                 </p>
-                <p className="text-xs text-gray-500">目标: {metric.target}</p>
+                <p className="text-xs text-neutral-500">目标: {metric.target}</p>
               </div>
               <div className="mt-2">
-                <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full transition-all duration-500"
+                    className="h-full bg-gradient-to-r from-success-400 to-success-500 rounded-full transition-all duration-500"
                     style={{ width: `${metric.progress}%` }}
                   ></div>
                 </div>
-                <p className="text-xs text-gray-500 mt-1">完成度: {metric.progress}%</p>
+                <p className="text-xs text-neutral-500 mt-1">完成度: {metric.progress}%</p>
               </div>
             </CardContent>
           </Card>
@@ -350,9 +351,9 @@ export function FinanceModule() {
       {/* 主要图表 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* 收入趋势 */}
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader>
-            <CardTitle className="flex items-center text-emerald-700">
+            <CardTitle className="flex items-center text-success-700">
               <TrendingUp className="w-5 h-5 mr-2" />
               收入与利润趋势
             </CardTitle>
@@ -369,7 +370,7 @@ export function FinanceModule() {
                   type="monotone"
                   dataKey="revenue"
                   stackId="1"
-                  stroke="#10b981"
+                  stroke={colorRamp.success[500]}
                   fill="url(#emeraldGradient)"
                   name="收入"
                 />
@@ -377,18 +378,18 @@ export function FinanceModule() {
                   type="monotone"
                   dataKey="profit"
                   stackId="2"
-                  stroke="#059669"
+                  stroke={colorRamp.success[600]}
                   fill="url(#emeraldDarkGradient)"
                   name="利润"
                 />
                 <defs>
                   <linearGradient id="emeraldGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#10b981" stopOpacity={0.1} />
+                    <stop offset="5%" stopColor={colorRamp.success[500]} stopOpacity={0.8} />
+                    <stop offset="95%" stopColor={colorRamp.success[500]} stopOpacity={0.1} />
                   </linearGradient>
                   <linearGradient id="emeraldDarkGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#059669" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#059669" stopOpacity={0.1} />
+                    <stop offset="5%" stopColor={colorRamp.success[600]} stopOpacity={0.8} />
+                    <stop offset="95%" stopColor={colorRamp.success[600]} stopOpacity={0.1} />
                   </linearGradient>
                 </defs>
               </AreaChart>
@@ -397,9 +398,9 @@ export function FinanceModule() {
         </Card>
 
         {/* 支出分布 */}
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader>
-            <CardTitle className="flex items-center text-emerald-700">
+            <CardTitle className="flex items-center text-success-700">
               <PieChart className="w-5 h-5 mr-2" />
               支出分布分析
             </CardTitle>
@@ -413,7 +414,7 @@ export function FinanceModule() {
                   cx="50%"
                   cy="50%"
                   outerRadius={100}
-                  fill="#8884d8"
+                  fill={colorRamp.accent[500]}
                   dataKey="amount"
                   label={({ category, percentage }) => `${category}: ${percentage}%`}
                 >
@@ -431,9 +432,9 @@ export function FinanceModule() {
       {/* 现金流和交易记录 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* 现金流分析 */}
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader>
-            <CardTitle className="flex items-center text-emerald-700">
+            <CardTitle className="flex items-center text-success-700">
               <BarChart3 className="w-5 h-5 mr-2" />
               现金流分析
             </CardTitle>
@@ -446,18 +447,18 @@ export function FinanceModule() {
                 <XAxis dataKey="week" />
                 <YAxis />
                 <Tooltip formatter={(value) => [`¥${((value as number) / 10000).toFixed(0)}万`, '']} />
-                <Bar dataKey="inflow" fill="#10b981" name="流入" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="outflow" fill="#ef4444" name="流出" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="net" fill="#3b82f6" name="净流量" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="inflow" fill={colorRamp.success[500]} name="流入" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="outflow" fill={colorRamp.danger[500]} name="流出" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="net" fill={colorRamp.primary[500]} name="净流量" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
 
         {/* 最近交易 */}
-        <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
           <CardHeader>
-            <CardTitle className="flex items-center text-emerald-700">
+            <CardTitle className="flex items-center text-success-700">
               <Receipt className="w-5 h-5 mr-2" />
               最近交易记录
             </CardTitle>
@@ -468,24 +469,24 @@ export function FinanceModule() {
               {recentTransactions.map((transaction) => (
                 <div
                   key={transaction.id}
-                  className="border-l-4 border-l-emerald-500 bg-emerald-50 rounded-lg p-4 transition-all duration-300 hover:shadow-md"
+                  className="border-l-4 border-l-success-500 bg-success-50 rounded-lg p-4 transition-all duration-300 hover:shadow-md"
                 >
                   <div className="flex justify-between items-start mb-2">
                     <div className="flex items-center space-x-3">
                       {getTransactionIcon(transaction.type)}
                       <div>
-                        <h4 className="font-medium text-gray-900">{transaction.description}</h4>
-                        <p className="text-sm text-gray-600">{transaction.category}</p>
+                        <h4 className="font-medium text-neutral-900">{transaction.description}</h4>
+                        <p className="text-sm text-neutral-600">{transaction.category}</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className={`font-bold ${transaction.type === 'income' ? 'text-green-600' : 'text-red-600'}`}>
+                      <p className={`font-bold ${transaction.type === 'income' ? 'text-success-600' : 'text-danger-600'}`}>
                         {transaction.type === 'income' ? '+' : '-'}¥{transaction.amount.toLocaleString()}
                       </p>
                       <Badge className={getStatusColor(transaction.status)}>{getStatusText(transaction.status)}</Badge>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center text-sm text-gray-500">
+                  <div className="flex justify-between items-center text-sm text-neutral-500">
                     <span>{transaction.date}</span>
                     <div className="flex space-x-2">
                       <Button
@@ -506,9 +507,9 @@ export function FinanceModule() {
       </div>
 
       {/* 财务摘要 */}
-      <Card className="border-l-4 border-l-emerald-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="border-l-4 border-l-success-500 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center text-emerald-700">
+          <CardTitle className="flex items-center text-success-700">
             <Calculator className="w-5 h-5 mr-2" />
             财务摘要报告
           </CardTitle>
@@ -516,8 +517,8 @@ export function FinanceModule() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="border-l-4 border-l-emerald-500 bg-emerald-50 rounded-lg p-4">
-              <h4 className="font-medium text-emerald-700 mb-2">收入分析</h4>
+            <div className="border-l-4 border-l-success-500 bg-success-50 rounded-lg p-4">
+              <h4 className="font-medium text-success-700 mb-2">收入分析</h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span>销售收入:</span>
@@ -529,13 +530,13 @@ export function FinanceModule() {
                 </div>
                 <div className="flex justify-between border-t pt-2">
                   <span className="font-medium">总收入:</span>
-                  <span className="font-bold text-emerald-600">¥350万</span>
+                  <span className="font-bold text-success-600">¥350万</span>
                 </div>
               </div>
             </div>
 
-            <div className="border-l-4 border-l-emerald-500 bg-emerald-50 rounded-lg p-4">
-              <h4 className="font-medium text-emerald-700 mb-2">支出分析</h4>
+            <div className="border-l-4 border-l-success-500 bg-success-50 rounded-lg p-4">
+              <h4 className="font-medium text-success-700 mb-2">支出分析</h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span>人力成本:</span>
@@ -551,13 +552,13 @@ export function FinanceModule() {
                 </div>
                 <div className="flex justify-between border-t pt-2">
                   <span className="font-medium">总支出:</span>
-                  <span className="font-bold text-red-600">¥240万</span>
+                  <span className="font-bold text-danger-600">¥240万</span>
                 </div>
               </div>
             </div>
 
-            <div className="border-l-4 border-l-emerald-500 bg-emerald-50 rounded-lg p-4">
-              <h4 className="font-medium text-emerald-700 mb-2">盈利分析</h4>
+            <div className="border-l-4 border-l-success-500 bg-success-50 rounded-lg p-4">
+              <h4 className="font-medium text-success-700 mb-2">盈利分析</h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span>毛利润:</span>
@@ -569,11 +570,11 @@ export function FinanceModule() {
                 </div>
                 <div className="flex justify-between">
                   <span>同比增长:</span>
-                  <span className="font-medium text-green-600">+18.2%</span>
+                  <span className="font-medium text-success-600">+18.2%</span>
                 </div>
                 <div className="flex justify-between border-t pt-2">
                   <span className="font-medium">净利润:</span>
-                  <span className="font-bold text-emerald-600">¥110万</span>
+                  <span className="font-bold text-success-600">¥110万</span>
                 </div>
               </div>
             </div>

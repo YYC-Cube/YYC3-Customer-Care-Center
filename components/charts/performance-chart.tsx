@@ -11,6 +11,7 @@
  */
 
 'use client';
+import { colorRamp } from '@/lib/design-tokens';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
@@ -101,9 +102,9 @@ export function PerformanceChart() {
           >
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={performanceTrendData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                <XAxis dataKey="month" stroke="#64748b" />
-                <YAxis stroke="#64748b" />
+                <CartesianGrid strokeDasharray="3 3" stroke={colorRamp.neutral[200]} />
+                <XAxis dataKey="month" stroke={colorRamp.neutral[500]} />
+                <YAxis stroke={colorRamp.neutral[500]} />
                 <ChartTooltip content={<ChartTooltipContent />} />
                 <Line
                   type="monotone"
@@ -163,9 +164,9 @@ export function PerformanceChart() {
             >
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={kpiData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                  <XAxis dataKey="kpi" stroke="#64748b" />
-                  <YAxis stroke="#64748b" />
+                  <CartesianGrid strokeDasharray="3 3" stroke={colorRamp.neutral[200]} />
+                  <XAxis dataKey="kpi" stroke={colorRamp.neutral[500]} />
+                  <YAxis stroke={colorRamp.neutral[500]} />
                   <ChartTooltip content={<ChartTooltipContent />} />
                   <Bar dataKey="achievement" fill="var(--color-achievement)" radius={[4, 4, 0, 0]} />
                   <Bar dataKey="target" fill="var(--color-target)" radius={[4, 4, 0, 0]} opacity={0.6} />
@@ -184,19 +185,19 @@ export function PerformanceChart() {
           <CardContent>
             <div className="space-y-4">
               {employeePerformanceData.map((employee, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                <div key={index} className="flex items-center justify-between p-3 bg-neutral-50 rounded-lg">
                   <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                    <div className="w-8 h-8 bg-gradient-to-br from-primary-400 to-accent-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                       {index + 1}
                     </div>
                     <div>
-                      <p className="font-medium text-slate-800">{employee.name}</p>
-                      <p className="text-sm text-slate-600">{employee.department}</p>
+                      <p className="font-medium text-neutral-800">{employee.name}</p>
+                      <p className="text-sm text-neutral-600">{employee.department}</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-lg text-slate-800">{employee.score}</p>
-                    <p className="text-xs text-slate-500">分</p>
+                    <p className="font-bold text-lg text-neutral-800">{employee.score}</p>
+                    <p className="text-xs text-neutral-500">分</p>
                   </div>
                 </div>
               ))}

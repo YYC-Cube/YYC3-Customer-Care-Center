@@ -41,6 +41,7 @@ import {
   Globe,
   Shield,
   Bot,
+  Menu,
   Palette,
   Volume2,
   VolumeX,
@@ -55,9 +56,10 @@ interface HeaderProps {
   height?: number
   sticky?: boolean
   showOnMobile?: boolean
+  onMenuClick?: () => void
 }
 
-export function Header({ activeModule = 'dashboard', className, height = 64, sticky = true, showOnMobile = true }: HeaderProps) {
+export function Header({ activeModule = 'dashboard', className, height = 64, sticky = true, showOnMobile = true, onMenuClick }: HeaderProps) {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -173,17 +175,28 @@ export function Header({ activeModule = 'dashboard', className, height = 64, sti
   return (
     <header
       className={cn(
-        'bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-6 flex items-center justify-between shadow-sm',
-        sticky ? 'fixed top-0 left-0 right-0 z-40' : 'relative',
+        'bg-card border-b border-border px-6 flex items-center justify-between shadow-sm w-full',
+        sticky ? 'sticky top-0 z-40' : 'relative',
         !showOnMobile && 'hidden lg:flex',
         className,
       )}
       style={{ height: `${height}px` }}
     >
-      {/* 左侧：日期显示 */}
+      {/* 左侧：移动端菜单开关 + 日期显示 */}
       <div className="flex items-center space-x-4">
+        {onMenuClick && (
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onMenuClick}
+            className="lg:hidden"
+            aria-label="打开导航菜单"
+          >
+            <Menu className="h-5 w-5" />
+          </Button>
+        )}
         <div>
-          <p className="text-lg font-medium text-gray-900 dark:text-white">
+          <p className="text-lg font-medium text-neutral-900 dark:text-white">
             {new Date().toLocaleDateString('zh-CN', {
               year: 'numeric',
               month: 'long',
@@ -198,13 +211,13 @@ export function Header({ activeModule = 'dashboard', className, height = 64, sti
       <div className="flex-1 max-w-md mx-8">
         <form onSubmit={handleSearch} className="relative">
           <div className="relative group">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 transition-all duration-300 group-hover:text-blue-500 group-focus-within:text-blue-500 drop-shadow-sm" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 h-4 w-4 transition-all duration-300 group-hover:text-primary-500 group-focus-within:text-primary-500 drop-shadow-sm" />
             <Input
               type="text"
               placeholder="搜索功能、数据或文档..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 pr-4 py-2 w-full bg-gray-50 dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 focus:bg-white dark:focus:bg-gray-900 transition-all duration-300 shadow-inner hover:shadow-md focus:shadow-lg focus:border-blue-400 dark:focus:border-blue-500 rounded-lg"
+              className="pl-10 pr-4 py-2 w-full bg-neutral-50 dark:bg-neutral-800 border-2 border-neutral-200 dark:border-neutral-700 focus:bg-white dark:focus:bg-neutral-900 transition-all duration-300 shadow-inner hover:shadow-md focus:shadow-lg focus:border-primary-400 dark:focus:border-primary-500 rounded-lg"
               style={{
                 boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.05)',
               }}
@@ -221,7 +234,7 @@ export function Header({ activeModule = 'dashboard', className, height = 64, sti
             variant="ghost"
             size="sm"
             onClick={refreshPage}
-            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
+            className="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-200"
           >
             <RefreshCw className="h-4 w-4" />
           </Button>
@@ -230,7 +243,7 @@ export function Header({ activeModule = 'dashboard', className, height = 64, sti
             variant="ghost"
             size="sm"
             onClick={toggleDarkMode}
-            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
+            className="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-200"
           >
             {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </Button>
@@ -239,7 +252,7 @@ export function Header({ activeModule = 'dashboard', className, height = 64, sti
             variant="ghost"
             size="sm"
             onClick={changeLanguage}
-            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
+            className="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-200"
           >
             <Globe className="h-4 w-4" />
           </Button>
@@ -248,7 +261,7 @@ export function Header({ activeModule = 'dashboard', className, height = 64, sti
             variant="ghost"
             size="sm"
             onClick={toggleMute}
-            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
+            className="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-200"
           >
             {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
           </Button>
@@ -257,7 +270,7 @@ export function Header({ activeModule = 'dashboard', className, height = 64, sti
             variant="ghost"
             size="sm"
             onClick={toggleFullscreen}
-            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
+            className="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-200"
           >
             {isFullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
           </Button>
@@ -268,10 +281,10 @@ export function Header({ activeModule = 'dashboard', className, height = 64, sti
           variant="ghost"
           size="sm"
           onClick={openCustomerService}
-          className="relative text-purple-500 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-200 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all duration-200"
+          className="relative text-accent-500 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-200 hover:bg-accent-50 dark:hover:bg-accent-900/20 transition-all duration-200"
         >
           <Bot className="h-4 w-4" />
-          <span className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+          <span className="absolute -top-1 -right-1 w-2 h-2 bg-success-500 rounded-full animate-pulse"></span>
         </Button>
 
         {/* 通知 */}
@@ -280,11 +293,11 @@ export function Header({ activeModule = 'dashboard', className, height = 64, sti
             <Button
               variant="ghost"
               size="sm"
-              className="relative hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
+              className="relative hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-200"
             >
-              <Bell className="h-4 w-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" />
+              <Bell className="h-4 w-4 text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200" />
               {unreadCount > 0 && (
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center p-0 animate-pulse">
+                <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-danger-500 text-white text-xs flex items-center justify-center p-0 animate-pulse">
                   {unreadCount}
                 </Badge>
               )}
@@ -301,18 +314,18 @@ export function Header({ activeModule = 'dashboard', className, height = 64, sti
             {notifications.map((notification) => (
               <DropdownMenuItem
                 key={notification.id}
-                className="flex flex-col items-start p-4 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer"
+                className="flex flex-col items-start p-4 hover:bg-neutral-50 dark:hover:bg-neutral-800 cursor-pointer"
               >
                 <div className="flex items-center justify-between w-full">
                   <span className="font-medium text-sm">{notification.title}</span>
-                  <span className="text-xs text-gray-500">{notification.time}</span>
+                  <span className="text-xs text-neutral-500">{notification.time}</span>
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{notification.message}</p>
-                {notification.unread && <div className="w-2 h-2 bg-blue-500 rounded-full mt-2" />}
+                <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">{notification.message}</p>
+                {notification.unread && <div className="w-2 h-2 bg-primary-500 rounded-full mt-2" />}
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-center text-blue-600 hover:text-blue-800 cursor-pointer">
+            <DropdownMenuItem className="text-center text-primary-600 hover:text-primary-800 cursor-pointer">
               查看所有通知
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -323,11 +336,11 @@ export function Header({ activeModule = 'dashboard', className, height = 64, sti
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
-              className="relative h-8 w-8 rounded-full hover:ring-2 hover:ring-blue-200 dark:hover:ring-blue-800 transition-all duration-200"
+              className="relative h-8 w-8 rounded-full hover:ring-2 hover:ring-primary-200 dark:hover:ring-primary-800 transition-all duration-200"
             >
               <Avatar className="h-8 w-8">
                 <AvatarImage src="/placeholder.svg?height=32&width=32" alt="用户头像" />
-                <AvatarFallback className="bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold">
+                <AvatarFallback className="bg-gradient-to-r from-primary-500 to-accent-600 text-white font-semibold">
                   管
                 </AvatarFallback>
               </Avatar>
@@ -339,39 +352,39 @@ export function Header({ activeModule = 'dashboard', className, height = 64, sti
                 <p className="text-sm font-medium leading-none">系统管理员</p>
                 <p className="text-xs leading-none text-muted-foreground">admin@yanyu.com</p>
                 <div className="flex items-center space-x-2 mt-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="text-xs text-green-600">在线</span>
+                  <div className="w-2 h-2 bg-success-500 rounded-full"></div>
+                  <span className="text-xs text-success-600">在线</span>
                 </div>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={openProfile} className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800">
+            <DropdownMenuItem onClick={openProfile} className="cursor-pointer hover:bg-neutral-50 dark:hover:bg-neutral-800">
               <User className="mr-2 h-4 w-4" />
               <span>个人资料</span>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={openSettings} className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800">
+            <DropdownMenuItem onClick={openSettings} className="cursor-pointer hover:bg-neutral-50 dark:hover:bg-neutral-800">
               <Settings className="mr-2 h-4 w-4" />
               <span>系统设置</span>
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={openSecurityCenter}
-              className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800"
+              className="cursor-pointer hover:bg-neutral-50 dark:hover:bg-neutral-800"
             >
               <Shield className="mr-2 h-4 w-4" />
               <span>安全中心</span>
             </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800">
+            <DropdownMenuItem className="cursor-pointer hover:bg-neutral-50 dark:hover:bg-neutral-800">
               <Palette className="mr-2 h-4 w-4" />
               <span>主题设置</span>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={openHelp} className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800">
+            <DropdownMenuItem onClick={openHelp} className="cursor-pointer hover:bg-neutral-50 dark:hover:bg-neutral-800">
               <HelpCircle className="mr-2 h-4 w-4" />
               <span>帮助支持</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={logout}
-              className="cursor-pointer hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 dark:text-red-400"
+              className="cursor-pointer hover:bg-danger-50 dark:hover:bg-danger-900/20 text-danger-600 dark:text-danger-400"
             >
               <LogOut className="mr-2 h-4 w-4" />
               <span>退出登录</span>

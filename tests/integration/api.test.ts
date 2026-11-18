@@ -48,11 +48,10 @@ describe('API Integration Tests', () => {
   });
 
   afterAll(() => {
-    if (server) {
-      return new Promise((resolve) => {
-        server.close(() => {
-          resolve(undefined);
-        });
+    const instance = server;
+    if (instance) {
+      return new Promise<void>((resolve) => {
+        instance.close(() => resolve());
       });
     }
     return Promise.resolve();
