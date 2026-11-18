@@ -74,3 +74,6 @@ temp/
 
 # 静态导出镜像（GitHub Pages）
 .static-export/
+
+# IDE 会话状态（工具生成，勿入库）
+.mimosa/
