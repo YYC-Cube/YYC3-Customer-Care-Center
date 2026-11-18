@@ -31,7 +31,6 @@ const EXCLUDE = new Set([
   '.static-export',
   'out',
   'coverage',
-  '.vercel',
 ]);
 
 console.log('→ 清理镜像目录');

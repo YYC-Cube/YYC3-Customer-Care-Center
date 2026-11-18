@@ -68,7 +68,7 @@ YYC³ Customer Care Center（YYC3-CCC）项目是一个基于「五高五标五�
 - Framer Motion 12.23.12
 - @splinetool/react-spline 4.1.0
 - @tsparticles/react 3.0.0
-- Vercel (部署平台)
+- Docker (容器部署)
 
 ### 4. 性能优化架构
 
@@ -266,7 +266,7 @@ const [user, posts, comments] = await Promise.all([
 - 静态资源长缓存
 
 **CDN 缓存：**
-- 配置 Vercel Edge Network
+- 配置 Nginx 反向代理
 - 实现内容分发
 - 配置缓存失效
 - 优化 CDN 配置
@@ -354,7 +354,7 @@ export default nextConfig;
 #### 8.1 网络优化
 
 **CDN 配置：**
-- 启用全球 CDN
+- 启用静态资源缓存
 - 配置合理的缓存策略
 - 实现内容压缩
 - 优化 CDN 路由
@@ -367,7 +367,6 @@ export default nextConfig;
 
 #### 8.2 服务器优化
 
-**Vercel 配置：**
 - 选择合适的区域
 - 配置适当的资源
 - 启用边缘函数

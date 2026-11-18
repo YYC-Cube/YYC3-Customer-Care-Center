@@ -80,7 +80,7 @@ YYC³ Customer Care Center（YYC3-CCC）项目是一个基于「五高五标五�
 | 粒子效果 | @tsparticles/react | 最新版 |
 | 图表库 | recharts | 最新版 |
 | 图标库 | lucide-react | 0.454.0 |
-| 部署平台 | Vercel | - |
+| 部署方式 | Docker / Node standalone | - |
 
 ## 📦 快速开始
 
@@ -170,16 +170,9 @@ yarn test:watch
 
 ### 🚀 部署
 
-### Vercel 部署（推荐）
+项目提供两种部署方式：**Docker 容器化**（推荐，含数据库与缓存编排）与 **Node standalone**（单进程、无外部依赖）。
 
-项目默认配置为 Vercel 部署：
-
-1. 登录 Vercel 账户
-2. 导入项目仓库
-3. 配置环境变量
-4. 点击部署按钮
-
-### Docker 部署
+### Docker 部署（推荐）
 
 项目支持 Docker 容器化部署：
 
@@ -202,7 +195,15 @@ docker-compose down
 - Redis 缓存服务（端口 6379）
 - PostgreSQL 数据库服务（端口 5432）
 
-详见 [Docker 部署指南](./docs/YYC3-CCC-CICD-GUIDE.md#docker-部署)
+### Node standalone 部署
+
+```bash
+npm ci --legacy-peer-deps
+npm run build
+node .next/standalone/server.js
+```
+
+详见 [部署运维 - CICD 完整指南](./docs/YYC3-CCC-部署运维/108-YYC3-CCC-部署运维-CICD完整指南.md)
 
 ## 📁 项目结构
 

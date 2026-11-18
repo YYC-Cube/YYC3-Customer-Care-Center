@@ -138,7 +138,7 @@ YYC³（YanYuCloudCube）Customer Care Center 是一款现代化的企业级管�
 
 ### 部署平台
 
-- Vercel（推荐）
+- Docker（推荐）
 - Docker + Docker Compose
 - Netlify
 - 自托管服务器

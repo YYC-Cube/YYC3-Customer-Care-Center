@@ -41,7 +41,7 @@ const nextConfig = {
 
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
 
-  // STATIC_EXPORT=true 时走静态导出；默认 standalone（Docker/Vercel 不受影响）
+  // STATIC_EXPORT=true 时走静态导出；默认 standalone（Docker 部署）
   output: process.env.STATIC_EXPORT === 'true' ? 'export' : 'standalone',
 
   staticPageGenerationTimeout: 180,

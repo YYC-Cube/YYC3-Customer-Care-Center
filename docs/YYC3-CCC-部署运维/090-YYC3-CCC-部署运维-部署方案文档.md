@@ -1,6 +1,6 @@
 ---
 @file: YYC3-CCC-部署运维-部署方案文档.md
-@description: YYC³ Customer Care Center Vercel 部署的详细方案，包含部署流程、环境配置、域名配置
+@description: YYC³ Customer Care Center Docker 部署的详细方案，包含部署流程、环境配置、域名配置
 @author: YYC³ Team
 @version: v1.0.0
 @created: 2026-01-23
@@ -21,7 +21,7 @@
 
 ## 📋 概述
 
-YYC³ Customer Care Center 项目采用 Vercel 作为主要部署平台，支持自动化部署、多环境管理和全球 CDN 加速。
+YYC³ Customer Care Center 项目采用 Docker 作为主要部署平台，支持自动化部署、多环境管理和静态资源缓存加速。
 
 ## 🎯 核心内容
 
@@ -93,7 +93,7 @@ YYC³ Customer Care Center 项目是一个基于「五高五标五化」理念�
                 │
                 ▼
 ┌─────────────────────────────────────────────────────────┐
-│                  Vercel 平台                     │
+│                  容器编排平台                     │
 │                                                 │
 │  ┌──────────────────┬────────────────────┐    │
 │  │  Staging 环境  │  Production 环境 │    │
@@ -104,8 +104,8 @@ YYC³ Customer Care Center 项目是一个基于「五高五标五化」理念�
 │  └──────────────────┴────────────────────┘    │
 │                                                 │
 │  ┌────────────────────────────────────────────┐    │
-│  │         Vercel Edge Network        │    │
-│  │  - 全球 CDN 节点                       │    │
+│  │         Nginx 反向代理        │    │
+│  │  - 静态资源缓存节点                       │    │
 │  │  - 自动缩放                             │    │
 │  │  - 边缘计算                             │    │
 │  └────────────────────────────────────────────┘    │
@@ -115,12 +115,12 @@ YYC³ Customer Care Center 项目是一个基于「五高五标五化」理念�
 #### 3.2 技术栈
 
 - **前端框架**：Next.js 15.0.3 + React 19
-- **部署平台**：Vercel
+- **部署平台**：Docker
 - **版本控制**：GitHub
 - **CI/CD**：GitHub Actions
 - **监控服务**：Sentry
-- **域名服务**：Vercel DNS
-- **CDN**：Vercel Edge Network
+- **域名服务**：自有域名 + DNS 解析
+- **反向代理**：Nginx
 
 ### 4. 部署环境
 
@@ -134,15 +134,13 @@ YYC³ Customer Care Center 项目是一个基于「五高五标五化」理念�
 
 **预发布环境（Staging）**：
 - 用途：预发布测试和验证
-- 访问地址：`https://yyc3-ccc-staging.vercel.app`
 - 部署方式：自动部署（develop 分支）
 - 特点：模拟生产环境、功能验证、性能测试
 
 **生产环境（Production）**：
 - 用途：正式上线和用户访问
-- 访问地址：`https://yyc3-ccc.vercel.app`（或自定义域名）
 - 部署方式：自动部署（main 分支）
-- 特点：全球 CDN、自动缩放、高可用性
+- 特点：静态资源缓存、容器横向扩容、高可用性
 
 #### 4.2 环境变量配置
 
@@ -192,7 +190,6 @@ NEXT_PUBLIC_APP_VERSION="1.0.0"
 NEXT_PUBLIC_APP_ENV="staging"
 
 # API 配置
-NEXT_PUBLIC_API_URL="https://yyc3-ccc-staging.vercel.app/api"
 NEXT_PUBLIC_API_TIMEOUT="30000"
 
 # Sentry 配置
@@ -229,7 +226,6 @@ NEXT_PUBLIC_APP_VERSION="1.0.0"
 NEXT_PUBLIC_APP_ENV="production"
 
 # API 配置
-NEXT_PUBLIC_API_URL="https://yyc3-ccc.vercel.app/api"
 NEXT_PUBLIC_API_TIMEOUT="30000"
 
 # Sentry 配置
@@ -263,10 +259,8 @@ NEXT_PUBLIC_SUPPORTED_LANGUAGES="zh-CN,en-US"
 
 **步骤 1：连接 GitHub 仓库**
 
-1. 访问 [Vercel 控制台](https://vercel.com/dashboard)
 2. 点击 "Add New Project"
 3. 选择 "Import Git Repository"
-4. 授权 Vercel 访问 GitHub 仓库
 5. 选择 `yyc3-customer-care-center` 仓库
 
 **步骤 2：配置项目设置**
@@ -312,7 +306,7 @@ graph LR
 
 **手动部署流程**：
 
-1. 访问 Vercel 控制台
+1. 访问 服务器控制台
 2. 选择项目
 3. 点击 "Deployments"
 4. 点击 "..." 菜单
@@ -326,7 +320,7 @@ graph LR
 
 **步骤 1：添加域名**
 
-1. 访问 Vercel 控制台
+1. 访问 服务器控制台
 2. 选择项目
 3. 点击 "Settings"
 4. 点击 "Domains"
@@ -347,12 +341,12 @@ graph LR
 
 #### 6.2 域名配置示例
 
-**使用 Vercel DNS**：
+**使用 DNS 服务商**：
 
 ```
 类型: CNAME
 名称: www
-值: cname.vercel-dns.com
+值: cname.docker-dns.com
 TTL: 3600
 ```
 
@@ -361,7 +355,7 @@ TTL: 3600
 ```
 类型: CNAME
 名称: www
-值: yyc3-customer-care-center.vercel.app
+值: yyc3-customer-care-center.ccc.yyc3.vip
 TTL: 3600
 ```
 
@@ -427,13 +421,13 @@ export default nextConfig;
 - 配置合适的缓存头
 - 使用 Service Worker 缓存
 - 实现浏览器缓存
-- 使用 Vercel Edge Cache
+- 使用 Nginx 静态缓存
 
 ### 8. 监控和日志
 
 #### 8.1 部署监控
 
-**Vercel 控制台**：
+**服务器控制台**：
 
 - 查看部署历史
 - 监控部署状态
@@ -576,7 +570,6 @@ const nextConfig = {
 
 #### 11.2 调试技巧
 
-- 使用 Vercel CLI 本地测试
 - 查看 Sentry 错误追踪
 - 使用浏览器开发者工具
 - 检查网络请求

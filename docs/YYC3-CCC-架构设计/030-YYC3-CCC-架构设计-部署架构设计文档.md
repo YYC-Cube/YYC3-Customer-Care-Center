@@ -1,6 +1,6 @@
 ---
 @file: 030-YYC3-CCC-架构设计-部署架构设计文档.md
-@description: YYC3-CCC Vercel部署架构设计，包含CI/CD、环境配置、监控告警的设计方案
+@description: YYC3-CCC Docker部署架构设计，包含CI/CD、环境配置、监控告警的设计方案
 @author: YYC³ Team
 @version: v1.0.0
 @created: 2026-01-23
@@ -68,7 +68,7 @@ YYC³ Customer Care Center（YYC3-CCC）项目是一个基于「五高五标五�
 - Framer Motion 12.23.12
 - @splinetool/react-spline 4.1.0
 - @tsparticles/react 3.0.0
-- Vercel (部署平台)
+- Docker (容器部署)
 
 ### 4. 部署架构设计文档
 

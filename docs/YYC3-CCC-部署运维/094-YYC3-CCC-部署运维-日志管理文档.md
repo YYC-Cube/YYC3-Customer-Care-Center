@@ -68,7 +68,7 @@ YYC³ Customer Care Center（YYC3-CCC）项目是一个基于「五高五标五�
 - Framer Motion 12.23.12
 - @splinetool/react-spline 4.1.0
 - @tsparticles/react 3.0.0
-- Vercel (部署平台)
+- Docker (容器部署)
 
 ### 4. 日志系统架构
 
@@ -110,9 +110,9 @@ YYC³ Customer Care Center（YYC3-CCC）项目是一个基于「五高五标五�
 | 日志类型 | 工具 | 用途 |
 |---------|------|------|
 | 前端日志 | Sentry | 前端错误和性能日志 |
-| 后端日志 | Vercel Logs | 服务器端运行日志 |
-| 构建日志 | Vercel Build Logs | 构建和部署过程日志 |
-| 访问日志 | Vercel Analytics | 用户访问和行为日志 |
+| 后端日志 | Docker Logs | 服务器端运行日志 |
+| 构建日志 | Docker Build Logs | 构建和部署过程日志 |
+| 访问日志 | Nginx 访问日志 | 用户访问和行为日志 |
 | 自定义日志 | 自定义Logger | 业务逻辑和操作日志 |
 
 ### 5. 日志类型与格式
@@ -257,7 +257,7 @@ export function middleware(request: NextRequest) {
 
 #### 7.3 日志存储配置
 
-**Vercel 日志存储：**
+**Docker 日志存储：**
 - 自动存储构建和运行日志
 - 保留期：生产环境 90 天，开发环境 14 天
 - 支持日志搜索和过滤
@@ -273,8 +273,8 @@ export function middleware(request: NextRequest) {
 
 #### 8.1 日志查询
 
-**Vercel 日志查询：**
-- 通过 Vercel 控制台搜索和过滤日志
+**Docker 日志查询：**
+- 通过 服务器控制台搜索和过滤日志
 - 支持按时间范围、级别、服务等维度查询
 - 提供日志导出功能
 
@@ -324,7 +324,7 @@ export function middleware(request: NextRequest) {
 
 **自动清理：**
 - 配置日志轮转和清理脚本
-- 使用 Vercel 自动清理功能
+- 使用 Docker 自动清理功能
 - 实现基于时间的清理策略
 
 **手动清理：**

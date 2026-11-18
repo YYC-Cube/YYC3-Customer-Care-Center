@@ -68,7 +68,7 @@ YYC³ Customer Care Center（YYC3-CCC）项目是一个基于「五高五标五�
 - Framer Motion 12.23.12
 - @splinetool/react-spline 4.1.0
 - @tsparticles/react 3.0.0
-- Vercel (部署平台)
+- Docker (容器部署)
 
 ### 4. 通用规范-RESTful接口设计标准
 

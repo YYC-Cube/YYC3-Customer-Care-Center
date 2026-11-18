@@ -75,7 +75,7 @@ export function DataStackDocumentation() {
       linter: "ESLint",
       formatter: "Prettier",
       testing: "Jest + Testing Library",
-      deployment: "Vercel",
+      deployment: "Docker",
     },
   }
 
@@ -246,7 +246,7 @@ export function DataStackDocumentation() {
                     <CheckCircle className="w-5 h-5 text-green-600 mt-0.5" />
                     <div>
                       <h4 className="font-medium">易于部署</h4>
-                      <p className="text-sm text-gray-600">支持多种部署方式，一键部署到Vercel、Netlify等平台</p>
+                      <p className="text-sm text-gray-600">支持多种部署方式，一键部署到Docker、Netlify等平台</p>
                     </div>
                   </div>
                 </div>
@@ -968,7 +968,7 @@ export function DataStackDocumentation() {
                 <div className="bg-blue-50 p-6 rounded-lg">
                   <div className="flex items-center space-x-2 mb-4">
                     <Globe className="w-6 h-6 text-blue-600" />
-                    <h4 className="font-medium text-blue-800">Vercel部署</h4>
+                    <h4 className="font-medium text-blue-800">Docker部署</h4>
                   </div>
                   <div className="space-y-2 text-sm text-blue-700">
                     <p>• 一键部署，自动CI/CD</p>
@@ -978,7 +978,7 @@ export function DataStackDocumentation() {
                   </div>
                   <Button className="w-full mt-4" size="sm">
                     <ExternalLink className="w-4 h-4 mr-2" />
-                    部署到Vercel
+                    部署到Docker
                   </Button>
                 </div>
 
@@ -1027,7 +1027,7 @@ export function DataStackDocumentation() {
             <CardContent>
               <div className="space-y-6">
                 <div>
-                  <h4 className="font-medium mb-3">1. Vercel部署 (推荐)</h4>
+                  <h4 className="font-medium mb-3">1. Docker部署 (推荐)</h4>
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <pre className="text-sm">
                       <code>{`# 1. 克隆项目
@@ -1037,8 +1037,8 @@ cd yanyu-ems
 # 2. 安装依赖
 npm install
 
-# 3. 部署到Vercel
-npx vercel --prod`}</code>
+# 3. 启动服务
+docker compose up -d --build`}</code>
                     </pre>
                   </div>
                 </div>

@@ -13,7 +13,7 @@
 
 ## 概述
 
-YYC3 Customer Care Center 项目采用全自动化的 CI/CD 流水线，实现从代码提交到生产部署的全流程自动化。基于 GitHub Actions 和 Vercel 平台，提供高效、可靠的持续集成和持续部署能力。
+YYC3 Customer Care Center 项目采用全自动化的 CI/CD 流水线，实现从代码提交到生产部署的全流程自动化。基于 GitHub Actions 与 Docker 容器编排，提供高效、可靠的持续集成和持续部署能力。
 
 ### 核心特性
 
@@ -28,7 +28,7 @@ YYC3 Customer Care Center 项目采用全自动化的 CI/CD 流水线，实现�
 ### 技术栈
 
 - **CI/CD 平台**: GitHub Actions
-- **部署平台**: Vercel
+- **部署平台**: Docker
 - **容器化**: Docker + Docker Compose
 - **监控**: Sentry
 - **测试框架**: Vitest + Testing Library
@@ -73,13 +73,13 @@ YYC3 Customer Care Center 项目采用全自动化的 CI/CD 流水线，实现�
 
 ### 2. 持续部署 - 预发布环境 (CD-Staging)
 
-**工作流文件**: [`.github/workflows/cd.yml`](../.github/workflows/cd.yml)
+**部署载体**: [`docker-compose.yml`](../docker-compose.yml)（预发布副本）
 
-**触发条件**: 代码推送到 `main` 分支
+**触发条件**: 代码推送到 `main` 分支后由运维执行
 
 **流程**:
 ```
-代码推送 → 运行测试 → 构建项目 → 部署到 Vercel 预发布环境 → Slack 通知
+代码推送 → 运行测试 → 构建项目 → 部署到 Docker 预发布环境 → Slack 通知
 ```
 
 **自动化程度**: 100% 自动化
@@ -87,24 +87,22 @@ YYC3 Customer Care Center 项目采用全自动化的 CI/CD 流水线，实现�
 **部署验证**:
 - 自动运行单元测试
 - 构建项目验证
-- Vercel 部署验证
 - Slack 通知部署状态
 
 ### 3. 持续部署 - 生产环境 (CD-Production)
 
-**工作流文件**: [`.github/workflows/cd.yml`](../.github/workflows/cd.yml)
+**部署载体**: [`docker-compose.yml`](../docker-compose.yml) + `Dockerfile`（standalone 镜像）
 
-**触发条件**: 代码推送到 `main` 分支或手动触发
+**触发条件**: 代码推送到 `main` 分支并通过 CI 后，由运维/外部编排触发
 
 **流程**:
 ```
-代码推送/手动触发 → 运行测试 → 构建项目 → 人工审批（可选）→ 部署到 Vercel 生产环境 → Slack 通知
+代码推送/手动触发 → 运行测试 → 构建项目 → 人工审批（可选）→ 部署到 Docker 生产环境 → Slack 通知
 ```
 
 **安全措施**:
 - 必须通过所有测试
 - 构建验证通过
-- Vercel 部署验证
 - 实时 Slack 通知
 
 ## 环境配置
@@ -114,9 +112,6 @@ YYC3 Customer Care Center 项目采用全自动化的 CI/CD 流水线，实现�
 #### 基础配置
 ```bash
 NODE_ENV=production
-VERCEL_TOKEN=your-vercel-token
-VERCEL_ORG_ID=your-org-id
-VERCEL_PROJECT_ID=your-project-id
 ```
 
 #### Sentry 配置
@@ -205,7 +200,7 @@ SLACK_WEBHOOK_URL=https://hooks.slack.com/services/YOUR/WEBHOOK/URL
 
 3. **部署完成**:
    - 自动通知团队
-   - 预发布环境 URL 由 Vercel 提供
+   - 预发布环境 URL 由 Docker 提供
 
 ### 生产环境部署
 
@@ -217,12 +212,12 @@ SLACK_WEBHOOK_URL=https://hooks.slack.com/services/YOUR/WEBHOOK/URL
 2. **监控部署**:
    - 访问 GitHub Actions 查看部署进度
    - Slack 接收实时通知
-   - Vercel Dashboard 查看部署状态
+   - 服务器控制台 查看部署状态
 
 3. **部署验证**:
    - 自动运行单元测试
    - 构建验证通过
-   - Vercel 部署成功
+   - Docker 部署成功
 
 ### 手动触发部署
 
@@ -274,7 +269,7 @@ SLACK_WEBHOOK_URL=https://hooks.slack.com/services/YOUR/WEBHOOK/URL
 
 ## 回滚策略
 
-### Vercel 自动回滚
+### Docker 自动回滚
 
 **触发条件**:
 - 部署验证失败
@@ -283,11 +278,9 @@ SLACK_WEBHOOK_URL=https://hooks.slack.com/services/YOUR/WEBHOOK/URL
 - 健康检查失败
 
 **执行流程**:
-1. 访问 Vercel Dashboard
 2. 选择失败的部署
 3. 点击 "Rollback" 按钮
 4. 确认回滚到上一版本
-5. Vercel 自动切换流量
 
 ### Git 版本回滚
 
@@ -392,14 +385,14 @@ npm run type-check
 npm run format:check
 ```
 
-#### 2. Vercel 部署失败
+#### 2. Docker 部署失败
 
 **原因**: 环境变量缺失或配置错误
 
 **解决**:
-- 检查 Vercel 环境变量配置
+- 检查 Docker 环境变量配置
 - 验证 GitHub Secrets 配置
-- 查看 Vercel 部署日志
+- 查看 Docker 部署日志
 - 检查构建日志
 
 #### 3. Docker 容器启动失败
@@ -474,9 +467,6 @@ docker-compose up -d --build
 
 | Secret 名称 | 描述 | 必需 | 示例 |
 |------------|--------|--------|--------|
-| `VERCEL_TOKEN` | Vercel 部署令牌 | 是 | `xxxxxxxxxxxxx` |
-| `VERCEL_ORG_ID` | Vercel 组织 ID | 是 | `team_xxxxxx` |
-| `VERCEL_PROJECT_ID` | Vercel 项目 ID | 是 | `prj_xxxxxx` |
 | `SLACK_WEBHOOK_URL` | Slack 通知 Webhook | 否 | `https://hooks.slack.com/...` |
 | `SENTRY_DSN` | Sentry DSN | 否 | `https://...@sentry.io/...` |
 
@@ -494,7 +484,7 @@ docker-compose up -d --build
 .github/
 ├── workflows/
 │   ├── ci.yml          # 持续集成工作流
-│   └── cd.yml          # 持续部署工作流
+│   └── gitleaks.yml    # 密钥泄漏扫描
 docker/
 ├── Dockerfile           # Docker 镜像构建文件
 ├── docker-compose.yml   # Docker Compose 编排文件
@@ -532,9 +522,10 @@ tests/
 | 工作流 | 触发 | 职责 | 关键门禁 |
 | ---- | ---- | ---- | ---- |
 | `ci.yml` | push / PR（main、develop） | 质量·测试·构建·安全 | 类型 0 错误、lint 0 错误、76 用例、接口冒烟 |
-| `cd.yml` | push main | Vercel 生产发布 | 构建通过后经官方 CLI 发布 |
 | `deploy-pages.yml` | push main（源码路径变更） | GitHub Pages 静态站 | `npm run build:static` 剔除 API 后导出 |
 | `gitleaks.yml` | 全分支 push / PR | 密钥泄漏扫描 | 命中即失败 |
+
+生产环境由 `docker-compose.yml` + `Dockerfile` 承载（standalone 镜像），不依赖第三方托管平台的发布流水线。
 
 统一约定：Node 22、`npm ci --legacy-peer-deps`、`concurrency` 取消旧任务、最小 `permissions`。
 

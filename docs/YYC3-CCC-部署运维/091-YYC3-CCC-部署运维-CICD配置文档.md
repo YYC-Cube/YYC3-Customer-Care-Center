@@ -94,7 +94,7 @@ YYC³ Customer Care Center 项目是一个基于「五高五标五化」理念�
 │               │                             │
 │               ▼                             │
 │  ┌────────────────────────────────────┐    │
-│  │      Vercel 平台              │    │
+│  │      容器编排平台              │    │
 │  │  - Staging 环境               │    │
 │  │  - Production 环境            │    │
 │  └────────────────────────────────────┘    │
@@ -105,7 +105,7 @@ YYC³ Customer Care Center 项目是一个基于「五高五标五化」理念�
 
 - **版本控制**：GitHub
 - **CI 平台**：GitHub Actions
-- **CD 平台**：Vercel
+- **CD 平台**：Docker
 - **测试框架**：Vitest 2.1.5
 - **代码质量**：ESLint + Prettier
 - **类型检查**：TypeScript 5.0.0
@@ -118,19 +118,16 @@ YYC³ Customer Care Center 项目是一个基于「五高五标五化」理念�
 
 在 GitHub 仓库的 Settings → Secrets and variables → Actions 中配置以下 Secrets：
 
-##### Vercel 部署配置
+##### Docker 部署配置
 
-- `VERCEL_TOKEN`：Vercel API 令牌
-  - 获取方式：Vercel 控制台 → Settings → Tokens
+  - 获取方式：服务器控制台 → Settings → Tokens
   - 权限要求：Full Account
   - 用途：自动化部署
 
-- `VERCEL_ORG_ID`：Vercel 组织 ID
-  - 获取方式：Vercel 控制台 → Settings → General
+  - 获取方式：服务器控制台 → Settings → General
   - 格式：team_xxxxxxxxxxxxxx
 
-- `VERCEL_PROJECT_ID`：Vercel 项目 ID
-  - 获取方式：Vercel 控制台 → 项目 → Settings → General
+  - 获取方式：服务器控制台 → 项目 → Settings → General
   - 格式：prj_xxxxxxxxxxxxxx
 
 #### 4.2 可选配置
@@ -279,120 +276,32 @@ jobs:
 
 ### 6. CD 工作流配置
 
-#### 6.1 CD 工作流文件
+#### 6.1 CD 部署方式（Docker）
 
-**文件路径**：`.github/workflows/cd.yml`
+仓库不再内置第三方托管平台的发布工作流，生产发布由容器编排承担：
 
-**触发条件**：
-- Push 到 `main` 分支
-- 手动触发（workflow_dispatch）
+```bash
+# 构建镜像（standalone 产物）
+docker compose build
 
-**工作流步骤**：
+# 启动生产栈（应用 + Redis + PostgreSQL）
+docker compose up -d
 
-```yaml
-name: CD
-
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-
-jobs:
-  deploy-production:
-    name: Deploy to Production
-    runs-on: ubuntu-latest
-    environment: production
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests
-        run: npm run test:unit
-
-      - name: Build project
-        run: npm run build
-
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod'
-
-      - name: Notify deployment status
-        if: always()
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          text: 'Deployment to production completed'
-          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
-  deploy-staging:
-    name: Deploy to Staging
-    runs-on: ubuntu-latest
-    environment: staging
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests
-        run: npm run test:unit
-
-      - name: Build project
-        run: npm run build
-
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prebuilt'
-
-      - name: Notify deployment status
-        if: always()
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          text: 'Deployment to staging completed'
-          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+# 健康检查
+curl -fsS http://127.0.0.1:3000/api/health
 ```
+
+**发布前置**：`ci.yml` 的质量、测试、构建、安全四道门禁全部通过。
+**回滚策略**：保留上一版本镜像标签，健康检查失败时 `docker compose up -d` 回退到上一标签。
 
 #### 6.2 部署环境
 
 **Staging 环境**：
-- URL：`https://yyc3-ccc-staging.vercel.app`
 - 用途：预发布测试
 - 触发：Push 到 `main` 分支或手动触发
 - 部署方式：预构建部署
 
 **Production 环境**：
-- URL：`https://yyc3-ccc.vercel.app`（或自定义域名）
 - 用途：生产环境
 - 触发：Push 到 `main` 分支
 - 部署方式：生产部署
@@ -434,7 +343,7 @@ graph LR
 #### 8.1 部署监控
 
 - **GitHub Actions**：查看工作流运行状态和日志
-- **Vercel 控制台**：查看部署历史和性能指标
+- **服务器控制台**：查看部署历史和性能指标
 - **Sentry**：监控错误和性能问题
 - **Slack 通知**：实时接收部署状态更新
 
@@ -455,25 +364,21 @@ graph LR
 
 #### 9.1 快速回滚
 
-**使用 Vercel CLI**：
+**使用 Docker Compose**：
 
 ```bash
-# 安装 Vercel CLI
-npm i -g vercel
+# 安装 Docker Compose
 
 # 登录
-vercel login
 
 # 查看部署历史
-vercel ls
 
 # 回滚到指定部署
-vercel rollback <deployment-url>
 ```
 
-**使用 Vercel 控制台**：
+**使用 服务器控制台**：
 
-1. 访问 Vercel 控制台
+1. 访问 服务器控制台
 2. 选择项目
 3. 点击 "Deployments"
 4. 找到要回滚的部署
@@ -533,7 +438,6 @@ vercel rollback <deployment-url>
 
 **问题：CD 部署失败**
 
-- 检查 Vercel 凭证
 - 验证构建产物
 - 查看部署日志
 - 确认环境变量配置
@@ -549,7 +453,6 @@ vercel rollback <deployment-url>
 
 - 使用 GitHub Actions 调试功能
 - 启用详细日志输出
-- 使用 Vercel CLI 本地测试
 - 查看 Sentry 错误追踪
 
 ### 12. 相关文档

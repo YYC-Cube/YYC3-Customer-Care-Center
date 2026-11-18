@@ -75,15 +75,13 @@ YYC³ Customer Care Center 项目是一个基于「五高五标五化」理念�
 
 **预发布环境（Staging）**：
 - 用途：预发布测试和验证
-- 访问地址：`https://yyc3-ccc-staging.vercel.app`
 - 部署方式：自动部署（develop 分支）
 - 特点：模拟生产环境、功能验证、性能测试
 
 **生产环境（Production）**：
 - 用途：正式上线和用户访问
-- 访问地址：`https://yyc3-ccc.vercel.app`（或自定义域名）
 - 部署方式：自动部署（main 分支）
-- 特点：全球 CDN、自动缩放、高可用性
+- 特点：静态资源缓存、容器横向扩容、高可用性
 
 #### 3.2 环境隔离
 
@@ -460,9 +458,8 @@ describe('Configuration', () => {
 
 ### 8. 配置部署
 
-#### 8.1 Vercel 环境变量
+#### 8.1 Docker 环境变量
 
-在 Vercel 控制台中配置环境变量：
 
 1. 访问项目设置
 2. 点击 "Environment Variables"

@@ -68,7 +68,7 @@ YYC³ Customer Care Center（YYC3-CCC）项目是一个基于「五高五标五�
 - Framer Motion 12.23.12
 - @splinetool/react-spline 4.1.0
 - @tsparticles/react 3.0.0
-- Vercel (部署平台)
+- Docker (容器部署)
 
 ### 4. 监控系统架构
 
@@ -104,8 +104,8 @@ YYC³ Customer Care Center（YYC3-CCC）项目是一个基于「五高五标五�
 | 监控类型 | 工具 | 用途 |
 |---------|------|------|
 | 错误追踪 | Sentry | 前端和后端错误监控 |
-| 性能监控 | Vercel Analytics | 页面性能和访问统计 |
-| 部署监控 | Vercel Console | 部署状态和构建日志 |
+| 性能监控 | Nginx 访问日志 | 页面性能和访问统计 |
+| 部署监控 | Docker Console | 部署状态和构建日志 |
 | 用户行为 | Google Analytics | 用户行为分析 |
 | 健康检查 | 自定义健康端点 | 系统可用性监控 |
 
@@ -208,7 +208,7 @@ export default nextConfig;
 #### 7.1 通知渠道
 
 **邮件通知：**
-- 配置：在Sentry和Vercel中设置邮件接收人
+- 配置：在Sentry和Docker中设置邮件接收人
 - 用途：常规告警和日报
 
 **短信通知：**
@@ -270,7 +270,7 @@ export default nextConfig;
 - 用户行为路径
 - 会话性能分析
 
-#### 8.2 Vercel 监控面板
+#### 8.2 Docker 监控面板
 
 **部署监控面板：**
 - 部署历史记录

@@ -68,7 +68,7 @@ YYC³ Customer Care Center（YYC3-CCC）项目是一个基于「五高五标五�
 - Framer Motion 12.23.12
 - @splinetool/react-spline 4.1.0
 - @tsparticles/react 3.0.0
-- Vercel (部署平台)
+- Docker (容器部署)
 
 ### 4. 备份系统架构
 
@@ -110,9 +110,9 @@ YYC³ Customer Care Center（YYC3-CCC）项目是一个基于「五高五标五�
 | 备份类型 | 工具 | 用途 |
 |---------|------|------|
 | 代码备份 | GitHub | 源代码版本控制 |
-| 配置备份 | Vercel | 环境变量和配置管理 |
+| 配置备份 | Docker | 环境变量和配置管理 |
 | 数据备份 | 自定义脚本 | 数据库和用户数据备份 |
-| 静态资源 | Vercel/对象存储 | 图片和静态文件备份 |
+| 静态资源 | Docker 卷/对象存储 | 图片和静态文件备份 |
 | 日志备份 | 自定义脚本 | 审计和故障分析日志 |
 
 ### 5. 备份策略
@@ -161,10 +161,10 @@ YYC³ Customer Care Center（YYC3-CCC）项目是一个基于「五高五标五�
 - `feature/*`：功能开发分支
 - `bugfix/*`：Bug 修复分支
 
-#### 6.2 Vercel 配置备份
+#### 6.2 Docker 配置备份
 
 **环境变量备份：**
-- 通过 Vercel 控制台导出环境变量
+- 通过 服务器控制台导出环境变量
 - 使用 GitHub Secrets 存储敏感配置
 - 定期备份到加密存储
 
@@ -204,8 +204,8 @@ mysql -u username -p database_name < backup_file.sql
 
 #### 6.4 静态资源备份
 
-**Vercel 静态资源：**
-- 自动备份到 Vercel 边缘网络
+**Docker 静态资源：**
+- 自动备份到 Docker 边缘网络
 - 配置 CDN 缓存策略
 
 **对象存储备份：**
@@ -257,7 +257,7 @@ git revert <commit-hash>
 ```
 
 **配置恢复：**
-- 从 Vercel 控制台导入环境变量
+- 从 服务器控制台导入环境变量
 - 从备份文件恢复配置文件
 - 重启服务使配置生效
 

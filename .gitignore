@@ -35,8 +35,8 @@ lerna-debug.log*
 !.env.example
 !.env.sample
 
-# Vercel
-.vercel
+# Docker
+.docker-data
 
 # TypeScript
 *.tsbuildinfo

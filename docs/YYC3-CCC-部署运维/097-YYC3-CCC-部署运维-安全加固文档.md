@@ -68,7 +68,7 @@ YYC³ Customer Care Center（YYC3-CCC）项目是一个基于「五高五标五�
 - Framer Motion 12.23.12
 - @splinetool/react-spline 4.1.0
 - @tsparticles/react 3.0.0
-- Vercel (部署平台)
+- Docker (容器部署)
 
 ### 4. 安全架构
 
@@ -109,7 +109,7 @@ YYC³ Customer Care Center（YYC3-CCC）项目是一个基于「五高五标五�
 
 | 安全层次 | 防护措施 | 实现方式 |
 |---------|----------|----------|
-| 网络层 | DDoS防护、WAF | Vercel Edge Network |
+| 网络层 | DDoS防护、WAF | Nginx 反向代理 |
 | 传输层 | SSL/TLS加密 | HTTPS配置 |
 | 应用层 | 认证授权、输入验证 | 代码实现 |
 | 数据层 | 数据加密、脱敏 | 数据库配置 |
@@ -120,7 +120,7 @@ YYC³ Customer Care Center（YYC3-CCC）项目是一个基于「五高五标五�
 #### 5.1 HTTPS 配置
 
 **SSL/TLS 证书：**
-- 使用 Vercel 自动生成的 SSL 证书
+- 使用 Docker 自动生成的 SSL 证书
 - 配置强制 HTTPS 重定向
 - 启用 HSTS (HTTP Strict Transport Security)
 - 定期检查证书有效期
@@ -169,7 +169,7 @@ export function middleware(request: NextRequest) {
 #### 5.3 IP 访问控制
 
 **IP 白名单配置：**
-- 使用 Vercel Edge Functions 实现 IP 过滤
+- 使用 Nginx 访问控制 实现 IP 过滤
 - 配置允许的 IP 范围
 - 实现地理位置访问控制
 - 监控异常访问模式
@@ -377,7 +377,7 @@ const maskData = {
 
 **监控工具：**
 - Sentry 错误监控
-- Vercel Analytics
+- Nginx 访问日志
 - 自定义安全监控
 
 **监控内容：**
@@ -439,8 +439,8 @@ npm outdated
 - 部署前的安全检查
 - 部署后的安全验证
 
-**Vercel 安全配置：**
-- 启用 Vercel 的安全功能
+**Docker 安全配置：**
+- 启用 Docker 的安全功能
 - 配置适当的访问控制
 - 启用边缘函数安全
 - 定期检查安全配置

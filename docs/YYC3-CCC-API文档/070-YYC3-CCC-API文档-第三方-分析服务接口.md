@@ -1,6 +1,6 @@
 ---
 @file: 070-YYC3-CCC-API文档-第三方-分析服务接口.md
-@description: YYC3-CCC 对接分析平台的接口规范与调用实现，包含Vercel Analytics等
+@description: YYC3-CCC 对接分析平台的接口规范与调用实现，包含Nginx 访问日志等
 @author: YYC³ Team
 @version: v1.0.0
 @created: 2026-01-23
@@ -68,7 +68,7 @@ YYC³ Customer Care Center（YYC3-CCC）项目是一个基于「五高五标五�
 - Framer Motion 12.23.12
 - @splinetool/react-spline 4.1.0
 - @tsparticles/react 3.0.0
-- Vercel (部署平台)
+- Docker (容器部署)
 
 ### 4. 第三方-分析服务接口
 

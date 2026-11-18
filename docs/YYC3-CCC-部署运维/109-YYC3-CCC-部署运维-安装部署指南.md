@@ -42,13 +42,12 @@
 
 ### 方式一：在线部署（推荐）
 
-#### 1. Vercel 部署（最简单）
+#### 1. Docker 部署（最简单）
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YYC-Cube/yyc3-customer-care-center)
+[![Deploy with Docker](https://docker.com/button)](https://docker.com/new/clone?repository-url=https://github.com/YYC-Cube/yyc3-customer-care-center)
 
-点击上方按钮，按照 Vercel 的提示完成部署：
+点击上方按钮，按照 Docker 的提示完成部署：
 
-1. 登录 Vercel 账号
 2. 选择仓库导入
 3. 配置项目名称
 4. 点击 Deploy
@@ -413,11 +412,8 @@ npm run lighthouse
 
 在 GitHub 仓库中配置以下 Secrets：
 
-#### Vercel 部署配置
+#### Docker 部署配置
 
-- `VERCEL_TOKEN`：Vercel API 令牌
-- `VERCEL_ORG_ID`：Vercel 组织 ID
-- `VERCEL_PROJECT_ID`：Vercel 项目 ID
 
 #### Sentry 配置
 
@@ -525,102 +521,23 @@ jobs:
           retention-days: 7
 ```
 
-### 3. CD 工作流
+### 3. CD 部署（Docker Compose）
 
-CD 工作流在推送到 main 分支时自动部署：
+生产与预发布均通过容器编排发布，仓库不再内置第三方托管平台的发布流水线：
 
-```yaml
-# .github/workflows/cd.yml
-name: CD
+```bash
+# 生产环境
+docker compose build
+docker compose up -d
 
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+# 预发布环境（独立项目名，避免与生产冲突）
+docker compose -p yyc3-staging up -d
 
-jobs:
-  deploy-production:
-    name: Deploy to Production
-    runs-on: ubuntu-latest
-    environment: production
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests
-        run: npm run test:unit
-
-      - name: Build project
-        run: npm run build
-
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod'
-
-      - name: Notify deployment status
-        if: always()
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          text: 'Deployment to production completed'
-          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
-  deploy-staging:
-    name: Deploy to Staging
-    runs-on: ubuntu-latest
-    environment: staging
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests
-        run: npm run test:unit
-
-      - name: Build project
-        run: npm run build
-
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prebuilt'
-
-      - name: Notify deployment status
-        if: always()
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          text: 'Deployment to staging completed'
-          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+# 健康检查
+curl -fsS http://127.0.0.1:3000/api/health
 ```
+
+**发布门禁**：`ci.yml` 四道关卡通过后再执行部署；健康检查失败即回滚上一镜像。
 
 ### 4. 本地 CI/CD 测试
 
@@ -652,11 +569,10 @@ npm run ci
 如果部署出现问题，可以快速回滚：
 
 ```bash
-# 使用 Vercel CLI 回滚
-vercel rollback <deployment-url>
+# 使用 Docker Compose 回滚
 
-# 或通过 Vercel 控制台回滚
-# 1. 访问 Vercel 控制台
+# 或通过 服务器控制台回滚
+# 1. 访问 服务器控制台
 # 2. 选择项目
 # 3. 点击 "Deployments"
 # 4. 找到要回滚的部署
